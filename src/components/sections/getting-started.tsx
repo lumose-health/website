@@ -74,9 +74,7 @@ export function GettingStartedSection() {
 
       <div className="mt-10 text-center">
         <a
-          href="https://github.com/GlycemicGPT/GlycemicGPT#quick-start"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/docs"
           className="inline-flex items-center gap-2 rounded-lg border border-border px-6 py-3 text-sm font-medium transition-colors hover:bg-accent"
         >
           View Full Documentation

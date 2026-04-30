@@ -7,9 +7,10 @@ import { DiscordIcon, GitHubIcon } from "./icons";
 import { ThemeToggle } from "./theme-toggle";
 
 const navLinks = [
-  { label: "Features", href: "#features" },
-  { label: "Platform", href: "#platform" },
-  { label: "Getting Started", href: "#getting-started" },
+  { label: "Features", href: "/#features" },
+  { label: "Platform", href: "/#platform" },
+  { label: "Docs", href: "/docs" },
+  { label: "Getting Started", href: "/#getting-started" },
   { label: "Discord", href: "https://discord.gg/QbyhCQKDBs", external: true },
   { label: "GitHub", href: "https://github.com/GlycemicGPT/GlycemicGPT", external: true },
 ];

@@ -52,5 +52,14 @@ AGENTS.md
 # Docs sync cache (generated at build time)
 .docs-cache/
 
+# Synced docs from source repos (generated at build time by scripts/sync-docs.ts)
+# Each source repo's targetPath in docs-sources.yaml is gitignored. Website-owned
+# docs (e.g. /docs/index.mdx, /docs/get-started.mdx) live alongside them and ARE
+# tracked.
+/content/docs/platform/
+
+# Fumadocs generated source map
+/.source/
+
 # Lighthouse reports
 lighthouse-report.json

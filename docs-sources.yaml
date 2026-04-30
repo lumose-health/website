@@ -1,0 +1,24 @@
+# Cross-repo docs sync configuration.
+#
+# Each entry pulls a source repo's docs/ directory into content/docs/<targetPath>/.
+# Sync runs as a prebuild step (see package.json prebuild script).
+#
+# To preview a feature branch's docs locally, set the DOCS_OVERRIDE env var:
+#   DOCS_OVERRIDE="glycemicgpt:feat/docs-rewrite-phase-1" npm run dev
+# Format: "repoKey:branch[,repoKey:branch...]". The repoKey matches the `key` field below.
+
+sources:
+  - key: glycemicgpt
+    repo: GlycemicGPT/GlycemicGPT
+    branch: main
+    docsPath: docs/
+    targetPath: platform/
+    # Repo-level files referenced from docs via ../FILE.md links. Sync rewrites
+    # these to GitHub blob URLs (we don't pull the files themselves).
+    externalLinks:
+      - ROADMAP.md
+      - CONTRIBUTING.md
+      - GOVERNANCE.md
+      - README.md
+      - LICENSE
+      - MEDICAL-DISCLAIMER.md

@@ -35,14 +35,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # Future: run docs sync script here
-      # - name: Sync docs from source repos
-      #   run: npm run sync-docs
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build
+      - name: Build (prebuild hook syncs docs from source repos)
         run: npx next build
+        env:
+          DOCS_NO_CACHE: "1"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
