@@ -27,9 +27,11 @@ jobs:
           cache: "npm"
 
       - name: Setup Pages
+        # NOTE: do not pass static_site_generator: next here. That option
+        # generates a next.config.js (CommonJS) which takes precedence over
+        # our next.config.ts and strips out the fumadocs-mdx withMDX wrapper.
+        # Our next.config.ts already handles output: "export" + base path.
         uses: actions/configure-pages@v6
-        with:
-          static_site_generator: next
 
       - name: Install dependencies
         run: npm ci
