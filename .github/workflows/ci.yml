@@ -21,13 +21,19 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Sync docs and generate Fumadocs source
+        run: npm run sync-docs && npx fumadocs-mdx
+        env:
+          DOCS_NO_CACHE: "1"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Lint
         run: npx eslint src/
 
       - name: Type check
         run: npx tsc --noEmit
 
-      - name: Build (prebuild hook syncs docs from source repos)
+      - name: Build
         run: npx next build
         env:
           DOCS_NO_CACHE: "1"
