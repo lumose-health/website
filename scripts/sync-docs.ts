@@ -153,13 +153,14 @@ async function rewriteLinks(
     const content = await readFile(full, "utf8");
     let updated = content;
 
-    // Rewrite cross-tree links like (../ROADMAP.md) or [text](../FOO.md#section)
-    // to GitHub blob URLs. Only rewrites listed externalLinks.
+    // Rewrite cross-tree links to GitHub blob URLs. Matches any number of
+    // leading ../ segments so links from nested docs (e.g. dev/foo.md
+    // referencing ../../CONTRIBUTING.md) are caught.
     if (source.externalLinks?.length) {
       for (const linkTarget of source.externalLinks) {
         const escaped = linkTarget.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
         const pattern = new RegExp(
-          `\\]\\(\\.\\.\\/${escaped}(#[^)]*)?\\)`,
+          `\\]\\((?:\\.\\.\\/)+${escaped}(#[^)]*)?\\)`,
           "g",
         );
         const replacement = `](https://github.com/${source.repo}/blob/${source.branch}/${linkTarget}$1)`;
