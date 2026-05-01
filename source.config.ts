@@ -1,4 +1,5 @@
 import { defineConfig, defineDocs } from "fumadocs-mdx/config";
+import { remarkStripMdExtension } from "./scripts/remark-strip-md-extension";
 
 export const docs = defineDocs({
   dir: "content/docs",
@@ -6,6 +7,7 @@ export const docs = defineDocs({
 
 export default defineConfig({
   mdxOptions: {
+    remarkPlugins: [remarkStripMdExtension],
     rehypeCodeOptions: {
       themes: { light: "github-light", dark: "github-dark" },
       // Source repo docs use a wide range of code-fence languages.
