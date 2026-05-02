@@ -4,6 +4,21 @@
 
 ### 📦 Dependencies
 
+- chore(deps): update dependency eslint to v10 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#42](https://github.com/GlycemicGPT/website/pull/42))
+- chore(deps): update dependency shadcn to v4.6.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#39](https://github.com/GlycemicGPT/website/pull/39))
+- fix(deps): update react monorepo to v19.2.5 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#36](https://github.com/GlycemicGPT/website/pull/36))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#40](https://github.com/GlycemicGPT/website/pull/40))
+
+<!-- changelog-cutoff:2026-05-02T13:17:51Z -->
+
+
+## 2026-05-02
+
+### 📦 Dependencies
+
 - chore(deps): update dependency @base-ui/react to v1.4.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#37](https://github.com/GlycemicGPT/website/pull/37))
 - chore(deps): update tailwind css to v4.2.4 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#33](https://github.com/GlycemicGPT/website/pull/33))
 
