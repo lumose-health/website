@@ -4,6 +4,21 @@
 
 ### 📦 Dependencies
 
+- chore(deps): update dependency @base-ui/react to v1.4.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#37](https://github.com/GlycemicGPT/website/pull/37))
+- chore(deps): update tailwind css to v4.2.4 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#33](https://github.com/GlycemicGPT/website/pull/33))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#38](https://github.com/GlycemicGPT/website/pull/38))
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#35](https://github.com/GlycemicGPT/website/pull/35))
+
+<!-- changelog-cutoff:2026-05-02T13:17:07Z -->
+
+
+## 2026-05-02
+
+### 📦 Dependencies
+
 - fix(deps): update dependency next to v16.2.4 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#34](https://github.com/GlycemicGPT/website/pull/34))
 
 <!-- changelog-cutoff:2026-05-02T07:49:28Z -->
