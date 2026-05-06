@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-05-06
+
+### 📦 Dependencies
+
+- chore(deps): update dependency fumadocs-ui to v16.8.7 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#48](https://github.com/GlycemicGPT/website/pull/48))
+- chore(deps): update typescript type definitions (major) [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#46](https://github.com/GlycemicGPT/website/pull/46))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#47](https://github.com/GlycemicGPT/website/pull/47))
+
+<!-- changelog-cutoff:2026-05-06T14:19:21Z -->
+
+
 ## 2026-05-02
 
 ### 📦 Dependencies
