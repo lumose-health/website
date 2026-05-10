@@ -4,6 +4,19 @@
 
 ### 📦 Dependencies
 
+- chore(deps): update dependency eslint-config-next to v16.2.6 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#62](https://github.com/GlycemicGPT/website/pull/62))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#64](https://github.com/GlycemicGPT/website/pull/64))
+
+<!-- changelog-cutoff:2026-05-10T19:09:29Z -->
+
+
+## 2026-05-10
+
+### 📦 Dependencies
+
 - fix(deps): update react monorepo to v19.2.6 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#59](https://github.com/GlycemicGPT/website/pull/59))
 
 ### ❓ Uncategorized
