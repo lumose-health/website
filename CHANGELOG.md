@@ -2,6 +2,21 @@
 
 ## 2026-05-13
 
+### 🌐 Website
+
+#### ✨ New Features
+
+- feat: harden preview deployments with banner, noindex, and contributor docs [@jlengelbrecht](https://github.com/jlengelbrecht) ([#79](https://github.com/GlycemicGPT/website/pull/79))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#80](https://github.com/GlycemicGPT/website/pull/80))
+
+<!-- changelog-cutoff:2026-05-13T19:44:04Z -->
+
+
+## 2026-05-13
+
 ### ❓ Uncategorized
 
 - [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#78](https://github.com/GlycemicGPT/website/pull/78))
