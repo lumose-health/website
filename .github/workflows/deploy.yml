@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy to Cloudflare Pages
 
 on:
   push:
@@ -7,15 +7,14 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: "pages"
+  group: "pages-production"
   cancel-in-progress: false
 
 jobs:
-  build:
+  build-and-deploy:
+    name: Build and deploy to production
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -25,13 +24,6 @@ jobs:
         with:
           node-version: "22"
           cache: "npm"
-
-      - name: Setup Pages
-        # NOTE: do not pass static_site_generator: next here. That option
-        # generates a next.config.js (CommonJS) which takes precedence over
-        # our next.config.ts and strips out the fumadocs-mdx withMDX wrapper.
-        # Our next.config.ts already handles output: "export" + base path.
-        uses: actions/configure-pages@v6
 
       - name: Install dependencies
         run: npm ci
@@ -45,18 +37,9 @@ jobs:
       - name: Build
         run: npx next build
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v4
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
         with:
-          path: ./out
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v5
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy out --project-name=glycemicgpt --branch=main --commit-hash=${{ github.sha }}

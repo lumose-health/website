@@ -39,6 +39,67 @@ jobs:
           DOCS_NO_CACHE: "1"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Deploy preview to Cloudflare Pages
+        id: preview-deploy
+        # Forks cannot access repo secrets, so skip preview deploys on fork PRs.
+        # The main check (lint/typecheck/build above) still runs for them.
+        if: github.event.pull_request.head.repo.full_name == github.repository
+        continue-on-error: true
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy out --project-name=glycemicgpt --branch=pr-${{ github.event.number }} --commit-hash=${{ github.event.pull_request.head.sha }}
+
+      - name: Generate token for glycemicgpt-ci (preview comment)
+        id: ci-token
+        if: steps.preview-deploy.outcome == 'success'
+        continue-on-error: true
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ secrets.CI_APP_ID }}
+          private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+
+      - name: Post preview URL to PR
+        if: steps.preview-deploy.outcome == 'success'
+        continue-on-error: true
+        uses: actions/github-script@v8
+        env:
+          PREVIEW_URL: ${{ steps.preview-deploy.outputs.deployment-url }}
+          ALIAS_URL: https://pr-${{ github.event.number }}.glycemicgpt.pages.dev
+        with:
+          github-token: ${{ steps.ci-token.outputs.token || secrets.GITHUB_TOKEN }}
+          script: |
+            const marker = '<!-- preview-deploy-comment -->';
+            const prNumber = context.payload.pull_request.number;
+            const previewUrl = process.env.PREVIEW_URL;
+            const aliasUrl = process.env.ALIAS_URL;
+
+            const body = [
+              marker,
+              '## :rocket: Preview deployment',
+              '',
+              `**Stable alias:** ${aliasUrl}`,
+              `**This deployment:** ${previewUrl}`,
+              '',
+              'The stable alias points to the latest push on this PR; the deployment URL is pinned to this specific commit. Cloudflare Pages cleans both up when the PR is closed.',
+            ].join('\n');
+
+            const comments = await github.rest.issues.listComments({
+              ...context.repo, issue_number: prNumber, per_page: 100,
+            });
+            const existing = comments.data.find(c => c.body?.includes(marker));
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                ...context.repo, comment_id: existing.id, body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                ...context.repo, issue_number: prNumber, body,
+              });
+            }
+
   lighthouse:
     name: Lighthouse Audit
     runs-on: ubuntu-latest
