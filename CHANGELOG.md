@@ -2,6 +2,21 @@
 
 ## 2026-05-13
 
+### 🏗️ Infrastructure
+
+#### 🐛 Bug Fixes
+
+- fix(ci): cleanup workflows hit Cloudflare API pagination limit [@jlengelbrecht](https://github.com/jlengelbrecht) ([#81](https://github.com/GlycemicGPT/website/pull/81))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#82](https://github.com/GlycemicGPT/website/pull/82))
+
+<!-- changelog-cutoff:2026-05-13T23:49:51Z -->
+
+
+## 2026-05-13
+
 ### 🌐 Website
 
 #### ✨ New Features
