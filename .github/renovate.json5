@@ -59,6 +59,17 @@
       "groupName": "ESLint"
     },
     {
+      // Pinned to v9 because eslint-plugin-react (bundled via
+      // eslint-config-next) does not yet support ESLint v10 -- the
+      // upstream rule still calls the removed contextOrFilename.getFilename()
+      // API. Re-enable this update once eslint-plugin-react publishes a
+      // release that works with ESLint v10.
+      "description": "Block ESLint major bumps until eslint-plugin-react supports ESLint v10",
+      "matchPackageNames": ["eslint"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false
+    },
+    {
       "description": "Group testing libraries",
       "matchPackageNames": ["jest", "@jest/*", "vitest", "@vitest/*", "@testing-library/*"],
       "groupName": "Testing libraries"

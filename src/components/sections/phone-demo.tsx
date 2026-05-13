@@ -202,7 +202,13 @@ export function PhoneDemo({ onDailyBriefAlert }: { onDailyBriefAlert?: () => voi
 
   useEffect(() => {
     if (prefersReducedMotion) {
-      // Fix #5: fully normalize state when reduced motion activates
+      // Accessibility: when prefers-reduced-motion activates, normalize the
+      // animation state to its final values in a single pass so the user sees
+      // the end state immediately rather than the running animation. This is
+      // a deliberate exception to the react-hooks/set-state-in-effect rule;
+      // the cascading-render concern does not apply because prefersReducedMotion
+      // is a stable media-query value, not a per-render state.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setVisibleMessages(chatMessages.length);
       setPhase("chat");
       setShowTyping(false);
