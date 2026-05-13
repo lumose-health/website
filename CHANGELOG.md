@@ -4,6 +4,25 @@
 
 ### 🌐 Website
 
+#### ✨ New Features
+
+- feat: add funding manifest verification + Open Collective links [@jlengelbrecht](https://github.com/jlengelbrecht) ([#68](https://github.com/GlycemicGPT/website/pull/68))
+
+### 📦 Dependencies
+
+- chore(deps): update dependency fumadocs-ui to v16.8.9 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#71](https://github.com/GlycemicGPT/website/pull/71))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#72](https://github.com/GlycemicGPT/website/pull/72))
+
+<!-- changelog-cutoff:2026-05-13T07:43:05Z -->
+
+
+## 2026-05-13
+
+### 🌐 Website
+
 #### 🐛 Bug Fixes
 
 - fix(deps): pin eslint to v9 until eslint-plugin-react supports v10 [@jlengelbrecht](https://github.com/jlengelbrecht) ([#69](https://github.com/GlycemicGPT/website/pull/69))
