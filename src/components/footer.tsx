@@ -1,4 +1,4 @@
-import { DiscordIcon, GitHubIcon } from "./icons";
+import { DiscordIcon, GitHubIcon, OpenCollectiveIcon } from "./icons";
 
 export function Footer() {
   return (
@@ -37,6 +37,17 @@ export function Footer() {
                 >
                   <DiscordIcon className="h-3.5 w-3.5" />
                   Discord
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://opencollective.com/glycemicgpt"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  <OpenCollectiveIcon className="h-3.5 w-3.5" />
+                  Open Collective
                 </a>
               </li>
               <li>

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { DiscordIcon, GitHubIcon } from "./icons";
+import { DiscordIcon, GitHubIcon, OpenCollectiveIcon } from "./icons";
 import { ThemeToggle } from "./theme-toggle";
 
 const navLinks = [
@@ -12,6 +12,7 @@ const navLinks = [
   { label: "Docs", href: "/docs" },
   { label: "Getting Started", href: "/#getting-started" },
   { label: "Discord", href: "https://discord.gg/QbyhCQKDBs", external: true },
+  { label: "Open Collective", href: "https://opencollective.com/glycemicgpt", external: true },
   { label: "GitHub", href: "https://github.com/GlycemicGPT/GlycemicGPT", external: true },
 ];
 
@@ -53,6 +54,7 @@ export function Header() {
             >
               {link.label === "GitHub" && <GitHubIcon className="h-4 w-4" />}
               {link.label === "Discord" && <DiscordIcon className="h-4 w-4" />}
+              {link.label === "Open Collective" && <OpenCollectiveIcon className="h-4 w-4" />}
               {link.label}
             </a>
           ))}
