@@ -38,6 +38,10 @@ jobs:
         env:
           DOCS_NO_CACHE: "1"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Marks this build as a preview so layout.tsx emits a noindex robots
+          # meta tag and renders the PreviewBanner. Production builds (deploy.yml,
+          # docs-rebuild.yml) intentionally do not set this.
+          NEXT_PUBLIC_BUILD_ENV: preview
 
       - name: Deploy preview to Cloudflare Pages
         id: preview-deploy

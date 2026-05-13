@@ -2,7 +2,13 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { RootProvider } from "fumadocs-ui/provider/next";
 import { ThemeProvider } from "@/components/theme-provider";
+import { PreviewBanner } from "@/components/preview-banner";
 import "./globals.css";
+
+// "preview" on PR builds (set in .github/workflows/ci.yml). Anything else
+// (typically unset on production builds in deploy.yml/docs-rebuild.yml) is
+// treated as production.
+const isPreview = process.env.NEXT_PUBLIC_BUILD_ENV === "preview";
 
 const geistSans = Geist({
   variable: "--font-sans",
@@ -35,6 +41,19 @@ export const metadata: Metadata = {
     siteName: "GlycemicGPT",
     type: "website",
   },
+  // Preview builds emit a noindex meta tag so search engines do not index
+  // pr-*.glycemicgpt.pages.dev URLs. Production builds emit no robots meta and
+  // are indexable.
+  ...(isPreview && {
+    robots: {
+      index: false,
+      follow: false,
+      googleBot: {
+        index: false,
+        follow: false,
+      },
+    },
+  }),
 };
 
 export default function RootLayout({
@@ -55,6 +74,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          {isPreview && <PreviewBanner />}
           <RootProvider theme={{ enabled: false }}>{children}</RootProvider>
         </ThemeProvider>
       </body>

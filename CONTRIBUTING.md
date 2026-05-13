@@ -247,8 +247,30 @@ coderabbit review --plain --type committed --base main
 1. **CI runs automatically** -- all required checks must pass (see below)
 2. **CodeRabbit review** -- AI-powered code review runs automatically, posting findings and suggestions
 3. **Lighthouse audit** -- scores for performance, accessibility, best practices, and SEO are posted as a PR comment
-4. **Code owner review** -- a maintainer reviews your PR
-5. **Merge** -- once approved and CI passes, a maintainer squash-merges your PR
+4. **Preview deployment** -- a live preview of your PR is deployed to `https://pr-<N>.glycemicgpt.pages.dev` (where `<N>` is your PR number). The URL is posted as a PR comment by `glycemicgpt-ci[bot]`. Every push to your PR updates the same URL. See [Preview Deployments](#preview-deployments) for details.
+5. **Code owner review** -- a maintainer reviews your PR
+6. **Merge** -- once approved and CI passes, a maintainer squash-merges your PR
+
+> **Note for first-time contributors:** PRs from forks require a maintainer to approve workflow runs before any CI executes -- this is a repo security setting that blocks drive-by abuse. If your PR has no green checks and no red Xs, it's not stuck; it's waiting for a maintainer to click "Approve and run". Typically resolved within a day; ping in [Discussions](https://github.com/GlycemicGPT/website/discussions) if it's been longer.
+
+<a id="preview-deployments"></a>
+
+### Preview Deployments
+
+When you open a PR from a branch on this repository (not a fork), the CI workflow deploys a live preview of your changes to Cloudflare Pages at a unique URL:
+
+```
+https://pr-<N>.glycemicgpt.pages.dev
+```
+
+`glycemicgpt-ci[bot]` posts the URL as a comment on your PR. The URL is stable for the lifetime of the PR -- pushing new commits updates the same URL with the latest build. Cloudflare Pages cleans up preview deployments automatically once the PR closes.
+
+**Important notes:**
+
+- Only PRs from same-repo branches receive preview deployments. PRs from forks do not get previews because they do not have access to the repo secrets required to deploy. Lint, type check, build, Lighthouse, and other checks still run on fork PRs, so reviewers see the same CI status either way.
+- Preview deployments display a banner across the top of the page reading "Preview deployment -- not the official GlycemicGPT site". They also emit a `noindex, nofollow` robots meta tag, so search engines do not index preview URLs.
+- **The only official preview hostnames are `pr-N.glycemicgpt.pages.dev` and `<branch>.glycemicgpt.pages.dev` (Cloudflare-issued).** URLs hosted elsewhere claiming to be GlycemicGPT previews are not endorsed by the project.
+- Production lives at `glycemicgpt.org` (Cloudflare Pages). Production builds intentionally do not emit the preview banner or the noindex tag.
 
 ### Required CI Checks
 
@@ -259,6 +281,7 @@ Every PR must pass these checks before it can be merged:
 | 🔍 Lint | ESLint on all source files |
 | 🔷 Type Check | TypeScript strict mode (`tsc --noEmit`) |
 | 🏗️ Build | Next.js static export succeeds |
+| 🚀 Preview Deploy | Cloudflare Pages preview at `pr-<N>.glycemicgpt.pages.dev` (same-repo PRs only; non-blocking) |
 | 🔦 Lighthouse | Accessibility, Best Practices, SEO >= 90 |
 | 🏷️ Auto-Labeler | Categorizes PR by scope and type |
 | 🤖 Attribution Check | No prohibited AI tool attribution |
@@ -274,7 +297,7 @@ The Lighthouse audit runs on every PR and posts results as a comment:
 | 🔍 SEO | >= 90 | **Blocks PR** if below |
 | ⚡ Performance | >= 50 | **Warning only** (doesn't block) |
 
-Accessibility is held to a higher standard (95) because this is a medical platform. Performance is a soft gate because CI environment scores vary -- production (GitHub Pages + CDN) scores are significantly higher.
+Accessibility is held to a higher standard (95) because this is a medical platform. Performance is a soft gate because CI environment scores vary -- production (Cloudflare Pages) scores are significantly higher.
 
 ---
 
