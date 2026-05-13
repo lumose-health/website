@@ -2,6 +2,15 @@
 
 ## 2026-05-13
 
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#78](https://github.com/GlycemicGPT/website/pull/78))
+
+<!-- changelog-cutoff:2026-05-13T18:35:52Z -->
+
+
+## 2026-05-13
+
 ### 🏗️ Infrastructure
 
 #### ✨ New Features
