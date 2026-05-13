@@ -56,13 +56,16 @@ jobs:
                   body = e.read().decode("utf-8", errors="replace")
                   return {"success": False, "status": e.code, "body": body}
 
-          # Paginate through all deployments and collect those for this branch.
+          # Paginate through preview deployments and collect those for this branch.
+          # env=preview filters at the API to never enumerate production deployments;
+          # per_page=25 is the Cloudflare API's accepted maximum for this endpoint
+          # (per_page=100 returns "Invalid list options provided" error 8000024).
           deployments = []
           page = 1
           while True:
               data = cf(
                   "GET",
-                  f"/accounts/{CF_ACCOUNT}/pages/projects/{PROJECT}/deployments?per_page=100&page={page}",
+                  f"/accounts/{CF_ACCOUNT}/pages/projects/{PROJECT}/deployments?env=preview&per_page=25&page={page}",
               )
               if not data.get("success", True) and "result" not in data:
                   print(f"::error::Failed to list deployments: {data}")

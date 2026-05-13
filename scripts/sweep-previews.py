@@ -66,12 +66,16 @@ def gh_request(path: str, token: str) -> dict | None:
 
 
 def list_all_deployments(account: str, project: str, token: str) -> list[dict]:
+    # env=preview filters at the API so we never enumerate production
+    # deployments; per_page=25 is the Cloudflare API's accepted maximum for
+    # this endpoint (per_page=100 returns "Invalid list options provided"
+    # error 8000024).
     deployments = []
     page = 1
     while True:
         data = cf_request(
             "GET",
-            f"/accounts/{account}/pages/projects/{project}/deployments?per_page=100&page={page}",
+            f"/accounts/{account}/pages/projects/{project}/deployments?env=preview&per_page=25&page={page}",
             token,
         )
         if "result" not in data:
