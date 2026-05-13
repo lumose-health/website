@@ -2,6 +2,19 @@
 
 ## 2026-05-13
 
+### 📦 Dependencies
+
+- chore(deps): update dependency tailwind-merge to v3.6.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#74](https://github.com/GlycemicGPT/website/pull/74))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#75](https://github.com/GlycemicGPT/website/pull/75))
+
+<!-- changelog-cutoff:2026-05-13T16:31:17Z -->
+
+
+## 2026-05-13
+
 ### 🌐 Website
 
 #### ✨ New Features
