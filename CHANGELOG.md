@@ -2,6 +2,25 @@
 
 ## 2026-05-13
 
+### 🌐 Website
+
+#### 🐛 Bug Fixes
+
+- fix(deps): pin eslint to v9 until eslint-plugin-react supports v10 [@jlengelbrecht](https://github.com/jlengelbrecht) ([#69](https://github.com/GlycemicGPT/website/pull/69))
+
+### 📦 Dependencies
+
+- chore(deps): update dependency fumadocs-ui to v16.8.9 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#71](https://github.com/GlycemicGPT/website/pull/71))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#70](https://github.com/GlycemicGPT/website/pull/70))
+
+<!-- changelog-cutoff:2026-05-13T07:39:47Z -->
+
+
+## 2026-05-13
+
 ### 📦 Dependencies
 
 - fix(deps): update dependency next to v16.2.6 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#63](https://github.com/GlycemicGPT/website/pull/63))
