@@ -259,7 +259,7 @@ coderabbit review --plain --type committed --base main
 
 When you open a PR from a branch on this repository (not a fork), the CI workflow deploys a live preview of your changes to Cloudflare Pages at a unique URL:
 
-```
+```text
 https://pr-<N>.glycemicgpt.pages.dev
 ```
 
