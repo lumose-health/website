@@ -10,6 +10,25 @@
 
 ### 📦 Dependencies
 
+- chore(deps): update dependency tailwind-merge to v3.6.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#74](https://github.com/GlycemicGPT/website/pull/74))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#73](https://github.com/GlycemicGPT/website/pull/73))
+
+<!-- changelog-cutoff:2026-05-13T14:39:37Z -->
+
+
+## 2026-05-13
+
+### 🌐 Website
+
+#### ✨ New Features
+
+- feat: add funding manifest verification + Open Collective links [@jlengelbrecht](https://github.com/jlengelbrecht) ([#68](https://github.com/GlycemicGPT/website/pull/68))
+
+### 📦 Dependencies
+
 - chore(deps): update dependency fumadocs-ui to v16.8.9 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#71](https://github.com/GlycemicGPT/website/pull/71))
 
 ### ❓ Uncategorized
