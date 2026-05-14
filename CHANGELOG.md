@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-05-14
+
+### 📦 Dependencies
+
+- chore(deps): update dependency fumadocs-mdx to v15.0.3 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#85](https://github.com/GlycemicGPT/website/pull/85))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#84](https://github.com/GlycemicGPT/website/pull/84))
+- fix(funding): add github.com blob URL to well-known funding-manifest-urls [@jlengelbrecht](https://github.com/jlengelbrecht) ([#83](https://github.com/GlycemicGPT/website/pull/83))
+
+<!-- changelog-cutoff:2026-05-14T19:49:31Z -->
+
+
 ## 2026-05-13
 
 ### 🏗️ Infrastructure
