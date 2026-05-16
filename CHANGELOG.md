@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-05-16
+
+### 📦 Dependencies
+
+- chore(deps): update dependency fumadocs-mdx to v15.0.4 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#90](https://github.com/GlycemicGPT/website/pull/90))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#91](https://github.com/GlycemicGPT/website/pull/91))
+
+<!-- changelog-cutoff:2026-05-16T08:07:55Z -->
+
+
 ## 2026-05-15
 
 ### 📦 Dependencies
