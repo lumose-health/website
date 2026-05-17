@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { RootProvider } from "fumadocs-ui/provider/next";
 import { ThemeProvider } from "@/components/theme-provider";
 import { PreviewBanner } from "@/components/preview-banner";
 import "./globals.css";
@@ -75,7 +74,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {isPreview && <PreviewBanner />}
-          <RootProvider theme={{ enabled: false }}>{children}</RootProvider>
+          {/* fumadocs RootProvider lives in src/app/docs/layout.tsx so the
+              marketing landing page does not ship the docs framework runtime. */}
+          {children}
         </ThemeProvider>
       </body>
     </html>
