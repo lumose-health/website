@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { Header } from "@/components/header";
 import { HeroSection } from "@/components/sections/hero";
 import { FeaturesSection } from "@/components/sections/features";
+import { useHashScrollFix } from "@/lib/use-hash-scroll-fix";
 
 // All below-the-fold sections lazy-load. Each is wrapped in a viewport-aware
 // reveal (or has no animation at all), so users never see them before scroll.
@@ -51,6 +52,10 @@ const LazyFooter = dynamic(
 );
 
 export default function Home() {
+  // Restore hash-link behavior since most anchor targets now live in
+  // dynamic-imported chunks (#platform, #getting-started).
+  useHashScrollFix();
+
   return (
     <>
       <Header />
