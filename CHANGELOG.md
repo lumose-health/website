@@ -2,6 +2,20 @@
 
 ## 2026-05-20
 
+### 📦 Dependencies
+
+- chore(deps): update dependency fumadocs-mdx to v15.0.6 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#100](https://github.com/GlycemicGPT/website/pull/100))
+- chore(deps): update dependency tsx to v4.22.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#98](https://github.com/GlycemicGPT/website/pull/98))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#99](https://github.com/GlycemicGPT/website/pull/99))
+
+<!-- changelog-cutoff:2026-05-20T15:26:25Z -->
+
+
+## 2026-05-20
+
 ### 🌐 Website
 
 #### ⚡ Performance
