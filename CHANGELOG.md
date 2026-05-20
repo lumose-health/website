@@ -1,5 +1,20 @@
 # Changelog
 
+## 2026-05-20
+
+### 🌐 Website
+
+#### ⚡ Performance
+
+- perf(landing): strip framer-motion from above-the-fold critical path [@jlengelbrecht](https://github.com/jlengelbrecht) ([#96](https://github.com/GlycemicGPT/website/pull/96))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#97](https://github.com/GlycemicGPT/website/pull/97))
+
+<!-- changelog-cutoff:2026-05-20T03:43:52Z -->
+
+
 ## 2026-05-17
 
 ### 🌐 Website
