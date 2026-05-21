@@ -4,6 +4,15 @@
 
 ### 📦 Dependencies
 
+- chore(deps): update dependency tsx to v4.22.2 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#102](https://github.com/GlycemicGPT/website/pull/102))
+
+<!-- changelog-cutoff:2026-05-21T15:33:12Z -->
+
+
+## 2026-05-21
+
+### 📦 Dependencies
+
 - chore(deps): update dependency fumadocs-mdx to v15.0.6 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#100](https://github.com/GlycemicGPT/website/pull/100))
 
 ### ❓ Uncategorized
