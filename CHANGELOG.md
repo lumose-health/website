@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-05-23
+
+### 📦 Dependencies
+
+- chore(deps): update dependency @types/react to v19.2.15 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#112](https://github.com/GlycemicGPT/website/pull/112))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#113](https://github.com/GlycemicGPT/website/pull/113))
+
+<!-- changelog-cutoff:2026-05-23T03:27:21Z -->
+
+
 ## 2026-05-22
 
 ### 📦 Dependencies
