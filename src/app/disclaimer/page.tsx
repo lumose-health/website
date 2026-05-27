@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { LegalPage } from "@/components/legal-page";
 
 export const metadata: Metadata = {
@@ -73,7 +74,7 @@ export default function DisclaimerPage() {
       <p>
         It is your responsibility to verify where your configured AI endpoint
         routes traffic and to review its data-handling policy before configuring
-        it. See our <a href="/privacy">Privacy Policy</a> for how the platform
+        it. See our <Link href="/privacy">Privacy Policy</Link> for how the platform
         itself handles data.
       </p>
 
@@ -190,7 +191,7 @@ export default function DisclaimerPage() {
       </ul>
       <p>
         This software is licensed under the GPL-3.0; see Sections 15&ndash;17 of
-        the <a href="/terms">Terms of Use</a> and the{" "}
+        the <Link href="/terms">Terms of Use</Link> and the{" "}
         <a
           href="https://github.com/GlycemicGPT/GlycemicGPT/blob/main/LICENSE"
           target="_blank"

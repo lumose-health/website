@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { DiscordIcon, GitHubIcon, OpenCollectiveIcon } from "./icons";
 
 export function Footer() {
@@ -78,44 +79,44 @@ export function Footer() {
             <h4 className="text-sm font-semibold">Legal</h4>
             <ul className="space-y-2">
               <li>
-                <a
+                <Link
                   href="/privacy"
                   className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
                   Privacy Policy
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   href="/terms"
                   className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
                   Terms of Use
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   href="/disclaimer"
                   className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
                   Medical Disclaimer
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   href="/accessibility"
                   className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
                   Accessibility
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   href="/contact"
                   className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
                   Contact
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -129,12 +130,12 @@ export function Footer() {
               For informational and educational purposes only. Always consult
               your healthcare provider for medical decisions.
             </p>
-            <a
+            <Link
               href="/disclaimer"
               className="text-xs font-medium text-muted-foreground underline underline-offset-4 transition-colors hover:text-foreground"
             >
               Read the full medical disclaimer
-            </a>
+            </Link>
           </div>
         </div>
 

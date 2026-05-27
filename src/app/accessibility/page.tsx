@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { LegalPage } from "@/components/legal-page";
 
 export const metadata: Metadata = {
@@ -76,7 +77,7 @@ export default function AccessibilityPage() {
         >
           GitHub issue
         </a>{" "}
-        or reach us through the channels on our <a href="/contact">Contact</a>{" "}
+        or reach us through the channels on our <Link href="/contact">Contact</Link>{" "}
         page. Please describe the page, the problem, and the assistive
         technology you were using, if any.
       </p>

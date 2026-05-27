@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { LegalPage } from "@/components/legal-page";
 
 export const metadata: Metadata = {
@@ -60,7 +61,7 @@ export default function TermsPage() {
         Nothing produced by the software is medical advice. Do not make
         treatment decisions based on it without consulting your healthcare team.
         Your use of the software is subject to our{" "}
-        <a href="/disclaimer">Medical Disclaimer</a>, which is incorporated into
+        <Link href="/disclaimer">Medical Disclaimer</Link>, which is incorporated into
         these terms by reference. If you do not accept the Medical Disclaimer,
         do not use the software.
       </p>
@@ -79,7 +80,7 @@ export default function TermsPage() {
         <li>
           Scrape, probe, or test the vulnerability of the site except through
           our responsible-disclosure process (see{" "}
-          <a href="/contact">Contact</a>);
+          <Link href="/contact">Contact</Link>);
         </li>
         <li>
           Misrepresent the project, imply official endorsement you do not have,
@@ -107,7 +108,7 @@ export default function TermsPage() {
         runs such a fork becomes the manufacturer of their own personal medical
         device and accepts full responsibility for it. The maintainers do not
         review, recommend, or accept liability for third-party forks. See the{" "}
-        <a href="/disclaimer">Medical Disclaimer</a> for details.
+        <Link href="/disclaimer">Medical Disclaimer</Link> for details.
       </p>
 
       <h2>7. Intellectual property and trademarks</h2>
@@ -165,7 +166,7 @@ export default function TermsPage() {
       <h2>12. Contact</h2>
       <p>
         Questions about these terms can be raised through the channels on our{" "}
-        <a href="/contact">Contact</a> page. This page is provided for general
+        <Link href="/contact">Contact</Link> page. This page is provided for general
         information and does not constitute legal advice.
       </p>
     </LegalPage>

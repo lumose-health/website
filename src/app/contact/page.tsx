@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { LegalPage } from "@/components/legal-page";
 
 export const metadata: Metadata = {
@@ -97,7 +98,7 @@ export default function ContactPage() {
       </ul>
       <p>
         We take these reports seriously and will work with you on a coordinated
-        fix. See our <a href="/privacy">Privacy Policy</a> for more on how we
+        fix. See our <Link href="/privacy">Privacy Policy</Link> for more on how we
         handle data.
       </p>
 

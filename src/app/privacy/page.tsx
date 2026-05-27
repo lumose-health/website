@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { LegalPage } from "@/components/legal-page";
 
 export const metadata: Metadata = {
@@ -29,7 +30,7 @@ export default function PrivacyPage() {
         third-party analytics, and does not build a profile of visitors. We do
         not sell, rent, or share visitor information, because we do not collect
         it. See our{" "}
-        <a href="/accessibility">Accessibility Statement</a> for related
+        <Link href="/accessibility">Accessibility Statement</Link> for related
         commitments.
       </p>
       <p>
@@ -54,7 +55,7 @@ export default function PrivacyPage() {
         Telegram bot, and your reverse proxy. Whether your health data leaves
         your own infrastructure is determined by those choices, not by the
         platform itself. See the{" "}
-        <a href="/disclaimer">Medical Disclaimer</a> for how this applies to
+        <Link href="/disclaimer">Medical Disclaimer</Link> for how this applies to
         third-party AI providers.
       </p>
 
@@ -140,7 +141,7 @@ export default function PrivacyPage() {
         >
           GitHub issue
         </a>{" "}
-        or reach us via the channels on our <a href="/contact">Contact</a> page.
+        or reach us via the channels on our <Link href="/contact">Contact</Link> page.
       </p>
     </LegalPage>
   );
