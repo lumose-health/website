@@ -2,6 +2,20 @@
 
 ## 2026-05-29
 
+### 📦 Dependencies
+
+- chore(deps): update dependency shadcn to v4.8.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#124](https://github.com/GlycemicGPT/website/pull/124))
+- chore(deps): update dependency fumadocs-mdx to v15.0.9 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#122](https://github.com/GlycemicGPT/website/pull/122))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#123](https://github.com/GlycemicGPT/website/pull/123))
+
+<!-- changelog-cutoff:2026-05-29T20:28:47Z -->
+
+
+## 2026-05-29
+
 ### 🌐 Website
 
 #### ✨ New Features
