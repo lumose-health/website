@@ -1,5 +1,20 @@
 # Changelog
 
+## 2026-05-29
+
+### 🌐 Website
+
+#### ✨ New Features
+
+- feat: add legal and standard website pages (Privacy, Terms, Disclaimer, Accessibility, Contact) [@jlengelbrecht](https://github.com/jlengelbrecht) ([#120](https://github.com/GlycemicGPT/website/pull/120))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#121](https://github.com/GlycemicGPT/website/pull/121))
+
+<!-- changelog-cutoff:2026-05-29T15:39:49Z -->
+
+
 ## 2026-05-27
 
 ### 🌐 Website
