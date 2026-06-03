@@ -1,5 +1,20 @@
 # Changelog
 
+## 2026-06-03
+
+### 📦 Dependencies
+
+- chore(deps): update dependency shadcn to v4.9.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#131](https://github.com/GlycemicGPT/website/pull/131))
+- chore(deps): update dependency tsx to v4.22.4 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#130](https://github.com/GlycemicGPT/website/pull/130))
+- chore(deps): lock file maintenance [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#128](https://github.com/GlycemicGPT/website/pull/128))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#129](https://github.com/GlycemicGPT/website/pull/129))
+
+<!-- changelog-cutoff:2026-06-03T13:48:39Z -->
+
+
 ## 2026-05-30
 
 ### 📦 Dependencies
