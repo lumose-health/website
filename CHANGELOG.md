@@ -4,6 +4,21 @@
 
 ### 📦 Dependencies
 
+- fix(deps): update react monorepo to v19.2.7 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#143](https://github.com/GlycemicGPT/website/pull/143))
+- fix(deps): update dependency next to v16.2.7 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#141](https://github.com/GlycemicGPT/website/pull/141))
+- chore(deps): update dependency tar to v7.5.16 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#140](https://github.com/GlycemicGPT/website/pull/140))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#142](https://github.com/GlycemicGPT/website/pull/142))
+
+<!-- changelog-cutoff:2026-06-04T18:56:27Z -->
+
+
+## 2026-06-04
+
+### 📦 Dependencies
+
 - chore(deps): update dependency eslint-config-next to v16.2.7 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#139](https://github.com/GlycemicGPT/website/pull/139))
 - chore(deps): update dependency @types/react to v19.2.16 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#137](https://github.com/GlycemicGPT/website/pull/137))
 
