@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-06-04
+
+### 📦 Dependencies
+
+- chore(deps): update dependency shadcn to v4.9.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#131](https://github.com/GlycemicGPT/website/pull/131))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#132](https://github.com/GlycemicGPT/website/pull/132))
+
+<!-- changelog-cutoff:2026-06-04T01:09:35Z -->
+
+
 ## 2026-06-03
 
 ### 📦 Dependencies
