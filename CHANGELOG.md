@@ -4,6 +4,20 @@
 
 ### 📦 Dependencies
 
+- chore(deps): update dependency @types/react to v19.2.16 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#137](https://github.com/GlycemicGPT/website/pull/137))
+- chore(deps): update dependency shadcn to v4.10.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#135](https://github.com/GlycemicGPT/website/pull/135))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#136](https://github.com/GlycemicGPT/website/pull/136))
+
+<!-- changelog-cutoff:2026-06-04T18:55:04Z -->
+
+
+## 2026-06-04
+
+### 📦 Dependencies
+
 - chore(deps): update dependency js-yaml to v4.2.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#133](https://github.com/GlycemicGPT/website/pull/133))
 
 ### ❓ Uncategorized
