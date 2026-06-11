@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-06-11
+
+### 📦 Dependencies
+
+- chore(deps): lock file maintenance [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#145](https://github.com/GlycemicGPT/website/pull/145))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#146](https://github.com/GlycemicGPT/website/pull/146))
+
+<!-- changelog-cutoff:2026-06-11T19:07:03Z -->
+
+
 ## 2026-06-06
 
 ### 📦 Dependencies
