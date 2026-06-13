@@ -5,6 +5,19 @@
 ### 📦 Dependencies
 
 - chore(deps): update dependency eslint-config-next to v16.2.9 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#149](https://github.com/GlycemicGPT/website/pull/149))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#151](https://github.com/GlycemicGPT/website/pull/151))
+
+<!-- changelog-cutoff:2026-06-13T07:26:26Z -->
+
+
+## 2026-06-13
+
+### 📦 Dependencies
+
+- chore(deps): update dependency eslint-config-next to v16.2.9 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#149](https://github.com/GlycemicGPT/website/pull/149))
 - chore(deps): update dependency shadcn to v4.11.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#147](https://github.com/GlycemicGPT/website/pull/147))
 
 ### ❓ Uncategorized
