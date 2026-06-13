@@ -4,6 +4,20 @@
 
 ### 📦 Dependencies
 
+- chore(deps): lock file maintenance [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#153](https://github.com/GlycemicGPT/website/pull/153))
+- fix(deps): update dependency next to v16.2.9 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#150](https://github.com/GlycemicGPT/website/pull/150))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#152](https://github.com/GlycemicGPT/website/pull/152))
+
+<!-- changelog-cutoff:2026-06-13T12:45:12Z -->
+
+
+## 2026-06-13
+
+### 📦 Dependencies
+
 - chore(deps): update dependency eslint-config-next to v16.2.9 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#149](https://github.com/GlycemicGPT/website/pull/149))
 
 ### ❓ Uncategorized
