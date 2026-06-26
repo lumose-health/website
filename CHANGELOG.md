@@ -1,5 +1,20 @@
 # Changelog
 
+## 2026-06-26
+
+### 📦 Dependencies
+
+- chore(deps): update dependency framer-motion to v12.41.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#167](https://github.com/GlycemicGPT/website/pull/167))
+- fix(deps): update dependency js-yaml to v5 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#164](https://github.com/GlycemicGPT/website/pull/164))
+- chore(deps): update dependency fumadocs-ui to v16.10.5 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#163](https://github.com/GlycemicGPT/website/pull/163))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#165](https://github.com/GlycemicGPT/website/pull/165))
+
+<!-- changelog-cutoff:2026-06-26T18:44:19Z -->
+
+
 ## 2026-06-23
 
 ### 📦 Dependencies
