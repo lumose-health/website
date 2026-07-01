@@ -4,6 +4,19 @@
 
 ### 📦 Dependencies
 
+- chore(deps): update dependency tar to v7.5.19 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#175](https://github.com/GlycemicGPT/website/pull/175))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#176](https://github.com/GlycemicGPT/website/pull/176))
+
+<!-- changelog-cutoff:2026-07-01T18:46:05Z -->
+
+
+## 2026-07-01
+
+### 📦 Dependencies
+
 - chore(deps): update dependency fumadocs-ui to v16.10.6 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#173](https://github.com/GlycemicGPT/website/pull/173))
 
 ### ❓ Uncategorized
