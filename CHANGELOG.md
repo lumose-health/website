@@ -4,6 +4,20 @@
 
 ### 📦 Dependencies
 
+- chore(deps): update dependency framer-motion to v12.42.2 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#185](https://github.com/GlycemicGPT/website/pull/185))
+- chore(deps): update dependency recharts to v3.9.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#183](https://github.com/GlycemicGPT/website/pull/183))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#184](https://github.com/GlycemicGPT/website/pull/184))
+
+<!-- changelog-cutoff:2026-07-03T19:26:09Z -->
+
+
+## 2026-07-03
+
+### 📦 Dependencies
+
 - chore(deps): update dependency framer-motion to v12.42.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#182](https://github.com/GlycemicGPT/website/pull/182))
 - chore(deps): update tailwind css to v4.3.2 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#180](https://github.com/GlycemicGPT/website/pull/180))
 - chore(deps): update dependency fumadocs-ui to v16.10.7 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#179](https://github.com/GlycemicGPT/website/pull/179))
