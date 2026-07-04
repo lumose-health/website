@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-07-04
+
+### 📦 Dependencies
+
+- chore(deps): update dependency framer-motion to v12.42.2 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#185](https://github.com/GlycemicGPT/website/pull/185))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#186](https://github.com/GlycemicGPT/website/pull/186))
+
+<!-- changelog-cutoff:2026-07-04T08:40:26Z -->
+
+
 ## 2026-07-03
 
 ### 📦 Dependencies
