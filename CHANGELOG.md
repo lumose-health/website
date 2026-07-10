@@ -1,5 +1,21 @@
 # Changelog
 
+## 2026-07-10
+
+### 📦 Dependencies
+
+- chore(deps): update dependency fumadocs-ui to v16.11.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#194](https://github.com/GlycemicGPT/website/pull/194))
+- chore(deps): update dependency fumadocs-mdx to v15.1.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#193](https://github.com/GlycemicGPT/website/pull/193))
+- fix(deps): update dependency next to v16.2.10 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#190](https://github.com/GlycemicGPT/website/pull/190))
+- chore(deps): update dependency eslint-config-next to v16.2.10 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#189](https://github.com/GlycemicGPT/website/pull/189))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#191](https://github.com/GlycemicGPT/website/pull/191))
+
+<!-- changelog-cutoff:2026-07-10T14:30:08Z -->
+
+
 ## 2026-07-05
 
 ### 📦 Dependencies
