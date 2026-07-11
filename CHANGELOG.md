@@ -5,6 +5,19 @@
 ### 📦 Dependencies
 
 - chore(deps): update dependency @types/node to v24.13.3 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#196](https://github.com/GlycemicGPT/website/pull/196))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#197](https://github.com/GlycemicGPT/website/pull/197))
+
+<!-- changelog-cutoff:2026-07-11T07:59:29Z -->
+
+
+## 2026-07-11
+
+### 📦 Dependencies
+
+- chore(deps): update dependency @types/node to v24.13.3 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#196](https://github.com/GlycemicGPT/website/pull/196))
 - chore(deps): update dependency fumadocs-ui to v16.11.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#194](https://github.com/GlycemicGPT/website/pull/194))
 
 ### ❓ Uncategorized
