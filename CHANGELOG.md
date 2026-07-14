@@ -2,6 +2,21 @@
 
 ## 2026-07-14
 
+### 🏗️ Infrastructure
+
+#### 💥 Breaking Changes
+
+- chore(deps): update github actions (major) [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#45](https://github.com/GlycemicGPT/website/pull/45))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#210](https://github.com/GlycemicGPT/website/pull/210))
+
+<!-- changelog-cutoff:2026-07-14T17:37:06Z -->
+
+
+## 2026-07-14
+
 ### 📦 Dependencies
 
 - chore(deps): update dependency tar to v7.5.20 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#208](https://github.com/GlycemicGPT/website/pull/208))
