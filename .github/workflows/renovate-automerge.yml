@@ -118,4 +118,11 @@ jobs:
           fi
 
           gh pr review "$PR_NUMBER" --approve --repo "$REPO"
-          gh pr merge "$PR_NUMBER" --squash --repo "$REPO" --match-head-commit "$HEAD_SHA"
+
+          # Merge via the REST API rather than `gh pr merge`: gh refuses
+          # client-side while mergeStateStatus is BLOCKED (the unsatisfiable
+          # code-owner review), even though the server honors the app's
+          # ruleset bypass. The sha parameter makes the server reject the
+          # merge if the head moved after verification.
+          gh api -X PUT "repos/$REPO/pulls/$PR_NUMBER/merge" \
+            -f merge_method=squash -f sha="$HEAD_SHA"
