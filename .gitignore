@@ -57,6 +57,7 @@ AGENTS.md
 # docs (e.g. /docs/index.mdx, /docs/get-started.mdx) live alongside them and ARE
 # tracked.
 /content/docs/platform/
+/content/docs/about/
 
 # Fumadocs generated source map
 /.source/

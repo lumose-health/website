@@ -22,3 +22,11 @@ sources:
       - README.md
       - LICENSE
       - MEDICAL-DISCLAIMER.md
+
+  # Org-level docs from the GlycemicGPT/.github repo. Currently the canonical
+  # acknowledgments page, sourced org-wide rather than per-repo.
+  - key: github-org
+    repo: GlycemicGPT/.github
+    branch: main
+    docsPath: docs/
+    targetPath: about/
