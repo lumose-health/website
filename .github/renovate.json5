@@ -24,6 +24,7 @@
   "ignorePaths": ["**/node_modules/**"],
   "timezone": "America/New_York",
   "schedule": ["at any time"],
+  "dependencyDashboardFooter": "Note: `typescript` updates are capped to the range the installed @typescript-eslint packages support (see the typescript packageRule in `.github/renovate.json5`). The typescript-cap-check workflow opens an issue when the cap can be lifted.",
   "vulnerabilityAlerts": {
     "enabled": true,
     "labels": ["security", "dependencies"],
@@ -68,6 +69,19 @@
       "matchPackageNames": ["eslint"],
       "matchUpdateTypes": ["major"],
       "enabled": false
+    },
+    {
+      // The @typescript-eslint packages (installed transitively via
+      // eslint-config-next) only support typescript inside their declared
+      // peer range -- the v7 bump in PR #200 landed outside it and broke
+      // ESLint at load repo-wide. Renovate does not consult npm
+      // peerDependencies when selecting versions (dry-run verified; nor
+      // does constraintsFiltering), so this cap mirrors the installed peer
+      // range. The typescript-cap-check workflow opens an issue when the
+      // installed peer range widens past this cap; bump the cap to match.
+      "description": "Cap typescript to the installed @typescript-eslint peer range; the typescript-cap-check workflow signals when to lift it",
+      "matchPackageNames": ["typescript"],
+      "allowedVersions": "<6.1.0"
     },
     {
       "description": "Group testing libraries",
