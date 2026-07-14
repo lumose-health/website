@@ -2,6 +2,19 @@
 
 ## 2026-07-14
 
+### 📦 Dependencies
+
+- chore(deps): update dependency tar to v7.5.20 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#208](https://github.com/GlycemicGPT/website/pull/208))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#209](https://github.com/GlycemicGPT/website/pull/209))
+
+<!-- changelog-cutoff:2026-07-14T17:33:18Z -->
+
+
+## 2026-07-14
+
 ### 📚 Documentation
 
 - docs: source org acknowledgments from the .github repo [@jlengelbrecht](https://github.com/jlengelbrecht) ([#202](https://github.com/GlycemicGPT/website/pull/202))
