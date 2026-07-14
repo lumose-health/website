@@ -108,7 +108,7 @@ jobs:
             exit 0
           fi
 
-          if [ "$COMMIT_COUNT" -gt 100 ]; then
+          if [ "${COMMIT_COUNT:-101}" -gt 100 ]; then
             echo "::notice::PR #$PR_NUMBER has $COMMIT_COUNT commits; leaving it for human review"
             exit 0
           fi
