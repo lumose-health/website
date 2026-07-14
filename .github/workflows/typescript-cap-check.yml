@@ -1,0 +1,91 @@
+name: TypeScript Cap Check
+
+# The Renovate config caps `typescript` to the range the installed
+# @typescript-eslint packages support (see the typescript packageRule in
+# .github/renovate.json5). Renovate cannot lift that cap by itself, so this
+# job compares the configured cap against the peer range of the
+# @typescript-eslint/typescript-estree version locked in package-lock.json
+# and opens an issue as soon as that peer range admits TypeScript versions
+# the cap still blocks. Reading the lockfile (not the latest registry
+# release) matters: the cap is only safe to lift once the version this repo
+# actually installs supports the newer TypeScript.
+
+on:
+  schedule:
+    # Weekly is enough: the signal only changes when the locked
+    # @typescript-eslint version changes. Mondays 13:00 UTC (09:00 ET).
+    - cron: "0 13 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    name: Compare Renovate cap against typescript-eslint peer range
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+
+      - name: Find peer-supported TypeScript versions blocked by the cap
+        id: compare
+        run: |
+          set -euo pipefail
+
+          cap=$(npx --yes json5@2.2.3 < .github/renovate.json5 \
+            | jq -er '.packageRules[]
+                      | select((.matchPackageNames // []) | index("typescript"))
+                      | .allowedVersions')
+          peer=$(jq -er '.packages["node_modules/@typescript-eslint/typescript-estree"]
+                         | .peerDependencies.typescript' package-lock.json)
+          echo "Renovate cap: $cap"
+          echo "Installed @typescript-eslint/typescript-estree peer range: $peer"
+
+          stable=$(npm view typescript versions --json \
+            | jq -r '.[] | select(contains("-") | not)')
+          peer_ok=$(npx --yes semver@7.7.3 -r "$peer" $stable || true)
+          cap_ok=$(npx --yes semver@7.7.3 -r "$cap" $stable || true)
+          blocked=$(comm -23 <(sort <<<"$peer_ok") <(sort <<<"$cap_ok") | xargs)
+
+          echo "peer-supported but cap-blocked: ${blocked:-none}"
+          {
+            echo "blocked=$blocked"
+            echo "cap=$cap"
+            echo "peer=$peer"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Open issue if the cap can be lifted
+        if: steps.compare.outputs.blocked != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BLOCKED: ${{ steps.compare.outputs.blocked }}
+          CAP: ${{ steps.compare.outputs.cap }}
+          PEER: ${{ steps.compare.outputs.peer }}
+        run: |
+          set -euo pipefail
+          title="Renovate typescript cap can be lifted"
+          existing=$(gh issue list --state open --limit 100 --json number,title \
+            | jq -r --arg t "$title" '[.[] | select(.title == $t)][0].number // empty')
+          if [ -n "$existing" ]; then
+            echo "Issue #$existing already open, skipping."
+            exit 0
+          fi
+          body=$(printf '%s\n' \
+            "The installed @typescript-eslint packages now support TypeScript versions that the Renovate cap still blocks." \
+            "" \
+            "- Configured cap (\`allowedVersions\` in \`.github/renovate.json5\`): \`$CAP\`" \
+            "- Installed peer range (\`@typescript-eslint/typescript-estree\` in \`package-lock.json\`): \`$PEER\`" \
+            "- Peer-supported versions currently blocked: \`$BLOCKED\`" \
+            "" \
+            "To lift: update the \`allowedVersions\` value in the typescript packageRule in \`.github/renovate.json5\` to mirror the new peer range. Renovate will then propose the TypeScript update on its next run (its PR updates the \`typescript\` range in \`package.json\` too).")
+          url=$(gh issue create --title "$title" --body "$body")
+          # Label is best-effort: the issue itself is the signal.
+          gh issue edit "$url" --add-label dependencies || true
