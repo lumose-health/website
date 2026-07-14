@@ -97,18 +97,19 @@ jobs:
           HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
           HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
         run: |
-          PR_DATA=$(gh pr list --repo "$REPO" --head "$HEAD_BRANCH" --state open \
-            --json number,headRefOid,author --jq '.[0]')
-          if [ -z "$PR_DATA" ] || [ "$PR_DATA" = "null" ]; then
+          PR_NUMBER=$(gh pr list --repo "$REPO" --head "$HEAD_BRANCH" --state open \
+            --json number --jq '.[0].number // empty')
+          if [ -z "$PR_NUMBER" ]; then
             echo "No open PR for $HEAD_BRANCH; nothing to do"
             exit 0
           fi
 
-          PR_NUMBER=$(echo "$PR_DATA" | jq -r '.number')
-          PR_AUTHOR=$(echo "$PR_DATA" | jq -r '.author.login')
-          PR_HEAD=$(echo "$PR_DATA" | jq -r '.headRefOid')
+          PR_INFO=$(gh api "repos/$REPO/pulls/$PR_NUMBER")
+          PR_AUTHOR=$(echo "$PR_INFO" | jq -r '.user.login')
+          PR_HEAD=$(echo "$PR_INFO" | jq -r '.head.sha')
+          COMMIT_COUNT=$(echo "$PR_INFO" | jq -r '.commits')
 
-          if [ "$PR_AUTHOR" != "glycemicgpt-renovate[bot]" ] && [ "$PR_AUTHOR" != "app/glycemicgpt-renovate" ]; then
+          if [ "$PR_AUTHOR" != "glycemicgpt-renovate[bot]" ]; then
             echo "PR #$PR_NUMBER author is not Renovate ($PR_AUTHOR); skipping"
             exit 0
           fi
@@ -118,12 +119,19 @@ jobs:
             exit 0
           fi
 
-          # Refuse if any commit was not authored by Renovate: a bypass merge
-          # must never carry human-pushed commits past the review requirement.
-          FOREIGN_AUTHORS=$(gh pr view "$PR_NUMBER" --repo "$REPO" --json commits \
-            --jq '[.commits[].authors[].login | select(. != "glycemicgpt-renovate[bot]")] | length')
-          if [ "$FOREIGN_AUTHORS" -ne 0 ]; then
-            echo "::notice::PR #$PR_NUMBER has non-Renovate commits; leaving it for human review"
+          if [ "$COMMIT_COUNT" -gt 100 ]; then
+            echo "::notice::PR #$PR_NUMBER has $COMMIT_COUNT commits; leaving it for human review"
+            exit 0
+          fi
+
+          # A bypass merge must never carry human-pushed commits past the review
+          # requirement. Author login alone is forgeable via the author email, so
+          # require GitHub's signature verification (Renovate commits are
+          # app-signed) in addition to the bot author on every commit.
+          BAD_COMMITS=$(gh api "repos/$REPO/pulls/$PR_NUMBER/commits?per_page=100" \
+            --jq '[.[] | select(((.author.login // "") != "glycemicgpt-renovate[bot]") or (.commit.verification.verified != true))] | length')
+          if [ "$BAD_COMMITS" -ne 0 ]; then
+            echo "::notice::PR #$PR_NUMBER has commits not verifiably authored by Renovate; leaving it for human review"
             exit 0
           fi
 
