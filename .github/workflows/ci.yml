@@ -7,6 +7,8 @@ on:
 
 jobs:
   check:
+    # This job name is the required status check on main and is consumed by
+    # renovate-automerge.yml's merge gate — do not rename it casually.
     name: Lint, Type Check & Build
     runs-on: ubuntu-latest
     steps:

@@ -1,58 +1,121 @@
-name: Renovate Auto-Approve
+name: Renovate Auto-Merge
 
+# workflow_run always executes the default-branch version of this file, so a
+# PR cannot substitute its own steps into a job that can mint the merge-app
+# token. Never add a pull_request trigger here: pull_request events run the
+# PR-head copy of the workflow with secrets in scope, which would hand the
+# ruleset-bypass credential to anyone who can push to a renovate/* branch.
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
 
 permissions: {}
 
+# Why a direct merge instead of arming auto-merge: armed auto-merge never
+# fires on this repo because the org "Protect main" ruleset requires a
+# code-owner review, which the merge app's approval cannot satisfy (apps
+# cannot be code owners). The app is a ruleset bypass actor, so this job
+# enforces the required "Lint, Type Check & Build" check itself: it only runs
+# when the CI workflow_run containing that check concluded SUCCESS, re-checks
+# the check runs inside that exact check suite, and pins the merge to the
+# verified head SHA.
 jobs:
-  auto-approve:
-    name: Approve & Enable Auto-Merge
+  merge-on-green:
+    name: Merge on green CI
     runs-on: ubuntu-latest
-    # Only run for Renovate PRs (use PR author, not actor, so reopens by maintainers still trigger)
-    if: github.event.pull_request.user.login == 'glycemicgpt-renovate[bot]'
+    # workflow_run.path (not the display name) identifies the real CI
+    # workflow: a look-alike workflow named "CI" must not open the gate.
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.path == '.github/workflows/ci.yml' &&
+      startsWith(github.event.workflow_run.head_branch, 'renovate/')
     permissions: {}
 
     steps:
+      # SHA-pinned (unlike the tag-pinned actions elsewhere in this repo)
+      # because this step mints the token for a ruleset-bypass actor: a
+      # mutated tag here could exfiltrate a merge-anything credential.
       - name: Generate token for glycemicgpt-merge
         id: merge-token
-        uses: actions/create-github-app-token@v3
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         with:
           app-id: ${{ secrets.MERGE_APP_ID }}
           private-key: ${{ secrets.MERGE_APP_PRIVATE_KEY }}
 
-      - name: Validate PR is from Renovate
+      - name: Approve and merge Renovate PR at the verified SHA
         env:
           GH_TOKEN: ${{ steps.merge-token.outputs.token }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+          HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
+          CHECK_SUITE_ID: ${{ github.event.workflow_run.check_suite_id }}
         run: |
-          PR_DATA=$(gh pr view "$PR_NUMBER" --repo ${{ github.repository }} --json author,headRefName)
-          PR_AUTHOR=$(echo "$PR_DATA" | jq -r '.author.login')
-          PR_BRANCH=$(echo "$PR_DATA" | jq -r '.headRefName')
+          # Every guard below must fail CLOSED: abort on any API error rather
+          # than falling through with an empty value.
+          set -euo pipefail
 
-          if [ "$PR_AUTHOR" != "glycemicgpt-renovate[bot]" ] && [ "$PR_AUTHOR" != "app/glycemicgpt-renovate" ]; then
-            echo "::error::PR author is not Renovate: $PR_AUTHOR"
+          # Resolve the PR by exact head SHA, not just branch name, so a
+          # same-named fork branch can never be selected.
+          PR_NUMBER=$(gh pr list --repo "$REPO" --head "$HEAD_BRANCH" --state open \
+            --json number,headRefOid | jq -r --arg sha "$HEAD_SHA" \
+            '[.[] | select(.headRefOid == $sha)][0].number // empty')
+          if [ -z "$PR_NUMBER" ]; then
+            echo "No open PR at $HEAD_BRANCH@$HEAD_SHA; nothing to do"
+            exit 0
+          fi
+
+          PR_INFO=$(gh api "repos/$REPO/pulls/$PR_NUMBER")
+          PR_AUTHOR=$(echo "$PR_INFO" | jq -r '.user.login')
+          PR_HEAD=$(echo "$PR_INFO" | jq -r '.head.sha')
+          PR_BASE=$(echo "$PR_INFO" | jq -r '.base.ref')
+          COMMIT_COUNT=$(echo "$PR_INFO" | jq -r '.commits')
+
+          if [ "$PR_AUTHOR" != "glycemicgpt-renovate[bot]" ]; then
+            echo "PR #$PR_NUMBER author is not Renovate ($PR_AUTHOR); skipping"
+            exit 0
+          fi
+
+          if [ "$PR_BASE" != "main" ]; then
+            echo "PR #$PR_NUMBER does not target main ($PR_BASE); skipping"
+            exit 0
+          fi
+
+          if [ "$PR_HEAD" != "$HEAD_SHA" ]; then
+            echo "PR #$PR_NUMBER head moved ($PR_HEAD != $HEAD_SHA); a newer CI run will handle it"
+            exit 0
+          fi
+
+          if [ "$COMMIT_COUNT" -gt 100 ]; then
+            echo "::notice::PR #$PR_NUMBER has $COMMIT_COUNT commits; leaving it for human review"
+            exit 0
+          fi
+
+          # A bypass merge must never carry human-pushed commits past the
+          # review requirement. Author login alone is forgeable via the author
+          # email, so require GitHub's signature verification in addition to
+          # the bot author on every commit. Renovate commits are app-signed;
+          # if Renovate is ever reconfigured to push unsigned commits, merging
+          # stops here (fail-closed) — revisit this guard in that case.
+          BAD_COMMITS=$(gh api "repos/$REPO/pulls/$PR_NUMBER/commits?per_page=100" \
+            --jq '[.[] | select(((.author.login // "") != "glycemicgpt-renovate[bot]") or (.commit.verification.verified != true))] | length')
+          if [ "$BAD_COMMITS" -ne 0 ]; then
+            echo "::notice::PR #$PR_NUMBER has commits not verifiably authored by Renovate; leaving it for human review"
+            exit 0
+          fi
+
+          # Belt and braces: the required check must be green inside the
+          # triggering run's own check suite (a same-named check run posted by
+          # anything else lands in a different suite and cannot open the gate).
+          LINT_GREEN=$(gh api -X GET "repos/$REPO/check-suites/$CHECK_SUITE_ID/check-runs" \
+            -f check_name='Lint, Type Check & Build' -f per_page=100 | \
+            jq -r --arg sha "$HEAD_SHA" \
+            '[.check_runs[] | select(.name == "Lint, Type Check & Build")] | (length >= 1) and all(.head_sha == $sha and .conclusion == "success")')
+          if [ "$LINT_GREEN" != "true" ]; then
+            echo "::error::Required check is not green on $HEAD_SHA in check suite $CHECK_SUITE_ID; refusing to merge"
             exit 1
           fi
 
-          if [[ "$PR_BRANCH" != renovate/* ]]; then
-            echo "::error::PR branch does not match renovate prefix: $PR_BRANCH"
-            exit 1
-          fi
-
-          echo "Validated: PR #$PR_NUMBER by $PR_AUTHOR on branch $PR_BRANCH"
-
-      - name: Approve PR
-        env:
-          GH_TOKEN: ${{ steps.merge-token.outputs.token }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-        run: |
-          gh pr review "$PR_NUMBER" --approve --repo ${{ github.repository }}
-
-      - name: Enable auto-merge
-        env:
-          GH_TOKEN: ${{ steps.merge-token.outputs.token }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-        run: |
-          gh pr merge "$PR_NUMBER" --auto --squash --repo ${{ github.repository }}
+          gh pr review "$PR_NUMBER" --approve --repo "$REPO"
+          gh pr merge "$PR_NUMBER" --squash --repo "$REPO" --match-head-commit "$HEAD_SHA"
