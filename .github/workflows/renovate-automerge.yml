@@ -48,12 +48,10 @@ jobs:
           app-id: ${{ secrets.MERGE_APP_ID }}
           private-key: ${{ secrets.MERGE_APP_PRIVATE_KEY }}
           # write: approve + squash-merge the PR. read: the guard reads check
-          # runs and commit statuses (required on a private repo, and correct
-          # least-privilege here).
+          # runs (required on a private repo, and correct least-privilege).
           permission-contents: write
           permission-pull-requests: write
           permission-checks: read
-          permission-statuses: read
 
       - name: Approve and merge Renovate PR at the verified SHA
         env:
