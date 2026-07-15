@@ -1,5 +1,7 @@
-# Default: maintainers team reviews all changes
-* @GlycemicGPT/maintainers
+# Default: web maintainers own the website; the project lead is
+# co-listed so code-owner review can be satisfied regardless of which
+# party authors the PR.
+* @lumose-health/web @jlengelbrecht
 
 # Governance and project config: project lead only
 CONTRIBUTING.md @jlengelbrecht
