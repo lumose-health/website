@@ -1,5 +1,24 @@
 # Changelog
 
+## 2026-07-15
+
+### 🏗️ Infrastructure
+
+#### 📝 Other Changes
+
+- chore: point CODEOWNERS at the lumose-health web team [@jlengelbrecht](https://github.com/jlengelbrecht) ([#216](https://github.com/lumose-health/website/pull/216))
+
+### 📦 Dependencies
+
+- chore(deps): update dependency tsx to v4.23.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#214](https://github.com/lumose-health/website/pull/214))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#215](https://github.com/lumose-health/website/pull/215))
+
+<!-- changelog-cutoff:2026-07-15T03:00:48Z -->
+
+
 ## 2026-07-14
 
 ### 📦 Dependencies
