@@ -248,16 +248,18 @@ coderabbit review --plain --type committed --base main
 2. **CodeRabbit review** -- AI-powered code review runs automatically, posting findings and suggestions
 3. **Lighthouse audit** -- scores for performance, accessibility, best practices, and SEO are posted as a PR comment
 4. **Preview deployment** -- a live preview of your PR is deployed to `https://pr-<N>.glycemicgpt.pages.dev` (where `<N>` is your PR number). The URL is posted as a PR comment by `glycemicgpt-ci[bot]`. Every push to your PR updates the same URL. See [Preview Deployments](#preview-deployments) for details.
-5. **Code owner review** -- a maintainer reviews your PR
-6. **Merge** -- once approved and CI passes, a maintainer squash-merges your PR
+5. **Code owner review** -- the project lead reviews your PR; web maintainers may review too, and their review informs the lead's approval
+6. **Merge** -- once approved and CI passes, the project lead squash-merges your PR
 
-> **Note for first-time contributors:** PRs from forks require a maintainer to approve workflow runs before any CI executes -- this is a repo security setting that blocks drive-by abuse. If your PR has no green checks and no red Xs, it's not stuck; it's waiting for a maintainer to click "Approve and run". Typically resolved within a day; ping in [Discussions](https://github.com/GlycemicGPT/website/discussions) if it's been longer.
+> **Note for first-time contributors:** PRs from forks require the project lead to approve workflow runs before any CI executes -- this is a repo security setting that blocks drive-by abuse. If your PR has no green checks and no red Xs, it's not stuck; it's waiting for the project lead to click "Approve and run". Typically resolved within a day; ping in [Discussions](https://github.com/lumose-health/GlycemicGPT/discussions) if it's been longer.
+
+> **Why everything comes in from forks:** no one other than the project lead holds write (push) access to this repository -- maintainers included. This is an org-wide security policy (GitHub runs a same-repo PR's workflow files from the PR head with repository secrets in scope, before any human review), not a statement about trust in any contributor. See the [GlycemicGPT governance doc](https://github.com/lumose-health/GlycemicGPT/blob/develop/GOVERNANCE.md) for the full reasoning.
 
 <a id="preview-deployments"></a>
 
 ### Preview Deployments
 
-When you open a PR from a branch on this repository (not a fork), the CI workflow deploys a live preview of your changes to Cloudflare Pages at a unique URL:
+When a PR is opened from a branch on this repository (not a fork -- in practice only the project lead's PRs, since all contributions arrive from forks), the CI workflow deploys a live preview of the changes to Cloudflare Pages at a unique URL:
 
 ```text
 https://pr-<N>.glycemicgpt.pages.dev
