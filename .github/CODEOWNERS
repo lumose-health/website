@@ -1,5 +1,7 @@
-# Default: maintainers team reviews all changes
-* @GlycemicGPT/maintainers
+# Default: project lead. Code owners must hold Write; only the lead
+# does (fork-based contribution model -- see GOVERNANCE.md in the main
+# GlycemicGPT repo), so ownership cannot be the web team here.
+* @jlengelbrecht
 
 # Governance and project config: project lead only
 CONTRIBUTING.md @jlengelbrecht

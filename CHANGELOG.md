@@ -1,5 +1,104 @@
 # Changelog
 
+## 2026-07-16
+
+### 📦 Dependencies
+
+- chore(deps): update dependency fumadocs-ui to v16.11.4 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#224](https://github.com/lumose-health/website/pull/224))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#225](https://github.com/lumose-health/website/pull/225))
+
+<!-- changelog-cutoff:2026-07-16T19:16:48Z -->
+
+
+## 2026-07-16
+
+### 🏗️ Infrastructure
+
+#### 📝 Other Changes
+
+- chore(ci): read CLOUDFLARE_ACCOUNT_ID from Actions variables [@jlengelbrecht](https://github.com/jlengelbrecht) ([#222](https://github.com/lumose-health/website/pull/222))
+- chore(deps): update renovatebot/github-action action to v46.1.19 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#220](https://github.com/lumose-health/website/pull/220))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#221](https://github.com/lumose-health/website/pull/221))
+
+<!-- changelog-cutoff:2026-07-16T13:57:39Z -->
+
+
+## 2026-07-16
+
+### 📚 Documentation
+
+- docs(governance): adopt fork-based contribution model [@jlengelbrecht](https://github.com/jlengelbrecht) ([#218](https://github.com/lumose-health/website/pull/218))
+
+### 🏗️ Infrastructure
+
+#### 📝 Other Changes
+
+- chore(deps): update renovatebot/github-action action to v46.1.19 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#220](https://github.com/lumose-health/website/pull/220))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#219](https://github.com/lumose-health/website/pull/219))
+
+<!-- changelog-cutoff:2026-07-16T02:45:51Z -->
+
+
+## 2026-07-16
+
+### 📚 Documentation
+
+- docs(governance): adopt fork-based contribution model [@jlengelbrecht](https://github.com/jlengelbrecht) ([#218](https://github.com/lumose-health/website/pull/218))
+
+### 🏗️ Infrastructure
+
+#### 📝 Other Changes
+
+- chore: point CODEOWNERS at the lumose-health web team [@jlengelbrecht](https://github.com/jlengelbrecht) ([#216](https://github.com/lumose-health/website/pull/216))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#217](https://github.com/lumose-health/website/pull/217))
+
+<!-- changelog-cutoff:2026-07-16T02:21:40Z -->
+
+
+## 2026-07-15
+
+### 🏗️ Infrastructure
+
+#### 📝 Other Changes
+
+- chore: point CODEOWNERS at the lumose-health web team [@jlengelbrecht](https://github.com/jlengelbrecht) ([#216](https://github.com/lumose-health/website/pull/216))
+
+### 📦 Dependencies
+
+- chore(deps): update dependency tsx to v4.23.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#214](https://github.com/lumose-health/website/pull/214))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#215](https://github.com/lumose-health/website/pull/215))
+
+<!-- changelog-cutoff:2026-07-15T03:00:48Z -->
+
+
+## 2026-07-14
+
+### 📦 Dependencies
+
+- fix(deps): replace dependency framer-motion with motion ^12.38.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#211](https://github.com/GlycemicGPT/website/pull/211))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#212](https://github.com/GlycemicGPT/website/pull/212))
+
+<!-- changelog-cutoff:2026-07-14T19:38:29Z -->
+
+
 ## 2026-07-14
 
 ### 🏗️ Infrastructure
