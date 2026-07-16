@@ -2,6 +2,22 @@
 
 ## 2026-07-16
 
+### 🏗️ Infrastructure
+
+#### 📝 Other Changes
+
+- chore(ci): read CLOUDFLARE_ACCOUNT_ID from Actions variables [@jlengelbrecht](https://github.com/jlengelbrecht) ([#222](https://github.com/lumose-health/website/pull/222))
+- chore(deps): update renovatebot/github-action action to v46.1.19 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#220](https://github.com/lumose-health/website/pull/220))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#221](https://github.com/lumose-health/website/pull/221))
+
+<!-- changelog-cutoff:2026-07-16T13:57:39Z -->
+
+
+## 2026-07-16
+
 ### 📚 Documentation
 
 - docs(governance): adopt fork-based contribution model [@jlengelbrecht](https://github.com/jlengelbrecht) ([#218](https://github.com/lumose-health/website/pull/218))
