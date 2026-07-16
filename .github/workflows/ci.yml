@@ -54,7 +54,7 @@ jobs:
         uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy out --project-name=glycemicgpt --branch=pr-${{ github.event.number }} --commit-hash=${{ github.event.pull_request.head.sha }}
 
       - name: Generate token for glycemicgpt-ci (preview comment)
