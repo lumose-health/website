@@ -1,5 +1,30 @@
 # Changelog
 
+## 2026-07-18
+
+### 🏗️ Infrastructure
+
+#### 💥 Breaking Changes
+
+- chore(deps): update actions/setup-node action to v7 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#227](https://github.com/lumose-health/website/pull/227))
+
+#### 📝 Other Changes
+
+- ci(security): gate the RELEASE app key behind the release-gated environment [@jlengelbrecht](https://github.com/jlengelbrecht) ([#229](https://github.com/lumose-health/website/pull/229))
+
+### 📦 Dependencies
+
+- chore(deps): update dependency fumadocs-mdx to v15.2.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#232](https://github.com/lumose-health/website/pull/232))
+- chore(deps): update dependency fumadocs-ui to v16.11.5 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#231](https://github.com/lumose-health/website/pull/231))
+- chore(deps): lock file maintenance [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#230](https://github.com/lumose-health/website/pull/230))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#228](https://github.com/lumose-health/website/pull/228))
+
+<!-- changelog-cutoff:2026-07-18T19:10:23Z -->
+
+
 ## 2026-07-17
 
 ### 📦 Dependencies
