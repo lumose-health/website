@@ -107,7 +107,7 @@ export default function ContactPage() {
         GlycemicGPT is free and open source. If you would like to help sustain
         development, you can contribute on{" "}
         <a
-          href="https://opencollective.com/glycemicgpt"
+          href="https://opencollective.com/lumose"
           target="_blank"
           rel="noopener noreferrer"
         >

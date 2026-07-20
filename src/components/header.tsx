@@ -14,7 +14,7 @@ const navLinks = [
   { label: "Docs", href: "/docs" },
   { label: "Getting Started", href: "/#getting-started" },
   { label: "Discord", href: "https://discord.gg/QbyhCQKDBs", external: true },
-  { label: "Open Collective", href: "https://opencollective.com/glycemicgpt", external: true },
+  { label: "Open Collective", href: "https://opencollective.com/lumose", external: true },
   { label: "GitHub", href: "https://github.com/GlycemicGPT/GlycemicGPT", external: true },
 ];
 
