@@ -37,12 +37,12 @@ jobs:
       # SHA-pinned (unlike the tag-pinned actions elsewhere in this repo)
       # because this step mints the token for a ruleset-bypass actor: a
       # mutated tag here could exfiltrate a merge-anything credential.
-      - name: Generate token for glycemicgpt-merge
+      - name: Generate token for lumose-web-merge
         id: merge-token
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         with:
-          app-id: ${{ secrets.MERGE_APP_ID }}
-          private-key: ${{ secrets.MERGE_APP_PRIVATE_KEY }}
+          app-id: ${{ secrets.WEB_MERGE_APP_ID }}
+          private-key: ${{ secrets.WEB_MERGE_APP_PRIVATE_KEY }}
 
       - name: Approve and merge Renovate PR at the verified SHA
         env:
