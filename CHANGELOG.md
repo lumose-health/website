@@ -1,5 +1,35 @@
 # Changelog
 
+## 2026-07-20
+
+### 🌐 Website
+
+#### 🐛 Bug Fixes
+
+- fix: rebrand Open Collective to lumose and host funding manifest on the site [@jlengelbrecht](https://github.com/jlengelbrecht) ([#239](https://github.com/lumose-health/website/pull/239))
+
+### 🏗️ Infrastructure
+
+#### 📝 Other Changes
+
+- ci: mint the renovate auto-merge token from the web-merge app [@jlengelbrecht](https://github.com/jlengelbrecht) ([#236](https://github.com/lumose-health/website/pull/236))
+- ci: gate changelog merge job behind release-gated environment [@jlengelbrecht](https://github.com/jlengelbrecht) ([#234](https://github.com/lumose-health/website/pull/234))
+
+### 📦 Dependencies
+
+- chore(deps): update dependency shadcn to v4.13.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#240](https://github.com/lumose-health/website/pull/240))
+- chore(deps): lock file maintenance [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#238](https://github.com/lumose-health/website/pull/238))
+- chore(deps): update dependency lucide-react to v1.25.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#237](https://github.com/lumose-health/website/pull/237))
+- chore(deps): update tailwind css to v4.3.3 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#235](https://github.com/lumose-health/website/pull/235))
+- chore(deps): update dependency fumadocs-mdx to v15.2.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#232](https://github.com/lumose-health/website/pull/232))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#233](https://github.com/lumose-health/website/pull/233))
+
+<!-- changelog-cutoff:2026-07-20T19:48:44Z -->
+
+
 ## 2026-07-18
 
 ### 🏗️ Infrastructure
