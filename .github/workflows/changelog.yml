@@ -1,9 +1,18 @@
 name: Changelog
 
+# push:main is the ONLY trigger by design. The release-gated environment
+# is reviewerless by verified isolation (ISOLATION_REVIEWERLESS_ENVS in
+# the monorepo's check-secret-invariants.py), and its deployment branch
+# policy binds the REF, not the actor -- a workflow_dispatch on ref=main
+# would pass the main-only policy and hand the gated run to any actor
+# who can dispatch. Re-adding workflow_dispatch here turns the org
+# secrets audit red (MI-1). To regenerate the changelog manually,
+# re-run the MOST RECENT push run from the UI (an older run's event
+# carries a stale UNTIL boundary against the current checkout) or land
+# a merge to main.
 on:
   push:
     branches: [main]
-  workflow_dispatch:
 
 permissions: {}
 
@@ -11,8 +20,10 @@ jobs:
   changelog:
     name: Update CHANGELOG.md
     runs-on: ubuntu-latest
-    # The RELEASE app key exists only as a secret in this approval-gated
-    # environment (no plain org/repo copy).
+    # The RELEASE app key exists only as a secret in this environment
+    # (no plain org/repo copy). Reviewerless by verified isolation: the
+    # key resolves only for push:main runs of the workflow copy on main
+    # (see the trigger note above), so the job proceeds unattended.
     environment: release-gated
     permissions: {}
     outputs:
@@ -25,15 +36,24 @@ jobs:
       !contains(github.event.head_commit.message, 'chore: release')
 
     steps:
+      # SHA-pinned (like renovate-automerge.yml) because these steps
+      # handle the RELEASE key and its minted token in a reviewerless
+      # environment: a mutated tag could exfiltrate the credential.
+      # Token downscoped to what this job does (push the changelog
+      # branch, open the PR); without permission-* inputs the token
+      # would inherit every installation permission, including an
+      # issues:write this workflow never uses.
       - name: Generate token for glycemicgpt-release
         id: release-token
-        uses: actions/create-github-app-token@v3
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         with:
           app-id: ${{ secrets.RELEASE_APP_ID }}
           private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
 
       - name: Checkout main
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: main
           token: ${{ steps.release-token.outputs.token }}
@@ -220,21 +240,30 @@ jobs:
     name: Merge Changelog PR
     runs-on: ubuntu-latest
     permissions: {}
-    # MERGE is a gated env secret now. This job mints MERGE to merge the
-    # changelog PR, so it declares the environment and pauses for
-    # approval. Pause-tolerant: runs on push:main after a merge to main
-    # (human present).
+    # MERGE is a gated env secret. This job mints MERGE to merge the
+    # changelog PR, so it declares the environment; like the changelog
+    # job above it runs unattended on push:main under the
+    # verified-isolation posture.
     environment: release-gated
     needs: changelog
     if: needs.changelog.outputs.has_changes == 'true' && needs.changelog.outputs.pr_number != ''
 
     steps:
+      # SHA-pinned: this step mints MERGE, a durable org-ruleset bypass.
+      # Explicit permission pin: approve needs pull-requests write, and
+      # the REST merge endpoint needs contents write as well (dropping
+      # contents breaks the merge -- lumose-web-merge, which performs
+      # the identical approve+merge, is provisioned exactly this pair).
+      # Explicit inputs keep the token scoped even if the installation
+      # ever gains more permissions.
       - name: Generate token for glycemicgpt-merge
         id: merge-token
-        uses: actions/create-github-app-token@v3
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         with:
           app-id: ${{ secrets.MERGE_APP_ID }}
           private-key: ${{ secrets.MERGE_APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
 
       - name: Validate and merge changelog PR
         env:

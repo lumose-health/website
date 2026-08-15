@@ -43,6 +43,13 @@ jobs:
         with:
           app-id: ${{ secrets.WEB_MERGE_APP_ID }}
           private-key: ${{ secrets.WEB_MERGE_APP_PRIVATE_KEY }}
+          # Explicit downscope (the installation holds exactly this
+          # pair, audited by the monorepo's WEB_MERGE confinement
+          # check): approve needs pull-requests write, the REST merge
+          # needs contents write. Explicit inputs keep the token
+          # scoped even if the installation ever gains more.
+          permission-contents: write
+          permission-pull-requests: write
 
       - name: Approve and merge Renovate PR at the verified SHA
         env:
@@ -89,6 +96,38 @@ jobs:
 
           if [ "$COMMIT_COUNT" -gt 100 ]; then
             echo "::notice::PR #$PR_NUMBER has $COMMIT_COUNT commits; leaving it for human review"
+            exit 0
+          fi
+
+          # The release-gate isolation argument (ISOLATION_REVIEWERLESS_ENVS
+          # in the monorepo's check-secret-invariants.py) names main's
+          # code-owner review as the content checkpoint on everything that
+          # can shape a release-gated run. This app is a ruleset-bypass
+          # actor, so it must never carry a change under .github/ --
+          # workflows (including the gated changelog.yml), Renovate's
+          # config, or this workflow's own guards -- past that review.
+          # Those PRs are left for the lead's code-owner approval. The
+          # count is bounded first so the single-page files read below
+          # cannot silently truncate past a .github/ change. A rename is
+          # reported under its NEW path, so previous_filename is fenced
+          # too (moving .github/CODEOWNERS out would otherwise slip
+          # through), and the root/docs CODEOWNERS locations are fenced
+          # so the guard does not rest on GitHub's lookup order.
+          CHANGED_FILES=$(echo "$PR_INFO" | jq -r '.changed_files')
+          if [ "$CHANGED_FILES" -gt 100 ]; then
+            echo "::notice::PR #$PR_NUMBER changes $CHANGED_FILES files; leaving it for human review"
+            exit 0
+          fi
+          FENCED_FILES=$(gh api "repos/$REPO/pulls/$PR_NUMBER/files?per_page=100" \
+            --jq '[.[] | select(
+                    ((.filename // "")          | startswith(".github/")) or
+                    ((.previous_filename // "") | startswith(".github/")) or
+                    (.filename == "CODEOWNERS") or (.filename == "docs/CODEOWNERS") or
+                    (.previous_filename == "CODEOWNERS") or
+                    (.previous_filename == "docs/CODEOWNERS")
+                  )] | length')
+          if [ "$FENCED_FILES" -ne 0 ]; then
+            echo "::notice::PR #$PR_NUMBER touches .github/ or a CODEOWNERS location; leaving it for the lead's code-owner review"
             exit 0
           fi
 
