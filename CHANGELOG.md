@@ -1,5 +1,97 @@
 # Changelog
 
+## 2026-08-15
+
+### 🌐 Website
+
+#### 🐛 Bug Fixes
+
+- fix: rebrand Open Collective to lumose and host funding manifest on the site [@jlengelbrecht](https://github.com/jlengelbrecht) ([#239](https://github.com/lumose-health/website/pull/239))
+
+### 🏗️ Infrastructure
+
+#### 📝 Other Changes
+
+- ci: close changelog dispatch reachability and fence auto-merge off .github/ [@jlengelbrecht](https://github.com/jlengelbrecht) ([#304](https://github.com/lumose-health/website/pull/304))
+- chore(deps): update renovatebot/github-action action to v46.2.2 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#299](https://github.com/lumose-health/website/pull/299))
+- chore(deps): update renovatebot/github-action action to v46.2.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#278](https://github.com/lumose-health/website/pull/278))
+- chore(deps): update renovatebot/github-action action to v46.2.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#268](https://github.com/lumose-health/website/pull/268))
+- chore(deps): update renovatebot/github-action action to v46.1.21 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#263](https://github.com/lumose-health/website/pull/263))
+- chore(deps): update renovatebot/github-action action to v46.1.20 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#242](https://github.com/lumose-health/website/pull/242))
+- ci: mint the renovate auto-merge token from the web-merge app [@jlengelbrecht](https://github.com/jlengelbrecht) ([#236](https://github.com/lumose-health/website/pull/236))
+- ci: gate changelog merge job behind release-gated environment [@jlengelbrecht](https://github.com/jlengelbrecht) ([#234](https://github.com/lumose-health/website/pull/234))
+
+### 📦 Dependencies
+
+- chore(deps): lock file maintenance [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#305](https://github.com/lumose-health/website/pull/305))
+- chore(deps): lock file maintenance [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#303](https://github.com/lumose-health/website/pull/303))
+- chore(deps): update dependency shadcn to v4.17.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#302](https://github.com/lumose-health/website/pull/302))
+- chore(deps): update dependency motion to v13.1.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#301](https://github.com/lumose-health/website/pull/301))
+- chore(deps): update dependency tsx to v4.23.12 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#300](https://github.com/lumose-health/website/pull/300))
+- chore(deps): update dependency lucide-react to v1.31.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#298](https://github.com/lumose-health/website/pull/298))
+- chore(deps): update dependency fumadocs-ui to v16.14.3 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#297](https://github.com/lumose-health/website/pull/297))
+- chore(deps): update dependency fumadocs-mdx to v15.2.3 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#296](https://github.com/lumose-health/website/pull/296))
+- chore(deps): update dependency fumadocs-ui to v16.14.2 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#295](https://github.com/lumose-health/website/pull/295))
+- chore(deps): update dependency lucide-react to v1.30.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#294](https://github.com/lumose-health/website/pull/294))
+- chore(deps): update dependency tsx to v4.23.11 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#293](https://github.com/lumose-health/website/pull/293))
+- chore(deps): update dependency tsx to v4.23.10 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#292](https://github.com/lumose-health/website/pull/292))
+- chore(deps): update dependency lucide-react to v1.29.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#291](https://github.com/lumose-health/website/pull/291))
+- chore(deps): update dependency shadcn to v4.16.2 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#290](https://github.com/lumose-health/website/pull/290))
+- chore(deps): update dependency fumadocs-ui to v16.14.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#289](https://github.com/lumose-health/website/pull/289))
+- chore(deps): update dependency tsx to v4.23.9 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#288](https://github.com/lumose-health/website/pull/288))
+- chore(deps): update dependency tsx to v4.23.8 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#287](https://github.com/lumose-health/website/pull/287))
+- chore(deps): lock file maintenance [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#286](https://github.com/lumose-health/website/pull/286))
+- fix(deps): update dependency motion to v13 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#285](https://github.com/lumose-health/website/pull/285))
+- chore(deps): lock file maintenance [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#284](https://github.com/lumose-health/website/pull/284))
+- chore(deps): update dependency tsx to v4.23.7 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#283](https://github.com/lumose-health/website/pull/283))
+- chore(deps): update dependency tsx to v4.23.6 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#282](https://github.com/lumose-health/website/pull/282))
+- chore(deps): update dependency @base-ui/react to v1.7.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#281](https://github.com/lumose-health/website/pull/281))
+- fix(deps): update dependency next to v16.3.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#280](https://github.com/lumose-health/website/pull/280))
+- chore(deps): update dependency eslint-config-next to v16.3.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#279](https://github.com/lumose-health/website/pull/279))
+- chore(deps): update dependency tsx to v4.23.5 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#277](https://github.com/lumose-health/website/pull/277))
+- chore(deps): update dependency tsx to v4.23.4 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#276](https://github.com/lumose-health/website/pull/276))
+- chore(deps): update dependency fumadocs-mdx to v15.2.2 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#275](https://github.com/lumose-health/website/pull/275))
+- chore(deps): update dependency js-yaml to v5.2.3 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#274](https://github.com/lumose-health/website/pull/274))
+- chore(deps): update dependency shadcn to v4.16.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#273](https://github.com/lumose-health/website/pull/273))
+- chore(deps): update typescript type definitions to v19.2.18 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#272](https://github.com/lumose-health/website/pull/272))
+- chore(deps): update dependency fumadocs-ui to v16.14.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#271](https://github.com/lumose-health/website/pull/271))
+- chore(deps): update dependency fumadocs-mdx to v15.2.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#270](https://github.com/lumose-health/website/pull/270))
+- chore(deps): update dependency lucide-react to v1.28.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#269](https://github.com/lumose-health/website/pull/269))
+- chore(deps): lock file maintenance [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#267](https://github.com/lumose-health/website/pull/267))
+- chore(deps): update dependency motion to v12.43.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#266](https://github.com/lumose-health/website/pull/266))
+- chore(deps): update dependency shadcn to v4.16.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#265](https://github.com/lumose-health/website/pull/265))
+- chore(deps): update dependency fumadocs-ui to v16.13.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#264](https://github.com/lumose-health/website/pull/264))
+- chore(deps): update dependency lucide-react to v1.27.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#262](https://github.com/lumose-health/website/pull/262))
+- fix(deps): update dependency next to v16.2.12 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#261](https://github.com/lumose-health/website/pull/261))
+- chore(deps): update dependency eslint-config-next to v16.2.12 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#260](https://github.com/lumose-health/website/pull/260))
+- chore(deps): update dependency shadcn to v4.15.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#259](https://github.com/lumose-health/website/pull/259))
+- chore(deps): update dependency recharts to v3.10.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#258](https://github.com/lumose-health/website/pull/258))
+- chore(deps): update dependency tar to v7.5.22 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#257](https://github.com/lumose-health/website/pull/257))
+- chore(deps): update dependency js-yaml to v5.2.2 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#256](https://github.com/lumose-health/website/pull/256))
+- chore(deps): update dependency shadcn to v4.14.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#255](https://github.com/lumose-health/website/pull/255))
+- chore(deps): update dependency fumadocs-ui to v16.12.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#254](https://github.com/lumose-health/website/pull/254))
+- chore(deps): update dependency lucide-react to v1.26.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#253](https://github.com/lumose-health/website/pull/253))
+- chore(deps): update dependency fumadocs-ui to v16.12.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#252](https://github.com/lumose-health/website/pull/252))
+- chore(deps): update dependency shadcn to v4.14.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#251](https://github.com/lumose-health/website/pull/251))
+- chore(deps): lock file maintenance [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#250](https://github.com/lumose-health/website/pull/250))
+- fix(deps): update react monorepo to v19.2.8 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#248](https://github.com/lumose-health/website/pull/248))
+- fix(deps): update dependency next to v16.2.11 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#247](https://github.com/lumose-health/website/pull/247))
+- chore(deps): update dependency tar to v7.5.21 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#246](https://github.com/lumose-health/website/pull/246))
+- chore(deps): update dependency eslint-config-next to v16.2.11 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#245](https://github.com/lumose-health/website/pull/245))
+- chore(deps): update dependency recharts to v3.10.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#243](https://github.com/lumose-health/website/pull/243))
+- chore(deps): update dependency shadcn to v4.13.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#240](https://github.com/lumose-health/website/pull/240))
+- chore(deps): lock file maintenance [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#238](https://github.com/lumose-health/website/pull/238))
+- chore(deps): update dependency lucide-react to v1.25.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#237](https://github.com/lumose-health/website/pull/237))
+- chore(deps): update tailwind css to v4.3.3 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#235](https://github.com/lumose-health/website/pull/235))
+- chore(deps): update dependency fumadocs-mdx to v15.2.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#232](https://github.com/lumose-health/website/pull/232))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#233](https://github.com/lumose-health/website/pull/233))
+
+<!-- changelog-cutoff:2026-08-15T20:06:27Z -->
+
+
 ## 2026-07-18
 
 ### 🏗️ Infrastructure
