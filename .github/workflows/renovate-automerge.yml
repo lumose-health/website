@@ -43,6 +43,13 @@ jobs:
         with:
           app-id: ${{ secrets.WEB_MERGE_APP_ID }}
           private-key: ${{ secrets.WEB_MERGE_APP_PRIVATE_KEY }}
+          # Explicit downscope (the installation holds exactly this
+          # pair, audited by the monorepo's WEB_MERGE confinement
+          # check): approve needs pull-requests write, the REST merge
+          # needs contents write. Explicit inputs keep the token
+          # scoped even if the installation ever gains more.
+          permission-contents: write
+          permission-pull-requests: write
 
       - name: Approve and merge Renovate PR at the verified SHA
         env:
@@ -115,7 +122,9 @@ jobs:
             --jq '[.[] | select(
                     ((.filename // "")          | startswith(".github/")) or
                     ((.previous_filename // "") | startswith(".github/")) or
-                    (.filename == "CODEOWNERS") or (.filename == "docs/CODEOWNERS")
+                    (.filename == "CODEOWNERS") or (.filename == "docs/CODEOWNERS") or
+                    (.previous_filename == "CODEOWNERS") or
+                    (.previous_filename == "docs/CODEOWNERS")
                   )] | length')
           if [ "$FENCED_FILES" -ne 0 ]; then
             echo "::notice::PR #$PR_NUMBER touches .github/ or a CODEOWNERS location; leaving it for the lead's code-owner review"

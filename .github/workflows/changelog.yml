@@ -39,12 +39,18 @@ jobs:
       # SHA-pinned (like renovate-automerge.yml) because these steps
       # handle the RELEASE key and its minted token in a reviewerless
       # environment: a mutated tag could exfiltrate the credential.
+      # Token downscoped to what this job does (push the changelog
+      # branch, open the PR); without permission-* inputs the token
+      # would inherit every installation permission, including an
+      # issues:write this workflow never uses.
       - name: Generate token for glycemicgpt-release
         id: release-token
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         with:
           app-id: ${{ secrets.RELEASE_APP_ID }}
           private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
 
       - name: Checkout main
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -244,12 +250,20 @@ jobs:
 
     steps:
       # SHA-pinned: this step mints MERGE, a durable org-ruleset bypass.
+      # Explicit permission pin: approve needs pull-requests write, and
+      # the REST merge endpoint needs contents write as well (dropping
+      # contents breaks the merge -- lumose-web-merge, which performs
+      # the identical approve+merge, is provisioned exactly this pair).
+      # Explicit inputs keep the token scoped even if the installation
+      # ever gains more permissions.
       - name: Generate token for glycemicgpt-merge
         id: merge-token
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         with:
           app-id: ${{ secrets.MERGE_APP_ID }}
           private-key: ${{ secrets.MERGE_APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
 
       - name: Validate and merge changelog PR
         env:
