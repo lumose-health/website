@@ -1,5 +1,20 @@
 # Changelog
 
+## 2026-08-16
+
+### 🏗️ Infrastructure
+
+#### 📝 Other Changes
+
+- ci: close changelog dispatch reachability and fence auto-merge off .github/ [@jlengelbrecht](https://github.com/jlengelbrecht) ([#304](https://github.com/lumose-health/website/pull/304))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#306](https://github.com/lumose-health/website/pull/306))
+
+<!-- changelog-cutoff:2026-08-16T18:33:10Z -->
+
+
 ## 2026-08-15
 
 ### 🌐 Website
