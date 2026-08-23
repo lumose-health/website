@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-08-23
+
+### 📦 Dependencies
+
+- chore(deps): lock file maintenance [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#323](https://github.com/lumose-health/website/pull/323))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#325](https://github.com/lumose-health/website/pull/325))
+
+<!-- changelog-cutoff:2026-08-23T12:44:55Z -->
+
+
 ## 2026-08-22
 
 ### 📦 Dependencies
