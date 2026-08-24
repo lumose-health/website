@@ -5,6 +5,15 @@
 ### 📦 Dependencies
 
 - chore(deps): update dependency eslint-config-next to v16.3.2 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#328](https://github.com/lumose-health/website/pull/328))
+
+<!-- changelog-cutoff:2026-08-24T12:57:01Z -->
+
+
+## 2026-08-24
+
+### 📦 Dependencies
+
+- chore(deps): update dependency eslint-config-next to v16.3.2 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#328](https://github.com/lumose-health/website/pull/328))
 - chore(deps): update dependency motion to v13.1.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#326](https://github.com/lumose-health/website/pull/326))
 
 ### ❓ Uncategorized
