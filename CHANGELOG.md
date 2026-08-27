@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-08-27
+
+### 📦 Dependencies
+
+- chore(deps): update dependency @types/react-dom to v19.2.5 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#340](https://github.com/lumose-health/website/pull/340))
+- chore(deps): update dependency fumadocs-ui to v16.15.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#338](https://github.com/lumose-health/website/pull/338))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#339](https://github.com/lumose-health/website/pull/339))
+
+<!-- changelog-cutoff:2026-08-27T08:04:29Z -->
+
+
 ## 2026-08-26
 
 ### 📦 Dependencies
