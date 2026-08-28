@@ -4,6 +4,20 @@
 
 ### 📦 Dependencies
 
+- fix(deps): update dependency next to v16.3.3 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#348](https://github.com/lumose-health/website/pull/348))
+- chore(deps): update dependency js-yaml to v5.4.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#345](https://github.com/lumose-health/website/pull/345))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#346](https://github.com/lumose-health/website/pull/346))
+
+<!-- changelog-cutoff:2026-08-28T21:51:37Z -->
+
+
+## 2026-08-28
+
+### 📦 Dependencies
+
 - chore(deps): update dependency lucide-react to v1.34.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#343](https://github.com/lumose-health/website/pull/343))
 
 ### ❓ Uncategorized
