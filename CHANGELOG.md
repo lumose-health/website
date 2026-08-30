@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-08-30
+
+### 📦 Dependencies
+
+- chore(deps): update dependency js-yaml to v5.4.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#355](https://github.com/lumose-health/website/pull/355))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#356](https://github.com/lumose-health/website/pull/356))
+
+<!-- changelog-cutoff:2026-08-30T11:30:15Z -->
+
+
 ## 2026-08-29
 
 ### 📦 Dependencies
