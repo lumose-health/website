@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-09-02
+
+### 📦 Dependencies
+
+- chore(deps): update dependency lucide-react to v1.37.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#365](https://github.com/lumose-health/website/pull/365))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#366](https://github.com/lumose-health/website/pull/366))
+
+<!-- changelog-cutoff:2026-09-02T03:25:36Z -->
+
+
 ## 2026-09-01
 
 ### 📦 Dependencies
