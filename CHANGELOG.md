@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-09-03
+
+### 📦 Dependencies
+
+- chore(deps): update dependency tsx to v4.23.13 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#367](https://github.com/lumose-health/website/pull/367))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#368](https://github.com/lumose-health/website/pull/368))
+
+<!-- changelog-cutoff:2026-09-03T10:53:03Z -->
+
+
 ## 2026-09-02
 
 ### 📦 Dependencies
