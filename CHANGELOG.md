@@ -4,6 +4,20 @@
 
 ### 📦 Dependencies
 
+- chore(deps): update dependency fumadocs-core to v16.15.5 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#383](https://github.com/lumose-health/website/pull/383))
+- chore(deps): update dependency shadcn to v4.20.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#381](https://github.com/lumose-health/website/pull/381))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#382](https://github.com/lumose-health/website/pull/382))
+
+<!-- changelog-cutoff:2026-09-05T20:05:39Z -->
+
+
+## 2026-09-05
+
+### 📦 Dependencies
+
 - chore(deps): lock file maintenance [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#379](https://github.com/lumose-health/website/pull/379))
 
 ### ❓ Uncategorized
