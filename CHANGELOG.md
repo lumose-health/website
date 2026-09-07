@@ -4,6 +4,21 @@
 
 ### 📦 Dependencies
 
+- chore(deps): update dependency @base-ui/react to v1.8.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#396](https://github.com/lumose-health/website/pull/396))
+- chore(deps): update dependency fumadocs-ui to v16.15.6 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#395](https://github.com/lumose-health/website/pull/395))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#400](https://github.com/lumose-health/website/pull/400))
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#399](https://github.com/lumose-health/website/pull/399))
+
+<!-- changelog-cutoff:2026-09-07T11:53:31Z -->
+
+
+## 2026-09-07
+
+### 📦 Dependencies
+
 - chore(deps): update dependency fumadocs-core to v16.15.6 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#394](https://github.com/lumose-health/website/pull/394))
 
 <!-- changelog-cutoff:2026-09-07T11:52:51Z -->
