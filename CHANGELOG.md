@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-09-07
+
+### 📦 Dependencies
+
+- chore(deps): update dependency @types/react-dom to v19.2.7 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#392](https://github.com/lumose-health/website/pull/392))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#393](https://github.com/lumose-health/website/pull/393))
+
+<!-- changelog-cutoff:2026-09-07T11:52:25Z -->
+
+
 ## 2026-09-06
 
 ### 📦 Dependencies
