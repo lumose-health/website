@@ -4,6 +4,20 @@
 
 ### 📦 Dependencies
 
+- fix(deps): update react monorepo to v19.3.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#415](https://github.com/lumose-health/website/pull/415))
+- chore(deps): update typescript type definitions [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#414](https://github.com/lumose-health/website/pull/414))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#416](https://github.com/lumose-health/website/pull/416))
+
+<!-- changelog-cutoff:2026-09-12T20:22:53Z -->
+
+
+## 2026-09-12
+
+### 📦 Dependencies
+
 - chore(deps): lock file maintenance [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#412](https://github.com/lumose-health/website/pull/412))
 
 ### ❓ Uncategorized
