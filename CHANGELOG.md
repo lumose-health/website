@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-09-13
+
+### 📦 Dependencies
+
+- fix(deps): update react monorepo to v19.3.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#415](https://github.com/lumose-health/website/pull/415))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#417](https://github.com/lumose-health/website/pull/417))
+
+<!-- changelog-cutoff:2026-09-13T11:19:24Z -->
+
+
 ## 2026-09-12
 
 ### 📦 Dependencies
