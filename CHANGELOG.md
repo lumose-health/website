@@ -4,6 +4,15 @@
 
 ### 📦 Dependencies
 
+- chore(deps): update dependency fumadocs-core to v16.15.10 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#433](https://github.com/lumose-health/website/pull/433))
+
+<!-- changelog-cutoff:2026-09-16T11:04:11Z -->
+
+
+## 2026-09-16
+
+### 📦 Dependencies
+
 - chore(deps): update dependency js-yaml to v5.4.2 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#431](https://github.com/lumose-health/website/pull/431))
 
 ### ❓ Uncategorized
