@@ -5,6 +5,19 @@
 ### 📦 Dependencies
 
 - chore(deps): update dependency js-yaml to v5.4.2 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#431](https://github.com/lumose-health/website/pull/431))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#432](https://github.com/lumose-health/website/pull/432))
+
+<!-- changelog-cutoff:2026-09-16T11:03:43Z -->
+
+
+## 2026-09-16
+
+### 📦 Dependencies
+
+- chore(deps): update dependency js-yaml to v5.4.2 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#431](https://github.com/lumose-health/website/pull/431))
 - chore(deps): update dependency tailwind-merge to v3.7.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#429](https://github.com/lumose-health/website/pull/429))
 
 ### ❓ Uncategorized
