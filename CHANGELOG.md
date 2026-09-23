@@ -4,6 +4,19 @@
 
 ### 📦 Dependencies
 
+- chore(deps): update dependency tsx to v4.23.15 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#459](https://github.com/lumose-health/website/pull/459))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#460](https://github.com/lumose-health/website/pull/460))
+
+<!-- changelog-cutoff:2026-09-23T21:16:56Z -->
+
+
+## 2026-09-23
+
+### 📦 Dependencies
+
 - chore(deps): update dependency fumadocs-ui to v16.15.12 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#457](https://github.com/lumose-health/website/pull/457))
 - chore(deps): update dependency fumadocs-core to v16.15.12 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#455](https://github.com/lumose-health/website/pull/455))
 
