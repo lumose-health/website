@@ -4,6 +4,20 @@
 
 ### 📦 Dependencies
 
+- chore(deps): update dependency motion to v13.4.5 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#494](https://github.com/lumose-health/website/pull/494))
+- chore(deps): update dependency fumadocs-ui to v16.15.16 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#493](https://github.com/lumose-health/website/pull/493))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#497](https://github.com/lumose-health/website/pull/497))
+
+<!-- changelog-cutoff:2026-10-02T12:07:28Z -->
+
+
+## 2026-10-02
+
+### 📦 Dependencies
+
 - chore(deps): update dependency fumadocs-ui to v16.15.16 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#493](https://github.com/lumose-health/website/pull/493))
 - chore(deps): update dependency fumadocs-core to v16.15.16 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#492](https://github.com/lumose-health/website/pull/492))
 - chore(deps): update dependency eslint-config-next to v16.3.7 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#491](https://github.com/lumose-health/website/pull/491))
