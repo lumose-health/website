@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-10-03
+
+### 📦 Dependencies
+
+- chore(deps): update dependency motion to v13.4.6 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#501](https://github.com/lumose-health/website/pull/501))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#504](https://github.com/lumose-health/website/pull/504))
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#503](https://github.com/lumose-health/website/pull/503))
+
+<!-- changelog-cutoff:2026-10-03T04:17:42Z -->
+
+
 ## 2026-10-02
 
 ### 📦 Dependencies
