@@ -4,6 +4,20 @@
 
 ### 📦 Dependencies
 
+- chore(deps): update dependency eslint-config-next to v16.3.8 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#507](https://github.com/lumose-health/website/pull/507))
+- chore(deps): update dependency lucide-react to v1.49.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#505](https://github.com/lumose-health/website/pull/505))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#506](https://github.com/lumose-health/website/pull/506))
+
+<!-- changelog-cutoff:2026-10-03T20:47:05Z -->
+
+
+## 2026-10-03
+
+### 📦 Dependencies
+
 - chore(deps): update dependency motion to v13.4.6 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#501](https://github.com/lumose-health/website/pull/501))
 
 ### ❓ Uncategorized
