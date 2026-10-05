@@ -4,6 +4,19 @@
 
 ### 📦 Dependencies
 
+- chore(deps): update dependency @types/node to v24.19.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#514](https://github.com/lumose-health/website/pull/514))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#515](https://github.com/lumose-health/website/pull/515))
+
+<!-- changelog-cutoff:2026-10-05T13:55:25Z -->
+
+
+## 2026-10-05
+
+### 📦 Dependencies
+
 - chore(deps): update dependency motion to v13.5.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#512](https://github.com/lumose-health/website/pull/512))
 
 ### ❓ Uncategorized
