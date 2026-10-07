@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-10-07
+
+### 📦 Dependencies
+
+- chore(deps): update dependency lucide-react to v1.51.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#527](https://github.com/lumose-health/website/pull/527))
+- fix(deps): update dependency motion to v14 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#525](https://github.com/lumose-health/website/pull/525))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#526](https://github.com/lumose-health/website/pull/526))
+
+<!-- changelog-cutoff:2026-10-07T12:53:45Z -->
+
+
 ## 2026-10-05
 
 ### 📦 Dependencies
