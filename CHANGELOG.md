@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-10-11
+
+### 📦 Dependencies
+
+- chore(deps): update dependency shadcn to v4.21.4 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#541](https://github.com/lumose-health/website/pull/541))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#542](https://github.com/lumose-health/website/pull/542))
+
+<!-- changelog-cutoff:2026-10-11T12:20:07Z -->
+
+
 ## 2026-10-10
 
 ### 📦 Dependencies
