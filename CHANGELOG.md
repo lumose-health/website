@@ -5,6 +5,19 @@
 ### 📦 Dependencies
 
 - chore(deps): update dependency eslint-config-next to v16.4.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#564](https://github.com/lumose-health/website/pull/564))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#567](https://github.com/lumose-health/website/pull/567))
+
+<!-- changelog-cutoff:2026-10-17T20:20:24Z -->
+
+
+## 2026-10-17
+
+### 📦 Dependencies
+
+- chore(deps): update dependency eslint-config-next to v16.4.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#564](https://github.com/lumose-health/website/pull/564))
 - chore(deps): update dependency shadcn to v4.21.5 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#562](https://github.com/lumose-health/website/pull/562))
 
 ### ❓ Uncategorized
