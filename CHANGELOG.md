@@ -4,6 +4,19 @@
 
 ### 📦 Dependencies
 
+- fix(deps): update dependency next to v16.4.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#565](https://github.com/lumose-health/website/pull/565))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#569](https://github.com/lumose-health/website/pull/569))
+
+<!-- changelog-cutoff:2026-10-18T15:35:31Z -->
+
+
+## 2026-10-18
+
+### 📦 Dependencies
+
 - fix(deps): update react monorepo to v19.3.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#566](https://github.com/lumose-health/website/pull/566))
 - fix(deps): update dependency next to v16.4.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#565](https://github.com/lumose-health/website/pull/565))
 
