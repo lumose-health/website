@@ -4,6 +4,20 @@
 
 ### 📦 Dependencies
 
+- chore(deps): update dependency shadcn to v4.22.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#578](https://github.com/lumose-health/website/pull/578))
+- chore(deps): update dependency lucide-react to v1.58.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#577](https://github.com/lumose-health/website/pull/577))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#576](https://github.com/lumose-health/website/pull/576))
+
+<!-- changelog-cutoff:2026-10-19T22:08:54Z -->
+
+
+## 2026-10-19
+
+### 📦 Dependencies
+
 - chore(deps): update dependency js-yaml to v5.5.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#574](https://github.com/lumose-health/website/pull/574))
 - chore(deps): update dependency eslint-config-next to v16.4.2 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#572](https://github.com/lumose-health/website/pull/572))
 
