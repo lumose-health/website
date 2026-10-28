@@ -4,6 +4,19 @@
 
 ### 📦 Dependencies
 
+- fix(deps): update dependency next to v16.4.3 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#587](https://github.com/lumose-health/website/pull/587))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#592](https://github.com/lumose-health/website/pull/592))
+
+<!-- changelog-cutoff:2026-10-28T22:21:22Z -->
+
+
+## 2026-10-28
+
+### 📦 Dependencies
+
 - chore(deps): update dependency unist-util-visit to v5.2.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#588](https://github.com/lumose-health/website/pull/588))
 
 ### ❓ Uncategorized
