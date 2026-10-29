@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-10-29
+
+### 📦 Dependencies
+
+- chore(deps): update dependency @types/node to v26 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#590](https://github.com/lumose-health/website/pull/590))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#595](https://github.com/lumose-health/website/pull/595))
+
+<!-- changelog-cutoff:2026-10-29T04:49:58Z -->
+
+
 ## 2026-10-28
 
 ### 📦 Dependencies
