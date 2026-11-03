@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalPage } from "@/components/legal-page";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact - GlycemicGPT",
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
     title: "Contact - GlycemicGPT",
     description:
       "How to reach the GlycemicGPT project for support, questions, and security disclosure.",
-    url: "https://glycemicgpt.org/contact",
+    url: `${SITE_URL}/contact`,
     siteName: "GlycemicGPT",
     type: "website",
   },

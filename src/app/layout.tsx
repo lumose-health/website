@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { PreviewBanner } from "@/components/preview-banner";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 // "preview" on PR builds (set in .github/workflows/ci.yml). Anything else
@@ -36,7 +37,7 @@ export const metadata: Metadata = {
     title: "GlycemicGPT - Open Source Diabetes Management Platform",
     description:
       "Because no one should manage diabetes alone. Real-time glucose monitoring, AI-powered analysis, caregiver alerts, and Wear OS support.",
-    url: "https://glycemicgpt.org",
+    url: SITE_URL,
     siteName: "GlycemicGPT",
     type: "website",
   },

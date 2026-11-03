@@ -1,6 +1,6 @@
 # GlycemicGPT Website
 
-Public website for the GlycemicGPT platform at [glycemicgpt.org](https://glycemicgpt.org).
+Public website for the GlycemicGPT platform at [lumose.org](https://lumose.org).
 
 ## Tech Stack
 
@@ -8,7 +8,7 @@ Public website for the GlycemicGPT platform at [glycemicgpt.org](https://glycemi
 - React 19, TypeScript
 - Tailwind CSS v4, shadcn/ui
 - Framer Motion, Recharts
-- Deployed to GitHub Pages via Cloudflare DNS
+- Deployed to Cloudflare Pages
 
 ## Development
 
@@ -23,7 +23,7 @@ npm run dev
 npm run build
 ```
 
-Static output is generated in `./out/` for GitHub Pages deployment.
+Static output is generated in `./out/` and deployed to Cloudflare Pages.
 
 ## License
 

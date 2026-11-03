@@ -14,7 +14,7 @@ function BrowserFrame({ children }: { children: React.ReactNode }) {
           <span className="h-2.5 w-2.5 rounded-full bg-yellow-400/70" />
           <span className="h-2.5 w-2.5 rounded-full bg-green-400/70" />
           <div className="ml-3 flex-1 rounded-md bg-background/80 px-3 py-0.5 text-center text-[9px] text-muted-foreground">
-            glycemicgpt.org/dashboard/briefs
+            lumose.org/dashboard/briefs
           </div>
         </div>
         {children}

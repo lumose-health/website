@@ -1,3 +1,5 @@
+import { SITE_HOST, SITE_URL } from "@/lib/site";
+
 // Rendered only on preview builds. The NEXT_PUBLIC_BUILD_ENV env var is set
 // to "preview" in ci.yml during PR builds and is unset/"production" everywhere
 // else. The banner makes it visually obvious that a pr-*.glycemicgpt.pages.dev
@@ -16,10 +18,10 @@ export function PreviewBanner() {
         You are viewing a pull request preview, not the official GlycemicGPT
         site. Production is at{" "}
         <a
-          href="https://glycemicgpt.org"
+          href={SITE_URL}
           className="underline underline-offset-2 hover:text-amber-900 dark:hover:text-amber-100"
         >
-          glycemicgpt.org
+          {SITE_HOST}
         </a>
         .
       </span>

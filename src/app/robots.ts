@@ -1,9 +1,8 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/lib/site";
 
 // Required for `output: export` so this emits a static robots.txt at build.
 export const dynamic = "force-static";
-
-const SITE_URL = "https://glycemicgpt.org";
 
 const isPreview = process.env.NEXT_PUBLIC_BUILD_ENV === "preview";
 

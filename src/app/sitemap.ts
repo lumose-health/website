@@ -1,9 +1,8 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/lib/site";
 
 // Required for `output: export` so this emits a static sitemap.xml at build.
 export const dynamic = "force-static";
-
-const SITE_URL = "https://glycemicgpt.org";
 
 // Preview builds (pr-*.glycemicgpt.pages.dev) already emit a noindex meta tag
 // in the root layout; they must not advertise an indexable sitemap.

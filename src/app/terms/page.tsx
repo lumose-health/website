@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalPage } from "@/components/legal-page";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Terms of Use - GlycemicGPT",
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
     title: "Terms of Use - GlycemicGPT",
     description:
       "Terms governing use of the GlycemicGPT website and open-source software.",
-    url: "https://glycemicgpt.org/terms",
+    url: `${SITE_URL}/terms`,
     siteName: "GlycemicGPT",
     type: "website",
   },
