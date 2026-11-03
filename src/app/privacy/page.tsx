@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalPage } from "@/components/legal-page";
+import { SITE_HOST, SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Privacy Policy - GlycemicGPT",
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
     title: "Privacy Policy - GlycemicGPT",
     description:
       "A privacy-first, self-hosted platform that does not phone home or collect telemetry.",
-    url: "https://glycemicgpt.org/privacy",
+    url: `${SITE_URL}/privacy`,
     siteName: "GlycemicGPT",
     type: "website",
   },
@@ -25,7 +26,7 @@ export default function PrivacyPage() {
     >
       <h2>This website</h2>
       <p>
-        The GlycemicGPT website (<code>glycemicgpt.org</code>) is a static,
+        The GlycemicGPT website (<code>{SITE_HOST}</code>) is a static,
         open-source site. It sets no advertising or tracking cookies, runs no
         third-party analytics, and does not build a profile of visitors. We do
         not sell, rent, or share visitor information, because we do not collect

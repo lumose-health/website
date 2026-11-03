@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalPage } from "@/components/legal-page";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Medical Disclaimer - GlycemicGPT",
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
     title: "Medical Disclaimer - GlycemicGPT",
     description:
       "GlycemicGPT is not a medical device and not a substitute for professional medical care.",
-    url: "https://glycemicgpt.org/disclaimer",
+    url: `${SITE_URL}/disclaimer`,
     siteName: "GlycemicGPT",
     type: "website",
   },

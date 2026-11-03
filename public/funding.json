@@ -8,8 +8,8 @@
     "email": "funding@glycemicgpt.org",
     "description": "GlycemicGPT is an open source diabetes platform with AI-powered analysis at its core. It gives people living with diabetes -- and the family members and caregivers who support them -- real-time glucose monitoring, daily AI-generated briefs that explain what their numbers mean, pattern detection across days and weeks, a conversational AI assistant grounded in their own data, and tiered alerts that loop in trusted contacts when something needs attention. Because no one should manage diabetes alone.",
     "webpageUrl": {
-      "url": "https://glycemicgpt.org",
-      "wellKnown": "https://glycemicgpt.org/.well-known/funding-manifest-urls"
+      "url": "https://lumose.org",
+      "wellKnown": "https://lumose.org/.well-known/funding-manifest-urls"
     }
   },
   "projects": [
@@ -18,8 +18,8 @@
       "name": "GlycemicGPT",
       "description": "Open source diabetes platform with AI-powered analysis. Real-time monitoring, daily AI briefs, pattern detection, and caregiver alerts -- built around the principle that no one should manage diabetes alone.",
       "webpageUrl": {
-        "url": "https://glycemicgpt.org",
-        "wellKnown": "https://glycemicgpt.org/.well-known/funding-manifest-urls"
+        "url": "https://lumose.org",
+        "wellKnown": "https://lumose.org/.well-known/funding-manifest-urls"
       },
       "repositoryUrl": {
         "url": "https://github.com/GlycemicGPT/GlycemicGPT"
