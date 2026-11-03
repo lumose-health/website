@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-11-03
+
+### 📦 Dependencies
+
+- chore(deps): update dependency motion to v14.9.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#613](https://github.com/lumose-health/website/pull/613))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#614](https://github.com/lumose-health/website/pull/614))
+
+<!-- changelog-cutoff:2026-11-03T04:15:39Z -->
+
+
 ## 2026-11-02
 
 ### 📦 Dependencies
@@ -1382,6 +1395,20 @@
 
 ### 📦 Dependencies
 
+- chore(deps): update dependency eslint-config-next to v16.3.4 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#373](https://github.com/lumose-health/website/pull/373))
+- chore(deps): update dependency lucide-react to v1.38.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#370](https://github.com/lumose-health/website/pull/370))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#372](https://github.com/lumose-health/website/pull/372))
+
+<!-- changelog-cutoff:2026-09-03T20:43:20Z -->
+
+
+## 2026-09-03
+
+### 📦 Dependencies
+
 - chore(deps): update dependency shadcn to v4.19.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#369](https://github.com/lumose-health/website/pull/369))
 
 ### ❓ Uncategorized
@@ -1455,6 +1482,20 @@
 - [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#358](https://github.com/lumose-health/website/pull/358))
 
 <!-- changelog-cutoff:2026-08-30T16:16:53Z -->
+
+
+## 2026-08-30
+
+### 📦 Dependencies
+
+- chore(deps): update dependency fumadocs-ui to v16.15.4 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#359](https://github.com/lumose-health/website/pull/359))
+- chore(deps): update dependency fumadocs-ui to v16.15.3 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#357](https://github.com/lumose-health/website/pull/357))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#358](https://github.com/lumose-health/website/pull/358))
+
+<!-- changelog-cutoff:2026-08-30T16:17:09Z -->
 
 
 ## 2026-08-30
