@@ -2,6 +2,33 @@
 
 ## 2026-11-03
 
+### 🌐 Website
+
+#### 📝 Other Changes
+
+- chore: point site URLs at lumose.org [@jlengelbrecht](https://github.com/jlengelbrecht) ([#615](https://github.com/lumose-health/website/pull/615))
+
+### 🏗️ Infrastructure
+
+#### 💥 Breaking Changes
+
+- chore(deps): update dependency node to v26 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#591](https://github.com/lumose-health/website/pull/591))
+
+#### 📝 Other Changes
+
+- chore(deps): update github actions [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#341](https://github.com/lumose-health/website/pull/341))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#616](https://github.com/lumose-health/website/pull/616))
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#376](https://github.com/lumose-health/website/pull/376))
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#362](https://github.com/lumose-health/website/pull/362))
+
+<!-- changelog-cutoff:2026-11-03T13:50:09Z -->
+
+
+## 2026-11-03
+
 ### 📦 Dependencies
 
 - chore(deps): update dependency motion to v14.9.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#613](https://github.com/lumose-health/website/pull/613))
