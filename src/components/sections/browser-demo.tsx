@@ -78,7 +78,7 @@ export function BrowserDemo({ trigger }: { trigger: number }) {
           <div className="flex items-center gap-1.5 mb-4">
             {/* eslint-disable-next-line @next/next/no-img-element -- tiny SVG in mockup */}
             <img src="/logo.svg" alt="" className="h-4 w-4" />
-            <span className="text-[9px] font-bold">GlycemicGPT</span>
+            <span className="text-[9px] font-bold">Lumose</span>
           </div>
           <div className="space-y-1">
             {["Dashboard", "Daily Briefs", "Alerts", "AI Chat", "Knowledge Base", "Settings"].map(

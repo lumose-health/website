@@ -43,27 +43,26 @@ const chatMessages: ChatMsg[] = [
   { role: "user", content: "Will I go low tonight?" },
   {
     role: "assistant",
-    content:
-      "Current: 136 mg/dL, trending down. **Heading toward your low threshold** by 2 AM. I'll keep watching and alert you if it falls below 80.",
+    content: "Current: 136 mg/dL, trending down.",
   },
 ];
 
 const alerts: AlertItem[] = [
   {
     level: "warning",
-    title: "GlycemicGPT - Sarah",
+    title: "Lumose - Sarah",
     body: "Blood sugar is HIGH -- 245 mg/dL and rising. Last reading 5 min ago.",
     time: "2 min ago",
   },
   {
     level: "urgent",
-    title: "GlycemicGPT - Sarah",
+    title: "Lumose - Sarah",
     body: "URGENT: Blood sugar is 52 mg/dL -- immediate attention needed.",
     time: "Just now",
   },
   {
     level: "recovery",
-    title: "GlycemicGPT - Sarah",
+    title: "Lumose - Sarah",
     body: "Sarah's blood sugar is back in range -- 128 mg/dL and stable.",
     time: "12 min ago",
   },

@@ -21,7 +21,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "GlycemicGPT - Open Source Diabetes Management Platform",
+  metadataBase: new URL(SITE_URL),
+  title: "Lumose - Open Source Diabetes Management Platform",
   description:
     "Because no one should manage diabetes alone. Real-time glucose monitoring, AI-powered analysis, caregiver alerts, and Wear OS support. Self-hosted, privacy-first, open source.",
   icons: {
@@ -34,11 +35,11 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   openGraph: {
-    title: "GlycemicGPT - Open Source Diabetes Management Platform",
+    title: "Lumose - Open Source Diabetes Management Platform",
     description:
       "Because no one should manage diabetes alone. Real-time glucose monitoring, AI-powered analysis, caregiver alerts, and Wear OS support.",
     url: SITE_URL,
-    siteName: "GlycemicGPT",
+    siteName: "Lumose",
     type: "website",
   },
   // Preview builds emit a noindex meta tag so search engines do not index

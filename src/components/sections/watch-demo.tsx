@@ -40,7 +40,7 @@ function WatchFrame({ children }: { children: React.ReactNode }) {
   );
 }
 
-// --- Watch Face Screen (matches actual GlycemicGPT watch face) ---
+// --- Watch Face Screen (matches actual Lumose watch face) ---
 
 function WatchFaceScreen({ state }: { state: WatchState }) {
   return (
@@ -136,7 +136,7 @@ function WatchFaceScreen({ state }: { state: WatchState }) {
           <span className="text-[6px] text-zinc-600">Alerts</span>
         </div>
         <span className="text-[7px] text-emerald-600 font-medium">
-          GlycemicGPT
+          Lumose
         </span>
         <div className="flex flex-col items-center">
           <MessageSquare className="h-2.5 w-2.5 text-blue-400" />

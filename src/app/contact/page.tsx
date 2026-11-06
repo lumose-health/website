@@ -4,15 +4,16 @@ import { LegalPage } from "@/components/legal-page";
 import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Contact - GlycemicGPT",
+  title: "Contact - Lumose",
   description:
-    "How to reach the GlycemicGPT project: community chat, bug reports and feature requests, and responsible security disclosure.",
+    "How to reach the Lumose project: community chat, bug reports and feature requests, and responsible security disclosure.",
+  alternates: { canonical: "/contact" },
   openGraph: {
-    title: "Contact - GlycemicGPT",
+    title: "Contact - Lumose",
     description:
-      "How to reach the GlycemicGPT project for support, questions, and security disclosure.",
+      "How to reach the Lumose project for support, questions, and security disclosure.",
     url: `${SITE_URL}/contact`,
-    siteName: "GlycemicGPT",
+    siteName: "Lumose",
     type: "website",
   },
 };
@@ -22,7 +23,7 @@ export default function ContactPage() {
     <LegalPage
       title="Contact"
       lastUpdated="May 27, 2026"
-      intro="GlycemicGPT is a community-run open-source project. Here is how to reach us, depending on what you need."
+      intro="Lumose is a community-run open-source project. Here is how to reach us, depending on what you need."
     >
       <h2>Email</h2>
       <p>
@@ -62,7 +63,7 @@ export default function ContactPage() {
       <ul>
         <li>
           <a
-            href="https://github.com/GlycemicGPT/GlycemicGPT/issues/new/choose"
+            href="https://github.com/lumose-health/lumose/issues/new/choose"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -71,7 +72,7 @@ export default function ContactPage() {
         </li>
         <li>
           <a
-            href="https://github.com/GlycemicGPT/GlycemicGPT"
+            href="https://github.com/lumose-health/lumose"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -89,7 +90,7 @@ export default function ContactPage() {
       <ul>
         <li>
           <a
-            href="https://github.com/GlycemicGPT/GlycemicGPT/security/advisories/new"
+            href="https://github.com/lumose-health/lumose/security/advisories/new"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -105,7 +106,7 @@ export default function ContactPage() {
 
       <h2>Supporting the project</h2>
       <p>
-        GlycemicGPT is free and open source. If you would like to help sustain
+        Lumose is free and open source. If you would like to help sustain
         development, you can contribute on{" "}
         <a
           href="https://opencollective.com/lumose"

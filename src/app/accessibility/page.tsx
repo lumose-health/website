@@ -4,15 +4,16 @@ import { LegalPage } from "@/components/legal-page";
 import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Accessibility Statement - GlycemicGPT",
+  title: "Accessibility Statement - Lumose",
   description:
-    "GlycemicGPT's commitment to an accessible website and platform, the standards we aim for, and how to report accessibility issues.",
+    "Lumose's commitment to an accessible website and platform, the standards we aim for, and how to report accessibility issues.",
+  alternates: { canonical: "/accessibility" },
   openGraph: {
-    title: "Accessibility Statement - GlycemicGPT",
+    title: "Accessibility Statement - Lumose",
     description:
       "Our commitment to an accessible website and platform, and how to report issues.",
     url: `${SITE_URL}/accessibility`,
-    siteName: "GlycemicGPT",
+    siteName: "Lumose",
     type: "website",
   },
 };
@@ -22,13 +23,13 @@ export default function AccessibilityPage() {
     <LegalPage
       title="Accessibility Statement"
       lastUpdated="May 27, 2026"
-      intro="We want GlycemicGPT to be usable by everyone managing diabetes, regardless of ability."
+      intro="We want Lumose to be usable by everyone managing diabetes, regardless of ability."
     >
       <h2>Our commitment</h2>
       <p>
         Accessibility is part of the project&rsquo;s mission &mdash; because no
         one should manage diabetes alone. We aim to make this website and the
-        GlycemicGPT platform usable for people with a wide range of abilities,
+        Lumose platform usable for people with a wide range of abilities,
         including those who rely on screen readers, keyboard navigation, or
         other assistive technologies.
       </p>
@@ -72,7 +73,7 @@ export default function AccessibilityPage() {
         If you encounter a barrier on this website or in the platform, please
         let us know so we can fix it. Open a{" "}
         <a
-          href="https://github.com/GlycemicGPT/GlycemicGPT/issues/new/choose"
+          href="https://github.com/lumose-health/lumose/issues/new/choose"
           target="_blank"
           rel="noopener noreferrer"
         >

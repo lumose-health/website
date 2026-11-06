@@ -8,7 +8,7 @@ export function Footer() {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div className="space-y-3">
-            <h3 className="text-lg font-bold">GlycemicGPT</h3>
+            <h3 className="text-lg font-bold">Lumose</h3>
             <p className="text-sm text-muted-foreground">
               Because no one should manage diabetes alone.
             </p>
@@ -20,7 +20,7 @@ export function Footer() {
             <ul className="space-y-2">
               <li>
                 <a
-                  href="https://github.com/GlycemicGPT/GlycemicGPT"
+                  href="https://github.com/lumose-health/lumose"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
@@ -53,7 +53,7 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="https://github.com/GlycemicGPT/GlycemicGPT/blob/main/CHANGELOG.md"
+                  href="https://github.com/lumose-health/lumose/blob/main/CHANGELOG.md"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-muted-foreground transition-colors hover:text-foreground"
@@ -63,7 +63,7 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="https://github.com/GlycemicGPT/GlycemicGPT/blob/main/LICENSE"
+                  href="https://github.com/lumose-health/lumose/blob/main/LICENSE"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-muted-foreground transition-colors hover:text-foreground"
@@ -125,7 +125,7 @@ export function Footer() {
           <div className="space-y-3">
             <h4 className="text-sm font-semibold">Important</h4>
             <p className="text-xs text-muted-foreground leading-relaxed">
-              GlycemicGPT is not a medical device. It is not FDA approved or CE
+              Lumose is not a medical device. It is not FDA approved or CE
               marked. It does not deliver insulin or control any medical device.
               For informational and educational purposes only. Always consult
               your healthcare provider for medical decisions.
@@ -141,7 +141,7 @@ export function Footer() {
 
         <div className="mt-8 border-t border-border pt-6">
           <p className="text-center text-xs text-muted-foreground">
-            &copy; {new Date().getFullYear()} GlycemicGPT. Open source under GPL-3.0.
+            &copy; {new Date().getFullYear()} Lumose, formerly GlycemicGPT. Open source under GPL-3.0.
           </p>
         </div>
       </div>

@@ -4,15 +4,16 @@ import { LegalPage } from "@/components/legal-page";
 import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Terms of Use - GlycemicGPT",
+  title: "Terms of Use - Lumose",
   description:
-    "The terms governing use of the GlycemicGPT website and open-source software. Provided as-is under GPL-3.0, with no warranty, for monitoring and informational purposes only.",
+    "The terms governing use of the Lumose website and open-source software. Provided as-is under GPL-3.0, with no warranty, for monitoring and informational purposes only.",
+  alternates: { canonical: "/terms" },
   openGraph: {
-    title: "Terms of Use - GlycemicGPT",
+    title: "Terms of Use - Lumose",
     description:
-      "Terms governing use of the GlycemicGPT website and open-source software.",
+      "Terms governing use of the Lumose website and open-source software.",
     url: `${SITE_URL}/terms`,
-    siteName: "GlycemicGPT",
+    siteName: "Lumose",
     type: "website",
   },
 };
@@ -22,12 +23,13 @@ export default function TermsPage() {
     <LegalPage
       title="Terms of Use"
       lastUpdated="May 27, 2026"
-      intro="These terms govern your use of the GlycemicGPT website and the GlycemicGPT open-source software. By using either, you agree to them."
+      intro="These terms govern your use of the Lumose website and the Lumose open-source software. By using either, you agree to them."
     >
-      <h2>1. About GlycemicGPT</h2>
+      <h2>1. About Lumose</h2>
       <p>
-        GlycemicGPT is a free, open-source diabetes monitoring and analysis
-        platform maintained by a community of volunteer contributors (the
+        Lumose, formerly GlycemicGPT, is a free, open-source diabetes monitoring
+        and analysis platform maintained by a community of volunteer
+        contributors (the
         &ldquo;project&rdquo;). It is not a company, and these terms do not
         create any commercial relationship, partnership, or warranty. The
         project provides this website and the software at no charge and on a
@@ -36,9 +38,9 @@ export default function TermsPage() {
 
       <h2>2. The software is licensed, not sold</h2>
       <p>
-        The GlycemicGPT software is licensed under the{" "}
+        The Lumose software is licensed under the{" "}
         <a
-          href="https://github.com/GlycemicGPT/GlycemicGPT/blob/main/LICENSE"
+          href="https://github.com/lumose-health/lumose/blob/main/LICENSE"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -52,7 +54,7 @@ export default function TermsPage() {
 
       <h2>3. Not a medical device; not medical advice</h2>
       <p>
-        GlycemicGPT is <strong>not a medical device</strong>. It has not been
+        Lumose is <strong>not a medical device</strong>. It has not been
         cleared, approved, or certified by the FDA, any EU Notified Body, or any
         other regulatory authority. It does not deliver insulin or control any
         medical device. It reads and displays data and generates AI text
@@ -91,7 +93,7 @@ export default function TermsPage() {
 
       <h2>5. Self-hosting and your responsibilities</h2>
       <p>
-        GlycemicGPT is self-hosted software. When you deploy it, you are
+        Lumose is self-hosted software. When you deploy it, you are
         responsible for the security, configuration, and lawful operation of
         your own deployment, for the data it processes, and for any third-party
         services you connect to it (your AI provider, CGM or pump cloud,
@@ -101,7 +103,7 @@ export default function TermsPage() {
 
       <h2>6. Third-party forks and modifications</h2>
       <p>
-        GlycemicGPT ships as a monitoring and analysis platform across all
+        Lumose ships as a monitoring and analysis platform across all
         builds the project distributes; its plugin SDK is read-only by design
         and has no insulin-delivery capability. Forks that modify the software
         to add device control or insulin delivery operate{" "}
@@ -114,7 +116,7 @@ export default function TermsPage() {
 
       <h2>7. Intellectual property and trademarks</h2>
       <p>
-        Source code is provided under the GPL-3.0. The GlycemicGPT name and
+        Source code is provided under the GPL-3.0. The Lumose name and
         logo, and third-party names referenced on this site (such as device and
         platform brands), belong to their respective owners. Reference to a
         third party does not imply any affiliation with or endorsement by that
@@ -138,7 +140,7 @@ export default function TermsPage() {
         maintainer, or entity associated with the project shall be liable for
         any claim, damages, or other liability &mdash; including any injuries or
         adverse health outcomes &mdash; arising from or in connection with the
-        website or the software or its use. You use GlycemicGPT entirely at your
+        website or the software or its use. You use Lumose entirely at your
         own risk.
       </p>
       <p>
@@ -157,7 +159,7 @@ export default function TermsPage() {
 
       <h2>11. Governing law</h2>
       <p>
-        GlycemicGPT is a distributed open-source project maintained by
+        Lumose is a distributed open-source project maintained by
         volunteers and is not incorporated in any single jurisdiction. These
         terms do not designate a specific governing law or exclusive venue. Any
         mandatory consumer-protection rights you have under the law of your place

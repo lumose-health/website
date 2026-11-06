@@ -61,7 +61,7 @@ export function DemoShowcaseSection() {
         <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-400" />
         <p>
           Demo content shown for illustration. Names and data are fictional.
-          GlycemicGPT is a monitoring and analysis tool -- not medical advice.
+          Lumose is a monitoring and analysis tool -- not medical advice.
           Always consult your healthcare provider before making changes to your
           diabetes management.
         </p>

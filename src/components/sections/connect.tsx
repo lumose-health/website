@@ -23,7 +23,7 @@ const tiers = [
     title: "Cloud Sync",
     badge: "Coming Soon",
     description:
-      "Already uploading to your pump manufacturer's cloud? GlycemicGPT reads your existing reports and aggregates the data -- no direct pump connection needed.",
+      "Already uploading to your pump manufacturer's cloud? Lumose reads your existing reports and aggregates the data -- no direct pump connection needed.",
     details: [
       "Import from manufacturer cloud reports",
       "Historical data aggregation and trend analysis",
@@ -36,7 +36,7 @@ const tiers = [
     title: "Platform Bridge",
     badge: "Coming Soon",
     description:
-      "Using an existing diabetes platform? Connect via API and bring your data into GlycemicGPT for AI-powered analysis, alerting, and caregiver access.",
+      "Using an existing diabetes platform? Connect via API and bring your data into Lumose for AI-powered analysis, alerting, and caregiver access.",
     details: [
       "API integration with third-party platforms",
       "Unified dashboard across all your data sources",
@@ -55,7 +55,7 @@ export function ConnectSection() {
         </h2>
         <p className="mx-auto max-w-2xl text-muted-foreground">
           Whether you want real-time BLE streaming, cloud report imports, or
-          integration with your existing platform -- GlycemicGPT meets you where
+          integration with your existing platform -- Lumose meets you where
           you are.
         </p>
       </div>
@@ -107,7 +107,7 @@ export function ConnectSection() {
       </div>
 
       <p className="mt-8 text-center text-xs text-muted-foreground">
-        GlycemicGPT is designed to work with any insulin pump, CGM, or diabetes
+        Lumose is designed to work with any insulin pump, CGM, or diabetes
         platform. Support for additional devices and integrations is actively
         being developed.
       </p>

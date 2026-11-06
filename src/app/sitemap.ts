@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
+import { source } from "@/lib/source";
 
 // Required for `output: export` so this emits a static sitemap.xml at build.
 export const dynamic = "force-static";
@@ -13,12 +14,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const routes = [
     "",
-    "/docs",
     "/privacy",
     "/terms",
     "/disclaimer",
     "/accessibility",
     "/contact",
+    ...source.getPages().map((page) => page.url),
   ];
 
   const lastModified = new Date();
