@@ -2,6 +2,25 @@
 
 ## 2026-11-06
 
+### 🌐 Website
+
+#### ✨ New Features
+
+- feat: add hidden /v2 route with design tokens and data switches [@jlengelbrecht](https://github.com/jlengelbrecht) ([#628](https://github.com/lumose-health/website/pull/628))
+
+#### 📝 Other Changes
+
+- chore: rename the site to Lumose and fix sitemap and canonicals [@jlengelbrecht](https://github.com/jlengelbrecht) ([#626](https://github.com/lumose-health/website/pull/626))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#627](https://github.com/lumose-health/website/pull/627))
+
+<!-- changelog-cutoff:2026-11-06T04:49:31Z -->
+
+
+## 2026-11-06
+
 ### 📦 Dependencies
 
 - fix(deps): update dependency next to v16.4.4 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#623](https://github.com/lumose-health/website/pull/623))
