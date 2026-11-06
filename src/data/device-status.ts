@@ -39,11 +39,14 @@ export const deviceCards: DeviceCard[] = [
     description:
       "Already uploading? Lumose pulls from the cloud you use today, on a schedule.",
     rows: [
-      { name: "Dexcom G6 / G7 / ONE+", status: "supported" },
+      { name: "Dexcom G7", status: "supported" },
+      { name: "Dexcom G6", status: "beta" },
+      { name: "Dexcom ONE+", status: "untested" },
       { name: "Tandem cloud", status: "supported" },
       { name: "Medtronic CareLink (US)", status: "beta" },
       { name: "Medtronic CareLink (EU)", status: "not-working" },
-      { name: "Glooko: Omnipod 5 + smart pens", status: "supported" },
+      { name: "Glooko: smart pens", status: "supported" },
+      { name: "Glooko: Omnipod 5", status: "untested" },
     ],
   },
   {
