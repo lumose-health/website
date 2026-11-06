@@ -726,8 +726,9 @@
   mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 }
 
+/* No brightening here. Light logos like Loop and Dexcom clip to one flat grey. */
 .lm-marquee-logo {
-  filter: grayscale(1) brightness(1.6) contrast(0.8);
+  filter: grayscale(1) contrast(1.3);
   opacity: 0.6;
   transition:
     filter var(--lm-dur-fast),
@@ -737,6 +738,14 @@
 .lm-marquee-name {
   color: var(--color-lm-ink-faint);
   transition: color var(--lm-dur-fast);
+}
+
+/* A light system canvas leaves pale logos with nothing to sit against once dimmed. */
+@media (forced-colors: active) {
+  .lm-marquee-logo {
+    filter: none;
+    opacity: 1;
+  }
 }
 
 /* Has to be none. Dropping the rule would let a running fade finish. */

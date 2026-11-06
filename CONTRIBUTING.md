@@ -270,8 +270,8 @@ https://pr-<N>.lumose.pages.dev
 **Important notes:**
 
 - Only PRs from same-repo branches receive preview deployments. PRs from forks do not get previews because they do not have access to the repo secrets required to deploy. Lint, type check, build, Lighthouse, and other checks still run on fork PRs, so reviewers see the same CI status either way.
-- Preview deployments display a banner across the top of the page reading "Preview deployment -- not the official GlycemicGPT site". They also emit a `noindex, nofollow` robots meta tag, so search engines do not index preview URLs.
-- **The only official preview hostnames are `pr-N.lumose.pages.dev` and `<branch>.lumose.pages.dev` (Cloudflare-issued).** URLs hosted elsewhere claiming to be GlycemicGPT previews are not endorsed by the project.
+- Preview deployments display a banner across the top of the page reading "Preview deployment — You are viewing a pull request preview, not the official Lumose site. Production is at lumose.org." They also emit a `noindex, nofollow` robots meta tag, so search engines do not index preview URLs.
+- **The only official preview hostnames are `pr-N.lumose.pages.dev` and `<branch>.lumose.pages.dev` (Cloudflare-issued).** URLs hosted elsewhere claiming to be Lumose previews are not endorsed by the project.
 - Production lives at `lumose.org` (Cloudflare Pages). Production builds intentionally do not emit the preview banner or the noindex tag.
 - Previews are not retained indefinitely. The `cleanup-preview` workflow deletes them when the PR is closed; the daily `sweep-previews` workflow catches anything missed and deletes any preview deployment older than 30 days regardless of PR state.
 

@@ -252,9 +252,11 @@ export function BeamTile({
   const isTile = shape === "tile";
   const logoSize = LOGO_SIZE[shape];
 
+  // Forced colors would swap the card fill for the system canvas, and the light
+  // marks vanish on a light one. Opting out keeps a dark plate behind them.
   return (
     <div
-      className={`absolute flex size-[52px] items-center justify-center border border-lm-line-pill bg-lm-card ${isTile ? "rounded-lm-tile" : "rounded-full"}`}
+      className={`absolute flex size-[52px] items-center justify-center border border-lm-line-pill bg-lm-card forced-color-adjust-none ${isTile ? "rounded-lm-tile" : "rounded-full"}`}
       style={{ left: x - TILE_SIZE / 2, top: y - TILE_SIZE / 2 }}
     >
       {flags.logosCleared ? (
