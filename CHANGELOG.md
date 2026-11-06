@@ -6,6 +6,21 @@
 
 #### ✨ New Features
 
+- feat(v2): add shared motion runtime and pause control [@jlengelbrecht](https://github.com/jlengelbrecht) ([#630](https://github.com/lumose-health/website/pull/630))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#631](https://github.com/lumose-health/website/pull/631))
+
+<!-- changelog-cutoff:2026-11-06T13:56:29Z -->
+
+
+## 2026-11-06
+
+### 🌐 Website
+
+#### ✨ New Features
+
 - feat: add hidden /v2 route with design tokens and data switches [@jlengelbrecht](https://github.com/jlengelbrecht) ([#628](https://github.com/lumose-health/website/pull/628))
 
 ### ❓ Uncategorized
