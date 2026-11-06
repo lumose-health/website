@@ -8,6 +8,21 @@
 
 - feat: add hidden /v2 route with design tokens and data switches [@jlengelbrecht](https://github.com/jlengelbrecht) ([#628](https://github.com/lumose-health/website/pull/628))
 
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#629](https://github.com/lumose-health/website/pull/629))
+
+<!-- changelog-cutoff:2026-11-06T06:46:29Z -->
+
+
+## 2026-11-06
+
+### 🌐 Website
+
+#### ✨ New Features
+
+- feat: add hidden /v2 route with design tokens and data switches [@jlengelbrecht](https://github.com/jlengelbrecht) ([#628](https://github.com/lumose-health/website/pull/628))
+
 #### 📝 Other Changes
 
 - chore: rename the site to Lumose and fix sitemap and canonicals [@jlengelbrecht](https://github.com/jlengelbrecht) ([#626](https://github.com/lumose-health/website/pull/626))
