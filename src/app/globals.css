@@ -811,7 +811,7 @@
 
 @media (width < 47.5rem) and (prefers-reduced-motion: reduce),
   (width < 47.5rem) and (scripting: none) {
-  .lm-marquee-set {
+  .lm-marquee-set:not(.lm-marquee-copy) {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
