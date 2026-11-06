@@ -716,3 +716,128 @@
     stroke-dashoffset: calc(956px - var(--lm-beam-length) * 1px);
   }
 }
+
+/* Logo marquee. The row sits at rest until hydrated, and while it does the row
+   scrolls by hand, so a bundle that never loads still leaves every name reachable
+   with no change in height. The static layout below covers scripting being off. */
+.lm-marquee {
+  overflow-x: clip;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.lm-marquee-logo {
+  filter: grayscale(1) brightness(1.6) contrast(0.8);
+  opacity: 0.6;
+  transition:
+    filter var(--lm-dur-fast),
+    opacity var(--lm-dur-fast);
+}
+
+.lm-marquee-name {
+  color: var(--color-lm-ink-faint);
+  transition: color var(--lm-dur-fast);
+}
+
+/* Has to be none. Dropping the rule would let a running fade finish. */
+.lm-root [data-lm-loop="frozen"] .lm-marquee-logo,
+.lm-root [data-lm-loop="frozen"] .lm-marquee-name {
+  transition: none;
+}
+
+/* No scripting query here. Browsers without it would clip the row and not move
+   it, and the hydrated attribute already means JS is running. */
+@media (prefers-reduced-motion: no-preference) {
+  .lm-marquee:not([data-lm-hydrated]) {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  /* The duration is the set width over 28px/s, which JS measures. */
+  .lm-marquee[data-lm-hydrated] .lm-marquee-track {
+    animation: lm-marquee var(--lm-marquee-duration, 0s) linear infinite;
+    will-change: transform;
+  }
+
+  .lm-marquee[data-lm-held] .lm-marquee-track {
+    animation-play-state: paused;
+  }
+}
+
+/* Guarded because a tap leaves :hover stuck on touch screens. */
+@media (hover: hover) {
+  .lm-marquee:hover .lm-marquee-track {
+    animation-play-state: paused;
+  }
+
+  .lm-marquee-item:hover .lm-marquee-logo {
+    filter: none;
+    opacity: 1;
+  }
+
+  .lm-marquee-item:hover .lm-marquee-name {
+    color: var(--color-lm-ink);
+  }
+}
+
+@media (hover: none) {
+  .lm-marquee-logo {
+    filter: none;
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce), (scripting: none) {
+  .lm-marquee {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .lm-marquee-copy {
+    display: none;
+  }
+
+  .lm-marquee-track {
+    width: auto;
+  }
+
+  .lm-marquee-set {
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 28px;
+    width: 100%;
+  }
+}
+
+@media (width < 47.5rem) and (prefers-reduced-motion: reduce),
+  (width < 47.5rem) and (scripting: none) {
+  .lm-marquee-set:not(.lm-marquee-copy) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .lm-marquee-item {
+    padding-inline: 0;
+  }
+
+  /* An odd last item stays centered, as in the wider layouts. */
+  .lm-marquee-item:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
+  /* A name beside its logo doesn't fit in half of a 390px screen. */
+  .lm-marquee-head {
+    flex-direction: column;
+  }
+
+  .lm-marquee-name {
+    text-align: center;
+    white-space: normal;
+  }
+}
+
+@keyframes lm-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}

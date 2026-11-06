@@ -1,6 +1,8 @@
 import { Reveal } from "@/components/reveal";
 import { routes } from "@/lib/v2/routes";
 import { MarksNotice } from "../marks-notice";
+import { Marquee } from "../marquee";
+import { PauseMotion } from "../pause-motion";
 import { BeamDesktop } from "./beam-desktop";
 import { BeamMobile } from "./beam-mobile";
 
@@ -32,13 +34,16 @@ export function BeamSection() {
         </div>
       </div>
 
+      <Marquee className="mt-16" />
+
       <MarksNotice className="mt-6 text-center">
         <a
           href={`${routes.home}#connect`}
           className="text-lm-blue-light underline underline-offset-4 hover:text-[#8CC8FF]"
         >
           See device status →
-        </a>
+        </a>{" "}
+        <PauseMotion />
       </MarksNotice>
     </section>
   );
