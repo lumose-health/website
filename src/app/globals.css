@@ -745,7 +745,9 @@
   transition: none;
 }
 
-@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+/* No scripting query here. Browsers without it would clip the row and not move
+   it, and the hydrated attribute already means JS is running. */
+@media (prefers-reduced-motion: no-preference) {
   .lm-marquee:not([data-lm-hydrated]) {
     overflow-x: auto;
     scrollbar-width: none;

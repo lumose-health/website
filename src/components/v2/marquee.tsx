@@ -83,18 +83,22 @@ export function Marquee({ className = "" }: { className?: string }) {
       row.current = element;
       element.setAttribute("data-lm-hydrated", "");
 
-      // Waits for fonts so the measured width is the final one.
+      // Waits for fonts so the first width is the final one. The observer then
+      // catches reduced motion turning off, when the wrapped set gets wider.
+      const observer = new ResizeObserver(([{ contentRect }]) => {
+        const seconds = contentRect.width / PIXELS_PER_SECOND;
+        element.style.setProperty("--lm-marquee-duration", `${seconds}s`);
+      });
       let attached = true;
       void document.fonts.ready.then(() => {
         const set = element.querySelector("ul");
-        if (!attached || !set) return;
-        const seconds = set.getBoundingClientRect().width / PIXELS_PER_SECOND;
-        element.style.setProperty("--lm-marquee-duration", `${seconds}s`);
+        if (attached && set) observer.observe(set);
       });
 
       const detach = regionRef(element);
       return () => {
         attached = false;
+        observer.disconnect();
         detach?.();
       };
     },
