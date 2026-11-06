@@ -290,7 +290,59 @@ describe("loop scheduler", () => {
 
     assert.equal(scheduler.isFramePending(), true);
     assert.equal(region.frames.length, 2);
-    assert.equal(clock.errors.length, 2);
+  });
+
+  it("reports a region that keeps throwing once and stops calling it", () => {
+    let calls = 0;
+    scheduler
+      .add({
+        onFrame: () => {
+          calls += 1;
+          throw new Error("broken region");
+        },
+      })
+      .setVisible(true);
+    scheduler.add(recorder()).setVisible(true);
+
+    clock.step();
+    clock.step();
+    clock.step();
+
+    assert.equal(calls, 1);
+    assert.equal(clock.errors.length, 1);
+  });
+
+  it("stops the loop when the only region running has thrown", () => {
+    scheduler
+      .add({
+        onFrame: () => {
+          throw new Error("broken region");
+        },
+      })
+      .setVisible(true);
+
+    clock.step();
+
+    assert.equal(scheduler.isFramePending(), false);
+  });
+
+  it("still tracks a dropped region's state for its CSS loops", () => {
+    const changes: boolean[] = [];
+    const handle = scheduler.add({
+      onFrame: () => {
+        throw new Error("broken region");
+      },
+      onChange: (running) => changes.push(running),
+    });
+    handle.setVisible(true);
+    clock.step();
+
+    scheduler.pause();
+    scheduler.resume();
+    handle.remove();
+
+    assert.deepEqual(changes, [true, false, true]);
+    assert.equal(clock.pendingCount(), 0);
   });
 });
 

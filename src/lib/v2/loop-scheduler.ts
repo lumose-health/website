@@ -71,8 +71,10 @@ export function createLoopScheduler(driver: FrameDriver) {
         try {
           entry.onFrame(entry.elapsedMs, deltaMs);
         } catch (error) {
-          // One broken region must not take the others' frames with it.
+          // One broken region must not take the others' frames with it, and
+          // reports once. Its CSS loops and lifecycle carry on without frames.
           driver.report(error);
+          entry.onFrame = undefined;
         }
       }
     } finally {
