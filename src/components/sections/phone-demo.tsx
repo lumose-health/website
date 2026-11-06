@@ -40,7 +40,7 @@ const chatMessages: ChatMsg[] = [
     content:
       "14-day report:\n- Time in range: 74%\n- Avg: 151 mg/dL, GMI: 6.9%\n- Pattern: Post-dinner highs 3x/week\n- Worth raising with your care team",
   },
-  { role: "user", content: "Will I go low tonight?" },
+  { role: "user", content: "What's my glucose right now?" },
   {
     role: "assistant",
     content: "Current: 136 mg/dL, trending down.",
