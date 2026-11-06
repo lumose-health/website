@@ -1,5 +1,6 @@
 import { Reveal } from "@/components/reveal";
 import { routes } from "@/lib/v2/routes";
+import { FOCUS_RING } from "../button";
 import { MarksNotice } from "../marks-notice";
 import { Marquee } from "../marquee";
 import { PauseMotion } from "../pause-motion";
@@ -39,7 +40,7 @@ export function BeamSection() {
       <MarksNotice className="mt-6 text-center">
         <a
           href={`${routes.home}#connect`}
-          className="text-lm-blue-light underline underline-offset-4 hover:text-[#8CC8FF]"
+          className={`rounded-lm-sm text-lm-blue-light underline underline-offset-4 hover:text-[#8CC8FF] ${FOCUS_RING}`}
         >
           See device status →
         </a>{" "}
