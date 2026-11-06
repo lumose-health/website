@@ -1,5 +1,13 @@
+import type { RangeHours } from "@/lib/v2/dashboard-range";
 import type { GlucoseBand, TrendWindow } from "@/lib/v2/simulated-glucose";
-import { LaneHeader, LanePlot, dotPath } from "./lane-frame";
+import {
+  LaneHeader,
+  LanePlot,
+  TrendLayer,
+  arrivalProps,
+  dotPath,
+  dotWidth,
+} from "./lane-frame";
 
 const LANE_HEIGHT = 200;
 const VIEW_HEIGHT = 260;
@@ -38,7 +46,22 @@ function fractionDown(glucose: number) {
   return (DOMAIN_MAX - clamped) / (DOMAIN_MAX - DOMAIN_MIN);
 }
 
-export function LaneGlucose({ samples }: Pick<TrendWindow, "samples">) {
+type LaneGlucoseProps = Pick<TrendWindow, "samples"> & {
+  hours: RangeHours;
+  baseTick: number;
+};
+
+export function LaneGlucose({ samples, hours, baseTick }: LaneGlucoseProps) {
+  const toPoint = ({ position, glucose }: TrendWindow["samples"][number]) => ({
+    x: position * 1000,
+    y: fractionDown(glucose) * VIEW_HEIGHT,
+  });
+  const dot = {
+    strokeWidth: dotWidth(hours),
+    strokeLinecap: "round",
+    vectorEffect: "non-scaling-stroke",
+    fill: "none",
+  } as const;
   const bandTop = fractionDown(TARGET_HIGH) * VIEW_HEIGHT;
   const bandBottom = fractionDown(TARGET_LOW) * VIEW_HEIGHT;
 
@@ -55,7 +78,7 @@ export function LaneGlucose({ samples }: Pick<TrendWindow, "samples">) {
         <svg
           viewBox={`0 0 1000 ${VIEW_HEIGHT}`}
           preserveAspectRatio="none"
-          className="block size-full"
+          className="absolute inset-0 size-full"
         >
           <rect
             x="0"
@@ -77,25 +100,41 @@ export function LaneGlucose({ samples }: Pick<TrendWindow, "samples">) {
               vectorEffect="non-scaling-stroke"
             />
           ))}
-          {BANDS.map((band) => (
-            <path
-              key={band}
-              d={dotPath(
-                samples
-                  .filter((sample) => sample.band === band)
-                  .map(({ position, glucose }) => ({
-                    x: position * 1000,
-                    y: fractionDown(glucose) * VIEW_HEIGHT,
-                  })),
-              )}
-              stroke={BAND_STROKES[band]}
-              strokeWidth="3"
-              strokeLinecap="round"
-              vectorEffect="non-scaling-stroke"
-              fill="none"
-            />
-          ))}
         </svg>
+        <TrendLayer key={hours}>
+          <svg
+            viewBox={`0 0 1000 ${VIEW_HEIGHT}`}
+            preserveAspectRatio="none"
+            className="block size-full"
+          >
+            {BANDS.map((band) => (
+              <path
+                key={band}
+                d={dotPath(
+                  samples
+                    .filter(
+                      (sample) =>
+                        sample.band === band && sample.tick < baseTick,
+                    )
+                    .map(toPoint),
+                )}
+                stroke={BAND_STROKES[band]}
+                {...dot}
+              />
+            ))}
+            {samples
+              .filter((sample) => sample.tick >= baseTick)
+              .map((sample) => (
+                <path
+                  key={sample.tick}
+                  {...arrivalProps(sample.tick, baseTick)}
+                  d={dotPath([toPoint(sample)])}
+                  stroke={BAND_STROKES[sample.band]}
+                  {...dot}
+                />
+              ))}
+          </svg>
+        </TrendLayer>
       </LanePlot>
     </div>
   );

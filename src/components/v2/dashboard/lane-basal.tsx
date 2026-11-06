@@ -1,5 +1,6 @@
+import type { RangeHours } from "@/lib/v2/dashboard-range";
 import type { TrendWindow } from "@/lib/v2/simulated-glucose";
-import { LaneHeader, LanePlot } from "./lane-frame";
+import { LaneHeader, LanePlot, TrendLayer } from "./lane-frame";
 
 const LANE_HEIGHT = 46;
 const BASELINE_Y = 44;
@@ -26,7 +27,9 @@ function stepLine(samples: TrendWindow["samples"]) {
   return `${line} L1000 ${previousY.toFixed(1)}`;
 }
 
-export function LaneBasal({ samples }: Pick<TrendWindow, "samples">) {
+type LaneBasalProps = Pick<TrendWindow, "samples"> & { hours: RangeHours };
+
+export function LaneBasal({ samples, hours }: LaneBasalProps) {
   const line = stepLine(samples);
 
   return (
@@ -48,24 +51,26 @@ export function LaneBasal({ samples }: Pick<TrendWindow, "samples">) {
           position: rateToY(value) / LANE_HEIGHT,
         }))}
       >
-        <svg
-          viewBox={`0 0 1000 ${LANE_HEIGHT}`}
-          preserveAspectRatio="none"
-          className="block size-full"
-        >
-          <path
-            d={`${line} L1000 ${LANE_HEIGHT} L0 ${LANE_HEIGHT} Z`}
-            fill={BASAL_COLOR}
-            fillOpacity="0.18"
-          />
-          <path
-            d={line}
-            stroke={BASAL_COLOR}
-            strokeWidth="1.5"
-            vectorEffect="non-scaling-stroke"
-            fill="none"
-          />
-        </svg>
+        <TrendLayer key={hours}>
+          <svg
+            viewBox={`0 0 1000 ${LANE_HEIGHT}`}
+            preserveAspectRatio="none"
+            className="block size-full"
+          >
+            <path
+              d={`${line} L1000 ${LANE_HEIGHT} L0 ${LANE_HEIGHT} Z`}
+              fill={BASAL_COLOR}
+              fillOpacity="0.18"
+            />
+            <path
+              d={line}
+              stroke={BASAL_COLOR}
+              strokeWidth="1.5"
+              vectorEffect="non-scaling-stroke"
+              fill="none"
+            />
+          </svg>
+        </TrendLayer>
       </LanePlot>
     </div>
   );

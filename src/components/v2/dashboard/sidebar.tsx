@@ -1,3 +1,4 @@
+import { memo } from "react";
 import {
   BookOpen,
   Clock,
@@ -22,7 +23,7 @@ const NAV_ITEMS = [
 // Drawn, not a control: plain elements with no links or buttons, so nothing here
 // can take focus. The arbitrary variants size the shared logo to the mockup's 26×24
 // and drop its wordmark on the icon rail.
-export function Sidebar() {
+export const Sidebar = memo(function Sidebar() {
   return (
     <div
       aria-hidden="true"
@@ -58,4 +59,4 @@ export function Sidebar() {
       </div>
     </div>
   );
-}
+});

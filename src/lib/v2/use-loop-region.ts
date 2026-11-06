@@ -10,6 +10,8 @@ type UseLoopRegionOptions = {
   onFrame?: FrameCallback;
   /** Puts JS-written values at their end state when reduced motion turns on. */
   onSettle?: () => void;
+  /** For regions that step on a timer, which needs no frames at all. */
+  onRunningChange?: (running: boolean) => void;
 };
 
 // Spreads onto the region's element. `data-lm-loop` is in the static HTML, as
@@ -37,6 +39,9 @@ export function useLoopRegion<T extends Element = HTMLDivElement>(
         hasFrames
           ? (elapsedMs, deltaMs) => latest.current.onFrame?.(elapsedMs, deltaMs)
           : undefined,
+        undefined,
+        undefined,
+        (running) => latest.current.onRunningChange?.(running),
       );
     },
     [hasFrames],

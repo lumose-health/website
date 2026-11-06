@@ -1,5 +1,3 @@
-import type { TrendWindow } from "@/lib/v2/simulated-glucose";
-
 // The first and last labels sit inside the plot edges. The others center on their
 // time, and they drop out on phones, where five labels won't fit at 12px.
 function labelClass(index: number, count: number) {
@@ -9,7 +7,7 @@ function labelClass(index: number, count: number) {
   return `-translate-x-1/2 ${isMiddle ? "" : "hidden tablet:block"}`;
 }
 
-export function TimeAxis({ timeLabels }: Pick<TrendWindow, "timeLabels">) {
+export function TimeAxis({ timeLabels }: { timeLabels: string[] }) {
   return (
     <div className="pt-1.5 pl-[34px]">
       <div className="relative h-4 text-[12px] leading-4 text-lm-app-text-muted tablet:text-[10px]">

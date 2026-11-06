@@ -1,5 +1,13 @@
+import type { RangeHours } from "@/lib/v2/dashboard-range";
 import type { TrendWindow } from "@/lib/v2/simulated-glucose";
-import { LaneHeader, LanePlot, dotPath } from "./lane-frame";
+import {
+  LaneHeader,
+  LanePlot,
+  TrendLayer,
+  arrivalProps,
+  dotPath,
+  dotWidth,
+} from "./lane-frame";
 
 const LANE_HEIGHT = 60;
 // Dots land on whole coordinates, so a finer grid keeps the curve from stepping.
@@ -11,7 +19,24 @@ const IOB_COLOR = "#5FD4E0";
 
 const unitsToY = (units: number) => BASELINE_Y - units * PIXELS_PER_UNIT;
 
-export function LaneIob({ samples }: Pick<TrendWindow, "samples">) {
+type LaneIobProps = Pick<TrendWindow, "samples"> & {
+  hours: RangeHours;
+  baseTick: number;
+};
+
+export function LaneIob({ samples, hours, baseTick }: LaneIobProps) {
+  const toPoint = ({ position, iobUnits }: TrendWindow["samples"][number]) => ({
+    x: position * 1000,
+    y: unitsToY(iobUnits) * VIEW_SCALE,
+  });
+  const dot = {
+    stroke: IOB_COLOR,
+    strokeWidth: dotWidth(hours),
+    strokeLinecap: "round",
+    vectorEffect: "non-scaling-stroke",
+    fill: "none",
+  } as const;
+
   return (
     <div className="hidden tablet:block">
       <LaneHeader
@@ -31,25 +56,30 @@ export function LaneIob({ samples }: Pick<TrendWindow, "samples">) {
           position: unitsToY(value) / LANE_HEIGHT,
         }))}
       >
-        <svg
-          viewBox={`0 0 1000 ${LANE_HEIGHT * VIEW_SCALE}`}
-          preserveAspectRatio="none"
-          className="block size-full"
-        >
-          <path
-            d={dotPath(
-              samples.map(({ position, iobUnits }) => ({
-                x: position * 1000,
-                y: unitsToY(iobUnits) * VIEW_SCALE,
-              })),
-            )}
-            stroke={IOB_COLOR}
-            strokeWidth="3"
-            strokeLinecap="round"
-            vectorEffect="non-scaling-stroke"
-            fill="none"
-          />
-        </svg>
+        <TrendLayer key={hours}>
+          <svg
+            viewBox={`0 0 1000 ${LANE_HEIGHT * VIEW_SCALE}`}
+            preserveAspectRatio="none"
+            className="block size-full"
+          >
+            <path
+              d={dotPath(
+                samples.filter(({ tick }) => tick < baseTick).map(toPoint),
+              )}
+              {...dot}
+            />
+            {samples
+              .filter(({ tick }) => tick >= baseTick)
+              .map((sample) => (
+                <path
+                  key={sample.tick}
+                  {...arrivalProps(sample.tick, baseTick)}
+                  d={dotPath([toPoint(sample)])}
+                  {...dot}
+                />
+              ))}
+          </svg>
+        </TrendLayer>
       </LanePlot>
     </div>
   );
