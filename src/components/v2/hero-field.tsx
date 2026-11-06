@@ -1,3 +1,5 @@
+import { HeroComets, HeroGlow } from "./hero-comets";
+
 export const HERO_VIEWBOX = { width: 1440, height: 860 } as const;
 
 const CORE = { x: 720, y: 380 };
@@ -12,6 +14,8 @@ const PALETTE = [
 
 export type HeroSource = {
   name: string;
+  /** Order for the entrance stagger and pulse rings. */
+  index: number;
   /** Position in the viewBox. Tiles and strands both start here. */
   x: number;
   y: number;
@@ -20,12 +24,12 @@ export type HeroSource = {
 };
 
 export const HERO_SOURCES: HeroSource[] = [
-  { name: "Dexcom", x: 130, y: 150 },
-  { name: "Tandem", x: 80, y: 360 },
-  { name: "Medtronic", x: 110, y: 560 },
-  { name: "Nightscout", x: 1310, y: 150 },
-  { name: "Glooko", x: 1360, y: 360 },
-  { name: "Loop", x: 1330, y: 560 },
+  { name: "Dexcom", index: 0, x: 130, y: 150 },
+  { name: "Tandem", index: 1, x: 80, y: 360 },
+  { name: "Medtronic", index: 2, x: 110, y: 560 },
+  { name: "Nightscout", index: 3, x: 1310, y: 150 },
+  { name: "Glooko", index: 4, x: 1360, y: 360 },
+  { name: "Loop", index: 5, x: 1330, y: 560 },
 ];
 
 type Line = { d: string; color: string; opacity: number };
@@ -68,26 +72,19 @@ function Lines({ lines }: { lines: Line[] }) {
 
 export function HeroField() {
   const { width, height } = HERO_VIEWBOX;
+  const viewBox = `0 0 ${width} ${height}`;
 
   return (
-    <>
+    <div aria-hidden="true" className="lm-hero-field absolute inset-0">
+      <HeroGlow />
+
       {/* "none" stretches the art with the hero, keeping strands on the tiles. */}
       <svg
-        aria-hidden="true"
-        viewBox={`0 0 ${width} ${height}`}
+        viewBox={viewBox}
         preserveAspectRatio="none"
         className="absolute inset-0 size-full"
       >
         <defs>
-          <radialGradient id="lm-hero-core">
-            <stop offset="0" stopColor="#45D3FF" stopOpacity="0.55" />
-            <stop offset="0.35" stopColor="#118DFF" stopOpacity="0.22" />
-            <stop offset="1" stopColor="#118DFF" stopOpacity="0" />
-          </radialGradient>
-          <radialGradient id="lm-hero-vignette" cy="45%" r="70%">
-            <stop offset="0.55" stopColor="#04070C" stopOpacity="0" />
-            <stop offset="1" stopColor="#04070C" stopOpacity="0.9" />
-          </radialGradient>
           <radialGradient id="lm-hero-hole">
             <stop offset="0" stopColor="#000" />
             <stop offset="0.78" stopColor="#000" />
@@ -113,27 +110,35 @@ export function HeroField() {
           </mask>
         </defs>
 
-        <ellipse
-          cx={CORE.x}
-          cy={CORE.y}
-          rx="520"
-          ry="300"
-          fill="url(#lm-hero-core)"
-        />
         <g fill="none" mask="url(#lm-hero-text-mask)">
           <Lines lines={TRACES} />
           <g className="hidden tablet:inline">
             <Lines lines={HERO_STRANDS} />
           </g>
         </g>
+      </svg>
+
+      <HeroComets strands={HERO_STRANDS} viewBox={viewBox} />
+
+      {/* Its own layer, so it also darkens the comets. */}
+      <svg
+        viewBox={viewBox}
+        preserveAspectRatio="none"
+        className="absolute inset-0 size-full"
+      >
+        <defs>
+          <radialGradient id="lm-hero-vignette" cy="45%" r="70%">
+            <stop offset="0.55" stopColor="#04070C" stopOpacity="0" />
+            <stop offset="1" stopColor="#04070C" stopOpacity="0.9" />
+          </radialGradient>
+        </defs>
         <rect width={width} height={height} fill="url(#lm-hero-vignette)" />
       </svg>
 
       <div
-        aria-hidden="true"
         className="absolute inset-0 opacity-[0.07]"
         style={{ backgroundImage: `url("${GRAIN}")` }}
       />
-    </>
+    </div>
   );
 }
