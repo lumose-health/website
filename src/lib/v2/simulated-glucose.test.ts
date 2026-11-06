@@ -24,7 +24,7 @@ test("bgAt gives the same values on every run", () => {
     .digest("hex");
   assert.equal(
     digest,
-    "9a1c5d607424b4b37f456570ece8aeb4d0b6e34d2bb20d25d9ddd5828d938458",
+    "a036b49c797bb2d1e65208f2f5ddf5860aca4806f2dc3de1c1c79fe81779c5f9",
   );
 });
 
@@ -64,11 +64,11 @@ test("pointerDegreesForRate follows the real app's trend bands", () => {
   const cases = [
     [3.1, -90],
     [3, -45],
-    [0.6, -45],
-    [0.5, 0],
+    [1.1, -45],
+    [1, 0],
     [0, 0],
-    [-0.5, 0],
-    [-0.6, 45],
+    [-1, 0],
+    [-1.1, 45],
     [-3, 45],
     [-3.1, 90],
   ] as const;
@@ -114,7 +114,10 @@ test("dashboardAt is repeatable and carries no carb figures", () => {
 
 test("basalAt steps through the day and wraps at midnight", () => {
   assert.equal(basalAt(0), 0.8);
-  assert.equal(basalAt(47), 0.8);
+  assert.equal(basalAt(29), 0.8);
+  assert.equal(basalAt(30), 0.2);
+  assert.equal(basalAt(44), 0.2);
+  assert.equal(basalAt(45), 0.8);
   assert.equal(basalAt(48), 1.05);
   assert.equal(basalAt(287), 0.9);
   assert.equal(basalAt(-1), basalAt(287));
@@ -152,22 +155,47 @@ test("the doses lane shows the doses behind the IOB curve", () => {
       [2.6, "manual"],
     ],
   );
-  // Three samples on, the onset ramp has finished and most of the dose shows.
-  assert.ok(iobAt(103) - iobAt(99) > 0.8 * 3.2);
+  assert.equal(iobAt(91) - iobAt(90), 3.2);
+});
+
+test("iobAt tails off without a cliff", () => {
+  for (const tick of TICKS) {
+    const drop = iobAt(tick) - iobAt(tick + 1);
+    assert.ok(drop < 0.15, `drops ${drop} at ${tick}`);
+  }
+});
+
+test("meal boluses land in range, ahead of the peak", () => {
+  for (const sample of [91, 145, 223]) {
+    for (const day of [0, 1, 2]) {
+      const tick = sample + day * 288;
+      assert.ok(bgAt(tick) <= 180, `${bgAt(tick)} at ${tick}`);
+      assert.ok(bgAt(tick) < bgAt(tick + 12), `no rise after ${tick}`);
+    }
+  }
+});
+
+test("the overnight low stays above the urgent line", () => {
+  const values = TICKS.map(bgAt);
+  assert.ok(Math.min(...values) >= 55, `${Math.min(...values)} is urgent`);
 });
 
 test("auto corrections only land on high glucose", () => {
-  for (const sample of [160, 242]) {
+  for (const sample of [160, 236]) {
     for (const day of [0, 1, 2]) {
       const glucose = bgAt(sample + day * 288);
-      assert.ok(glucose > 170, `${glucose} at sample ${sample} on day ${day}`);
+      assert.ok(glucose > 180, `${glucose} at sample ${sample} on day ${day}`);
     }
   }
 });
 
 test("the time axis runs across the last 24 hours", () => {
   const { timeLabels } = trendAt(DEMO_START_TICK);
-  assert.equal(timeLabels.length, 5);
-  assert.equal(timeLabels[0], "1:05 PM");
-  assert.equal(timeLabels[4], "1:00 PM");
+  assert.deepEqual(timeLabels, [
+    "1:00 PM",
+    "7:00 PM",
+    "1:00 AM",
+    "7:00 AM",
+    "1:00 PM",
+  ]);
 });

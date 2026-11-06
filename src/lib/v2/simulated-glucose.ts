@@ -14,25 +14,25 @@ const SAMPLES_PER_RESERVOIR_UNIT = 40;
 const TREND_WINDOW = 3;
 const MINUTES_PER_SAMPLE = 5;
 /** The real app's stable and fast bands, in mg/dL per minute. */
-const STABLE_RATE = 0.5;
+const STABLE_RATE = 1;
 const FAST_RATE = 3;
 
 const IOB_BASELINE_UNITS = 0.4;
 /** Each dose feeds both the doses lane and the IOB curve, so the two can't differ. */
 const DOSES: readonly Dose[] = [
-  { sample: 100, units: 3.2, kind: "manual" },
-  { sample: 154, units: 2.6, kind: "manual" },
-  { sample: 232, units: 3.4, kind: "manual" },
+  { sample: 91, units: 3.2, kind: "manual" },
+  { sample: 145, units: 2.6, kind: "manual" },
+  { sample: 223, units: 3.4, kind: "manual" },
   { sample: 160, units: 0.6, kind: "auto" },
-  { sample: 242, units: 0.8, kind: "auto" },
+  { sample: 236, units: 0.8, kind: "auto" },
 ];
-const IOB_DOSE_LIFETIME = 50;
-const IOB_DECAY = 18;
-const IOB_ONSET = 3;
+const IOB_DOSE_LIFETIME = 60;
 
 /** Pump rates through the day, in u/hr. The last step runs to midnight. */
 const BASAL_SCHEDULE = [
   { fromHour: 0, rate: 0.8 },
+  { fromHour: 2.5, rate: 0.2 },
+  { fromHour: 3.75, rate: 0.8 },
   { fromHour: 4, rate: 1.05 },
   { fromHour: 8, rate: 0.85 },
   { fromHour: 12, rate: 0.95 },
@@ -41,6 +41,8 @@ const BASAL_SCHEDULE = [
 ];
 
 const TIME_AXIS_LABELS = 5;
+/** Six hours between axis labels. */
+const SAMPLES_PER_TIME_LABEL = 72;
 
 export type GlucoseBand = "in-range" | "high-low" | "urgent";
 export type DoseKind = "manual" | "auto";
@@ -63,7 +65,7 @@ export function bgAt(tick: number) {
       70 * bump(8.6, 1) +
       88 * bump(13.1, 1.2) +
       98 * bump(19.6, 1.3) -
-      44 * bump(3, 1.1),
+      24 * bump(3, 1.1),
   );
 }
 
@@ -73,8 +75,7 @@ export function iobAt(tick: number) {
   const fromDose = (doseSample: number) => {
     const since = sampleOfDay(sample - doseSample);
     if (since >= IOB_DOSE_LIFETIME) return 0;
-    const onset = since < IOB_ONSET ? since / IOB_ONSET : 1;
-    return Math.exp(-since / IOB_DECAY) * onset;
+    return (1 - (since / IOB_DOSE_LIFETIME) ** 2) ** 2;
   };
 
   return DOSES.reduce(
@@ -161,9 +162,7 @@ export function trendAt(tick: number) {
     ),
     timeLabels: Array.from({ length: TIME_AXIS_LABELS }, (_, index) =>
       formatSampleTime(
-        ticks[
-          Math.round((index * (SAMPLES_PER_DAY - 1)) / (TIME_AXIS_LABELS - 1))
-        ],
+        tick - (TIME_AXIS_LABELS - 1 - index) * SAMPLES_PER_TIME_LABEL,
       ),
     ),
   };

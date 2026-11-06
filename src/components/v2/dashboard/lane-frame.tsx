@@ -68,6 +68,6 @@ export function LanePlot({ height, yLabels = [], children }: LanePlotProps) {
 /** Round caps on zero-length strokes draw a dot that stays round when stretched. */
 export function dotPath(points: { x: number; y: number }[]) {
   return points
-    .map(({ x, y }) => `M${x.toFixed(1)} ${y.toFixed(1)}h0.01`)
+    .map(({ x, y }) => `M${Math.round(x)} ${Math.round(y)}h0.01`)
     .join("");
 }
