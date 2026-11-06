@@ -1,7 +1,7 @@
 import { Reveal } from "@/components/reveal";
 import { deviceCards, NOT_WORKING_ISSUE_URL } from "@/data/device-status";
 import type { DeviceCard } from "@/data/device-status";
-import { FOCUS_RING } from "./button";
+import { EXTERNAL_LINK, FOCUS_RING } from "./button";
 import { Card } from "./card";
 import { QuietPill } from "./quiet-pill";
 
@@ -15,7 +15,7 @@ function StatusCard({ card }: { card: DeviceCard }) {
       <h3 className="font-lm-display text-[22px]/[1.25] font-medium">
         {card.title}
       </h3>
-      <p className="text-[15px]/[1.5] text-lm-ink-muted">{card.description}</p>
+      <p className="text-sm/[1.5] text-lm-ink-muted">{card.description}</p>
 
       {/* The role keeps list semantics in Safari, which drops them when list markers are removed. */}
       <ul role="list" className="mt-auto border-t border-lm-line">
@@ -58,11 +58,12 @@ export function DeviceCards() {
         ))}
       </div>
 
-      <p className="mt-6 text-sm text-lm-ink-faint">
+      <p className="mt-6 text-sm/[1.5] text-lm-ink-faint">
         {LEGEND}
         <a
           href={NOT_WORKING_ISSUE_URL}
-          className={`rounded-sm text-lm-blue-light underline underline-offset-4 hover:text-[#8CC8FF] ${FOCUS_RING}`}
+          {...EXTERNAL_LINK}
+          className={`rounded-lm-sm text-lm-blue-light underline underline-offset-4 hover:text-[#8CC8FF] ${FOCUS_RING}`}
         >
           tracked on GitHub
         </a>
