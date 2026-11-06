@@ -16,8 +16,32 @@ const SIZES = {
 
 // Each logo gets its own gradient id. With a shared id, every copy would lose
 // its fill if the first one sat inside a hidden element.
-export function Logo({ size }: { size: keyof typeof SIZES }) {
+export function LogoIcon({ width, height }: { width: number; height: number }) {
   const gradientId = useId();
+
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 268.88 243.31"
+      aria-hidden="true"
+    >
+      <defs>
+        <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="var(--color-lm-logo-from)" />
+          <stop offset="1" stopColor="var(--color-lm-logo-to)" />
+        </linearGradient>
+      </defs>
+      <g fill={`url(#${gradientId})`}>
+        {ICON_PATHS.map((path) => (
+          <path key={path} d={path} />
+        ))}
+      </g>
+    </svg>
+  );
+}
+
+export function Logo({ size }: { size: keyof typeof SIZES }) {
   const { icon, wordmark } = SIZES[size];
 
   return (
@@ -26,24 +50,7 @@ export function Logo({ size }: { size: keyof typeof SIZES }) {
       aria-label="Lumose"
       className="inline-flex items-center gap-2.5"
     >
-      <svg
-        width={icon[0]}
-        height={icon[1]}
-        viewBox="0 0 268.88 243.31"
-        aria-hidden="true"
-      >
-        <defs>
-          <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="var(--color-lm-logo-from)" />
-            <stop offset="1" stopColor="var(--color-lm-logo-to)" />
-          </linearGradient>
-        </defs>
-        <g fill={`url(#${gradientId})`}>
-          {ICON_PATHS.map((path) => (
-            <path key={path} d={path} />
-          ))}
-        </g>
-      </svg>
+      <LogoIcon width={icon[0]} height={icon[1]} />
       <svg
         width={wordmark[0]}
         height={wordmark[1]}
