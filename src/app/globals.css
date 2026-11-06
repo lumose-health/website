@@ -623,7 +623,8 @@
 .lm-beam-glow {
   box-shadow: 0 0 58px rgb(17 141 255 / 0.42);
   opacity: 0.71;
-  animation: lm-beam-glow 2.9s var(--ease-lm-breathe) infinite;
+  /* A quarter of the way in, so a region frozen from the start rests at the middle. */
+  animation: lm-beam-glow 2.9s var(--ease-lm-breathe) -0.725s infinite;
 }
 
 @keyframes lm-beam-glow {
@@ -655,6 +656,11 @@
   [data-lm-loop="running"] .lm-beam-base {
     transition: stroke-dashoffset 800ms var(--ease-lm-in-out);
     transition-delay: calc(var(--lm-beam-index) * 40ms);
+  }
+
+  /* Has to be none. The default of all would let a running draw finish. */
+  [data-lm-loop="frozen"] .lm-beam-base {
+    transition: none;
   }
 
   .lm-beam:not([data-lm-shown]) .lm-beam-base {
@@ -700,11 +706,13 @@
   }
 }
 
+/* From 56 to minus the path length, plus one 956 dash period, which draws the same
+   thing and keeps the offset positive for older Safari. */
 @keyframes lm-beam-pulse {
   from {
-    stroke-dashoffset: 56;
+    stroke-dashoffset: 1012px;
   }
   to {
-    stroke-dashoffset: calc(var(--lm-beam-length) * -1px);
+    stroke-dashoffset: calc(956px - var(--lm-beam-length) * 1px);
   }
 }
