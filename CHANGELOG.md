@@ -6,6 +6,38 @@
 
 #### ✨ New Features
 
+- feat(v2): add beam diagram and real logos [@jlengelbrecht](https://github.com/jlengelbrecht) ([#640](https://github.com/lumose-health/website/pull/640))
+- feat(v2): bring the dashboard to life [@jlengelbrecht](https://github.com/jlengelbrecht) ([#637](https://github.com/lumose-health/website/pull/637))
+- feat(v2): add dashboard trend lanes [@jlengelbrecht](https://github.com/jlengelbrecht) ([#636](https://github.com/lumose-health/website/pull/636))
+- feat(v2): add dashboard frame and live cards [@jlengelbrecht](https://github.com/jlengelbrecht) ([#635](https://github.com/lumose-health/website/pull/635))
+- feat(v2): animate the hero [@jlengelbrecht](https://github.com/jlengelbrecht) ([#634](https://github.com/lumose-health/website/pull/634))
+- feat(v2): add static hero [@jlengelbrecht](https://github.com/jlengelbrecht) ([#633](https://github.com/lumose-health/website/pull/633))
+- feat(v2): add header, menu and footer [@jlengelbrecht](https://github.com/jlengelbrecht) ([#632](https://github.com/lumose-health/website/pull/632))
+
+### 🏗️ Infrastructure
+
+#### 📝 Other Changes
+
+- chore(deps): update renovatebot/github-action action to v46.3.12 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#619](https://github.com/lumose-health/website/pull/619))
+
+### 📦 Dependencies
+
+- chore(deps): update dependency lucide-react to v1.67.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#638](https://github.com/lumose-health/website/pull/638))
+- chore(deps): update dependency fumadocs-ui to v16.17.10 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#622](https://github.com/lumose-health/website/pull/622))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#639](https://github.com/lumose-health/website/pull/639))
+
+<!-- changelog-cutoff:2026-11-06T17:14:15Z -->
+
+
+## 2026-11-06
+
+### 🌐 Website
+
+#### ✨ New Features
+
 - feat(v2): add shared motion runtime and pause control [@jlengelbrecht](https://github.com/jlengelbrecht) ([#630](https://github.com/lumose-health/website/pull/630))
 
 ### ❓ Uncategorized
