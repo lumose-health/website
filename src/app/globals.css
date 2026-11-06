@@ -387,3 +387,232 @@
     transition-timing-function: var(--ease-lm-out);
   }
 }
+
+/* Dashboard. A layer spans the window plus the samples drawn ahead of it, and a
+   tick slides it, so React leaves the lanes alone between redraws. Everything here
+   is a transition, since keyframes would hold on their first frame while the
+   region is frozen. */
+.lm-trend-layer {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: calc(100% * var(--lm-trend-span));
+}
+
+.lm-trend-arrival:not([data-lm-arrived]) {
+  opacity: 0;
+}
+
+.lm-cgm-pointer,
+.lm-cgm-half {
+  transform-box: view-box;
+  transform-origin: 75px 75px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .lm-trend-layer {
+    transition: opacity var(--lm-dur-fast) linear;
+    will-change: translate;
+  }
+
+  .lm-trend-arrival {
+    transition: opacity var(--lm-dur-base) linear;
+  }
+
+  @starting-style {
+    .lm-trend-layer,
+    .lm-trend-arrival {
+      opacity: 0;
+    }
+  }
+
+  .lm-cgm-face {
+    transition: color var(--lm-dur-base) var(--ease-lm-in-out);
+  }
+
+  .lm-cgm-pointer {
+    transition: rotate var(--lm-dur-base) var(--ease-lm-in-out);
+  }
+}
+
+/* Only with scripting, since these wait for an observer. The CGM sweep's two
+   halves add up to 900ms, with the first one quick so they read as one ease-out.
+   Each starting state also opens by itself after 3s unless hydration arrives
+   first, so a page whose bundles fail still shows the dashboard and its disclaimer.
+   useShownOnce holds the same 3s. */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .lm-dash-rise {
+    transition:
+      opacity 800ms var(--ease-lm-out),
+      translate 800ms var(--ease-lm-out);
+  }
+
+  .lm-dash-rise:not([data-lm-shown]) {
+    opacity: 0;
+    translate: 0 24px;
+  }
+
+  .lm-dash-rise:not([data-lm-shown], [data-lm-hydrated]) {
+    animation: lm-dash-rise-open 0s 3s forwards;
+  }
+
+  .lm-cgm-half-first {
+    transition: rotate 180ms linear;
+  }
+
+  .lm-cgm-half-second {
+    transition: rotate 720ms var(--ease-lm-out) 180ms;
+  }
+
+  .lm-cgm:not([data-lm-shown]) .lm-cgm-half {
+    rotate: -188deg;
+  }
+
+  .lm-cgm:not([data-lm-shown], [data-lm-hydrated]) .lm-cgm-half {
+    animation: lm-cgm-open 0s 3s forwards;
+  }
+
+  /* Both ends need a basic shape, because none can't interpolate with inset(). */
+  .lm-trend-plots {
+    clip-path: inset(0);
+    transition: clip-path 1200ms var(--ease-lm-in-out);
+  }
+
+  .lm-trend-draw:not([data-lm-shown]) .lm-trend-plots {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  .lm-trend-draw:not([data-lm-shown], [data-lm-hydrated]) .lm-trend-plots {
+    animation: lm-trend-open 0s 3s forwards;
+  }
+
+  /* The dashboard's region stays frozen when its bundles fail, so these have to
+     run anyway. */
+  .lm-root [data-lm-loop="frozen"] .lm-dash-rise:not([data-lm-shown]),
+  .lm-root [data-lm-loop="frozen"] .lm-cgm:not([data-lm-shown]) .lm-cgm-half,
+  .lm-root
+    [data-lm-loop="frozen"]
+    .lm-trend-draw:not([data-lm-shown])
+    .lm-trend-plots {
+    animation-play-state: running !important;
+  }
+}
+
+@keyframes lm-dash-rise-open {
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes lm-cgm-open {
+  to {
+    rotate: 0deg;
+  }
+}
+
+@keyframes lm-trend-open {
+  to {
+    clip-path: inset(0);
+  }
+}
+
+/* Hero. The field and glow are CSS so they run with JS off. The core alpha is
+   below the design's 0.55 to keep the sub text at 4.5:1 at the top of the breath. */
+.lm-hero-glow {
+  position: absolute;
+  top: 9.3%;
+  left: 13.89%;
+  width: 72.22%;
+  height: 69.77%;
+  background: radial-gradient(
+    closest-side,
+    rgb(69 211 255 / 0.47),
+    rgb(17 141 255 / 0.22) 35%,
+    rgb(17 141 255 / 0)
+  );
+  animation: lm-hero-glow 6s var(--ease-lm-breathe) infinite;
+}
+
+@keyframes lm-hero-glow {
+  0%,
+  100% {
+    opacity: 0.85;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* A column as wide as the headline, because the field lines' ellipse lets comets
+   cross the headline's corners. Past about 2000px it widens with the art, so a
+   comet is always hidden by the time it wraps back to its tile. */
+.lm-hero-comets {
+  --lm-hole: max(415px, 21vw);
+  mask-image: linear-gradient(
+    90deg,
+    #000 calc(50% - var(--lm-hole) - 60px),
+    transparent calc(50% - var(--lm-hole)),
+    transparent calc(50% + var(--lm-hole)),
+    #000 calc(50% + var(--lm-hole) + 60px)
+  );
+}
+
+.lm-hero-comets > g {
+  opacity: 0;
+  transition: opacity var(--lm-dur-fast) linear;
+}
+
+.lm-hero-ring::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lm-tile);
+  background: rgb(69 211 255 / 0.35);
+  opacity: 0;
+}
+
+/* From the tile's edge to 14px out, as a 54px tile scaled up. */
+@keyframes lm-hero-ring {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(1.5185);
+  }
+}
+
+@keyframes lm-hero-field-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .lm-hero-field {
+    animation: lm-hero-field-in var(--lm-dur-reveal) ease-out backwards;
+  }
+}
+
+/* Only with scripting, since tiles wait for hydration to appear. */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .lm-hero-tile {
+    transition:
+      opacity 400ms var(--ease-lm-out),
+      scale 400ms var(--ease-lm-out);
+    transition-delay: calc(var(--lm-tile-index) * 60ms);
+  }
+
+  .lm-hero-tile:not([data-entered]) {
+    opacity: 0;
+    scale: 0.96;
+  }
+
+  .lm-hero-ring::before {
+    animation: lm-hero-ring 3.2s linear infinite;
+    animation-delay: calc(var(--lm-tile-index) * -550ms);
+  }
+}
