@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useMotion } from "@/components/v2/motion-provider";
-import { loopScheduler } from "./loop-scheduler";
+import { attachLoopRegion } from "./loop-scheduler";
 import type { FrameCallback } from "./loop-scheduler";
 
 type UseLoopRegionOptions = {
@@ -19,7 +19,6 @@ type UseLoopRegionOptions = {
 export function useLoopRegion<T extends Element = HTMLDivElement>(
   options: UseLoopRegionOptions = {},
 ) {
-  const ref = useRef<T | null>(null);
   const { reduced } = useMotion();
   const hasFrames = options.onFrame !== undefined;
 
@@ -28,33 +27,20 @@ export function useLoopRegion<T extends Element = HTMLDivElement>(
     latest.current = options;
   });
 
-  useEffect(() => {
-    const element = ref.current;
-    if (!element) return;
-
-    const region = loopScheduler.add({
-      onFrame: hasFrames
-        ? (elapsedMs, deltaMs) => latest.current.onFrame?.(elapsedMs, deltaMs)
-        : undefined,
-      onChange: (running) => {
-        element.setAttribute("data-lm-loop", running ? "running" : "frozen");
-      },
-    });
-
-    const observer = new IntersectionObserver(
-      (records) => {
-        region.setVisible(records[records.length - 1].isIntersecting);
-      },
-      { rootMargin: "100px" },
-    );
-    observer.observe(element);
-
-    return () => {
-      observer.disconnect();
-      region.remove();
-      element.setAttribute("data-lm-loop", "frozen");
-    };
-  }, [hasFrames]);
+  // A callback ref, so a region attaches whenever its element appears or is
+  // replaced, even if that happens long after this hook first ran.
+  const ref = useCallback(
+    (element: T | null) => {
+      if (!element) return;
+      return attachLoopRegion(
+        element,
+        hasFrames
+          ? (elapsedMs, deltaMs) => latest.current.onFrame?.(elapsedMs, deltaMs)
+          : undefined,
+      );
+    },
+    [hasFrames],
+  );
 
   useEffect(() => {
     if (reduced) latest.current.onSettle?.();

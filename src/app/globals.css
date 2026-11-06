@@ -358,6 +358,8 @@
    state. It stops keyframes only, so a one-shot entrance inside a region should be
    a transition, or it would hold on its first frame while motion is paused. */
 .lm-root [data-lm-loop="frozen"],
+.lm-root [data-lm-loop="frozen"]::before,
+.lm-root [data-lm-loop="frozen"]::after,
 .lm-root [data-lm-loop="frozen"] *,
 .lm-root [data-lm-loop="frozen"] *::before,
 .lm-root [data-lm-loop="frozen"] *::after {
@@ -368,6 +370,8 @@
    flashes before first paint and a live setting change needs no reload. */
 @media (prefers-reduced-motion: reduce) {
   .lm-root [data-lm-loop],
+  .lm-root [data-lm-loop]::before,
+  .lm-root [data-lm-loop]::after,
   .lm-root [data-lm-loop] *,
   .lm-root [data-lm-loop] *::before,
   .lm-root [data-lm-loop] *::after {

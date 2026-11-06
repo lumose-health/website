@@ -10,7 +10,6 @@ export function PauseMotion() {
   return (
     <button
       type="button"
-      aria-pressed={paused}
       onClick={togglePaused}
       className="-mx-2 inline-flex min-h-lm-touch min-w-lm-touch cursor-pointer items-center gap-1.5 rounded-lm-sm px-2 text-xs text-lm-ink-muted transition-colors duration-(--lm-dur-instant) hover:text-lm-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lm-blue-light motion-reduce:hidden"
     >

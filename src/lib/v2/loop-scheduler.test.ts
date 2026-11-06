@@ -1,13 +1,18 @@
 import assert from "node:assert/strict";
 import { beforeEach, describe, it } from "node:test";
-import { createLoopScheduler } from "./loop-scheduler";
-import type { FrameDriver, LoopScheduler } from "./loop-scheduler";
+import { attachLoopRegion, createLoopScheduler } from "./loop-scheduler";
+import type {
+  FrameDriver,
+  LoopScheduler,
+  VisibilityWatcher,
+} from "./loop-scheduler";
 
 // A fake clock: frames run only when the test calls step().
 function createFakeClock() {
   let now = 1000;
   let nextId = 1;
   const queue = new Map<number, (now: number) => void>();
+  const errors: unknown[] = [];
 
   const driver: FrameDriver = {
     request(callback) {
@@ -18,10 +23,14 @@ function createFakeClock() {
     cancel(id) {
       queue.delete(id);
     },
+    report(error) {
+      errors.push(error);
+    },
   };
 
   return {
     driver,
+    errors,
     pendingCount: () => queue.size,
     advance(ms: number) {
       now += ms;
@@ -32,6 +41,30 @@ function createFakeClock() {
       queue.clear();
       callbacks.forEach((callback) => callback(now));
     },
+  };
+}
+
+// Stands in for an element and its IntersectionObserver.
+function createFakeElement() {
+  const attributes = new Map<string, string>();
+  const element = {
+    setAttribute: (name: string, value: string) => attributes.set(name, value),
+  } as unknown as Element;
+
+  let onChange: ((visible: boolean) => void) | null = null;
+  const watch: VisibilityWatcher = (_element, callback) => {
+    onChange = callback;
+    return () => {
+      onChange = null;
+    };
+  };
+
+  return {
+    element,
+    watch,
+    isWatched: () => onChange !== null,
+    show: () => onChange?.(true),
+    state: () => attributes.get("data-lm-loop"),
   };
 }
 
@@ -218,5 +251,111 @@ describe("loop scheduler", () => {
     scheduler.resume();
 
     assert.deepEqual(changes, [true, false]);
+  });
+
+  it("gives other regions their frame when one throws, and reports it", () => {
+    const failure = new Error("broken region");
+    const before = recorder();
+    const after = recorder();
+    scheduler.add(before).setVisible(true);
+    scheduler
+      .add({
+        onFrame: () => {
+          throw failure;
+        },
+      })
+      .setVisible(true);
+    scheduler.add(after).setVisible(true);
+
+    assert.doesNotThrow(() => clock.step());
+
+    assert.equal(before.frames.length, 1);
+    assert.equal(after.frames.length, 1);
+    assert.deepEqual(clock.errors, [failure]);
+  });
+
+  it("keeps the loop going after a region throws", () => {
+    const region = recorder();
+    scheduler
+      .add({
+        onFrame: () => {
+          throw new Error("broken region");
+        },
+      })
+      .setVisible(true);
+    scheduler.add(region).setVisible(true);
+
+    clock.step();
+    clock.step();
+
+    assert.equal(scheduler.isFramePending(), true);
+    assert.equal(region.frames.length, 2);
+    assert.equal(clock.errors.length, 2);
+  });
+});
+
+describe("attachLoopRegion", () => {
+  let clock: ReturnType<typeof createFakeClock>;
+  let scheduler: LoopScheduler;
+
+  beforeEach(() => {
+    clock = createFakeClock();
+    scheduler = createLoopScheduler(clock.driver);
+  });
+
+  it("marks the element running once it is onscreen", () => {
+    const target = createFakeElement();
+    attachLoopRegion(target.element, () => {}, scheduler, target.watch);
+    assert.equal(clock.pendingCount(), 0);
+
+    target.show();
+
+    assert.equal(target.state(), "running");
+    assert.equal(clock.pendingCount(), 1);
+  });
+
+  it("releases everything on detach", () => {
+    const target = createFakeElement();
+    const detach = attachLoopRegion(
+      target.element,
+      () => {},
+      scheduler,
+      target.watch,
+    );
+    target.show();
+
+    detach();
+
+    assert.equal(target.isWatched(), false);
+    assert.equal(target.state(), "frozen");
+    assert.equal(clock.pendingCount(), 0);
+  });
+
+  it("moves to a replacement element without keeping the old one", () => {
+    const frames = recorder();
+    const oldTarget = createFakeElement();
+    const newTarget = createFakeElement();
+    const detach = attachLoopRegion(
+      oldTarget.element,
+      frames.onFrame,
+      scheduler,
+      oldTarget.watch,
+    );
+    oldTarget.show();
+
+    detach();
+    attachLoopRegion(
+      newTarget.element,
+      frames.onFrame,
+      scheduler,
+      newTarget.watch,
+    );
+    newTarget.show();
+    clock.step();
+
+    assert.equal(oldTarget.isWatched(), false);
+    assert.equal(oldTarget.state(), "frozen");
+    assert.equal(newTarget.state(), "running");
+    assert.equal(frames.frames.length, 1);
   });
 });

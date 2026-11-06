@@ -22,6 +22,8 @@ export type LoopRegion = {
 export type FrameDriver = {
   request(callback: (now: number) => void): number;
   cancel(id: number): void;
+  /** Receives anything a region's onFrame throws. */
+  report(error: unknown): void;
 };
 
 type Entry = LoopRegionOptions & {
@@ -55,19 +57,27 @@ export function createLoopScheduler(driver: FrameDriver) {
 
   function onAnimationFrame(now: number) {
     pendingFrame = null;
-    for (const entry of entries) {
-      if (!entry.running || !entry.onFrame) continue;
-      // A region's first frame after starting advances nothing, so time spent
-      // frozen is never added to its phase.
-      const deltaMs =
-        entry.lastFrameAt === null
-          ? 0
-          : Math.min(now - entry.lastFrameAt, MAX_FRAME_MS);
-      entry.lastFrameAt = now;
-      entry.elapsedMs += deltaMs;
-      entry.onFrame(entry.elapsedMs, deltaMs);
+    try {
+      for (const entry of entries) {
+        if (!entry.running || !entry.onFrame) continue;
+        // A region's first frame after starting advances nothing, so time spent
+        // frozen is never added to its phase.
+        const deltaMs =
+          entry.lastFrameAt === null
+            ? 0
+            : Math.min(now - entry.lastFrameAt, MAX_FRAME_MS);
+        entry.lastFrameAt = now;
+        entry.elapsedMs += deltaMs;
+        try {
+          entry.onFrame(entry.elapsedMs, deltaMs);
+        } catch (error) {
+          // One broken region must not take the others' frames with it.
+          driver.report(error);
+        }
+      }
+    } finally {
+      syncFrame();
     }
-    syncFrame();
   }
 
   function updateEntry(entry: Entry) {
@@ -125,4 +135,47 @@ export type LoopScheduler = ReturnType<typeof createLoopScheduler>;
 export const loopScheduler = createLoopScheduler({
   request: (callback) => requestAnimationFrame(callback),
   cancel: (id) => cancelAnimationFrame(id),
+  report: (error) => reportError(error),
 });
+
+/** Calls back with whether the element is onscreen. Returns a stop function. */
+export type VisibilityWatcher = (
+  element: Element,
+  onChange: (visible: boolean) => void,
+) => () => void;
+
+// Regions count as offscreen more than 100px outside the viewport.
+const watchViewport: VisibilityWatcher = (element, onChange) => {
+  const observer = new IntersectionObserver(
+    (records) => onChange(records[records.length - 1].isIntersecting),
+    { rootMargin: "100px" },
+  );
+  observer.observe(element);
+  return () => observer.disconnect();
+};
+
+/**
+ * Runs a region on one element until the returned function is called. Each
+ * element gets its own attachment, so a replaced element can't leave the
+ * observer watching the old node.
+ */
+export function attachLoopRegion(
+  element: Element,
+  onFrame: FrameCallback | undefined,
+  scheduler: LoopScheduler = loopScheduler,
+  watch: VisibilityWatcher = watchViewport,
+) {
+  const region = scheduler.add({
+    onFrame,
+    onChange: (running) => {
+      element.setAttribute("data-lm-loop", running ? "running" : "frozen");
+    },
+  });
+  const stopWatching = watch(element, region.setVisible);
+
+  return () => {
+    stopWatching();
+    region.remove();
+    element.setAttribute("data-lm-loop", "frozen");
+  };
+}
