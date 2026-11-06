@@ -12,7 +12,7 @@ import { MarksNotice } from "./marks-notice";
 import { useProviderSelection } from "./provider-context";
 
 const BULLETS = [
-  "Use a subscription you already pay for",
+  "Bring your own API key",
   "Run fully local with Ollama",
   "Or any OpenAI-compatible endpoint",
 ];
@@ -143,12 +143,14 @@ export function ByoAi() {
         <Reveal>
           <h2 className="mb-5 font-lm-display text-lm-h2">
             <span className="block">Any model.</span>
-            <span className="block">Your data stays put.</span>
+            <span className="block">You choose where your data goes.</span>
           </h2>
           <p className="mb-7 text-lm-lead text-lm-ink-muted">
             Point Lumose at Claude, OpenAI, GitHub Copilot, or a local model
-            through Ollama. Lumose doesn&apos;t host or resell AI, so your
-            history only goes where you send it.
+            through Ollama. Lumose doesn&apos;t host or resell AI. When you use
+            an AI feature, your question and health data go to the provider you
+            picked, under its terms. With a local model, they stay on your
+            network.
           </p>
           {/* The role keeps list semantics in Safari, which drops them when list markers are removed. */}
           <ul role="list" className="flex flex-col gap-3">
