@@ -397,7 +397,6 @@
   inset-block: 0;
   left: 0;
   width: calc(100% * var(--lm-trend-span));
-  will-change: translate;
 }
 
 .lm-trend-arrival:not([data-lm-arrived]) {
@@ -413,6 +412,7 @@
 @media (prefers-reduced-motion: no-preference) {
   .lm-trend-layer {
     transition: opacity var(--lm-dur-fast) linear;
+    will-change: translate;
   }
 
   .lm-trend-arrival {
@@ -436,7 +436,10 @@
 }
 
 /* Only with scripting, since these wait for an observer. The CGM sweep's two
-   halves add up to 900ms, with the first one quick so they read as one ease-out. */
+   halves add up to 900ms, with the first one quick so they read as one ease-out.
+   Each starting state also opens by itself after 3s unless hydration arrives
+   first, so a page whose bundles fail still shows the dashboard and its disclaimer.
+   useShownOnce holds the same 3s. */
 @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
   .lm-dash-rise {
     transition:
@@ -447,6 +450,10 @@
   .lm-dash-rise:not([data-lm-shown]) {
     opacity: 0;
     translate: 0 24px;
+  }
+
+  .lm-dash-rise:not([data-lm-shown], [data-lm-hydrated]) {
+    animation: lm-dash-rise-open 0s 3s forwards;
   }
 
   .lm-cgm-half-first {
@@ -461,12 +468,52 @@
     rotate: -188deg;
   }
 
+  .lm-cgm:not([data-lm-shown], [data-lm-hydrated]) .lm-cgm-half {
+    animation: lm-cgm-open 0s 3s forwards;
+  }
+
+  /* Both ends need a basic shape, because none can't interpolate with inset(). */
   .lm-trend-plots {
+    clip-path: inset(0);
     transition: clip-path 1200ms var(--ease-lm-in-out);
   }
 
   .lm-trend-draw:not([data-lm-shown]) .lm-trend-plots {
     clip-path: inset(0 100% 0 0);
+  }
+
+  .lm-trend-draw:not([data-lm-shown], [data-lm-hydrated]) .lm-trend-plots {
+    animation: lm-trend-open 0s 3s forwards;
+  }
+
+  /* The dashboard's region stays frozen when its bundles fail, so these have to
+     run anyway. */
+  .lm-root [data-lm-loop="frozen"] .lm-dash-rise:not([data-lm-shown]),
+  .lm-root [data-lm-loop="frozen"] .lm-cgm:not([data-lm-shown]) .lm-cgm-half,
+  .lm-root
+    [data-lm-loop="frozen"]
+    .lm-trend-draw:not([data-lm-shown])
+    .lm-trend-plots {
+    animation-play-state: running !important;
+  }
+}
+
+@keyframes lm-dash-rise-open {
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes lm-cgm-open {
+  to {
+    rotate: 0deg;
+  }
+}
+
+@keyframes lm-trend-open {
+  to {
+    clip-path: inset(0);
   }
 }
 

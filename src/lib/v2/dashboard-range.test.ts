@@ -1,8 +1,10 @@
 import assert from "node:assert/strict";
-import { test } from "node:test";
+import { mock, test } from "node:test";
 import {
   DEFAULT_RANGE,
   LEAD_SAMPLES,
+  createStepTimer,
+  cycleRange,
   rangeLabel,
   rangeSamples,
   stepRange,
@@ -17,21 +19,26 @@ test("the chart opens on the last 24 hours", () => {
   assert.equal(rangeSamples(DEFAULT_RANGE), 288);
 });
 
-test("stepping forward goes through 3, 6, 12 and 24, then round", () => {
+test("stepping forward goes through 3, 6, 12 and 24, and stops", () => {
   const seen: RangeHours[] = [];
   let hours: RangeHours = 3;
   for (let step = 0; step < 5; step++) {
     seen.push(hours);
     hours = stepRange(hours, 1);
   }
-  assert.deepEqual(seen, [3, 6, 12, 24, 3]);
+  assert.deepEqual(seen, [3, 6, 12, 24, 24]);
 });
 
-test("stepping back undoes stepping forward", () => {
-  assert.equal(stepRange(3, -1), 24);
-  for (const hours of [3, 6, 12, 24] as const) {
-    assert.equal(stepRange(stepRange(hours, 1), -1), hours);
-  }
+test("stepping back stops at the shortest range", () => {
+  assert.equal(stepRange(24, -1), 12);
+  assert.equal(stepRange(6, -1), 3);
+  assert.equal(stepRange(3, -1), 3);
+});
+
+test("the label cycles forward and goes round", () => {
+  assert.deepEqual([3, 6, 12, 24].map((hours) => cycleRange(hours as RangeHours)), [
+    6, 12, 24, 3,
+  ]);
 });
 
 test("the lanes redraw once every lead of samples, and hold in between", () => {
@@ -64,4 +71,57 @@ test("the sample at the chart's right edge always matches the cards", () => {
       assert.equal(edge.basalUnitsPerHour, card.basalUnitsPerHour);
     }
   }
+});
+
+function fakeTimer() {
+  mock.timers.enable({ apis: ["setTimeout"] });
+  let nowMs = 0;
+  let steps = 0;
+  const timer = createStepTimer(
+    3000,
+    () => (steps += 1),
+    () => nowMs,
+  );
+  return {
+    timer,
+    steps: () => steps,
+    advance(ms: number) {
+      nowMs += ms;
+      mock.timers.tick(ms);
+    },
+  };
+}
+
+test("the step timer waits for both running and started", (t) => {
+  t.after(() => mock.timers.reset());
+  const { timer, steps, advance } = fakeTimer();
+  timer.setRunning(true);
+  advance(9000);
+  assert.equal(steps(), 0);
+  timer.start();
+  advance(2999);
+  assert.equal(steps(), 0);
+  advance(1);
+  assert.equal(steps(), 1);
+  advance(3000);
+  advance(3000);
+  assert.equal(steps(), 3);
+  timer.stop();
+});
+
+test("a stopped timer doesn't step, and returns with no burst", (t) => {
+  t.after(() => mock.timers.reset());
+  const { timer, steps, advance } = fakeTimer();
+  timer.start();
+  timer.setRunning(true);
+  advance(2000);
+  timer.setRunning(false);
+  advance(60000);
+  assert.equal(steps(), 0);
+  timer.setRunning(true);
+  advance(999);
+  assert.equal(steps(), 0);
+  advance(1);
+  assert.equal(steps(), 1);
+  timer.stop();
 });

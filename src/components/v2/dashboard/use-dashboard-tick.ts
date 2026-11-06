@@ -1,42 +1,39 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
-import { TICK_MS } from "@/lib/v2/dashboard-range";
+import { useCallback, useEffect, useState } from "react";
+import { TICK_MS, createStepTimer } from "@/lib/v2/dashboard-range";
 import { DEMO_START_TICK } from "@/lib/v2/simulated-glucose";
 import { useLoopRegion } from "@/lib/v2/use-loop-region";
 
+// Matches the delay on the starting states in globals.css.
+const FAIL_OPEN_MS = 3000;
+
 /**
- * Steps the dashboard one sample at a time once the lanes are drawn. It runs on
- * the shared loop, which skips it while offscreen, hidden, paused or under
- * reduced motion. That loop caps each frame's time, so nothing piles up to burst
- * out on resume, and the only state write is the one per tick.
+ * Steps the dashboard one sample at a time once the lanes are drawn. It's a timer,
+ * not a frame loop, and follows the region's state, which is off while offscreen,
+ * hidden, paused or under reduced motion.
  */
 export function useDashboardTick() {
   const [tick, setTick] = useState(DEMO_START_TICK);
-  const ready = useRef(false);
-  const waitedMs = useRef(0);
+  const [timer] = useState(() =>
+    createStepTimer(TICK_MS, () => setTick((current) => current + 1)),
+  );
 
   const region = useLoopRegion<HTMLElement>({
-    onFrame(_elapsedMs, deltaMs) {
-      if (!ready.current) return;
-      waitedMs.current += deltaMs;
-      if (waitedMs.current < TICK_MS) return;
-      waitedMs.current -= TICK_MS;
-      setTick((current) => current + 1);
-    },
+    onRunningChange: timer.setRunning,
   });
 
-  const start = useCallback(() => {
-    ready.current = true;
-  }, []);
+  useEffect(() => timer.stop, [timer]);
 
-  return { tick, region, start };
+  return { tick, region, start: timer.start };
 }
 
 /**
  * Sets `data-lm-shown` once, the first time the element is in view, which starts
  * its CSS entrance. Static HTML has no attribute, and the hidden starting state
- * applies only when scripting is on and motion is allowed.
+ * applies only when scripting is on and motion is allowed. `data-lm-hydrated`
+ * cancels the CSS fail-open. If hydration is too late for that, the element is
+ * already open, so its entrance is skipped.
  */
 export function useShownOnce<T extends Element = HTMLDivElement>(
   threshold: number,
@@ -47,12 +44,22 @@ export function useShownOnce<T extends Element = HTMLDivElement>(
     (element: T | null) => {
       if (!element) return;
       let timer: ReturnType<typeof setTimeout> | undefined;
+      const show = (delayMs: number) => {
+        element.setAttribute("data-lm-shown", "");
+        if (onDone) timer = setTimeout(onDone, delayMs);
+      };
+
+      element.setAttribute("data-lm-hydrated", "");
+      if (performance.now() >= FAIL_OPEN_MS) {
+        show(0);
+        return () => clearTimeout(timer);
+      }
+
       const observer = new IntersectionObserver(
         (records) => {
           if (!records.some((record) => record.isIntersecting)) return;
           observer.disconnect();
-          element.setAttribute("data-lm-shown", "");
-          if (onDone) timer = setTimeout(onDone, afterMs);
+          show(afterMs);
         },
         { threshold },
       );

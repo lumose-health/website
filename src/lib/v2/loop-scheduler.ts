@@ -167,11 +167,13 @@ export function attachLoopRegion(
   onFrame: FrameCallback | undefined,
   scheduler: LoopScheduler = loopScheduler,
   watch: VisibilityWatcher = watchViewport,
+  onRunningChange?: (running: boolean) => void,
 ) {
   const region = scheduler.add({
     onFrame,
     onChange: (running) => {
       element.setAttribute("data-lm-loop", running ? "running" : "frozen");
+      onRunningChange?.(running);
     },
   });
   const stopWatching = watch(element, region.setVisible);
@@ -180,5 +182,6 @@ export function attachLoopRegion(
     stopWatching();
     region.remove();
     element.setAttribute("data-lm-loop", "frozen");
+    onRunningChange?.(false);
   };
 }

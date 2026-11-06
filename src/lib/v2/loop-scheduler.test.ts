@@ -437,3 +437,48 @@ describe("attachLoopRegion", () => {
     assert.equal(frames.frames.length, 1);
   });
 });
+
+it("a region without frames reports running and requests none", () => {
+  const { driver, requested } = fakeDriverForRunningTest();
+  const scheduler = createLoopScheduler(driver);
+  const element = {
+    setAttribute() {},
+  } as unknown as Element;
+  const seen: boolean[] = [];
+  let report: (visible: boolean) => void = () => {};
+  const detach = attachLoopRegion(
+    element,
+    undefined,
+    scheduler,
+    (_element, onChange) => {
+      report = onChange;
+      return () => {};
+    },
+    (running) => seen.push(running),
+  );
+
+  report(true);
+  scheduler.pause();
+  scheduler.resume();
+  detach();
+
+  assert.deepEqual(seen, [true, false, true, false]);
+  assert.equal(requested(), 0);
+});
+
+function fakeDriverForRunningTest() {
+  let count = 0;
+  return {
+    requested: () => count,
+    driver: {
+      request() {
+        count += 1;
+        return count;
+      },
+      cancel() {},
+      report(error: unknown) {
+        throw error;
+      },
+    },
+  };
+}
