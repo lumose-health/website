@@ -15,7 +15,7 @@ export function PreviewBanner() {
       <strong className="font-semibold">Preview deployment</strong>
       <span className="mx-2">—</span>
       <span>
-        You are viewing a pull request preview, not the official GlycemicGPT
+        You are viewing a pull request preview, not the official Lumose
         site. Production is at{" "}
         <a
           href={SITE_URL}

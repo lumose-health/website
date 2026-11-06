@@ -40,30 +40,29 @@ const chatMessages: ChatMsg[] = [
     content:
       "14-day report:\n- Time in range: 74%\n- Avg: 151 mg/dL, GMI: 6.9%\n- Pattern: Post-dinner highs 3x/week\n- Worth raising with your care team",
   },
-  { role: "user", content: "Will I go low tonight?" },
+  { role: "user", content: "What's my glucose right now?" },
   {
     role: "assistant",
-    content:
-      "Current: 136 mg/dL, trending down. **Heading toward your low threshold** by 2 AM. I'll keep watching and alert you if it falls below 80.",
+    content: "Current: 136 mg/dL, trending down.",
   },
 ];
 
 const alerts: AlertItem[] = [
   {
     level: "warning",
-    title: "GlycemicGPT - Sarah",
+    title: "Lumose - Sarah",
     body: "Blood sugar is HIGH -- 245 mg/dL and rising. Last reading 5 min ago.",
     time: "2 min ago",
   },
   {
     level: "urgent",
-    title: "GlycemicGPT - Sarah",
+    title: "Lumose - Sarah",
     body: "URGENT: Blood sugar is 52 mg/dL -- immediate attention needed.",
     time: "Just now",
   },
   {
     level: "recovery",
-    title: "GlycemicGPT - Sarah",
+    title: "Lumose - Sarah",
     body: "Sarah's blood sugar is back in range -- 128 mg/dL and stable.",
     time: "12 min ago",
   },
@@ -349,6 +348,9 @@ export function PhoneDemo({ onDailyBriefAlert }: { onDailyBriefAlert?: () => voi
                   Monitoring Sarah
                 </div>
               </div>
+              <span className="ml-auto rounded-full bg-muted px-2.5 py-0.5 text-[9px] font-medium text-muted-foreground">
+                In development
+              </span>
             </div>
 
             {/* Alert notifications */}
@@ -385,7 +387,7 @@ export function PhoneDemo({ onDailyBriefAlert }: { onDailyBriefAlert?: () => voi
             {/* Bottom bar */}
             <div className="border-t border-border px-2.5 py-1.5 text-center">
               <span className="text-[9px] text-muted-foreground">
-                Real-time caregiver monitoring
+                Keep your CGM&apos;s own alerts on.
               </span>
             </div>
           </motion.div>

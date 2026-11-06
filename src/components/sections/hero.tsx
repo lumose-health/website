@@ -23,8 +23,8 @@ export function HeroSection() {
         </h1>
 
         <p className="mx-auto mb-8 max-w-2xl text-lg text-muted-foreground sm:text-xl">
-          Real-time glucose monitoring, AI-powered analysis, caregiver alerts,
-          and Wear OS support. Self-hosted, privacy-first, completely open source.
+          Real-time glucose monitoring, AI-powered analysis, and Wear OS
+          support. Self-hosted, privacy-first, completely open source.
         </p>
 
         <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
@@ -36,7 +36,7 @@ export function HeroSection() {
             <ArrowRight className="h-4 w-4" />
           </a>
           <a
-            href="https://github.com/GlycemicGPT/GlycemicGPT"
+            href="https://github.com/lumose-health/lumose"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-lg border border-border px-6 py-3 text-sm font-medium transition-colors hover:bg-accent"

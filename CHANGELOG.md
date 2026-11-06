@@ -1,5 +1,94 @@
 # Changelog
 
+## 2026-11-06
+
+### 🌐 Website
+
+#### ✨ New Features
+
+- feat(v2): add shared motion runtime and pause control [@jlengelbrecht](https://github.com/jlengelbrecht) ([#630](https://github.com/lumose-health/website/pull/630))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#631](https://github.com/lumose-health/website/pull/631))
+
+<!-- changelog-cutoff:2026-11-06T13:56:29Z -->
+
+
+## 2026-11-06
+
+### 🌐 Website
+
+#### ✨ New Features
+
+- feat: add hidden /v2 route with design tokens and data switches [@jlengelbrecht](https://github.com/jlengelbrecht) ([#628](https://github.com/lumose-health/website/pull/628))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#629](https://github.com/lumose-health/website/pull/629))
+
+<!-- changelog-cutoff:2026-11-06T06:46:29Z -->
+
+
+## 2026-11-06
+
+### 🌐 Website
+
+#### ✨ New Features
+
+- feat: add hidden /v2 route with design tokens and data switches [@jlengelbrecht](https://github.com/jlengelbrecht) ([#628](https://github.com/lumose-health/website/pull/628))
+
+#### 📝 Other Changes
+
+- chore: rename the site to Lumose and fix sitemap and canonicals [@jlengelbrecht](https://github.com/jlengelbrecht) ([#626](https://github.com/lumose-health/website/pull/626))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#627](https://github.com/lumose-health/website/pull/627))
+
+<!-- changelog-cutoff:2026-11-06T04:49:31Z -->
+
+
+## 2026-11-06
+
+### 📦 Dependencies
+
+- fix(deps): update dependency next to v16.4.4 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#623](https://github.com/lumose-health/website/pull/623))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#625](https://github.com/lumose-health/website/pull/625))
+
+<!-- changelog-cutoff:2026-11-06T03:52:51Z -->
+
+
+## 2026-11-05
+
+### 📦 Dependencies
+
+- chore(deps): update dependency fumadocs-core to v16.17.10 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#621](https://github.com/lumose-health/website/pull/621))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#624](https://github.com/lumose-health/website/pull/624))
+
+<!-- changelog-cutoff:2026-11-05T14:17:28Z -->
+
+
+## 2026-11-05
+
+### 📦 Dependencies
+
+- chore(deps): update dependency eslint-config-next to v16.4.4 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#620](https://github.com/lumose-health/website/pull/620))
+- chore(deps): update dependency lucide-react to v1.66.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#617](https://github.com/lumose-health/website/pull/617))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#618](https://github.com/lumose-health/website/pull/618))
+
+<!-- changelog-cutoff:2026-11-05T14:16:20Z -->
+
+
 ## 2026-11-03
 
 ### 🌐 Website
