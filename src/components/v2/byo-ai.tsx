@@ -19,8 +19,9 @@ const BULLETS = [
 
 const CAPTION_PREFIX = "Illustrative example. Answering with:";
 
-// Tighter from 1020px, so all four still fit on one row beside the text.
-const BUTTON = `inline-flex min-h-lm-touch min-w-0 items-center gap-2 rounded-lm-button border px-3 text-left text-sm transition-colors duration-(--lm-dur-fast) enabled:cursor-pointer motion-reduce:transition-none desktop:gap-1.5 desktop:px-2.5 min-[1180px]:gap-2 min-[1180px]:px-4 ${FOCUS_RING}`;
+// Tighter from 1020px to 1179px, so all four still fit on one row beside the
+// text. The range has an upper limit because desktop: sorts after min-[1180px]:.
+const BUTTON = `inline-flex min-h-lm-touch min-w-0 items-center gap-2 rounded-lm-button border px-3 text-left text-sm transition-colors duration-(--lm-dur-fast) enabled:cursor-pointer motion-reduce:transition-none desktop:max-[1179px]:gap-1.5 desktop:max-[1179px]:px-2.5 min-[1180px]:px-4 ${FOCUS_RING}`;
 // Forced colors would otherwise remove the fill, and with it the pressed state.
 const PRESSED =
   "border-[#3E7BC4] bg-[#13253B] text-lm-ink forced-colors:border-[Highlight] forced-colors:bg-[Highlight] forced-colors:text-[HighlightText] forced-colors:forced-color-adjust-none";
