@@ -23,8 +23,8 @@ export function HeroSection() {
         </h1>
 
         <p className="mx-auto mb-8 max-w-2xl text-lg text-muted-foreground sm:text-xl">
-          Real-time glucose monitoring, AI-powered analysis, caregiver alerts,
-          and Wear OS support. Self-hosted, privacy-first, completely open source.
+          Real-time glucose monitoring, AI-powered analysis, and Wear OS
+          support. Self-hosted, privacy-first, completely open source.
         </p>
 
         <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">

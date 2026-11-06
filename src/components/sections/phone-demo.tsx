@@ -348,6 +348,9 @@ export function PhoneDemo({ onDailyBriefAlert }: { onDailyBriefAlert?: () => voi
                   Monitoring Sarah
                 </div>
               </div>
+              <span className="ml-auto rounded-full bg-muted px-2.5 py-0.5 text-[9px] font-medium text-muted-foreground">
+                In development
+              </span>
             </div>
 
             {/* Alert notifications */}
@@ -384,7 +387,7 @@ export function PhoneDemo({ onDailyBriefAlert }: { onDailyBriefAlert?: () => voi
             {/* Bottom bar */}
             <div className="border-t border-border px-2.5 py-1.5 text-center">
               <span className="text-[9px] text-muted-foreground">
-                Real-time caregiver monitoring
+                Keep your CGM&apos;s own alerts on.
               </span>
             </div>
           </motion.div>

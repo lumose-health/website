@@ -36,7 +36,7 @@ const tiers = [
     title: "Platform Bridge",
     badge: "Coming Soon",
     description:
-      "Using an existing diabetes platform? Connect via API and bring your data into Lumose for AI-powered analysis, alerting, and caregiver access.",
+      "Using an existing diabetes platform? Connect via API and bring your data into Lumose for AI-powered analysis and caregiver access.",
     details: [
       "API integration with third-party platforms",
       "Unified dashboard across all your data sources",

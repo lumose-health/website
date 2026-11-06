@@ -169,7 +169,7 @@ function AlertScreen({ state }: { state: WatchState }) {
       </span>
       <span className="text-[8px] text-zinc-500">mg/dL</span>
       <span className="text-[9px] text-zinc-400 mt-2 text-center leading-snug">
-        High threshold crossed
+        In development
       </span>
       <div className="mt-2 flex items-center gap-1.5 rounded-full bg-zinc-800 px-3 py-1 border border-zinc-700">
         <X className="h-2.5 w-2.5 text-zinc-400" />

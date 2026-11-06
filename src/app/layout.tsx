@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: "Lumose - Open Source Diabetes Management Platform",
   description:
-    "Because no one should manage diabetes alone. Real-time glucose monitoring, AI-powered analysis, caregiver alerts, and Wear OS support. Self-hosted, privacy-first, open source.",
+    "Because no one should manage diabetes alone. Real-time glucose monitoring, AI-powered analysis, and Wear OS support. Self-hosted, privacy-first, open source.",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Lumose - Open Source Diabetes Management Platform",
     description:
-      "Because no one should manage diabetes alone. Real-time glucose monitoring, AI-powered analysis, caregiver alerts, and Wear OS support.",
+      "Because no one should manage diabetes alone. Real-time glucose monitoring, AI-powered analysis, and Wear OS support.",
     url: SITE_URL,
     siteName: "Lumose",
     type: "website",
