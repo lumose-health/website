@@ -1,12 +1,19 @@
 import type { DashboardSnapshot } from "@/lib/v2/simulated-glucose";
 import { AppCard } from "../browser-frame";
 
-type PumpCardProps = Pick<DashboardSnapshot, "iobUnits" | "reservoirUnits">;
+type PumpCardProps = Pick<
+  DashboardSnapshot,
+  "iobUnits" | "basalUnitsPerHour" | "reservoirUnits"
+>;
 
-export function PumpCard({ iobUnits, reservoirUnits }: PumpCardProps) {
+export function PumpCard({
+  iobUnits,
+  basalUnitsPerHour,
+  reservoirUnits,
+}: PumpCardProps) {
   const rows = [
     { label: "IOB:", value: `${iobUnits.toFixed(2)}u` },
-    { label: "BASAL:", value: "0.95 u/hr" },
+    { label: "BASAL:", value: `${basalUnitsPerHour.toFixed(2)} u/hr` },
     { label: "BATTERY:", value: "64%" },
     { label: "RESERVOIR:", value: `${reservoirUnits}u` },
   ];

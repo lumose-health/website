@@ -41,8 +41,11 @@ const COLUMNS = [
 ];
 
 export function Footer() {
-  // Only the home page has loops. Content pages stay free of the control.
-  const showPause = usePathname() === routes.home;
+  // Only the home page has loops. Content pages stay free of the control. The
+  // suffix goes because a host serving the export literally reports /v2.html,
+  // or /index.html once this is the root.
+  const pathname = usePathname().replace(/(\/index)?(\.html)?$/, "") || "/";
+  const showPause = pathname === routes.home;
 
   return (
     <footer className="border-t border-lm-line-subtle bg-lm-footer">

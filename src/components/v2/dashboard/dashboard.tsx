@@ -1,22 +1,33 @@
-import { DEMO_START_TICK, dashboardAt } from "@/lib/v2/simulated-glucose";
+import {
+  DEMO_START_TICK,
+  dashboardAt,
+  trendAt,
+} from "@/lib/v2/simulated-glucose";
 import { BrowserFrame } from "../browser-frame";
 import { CgmCard } from "./cgm-card";
 import { ConnectionsCard } from "./connections-card";
 import { PumpCard } from "./pump-card";
 import { Sidebar } from "./sidebar";
+import { Trend } from "./trend";
 
 const UPDATED = "1m ago";
 
 export function Dashboard() {
-  const { glucose, band, pointerDegrees, iobUnits, reservoirUnits } =
-    dashboardAt(DEMO_START_TICK);
+  const {
+    glucose,
+    band,
+    pointerDegrees,
+    iobUnits,
+    basalUnitsPerHour,
+    reservoirUnits,
+  } = dashboardAt(DEMO_START_TICK);
 
   return (
     <section className="relative z-10 -mt-16 px-lm-gutter pb-10 tablet:-mt-[120px] desktop:-mt-[230px]">
       <figure className="mx-auto max-w-[1180px]">
         <BrowserFrame
           url="your-server.local/dashboard"
-          label="Illustration of the Lumose dashboard with simulated data, showing a glucose reading, pump status and device connections."
+          label="Illustration of the Lumose dashboard with simulated data, showing a glucose reading, pump status, device connections and 24-hour trends."
         >
           <div className="flex">
             <Sidebar />
@@ -28,9 +39,14 @@ export function Dashboard() {
                   pointerDegrees={pointerDegrees}
                   updated={UPDATED}
                 />
-                <PumpCard iobUnits={iobUnits} reservoirUnits={reservoirUnits} />
+                <PumpCard
+                  iobUnits={iobUnits}
+                  basalUnitsPerHour={basalUnitsPerHour}
+                  reservoirUnits={reservoirUnits}
+                />
                 <ConnectionsCard updated={UPDATED} />
               </div>
+              <Trend trend={trendAt(DEMO_START_TICK)} />
             </div>
           </div>
         </BrowserFrame>
