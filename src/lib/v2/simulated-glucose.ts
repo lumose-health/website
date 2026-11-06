@@ -9,6 +9,14 @@ export const DEMO_START_TICK = SAMPLES_PER_DAY + 156;
 
 const STARTING_RESERVOIR_UNITS = 140;
 const SAMPLES_PER_RESERVOIR_UNIT = 40;
+/** The pump gets a fresh cartridge after this much, so a long visit can't run it dry. */
+const SAMPLES_PER_CARTRIDGE = 100 * SAMPLES_PER_RESERVOIR_UNIT;
+
+/**
+ * Glucose repeats after five days, where the wobble lands within a point of where
+ * it started. Without this the wobble drifts until a correction lands in range.
+ */
+const SAMPLES_PER_LOOP = 5 * SAMPLES_PER_DAY;
 
 /** Samples back that the trend is measured over, which is fifteen minutes. */
 const TREND_WINDOW = 3;
@@ -41,8 +49,6 @@ const BASAL_SCHEDULE = [
 ];
 
 const TIME_AXIS_LABELS = 5;
-/** Six hours between axis labels. */
-const SAMPLES_PER_TIME_LABEL = 72;
 
 export type GlucoseBand = "in-range" | "high-low" | "urgent";
 export type DoseKind = "manual" | "auto";
@@ -55,13 +61,14 @@ function sampleOfDay(tick: number) {
 /** Glucose in mg/dL for a sample, following a plausible day with three meals. */
 export function bgAt(tick: number) {
   const hour = sampleOfDay(tick) / 12;
+  const wobble = tick % SAMPLES_PER_LOOP;
   const bump = (center: number, width: number) =>
     Math.exp(-(((hour - center) / width) ** 2));
 
   return Math.round(
     108 +
-      14 * Math.sin(tick / 9) +
-      6 * Math.sin(tick / 3.1) +
+      14 * Math.sin(wobble / 9) +
+      6 * Math.sin(wobble / 3.1) +
       70 * bump(8.6, 1) +
       88 * bump(13.1, 1.2) +
       98 * bump(19.6, 1.3) -
@@ -130,24 +137,26 @@ export function dashboardAt(tick: number) {
     iobUnits: iobAt(tick),
     basalUnitsPerHour: basalAt(tick),
     reservoirUnits:
-      STARTING_RESERVOIR_UNITS - Math.floor(tick / SAMPLES_PER_RESERVOIR_UNIT),
+      STARTING_RESERVOIR_UNITS -
+      Math.floor((tick % SAMPLES_PER_CARTRIDGE) / SAMPLES_PER_RESERVOIR_UNIT),
   };
 }
 
 export type DashboardSnapshot = ReturnType<typeof dashboardAt>;
 
-/** The lanes for the 24 hours ending at a sample. Positions run from 0 to 1. */
-export function trendAt(tick: number) {
+/** The lanes for the samples ending at a tick. Positions run from 0 to 1. */
+export function trendAt(tick: number, sampleCount = SAMPLES_PER_DAY) {
   const ticks = Array.from(
-    { length: SAMPLES_PER_DAY },
-    (_, index) => tick - SAMPLES_PER_DAY + 1 + index,
+    { length: sampleCount },
+    (_, index) => tick - sampleCount + 1 + index,
   );
-  const positionOf = (index: number) => index / (SAMPLES_PER_DAY - 1);
+  const positionOf = (index: number) => index / (sampleCount - 1 || 1);
 
   return {
     samples: ticks.map((sampleTick, index) => {
       const glucose = bgAt(sampleTick);
       return {
+        tick: sampleTick,
         position: positionOf(index),
         glucose,
         band: glucoseBand(glucose),
@@ -157,15 +166,23 @@ export function trendAt(tick: number) {
     }),
     doses: ticks.flatMap((sampleTick, index) =>
       DOSES.filter((dose) => dose.sample === sampleOfDay(sampleTick)).map(
-        ({ units, kind }) => ({ position: positionOf(index), units, kind }),
-      ),
-    ),
-    timeLabels: Array.from({ length: TIME_AXIS_LABELS }, (_, index) =>
-      formatSampleTime(
-        tick - (TIME_AXIS_LABELS - 1 - index) * SAMPLES_PER_TIME_LABEL,
+        ({ units, kind }) => ({
+          tick: sampleTick,
+          position: positionOf(index),
+          units,
+          kind,
+        }),
       ),
     ),
   };
 }
 
 export type TrendWindow = ReturnType<typeof trendAt>;
+
+/** The time axis for a window ending at a sample, oldest label first. */
+export function timeLabelsAt(tick: number, sampleCount = SAMPLES_PER_DAY) {
+  const samplesPerLabel = sampleCount / (TIME_AXIS_LABELS - 1);
+  return Array.from({ length: TIME_AXIS_LABELS }, (_, index) =>
+    formatSampleTime(tick - (TIME_AXIS_LABELS - 1 - index) * samplesPerLabel),
+  );
+}

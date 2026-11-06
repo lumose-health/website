@@ -58,11 +58,40 @@ export function LanePlot({ height, yLabels = [], children }: LanePlotProps) {
           {label}
         </span>
       ))}
-      <div className="relative" style={{ height, ...GRID_STYLE }}>
+      <div
+        className="relative overflow-hidden"
+        style={{ height, ...GRID_STYLE }}
+      >
         {children}
       </div>
     </div>
   );
+}
+
+/**
+ * The part of a plot that moves. It's wider than the plot by the samples drawn
+ * ahead, and each tick slides it left by one sample. A new range remounts it,
+ * which fades it in.
+ */
+export function TrendLayer({ children }: { children: ReactNode }) {
+  return <div className="lm-trend-layer">{children}</div>;
+}
+
+/**
+ * Keeps a sample drawn ahead hidden until the tick reaches it, then fades it in.
+ * The newest sample of a fresh draw has already arrived.
+ */
+export function arrivalProps(tick: number, baseTick: number) {
+  return {
+    className: "lm-trend-arrival",
+    "data-lm-arrival": tick - baseTick,
+    "data-lm-arrived": tick === baseTick ? "" : undefined,
+  };
+}
+
+/** Shorter ranges have room for bigger dots, as in the real chart. */
+export function dotWidth(hours: number) {
+  return hours > 12 ? 3 : 5;
 }
 
 /** Round caps on zero-length strokes draw a dot that stays round when stretched. */

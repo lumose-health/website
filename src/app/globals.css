@@ -388,6 +388,88 @@
   }
 }
 
+/* Dashboard. A layer spans the window plus the samples drawn ahead of it, and a
+   tick slides it, so React leaves the lanes alone between redraws. Everything here
+   is a transition, since keyframes would hold on their first frame while the
+   region is frozen. */
+.lm-trend-layer {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: calc(100% * var(--lm-trend-span));
+  will-change: translate;
+}
+
+.lm-trend-arrival:not([data-lm-arrived]) {
+  opacity: 0;
+}
+
+.lm-cgm-pointer,
+.lm-cgm-half {
+  transform-box: view-box;
+  transform-origin: 75px 75px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .lm-trend-layer {
+    transition: opacity var(--lm-dur-fast) linear;
+  }
+
+  .lm-trend-arrival {
+    transition: opacity var(--lm-dur-base) linear;
+  }
+
+  @starting-style {
+    .lm-trend-layer,
+    .lm-trend-arrival {
+      opacity: 0;
+    }
+  }
+
+  .lm-cgm-face {
+    transition: color var(--lm-dur-base) var(--ease-lm-in-out);
+  }
+
+  .lm-cgm-pointer {
+    transition: rotate var(--lm-dur-base) var(--ease-lm-in-out);
+  }
+}
+
+/* Only with scripting, since these wait for an observer. The CGM sweep's two
+   halves add up to 900ms, with the first one quick so they read as one ease-out. */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .lm-dash-rise {
+    transition:
+      opacity 800ms var(--ease-lm-out),
+      translate 800ms var(--ease-lm-out);
+  }
+
+  .lm-dash-rise:not([data-lm-shown]) {
+    opacity: 0;
+    translate: 0 24px;
+  }
+
+  .lm-cgm-half-first {
+    transition: rotate 180ms linear;
+  }
+
+  .lm-cgm-half-second {
+    transition: rotate 720ms var(--ease-lm-out) 180ms;
+  }
+
+  .lm-cgm:not([data-lm-shown]) .lm-cgm-half {
+    rotate: -188deg;
+  }
+
+  .lm-trend-plots {
+    transition: clip-path 1200ms var(--ease-lm-in-out);
+  }
+
+  .lm-trend-draw:not([data-lm-shown]) .lm-trend-plots {
+    clip-path: inset(0 100% 0 0);
+  }
+}
+
 /* Hero. The field and glow are CSS so they run with JS off. The core alpha is
    below the design's 0.55 to keep the sub text at 4.5:1 at the top of the breath. */
 .lm-hero-glow {

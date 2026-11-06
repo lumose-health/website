@@ -10,11 +10,18 @@ import {
   glucoseBand,
   iobAt,
   pointerDegreesForRate,
+  timeLabelsAt,
   trendAt,
   trendPointerDegrees,
 } from "./simulated-glucose";
 
 const TICKS = Array.from({ length: 288 * 3 }, (_, index) => index);
+// The page ticks for as long as it's watched, so the rules must hold well past
+// the first few days. Sixty simulated days is eight hours of watching.
+const LONG_VISIT = Array.from(
+  { length: 288 * 60 },
+  (_, index) => DEMO_START_TICK + index,
+);
 
 test("bgAt gives the same values on every run", () => {
   // A pinned digest, so anything random or clock-based fails against this file
@@ -190,12 +197,63 @@ test("auto corrections only land on high glucose", () => {
 });
 
 test("the time axis runs across the last 24 hours", () => {
-  const { timeLabels } = trendAt(DEMO_START_TICK);
-  assert.deepEqual(timeLabels, [
+  assert.deepEqual(timeLabelsAt(DEMO_START_TICK), [
     "1:00 PM",
     "7:00 PM",
     "1:00 AM",
     "7:00 AM",
     "1:00 PM",
   ]);
+});
+
+test("the time axis divides a shorter window evenly", () => {
+  assert.deepEqual(timeLabelsAt(DEMO_START_TICK, 36), [
+    "10:00 AM",
+    "10:45 AM",
+    "11:30 AM",
+    "12:15 PM",
+    "1:00 PM",
+  ]);
+});
+
+test("trendAt can end a shorter window on any sample", () => {
+  const { samples, doses } = trendAt(DEMO_START_TICK, 36);
+  assert.equal(samples.length, 36);
+  assert.equal(samples[0].position, 0);
+  assert.equal(samples.at(-1)!.tick, DEMO_START_TICK);
+  assert.equal(samples.at(-1)!.position, 1);
+  assert.deepEqual(
+    doses.map(({ tick, kind }) => [tick, kind]),
+    [[288 + 145, "manual"]],
+  );
+});
+
+test("glucose loops after five days with no visible join", () => {
+  const loop = 288 * 5;
+  assert.equal(bgAt(1000 + loop), bgAt(1000));
+  assert.ok(Math.abs(bgAt(loop) - bgAt(loop - 1)) <= 3);
+});
+
+test("a long visit never shows an urgent value", () => {
+  for (const tick of LONG_VISIT) {
+    assert.notEqual(glucoseBand(bgAt(tick)), "urgent", `at ${tick}`);
+  }
+});
+
+test("a long visit never corrects a low or runs the pump dry", () => {
+  for (const tick of LONG_VISIT) {
+    const { reservoirUnits } = dashboardAt(tick);
+    assert.ok(reservoirUnits > 0, `${reservoirUnits}u at ${tick}`);
+    for (const { kind } of trendAt(tick, 1).doses) {
+      if (kind === "auto") assert.ok(bgAt(tick) > 180, `${bgAt(tick)} at ${tick}`);
+    }
+  }
+});
+
+test("each new dose shows up in IOB on the sample it lands", () => {
+  for (const tick of LONG_VISIT) {
+    for (const { units } of trendAt(tick, 1).doses) {
+      assert.ok(iobAt(tick) - iobAt(tick - 1) > units - 0.15, `at ${tick}`);
+    }
+  }
 });
