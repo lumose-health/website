@@ -21,7 +21,7 @@ export function HeroTile({ name, index, x, y, logo }: HeroSource) {
         top: percent(y, HERO_VIEWBOX.height),
       }}
     >
-      {/* The ring is on a wrapper because a child can't paint behind the tile. */}
+      {/* The pulse is on a wrapper because a child can't paint behind the tile. */}
       <div className="lm-hero-ring relative size-[54px]">
         <div className="relative flex size-full items-center justify-center rounded-lm-tile border border-lm-cyan/28 bg-[rgba(8,14,24,0.72)] backdrop-blur-[6px]">
           {image ? (

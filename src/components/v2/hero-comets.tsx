@@ -8,7 +8,9 @@ import { useMotion } from "./motion-provider";
 // The hero's client pieces. HeroField and HeroTile stay server components, so
 // the static art doesn't ship in the client bundle.
 
-const WIDE_QUERY = "(min-width: 47.5rem)";
+// 1100px. Below this the headline reaches the tiles and the mask hides nearly all
+// of each comet, so they don't mount at all.
+const WIDE_QUERY = "(min-width: 68.75rem)";
 
 // The root theme provider switches transitions off for a moment at hydration, so
 // tiles wait that out.
@@ -62,21 +64,27 @@ function CometLayer({
       const seconds = (elapsedMs - TILES_SETTLED_MS) / 1000;
       if (seconds < 0) return;
 
-      if (!started.current && group.current) {
-        started.current = true;
-        group.current.style.opacity = "1";
-      }
-
-      for (const comet of comets.current) {
-        const progress =
-          ((seconds + comet.leadS) % comet.durationS) / comet.durationS;
-        const offset = (
-          DASH_LENGTH -
-          progress * (comet.length * TRAVEL + DASH_LENGTH)
-        ).toFixed(1);
-        for (const path of comet.paths) {
-          path.style.strokeDashoffset = offset;
+      try {
+        if (!started.current && group.current) {
+          started.current = true;
+          group.current.style.opacity = "1";
         }
+
+        for (const comet of comets.current) {
+          const progress =
+            ((seconds + comet.leadS) % comet.durationS) / comet.durationS;
+          const offset = (
+            DASH_LENGTH -
+            progress * (comet.length * TRAVEL + DASH_LENGTH)
+          ).toFixed(1);
+          for (const path of comet.paths) {
+            path.style.strokeDashoffset = offset;
+          }
+        }
+      } catch (error) {
+        // The scheduler drops this region, so don't leave comets stuck mid-flight.
+        if (group.current) group.current.style.opacity = "0";
+        throw error;
       }
     },
   });
@@ -104,7 +112,7 @@ function CometLayer({
       <g ref={group} fill="none" strokeLinecap="round">
         {strands.map((strand) => (
           <g key={strand.d} stroke={strand.color}>
-            {/* A wide faint stroke stands in for a blur filter. */}
+            {/* A wide faint stroke gives the soft edge without an SVG effect. */}
             <path
               d={strand.d}
               strokeWidth={7}

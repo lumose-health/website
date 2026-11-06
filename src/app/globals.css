@@ -419,7 +419,7 @@
    cross the headline's corners. Past about 2000px it widens with the art, so a
    comet is always hidden by the time it wraps back to its tile. */
 .lm-hero-comets {
-  --lm-hole: max(min(41vw, 415px), 21vw);
+  --lm-hole: max(415px, 21vw);
   mask-image: linear-gradient(
     90deg,
     #000 calc(50% - var(--lm-hole) - 60px),

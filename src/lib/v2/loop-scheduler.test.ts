@@ -339,10 +339,36 @@ describe("loop scheduler", () => {
 
     scheduler.pause();
     scheduler.resume();
-    handle.remove();
 
-    assert.deepEqual(changes, [true, false, true]);
     assert.equal(clock.pendingCount(), 0);
+    assert.deepEqual(changes, [true, false, true]);
+  });
+
+  it("drops a throwing region even when reporting it fails", () => {
+    let calls = 0;
+    const failing = createLoopScheduler({
+      ...clock.driver,
+      report() {
+        throw new Error("report failed");
+      },
+    });
+    failing
+      .add({
+        onFrame: () => {
+          calls += 1;
+          throw new Error("broken region");
+        },
+      })
+      .setVisible(true);
+    const kept = recorder();
+    failing.add(kept).setVisible(true);
+
+    assert.throws(() => clock.step(), /report failed/);
+    clock.step();
+
+    assert.equal(calls, 1);
+    assert.equal(kept.frames.length, 1);
+    assert.equal(failing.isFramePending(), true);
   });
 });
 
