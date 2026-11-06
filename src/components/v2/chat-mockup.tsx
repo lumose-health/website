@@ -7,11 +7,12 @@ const BORDER = "border-[#343A42]";
 const ON_BLUE = "text-[#14212A]";
 const PANEL_RADIUS = "rounded-[4px]";
 
-const SUMMARY = `Illustration of the Lumose AI Chat page with sample data. Someone asks why they keep running high after breakfast. The answer describes the pattern in their glucose and suggests raising it with their care team. It ends: ${DISCLAIMER}`;
+const SUMMARY = `Illustration of the Lumose AI Chat page with sample data. Someone asks why they went high after breakfast. The answer describes the rise in their glucose and suggests raising it with their care team. It ends: ${DISCLAIMER}`;
 
 /**
  * Drawn from the app's AI Chat page. Nothing here is a control, and the answer
- * is the same for every provider. Don't add dosing suggestions to the sample.
+ * is the same for every provider. Don't add dosing suggestions to the sample,
+ * and keep it to one recent event, since the chat sees about 6 hours of data.
  */
 export function ChatMockup() {
   return (
@@ -28,23 +29,25 @@ export function ChatMockup() {
         <p
           className={`max-w-[85%] self-end ${PANEL_RADIUS} bg-lm-app-primary px-3 py-2 text-sm ${ON_BLUE}`}
         >
-          Why do I keep running high after breakfast?
+          Why did I go high after breakfast?
         </p>
 
         <div
           className={`max-w-[94%] self-start ${PANEL_RADIUS} border ${BORDER} bg-lm-app-page px-3.5 py-3 text-[13.5px]/[1.5]`}
         >
           <p className="mb-2">
-            <strong>What I see in your data:</strong> on 9 of the last 14
-            mornings you rose 60–90 mg/dL within an hour of eating.
+            <strong>What I see in your data:</strong> you rose about 75 mg/dL
+            within an hour of eating.
           </p>
           <ul className="mb-2 list-disc pl-[18px]">
-            <li>Peaks were higher on days with a later breakfast.</li>
-            <li>Overnight stayed in range, so the rise starts after breakfast.</li>
+            <li>
+              You were in range before breakfast, so the rise started after you
+              ate.
+            </li>
           </ul>
           <p className="mb-2.5">
-            <strong>Worth mentioning to your endo/CDE:</strong> this morning
-            pattern and your breakfast timing.
+            <strong>Worth mentioning to your endo/CDE:</strong> how often this
+            happens after breakfast.
           </p>
           <p
             className={`border-t ${BORDER} pt-2 font-lm-mono text-[12px]/[1.4] font-bold tablet:text-[11px]`}

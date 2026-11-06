@@ -27,9 +27,10 @@ const PRESSED =
   "border-[#3E7BC4] bg-[#13253B] text-lm-ink forced-colors:border-[Highlight] forced-colors:bg-[Highlight] forced-colors:text-[HighlightText] forced-colors:forced-color-adjust-none";
 const IDLE =
   "border-lm-line-pill text-lm-ink-muted enabled:hover:border-lm-ink-faint enabled:hover:text-lm-ink";
-// Choosing needs JS, so without it the buttons read as a plain list of names.
-const NO_SCRIPT =
-  "[@media(scripting:none)]:border-transparent [@media(scripting:none)]:bg-transparent [@media(scripting:none)]:px-0 [@media(scripting:none)]:text-lm-ink-secondary";
+// Until JS runs nothing can be chosen, so the buttons read as a plain list of
+// names. This covers JS being off and bundles that never load. Padding stays, so
+// nothing moves at hydration.
+const PLAIN = "border-transparent text-lm-ink-secondary";
 
 const noSubscribe = () => () => {};
 
@@ -81,7 +82,7 @@ function ProviderButtons() {
             disabled={!hydrated}
             onClick={() => setProvider(item)}
             onKeyDown={(event) => moveWithArrows(event, index)}
-            className={`${BUTTON} ${pressed ? PRESSED : IDLE} ${NO_SCRIPT}`}
+            className={`${BUTTON} ${!hydrated ? PLAIN : pressed ? PRESSED : IDLE}`}
           >
             {flags.logosCleared ? (
               // eslint-disable-next-line @next/next/no-img-element -- static export, and the name sits next to it
@@ -92,7 +93,7 @@ function ProviderButtons() {
                 height={16}
                 loading="lazy"
                 decoding="async"
-                className={`size-4 flex-none transition-opacity duration-(--lm-dur-fast) motion-reduce:transition-none ${pressed ? "" : "opacity-70"}`}
+                className={`size-4 flex-none transition-opacity duration-(--lm-dur-fast) motion-reduce:transition-none ${hydrated && !pressed ? "opacity-70" : ""}`}
               />
             ) : null}
             {item.name}
@@ -107,11 +108,13 @@ function ProviderCaption() {
   const { provider } = useProviderSelection();
 
   // Every value stays in place, stacked, so swapping is a true crossfade and the
-  // line never changes height. Screen readers get the one live line instead.
+  // line never changes height. Screen readers get the one line below instead,
+  // and only the part that changes is announced.
   return (
     <>
-      <p aria-live="polite" className="sr-only">
-        {`${CAPTION_PREFIX} ${provider.name} · ${provider.where}`}
+      <p className="sr-only">
+        {`${CAPTION_PREFIX} `}
+        <span aria-live="polite">{`${provider.name} · ${provider.where}`}</span>
       </p>
       <p
         aria-hidden="true"
