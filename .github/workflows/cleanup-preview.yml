@@ -28,7 +28,7 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
-          PROJECT: glycemicgpt
+          PROJECT: lumose
           BRANCH: pr-${{ github.event.number }}
         run: |
           set -euo pipefail

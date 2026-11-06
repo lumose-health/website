@@ -2,7 +2,7 @@ import { SITE_HOST, SITE_URL } from "@/lib/site";
 
 // Rendered only on preview builds. The NEXT_PUBLIC_BUILD_ENV env var is set
 // to "preview" in ci.yml during PR builds and is unset/"production" everywhere
-// else. The banner makes it visually obvious that a pr-*.glycemicgpt.pages.dev
+// else. The banner makes it visually obvious that a pr-*.lumose.pages.dev
 // URL is not the official site, which protects against confusion or attempted
 // reputation abuse via PR-preview URLs shared out of context.
 export function PreviewBanner() {

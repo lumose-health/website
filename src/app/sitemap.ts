@@ -5,7 +5,7 @@ import { source } from "@/lib/source";
 // Required for `output: export` so this emits a static sitemap.xml at build.
 export const dynamic = "force-static";
 
-// Preview builds (pr-*.glycemicgpt.pages.dev) already emit a noindex meta tag
+// Preview builds (pr-*.lumose.pages.dev) already emit a noindex meta tag
 // in the root layout; they must not advertise an indexable sitemap.
 const isPreview = process.env.NEXT_PUBLIC_BUILD_ENV === "preview";
 

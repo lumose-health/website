@@ -45,7 +45,7 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PROJECT: glycemicgpt
+          PROJECT: lumose
           MAX_AGE_DAYS: "30"
         run: |
           if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
