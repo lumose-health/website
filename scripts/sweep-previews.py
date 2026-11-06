@@ -14,7 +14,7 @@ Required env vars:
     GITHUB_REPOSITORY     - "owner/repo" (set automatically in GitHub Actions)
 
 Optional env vars:
-    PROJECT               - Pages project name. Defaults to "glycemicgpt".
+    PROJECT               - Pages project name. Defaults to "lumose".
     MAX_AGE_DAYS          - Hard cap on preview deployment age. Defaults to 30.
 
 Flags:
@@ -102,7 +102,7 @@ def main() -> int:
     cf_account = os.environ["CLOUDFLARE_ACCOUNT_ID"]
     gh_token = os.environ["GH_TOKEN"]
     repo = os.environ["GITHUB_REPOSITORY"]
-    project = os.environ.get("PROJECT", "glycemicgpt")
+    project = os.environ.get("PROJECT", "lumose")
     max_age_days = int(os.environ.get("MAX_AGE_DAYS", "30"))
 
     now = datetime.now(timezone.utc)

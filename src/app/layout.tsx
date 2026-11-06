@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   // Preview builds emit a noindex meta tag so search engines do not index
-  // pr-*.glycemicgpt.pages.dev URLs. Production builds emit no robots meta and
+  // pr-*.lumose.pages.dev URLs. Production builds emit no robots meta and
   // are indexable.
   ...(isPreview && {
     robots: {

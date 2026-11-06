@@ -55,7 +55,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy out --project-name=glycemicgpt --branch=pr-${{ github.event.number }} --commit-hash=${{ github.event.pull_request.head.sha }}
+          command: pages deploy out --project-name=lumose --branch=pr-${{ github.event.number }} --commit-hash=${{ github.event.pull_request.head.sha }}
 
       - name: Generate token for glycemicgpt-ci (preview comment)
         id: ci-token
@@ -72,7 +72,7 @@ jobs:
         uses: actions/github-script@v9
         env:
           PREVIEW_URL: ${{ steps.preview-deploy.outputs.deployment-url }}
-          ALIAS_URL: https://pr-${{ github.event.number }}.glycemicgpt.pages.dev
+          ALIAS_URL: https://pr-${{ github.event.number }}.lumose.pages.dev
         with:
           github-token: ${{ steps.ci-token.outputs.token || secrets.GITHUB_TOKEN }}
           script: |

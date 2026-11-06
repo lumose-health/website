@@ -247,7 +247,7 @@ coderabbit review --plain --type committed --base main
 1. **CI runs automatically** -- all required checks must pass (see below)
 2. **CodeRabbit review** -- AI-powered code review runs automatically, posting findings and suggestions
 3. **Lighthouse audit** -- scores for performance, accessibility, best practices, and SEO are posted as a PR comment
-4. **Preview deployment** -- a live preview of your PR is deployed to `https://pr-<N>.glycemicgpt.pages.dev` (where `<N>` is your PR number). The URL is posted as a PR comment by `glycemicgpt-ci[bot]`. Every push to your PR updates the same URL. See [Preview Deployments](#preview-deployments) for details.
+4. **Preview deployment** -- a live preview of your PR is deployed to `https://pr-<N>.lumose.pages.dev` (where `<N>` is your PR number). The URL is posted as a PR comment by `glycemicgpt-ci[bot]`. Every push to your PR updates the same URL. See [Preview Deployments](#preview-deployments) for details.
 5. **Code owner review** -- the project lead reviews your PR; web maintainers may review too, and their review informs the lead's approval
 6. **Merge** -- once approved and CI passes, the project lead squash-merges your PR
 
@@ -262,7 +262,7 @@ coderabbit review --plain --type committed --base main
 When a PR is opened from a branch on this repository (not a fork -- in practice only the project lead's PRs, since all contributions arrive from forks), the CI workflow deploys a live preview of the changes to Cloudflare Pages at a unique URL:
 
 ```text
-https://pr-<N>.glycemicgpt.pages.dev
+https://pr-<N>.lumose.pages.dev
 ```
 
 `glycemicgpt-ci[bot]` posts the URL as a comment on your PR. The URL is stable for the lifetime of the PR -- pushing new commits updates the same URL with the latest build. Once the PR is closed (merged or rejected), the `cleanup-preview` workflow immediately deletes the deployments for that PR; a daily `sweep-previews` workflow handles any deployments missed by the on-close cleanup and caps all preview deployments at 30 days regardless of PR state.
@@ -271,7 +271,7 @@ https://pr-<N>.glycemicgpt.pages.dev
 
 - Only PRs from same-repo branches receive preview deployments. PRs from forks do not get previews because they do not have access to the repo secrets required to deploy. Lint, type check, build, Lighthouse, and other checks still run on fork PRs, so reviewers see the same CI status either way.
 - Preview deployments display a banner across the top of the page reading "Preview deployment -- not the official GlycemicGPT site". They also emit a `noindex, nofollow` robots meta tag, so search engines do not index preview URLs.
-- **The only official preview hostnames are `pr-N.glycemicgpt.pages.dev` and `<branch>.glycemicgpt.pages.dev` (Cloudflare-issued).** URLs hosted elsewhere claiming to be GlycemicGPT previews are not endorsed by the project.
+- **The only official preview hostnames are `pr-N.lumose.pages.dev` and `<branch>.lumose.pages.dev` (Cloudflare-issued).** URLs hosted elsewhere claiming to be GlycemicGPT previews are not endorsed by the project.
 - Production lives at `lumose.org` (Cloudflare Pages). Production builds intentionally do not emit the preview banner or the noindex tag.
 - Previews are not retained indefinitely. The `cleanup-preview` workflow deletes them when the PR is closed; the daily `sweep-previews` workflow catches anything missed and deletes any preview deployment older than 30 days regardless of PR state.
 
@@ -284,7 +284,7 @@ Every PR must pass these checks before it can be merged:
 | 🔍 Lint | ESLint on all source files |
 | 🔷 Type Check | TypeScript strict mode (`tsc --noEmit`) |
 | 🏗️ Build | Next.js static export succeeds |
-| 🚀 Preview Deploy | Cloudflare Pages preview at `pr-<N>.glycemicgpt.pages.dev` (same-repo PRs only; non-blocking) |
+| 🚀 Preview Deploy | Cloudflare Pages preview at `pr-<N>.lumose.pages.dev` (same-repo PRs only; non-blocking) |
 | 🔦 Lighthouse | Accessibility, Best Practices, SEO >= 90 |
 | 🏷️ Auto-Labeler | Categorizes PR by scope and type |
 | 🤖 Attribution Check | No prohibited AI tool attribution |
