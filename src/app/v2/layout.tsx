@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Poppins } from "next/font/google";
+import { Footer } from "@/components/v2/footer";
+import { Header } from "@/components/v2/header";
 import { MotionProvider } from "@/components/v2/motion-provider";
-import { PauseMotion } from "@/components/v2/pause-motion";
+import { CONTENT_ID, SkipLink } from "@/components/v2/skip-link";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -43,14 +45,15 @@ export default function V2Layout({
     // `dark` is set here because the root theme provider can still resolve to
     // light. The fonts live here so live pages never load them.
     <div
-      className={`dark lm-root ${poppins.variable} ${inter.variable} ${jetbrainsMono.variable}`}
+      className={`dark lm-root flex flex-col ${poppins.variable} ${inter.variable} ${jetbrainsMono.variable}`}
     >
       <MotionProvider>
-        {children}
-        {/* Moves into the footer once it exists. */}
-        <div className="mx-auto max-w-lm-content px-lm-gutter">
-          <PauseMotion />
+        <SkipLink />
+        <Header />
+        <div id={CONTENT_ID} className="flex-1">
+          {children}
         </div>
+        <Footer />
       </MotionProvider>
     </div>
   );
