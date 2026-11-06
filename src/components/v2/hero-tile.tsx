@@ -29,6 +29,10 @@ export function HeroTile({ name, index, x, y, logo }: HeroSource) {
             <img
               src={image}
               alt=""
+              width={30}
+              height={30}
+              loading="lazy"
+              decoding="async"
               className="size-[30px] rounded-lm-sm object-cover"
             />
           ) : (

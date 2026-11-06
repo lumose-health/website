@@ -19,17 +19,29 @@ export type HeroSource = {
   /** Position in the viewBox. Tiles and strands both start here. */
   x: number;
   y: number;
-  /** Set once the mark passes review. */
+  /** Shown instead of the initial while `flags.logosCleared` is on. */
   logo?: string;
 };
 
 export const HERO_SOURCES: HeroSource[] = [
-  { name: "Dexcom", index: 0, x: 130, y: 150 },
-  { name: "Tandem", index: 1, x: 80, y: 360 },
-  { name: "Medtronic", index: 2, x: 110, y: 560 },
-  { name: "Nightscout", index: 3, x: 1310, y: 150 },
-  { name: "Glooko", index: 4, x: 1360, y: 360 },
-  { name: "Loop", index: 5, x: 1330, y: 560 },
+  { name: "Dexcom", index: 0, x: 130, y: 150, logo: "/vendors/dexcom.png" },
+  { name: "Tandem", index: 1, x: 80, y: 360, logo: "/vendors/tandem.png" },
+  {
+    name: "Medtronic",
+    index: 2,
+    x: 110,
+    y: 560,
+    logo: "/vendors/medtronic.jpg",
+  },
+  {
+    name: "Nightscout",
+    index: 3,
+    x: 1310,
+    y: 150,
+    logo: "/vendors/nightscout.png",
+  },
+  { name: "Glooko", index: 4, x: 1360, y: 360, logo: "/vendors/glooko.png" },
+  { name: "Loop", index: 5, x: 1330, y: 560, logo: "/vendors/loop.png" },
 ];
 
 type Line = { d: string; color: string; opacity: number };

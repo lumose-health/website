@@ -616,3 +616,103 @@
     animation-delay: calc(var(--lm-tile-index) * -550ms);
   }
 }
+
+/* Beam diagram. The core's breath is one still shadow with only its opacity moving,
+   since animating a shadow would repaint it every frame. The opacity range matches
+   the design's 0.18 to 0.42 alpha, and the resting value is the middle of it. */
+.lm-beam-glow {
+  box-shadow: 0 0 58px rgb(17 141 255 / 0.42);
+  opacity: 0.71;
+  /* A quarter of the way in, so a region frozen from the start rests at the middle. */
+  animation: lm-beam-glow 2.9s var(--ease-lm-breathe) -0.725s infinite;
+}
+
+@keyframes lm-beam-glow {
+  0%,
+  100% {
+    opacity: 0.43;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.lm-beam-pulse {
+  display: none;
+  stroke-dasharray: 56 900;
+  stroke-dashoffset: 56;
+}
+
+/* The still segments are the default, so reduced motion and JS off need no rule.
+   The draw-on is a transition and only while the region runs, so pausing, or leaving
+   the screen, puts the paths at their end state instead of holding them part drawn.
+   As with the dashboard, the hidden states open by themselves after 3s unless
+   hydration arrives first, and they have to run in a frozen region. */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .lm-beam-base {
+    stroke-dasharray: 1 2;
+  }
+
+  [data-lm-loop="running"] .lm-beam-base {
+    transition: stroke-dashoffset 800ms var(--ease-lm-in-out);
+    transition-delay: calc(var(--lm-beam-index) * 40ms);
+  }
+
+  /* Has to be none. The default of all would let a running draw finish. */
+  [data-lm-loop="frozen"] .lm-beam-base {
+    transition: none;
+  }
+
+  .lm-beam:not([data-lm-shown]) .lm-beam-base {
+    stroke-dashoffset: 1;
+  }
+
+  .lm-beam:not([data-lm-hydrated]) .lm-beam-rest {
+    opacity: 0;
+  }
+
+  .lm-beam:not([data-lm-shown], [data-lm-hydrated]) .lm-beam-base,
+  .lm-beam:not([data-lm-hydrated]) .lm-beam-rest {
+    animation: lm-beam-open 0s 3s forwards;
+  }
+
+  .lm-root [data-lm-loop="frozen"] .lm-beam:not([data-lm-shown]) .lm-beam-base,
+  .lm-root [data-lm-loop="frozen"] .lm-beam:not([data-lm-hydrated]) .lm-beam-rest {
+    animation-play-state: running !important;
+  }
+
+  .lm-beam[data-lm-hydrated] .lm-beam-rest {
+    display: none;
+  }
+
+  /* A lead rather than a delay, so all 9 are in flight from the first frame. */
+  .lm-beam[data-lm-pulsing] .lm-beam-pulse {
+    display: inline;
+    animation: lm-beam-pulse 3.4s linear infinite;
+    animation-delay: calc(
+      var(--lm-beam-index) * -0.46s - var(--lm-beam-half-loop, 0s)
+    );
+  }
+
+  .lm-beam-pulse-out {
+    --lm-beam-half-loop: 1.7s;
+  }
+}
+
+@keyframes lm-beam-open {
+  to {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+/* From 56 to minus the path length, plus one 956 dash period, which draws the same
+   thing and keeps the offset positive for older Safari. */
+@keyframes lm-beam-pulse {
+  from {
+    stroke-dashoffset: 1012px;
+  }
+  to {
+    stroke-dashoffset: calc(956px - var(--lm-beam-length) * 1px);
+  }
+}
