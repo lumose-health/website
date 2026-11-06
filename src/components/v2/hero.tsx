@@ -19,8 +19,8 @@ export function Hero() {
           The <span className="whitespace-nowrap">open-source</span>{" "}
           <span className="bg-linear-to-b from-lm-headline-from to-lm-headline-to bg-clip-text text-transparent">
             AI brain
-          </span>{" "}
-          for diabetes.
+          </span>
+          {" for diabetes."}
         </h1>
 
         <p className="mx-auto mb-[34px] max-w-[620px] text-lm-lead text-[rgba(236,242,250,0.88)] [text-shadow:0_2px_20px_rgb(0_0_0/0.7)] tablet:max-w-[480px] desktop:max-w-[620px]">
