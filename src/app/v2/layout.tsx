@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Poppins } from "next/font/google";
+import { MotionProvider } from "@/components/v2/motion-provider";
+import { PauseMotion } from "@/components/v2/pause-motion";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -43,7 +45,13 @@ export default function V2Layout({
     <div
       className={`dark lm-root ${poppins.variable} ${inter.variable} ${jetbrainsMono.variable}`}
     >
-      {children}
+      <MotionProvider>
+        {children}
+        {/* Moves into the footer once it exists. */}
+        <div className="mx-auto max-w-lm-content px-lm-gutter">
+          <PauseMotion />
+        </div>
+      </MotionProvider>
     </div>
   );
 }
