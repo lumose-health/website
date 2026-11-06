@@ -6,6 +6,30 @@
 
 #### ✨ New Features
 
+- feat(v2): add device status cards [@jlengelbrecht](https://github.com/jlengelbrecht) ([#643](https://github.com/lumose-health/website/pull/643))
+- feat(v2): add logo marquee [@jlengelbrecht](https://github.com/jlengelbrecht) ([#641](https://github.com/lumose-health/website/pull/641))
+
+#### 🐛 Bug Fixes
+
+- fix(v2): QA pass fixes for focus, pause controls and logos [@jlengelbrecht](https://github.com/jlengelbrecht) ([#645](https://github.com/lumose-health/website/pull/645))
+
+#### 📝 Other Changes
+
+- ci: deploy to the lumose Cloudflare Pages project [@jlengelbrecht](https://github.com/jlengelbrecht) ([#644](https://github.com/lumose-health/website/pull/644))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#642](https://github.com/lumose-health/website/pull/642))
+
+<!-- changelog-cutoff:2026-11-06T22:53:01Z -->
+
+
+## 2026-11-06
+
+### 🌐 Website
+
+#### ✨ New Features
+
 - feat(v2): add beam diagram and real logos [@jlengelbrecht](https://github.com/jlengelbrecht) ([#640](https://github.com/lumose-health/website/pull/640))
 - feat(v2): bring the dashboard to life [@jlengelbrecht](https://github.com/jlengelbrecht) ([#637](https://github.com/lumose-health/website/pull/637))
 - feat(v2): add dashboard trend lanes [@jlengelbrecht](https://github.com/jlengelbrecht) ([#636](https://github.com/lumose-health/website/pull/636))
