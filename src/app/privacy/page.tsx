@@ -4,15 +4,16 @@ import { LegalPage } from "@/components/legal-page";
 import { SITE_HOST, SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy - GlycemicGPT",
+  title: "Privacy Policy - Lumose",
   description:
-    "How GlycemicGPT handles your data. A privacy-first, self-hosted platform that does not phone home or collect telemetry from the builds it distributes.",
+    "How Lumose handles your data. A privacy-first, self-hosted platform that does not phone home or collect telemetry from the builds it distributes.",
+  alternates: { canonical: "/privacy" },
   openGraph: {
-    title: "Privacy Policy - GlycemicGPT",
+    title: "Privacy Policy - Lumose",
     description:
       "A privacy-first, self-hosted platform that does not phone home or collect telemetry.",
     url: `${SITE_URL}/privacy`,
-    siteName: "GlycemicGPT",
+    siteName: "Lumose",
     type: "website",
   },
 };
@@ -22,11 +23,11 @@ export default function PrivacyPage() {
     <LegalPage
       title="Privacy Policy"
       lastUpdated="May 27, 2026"
-      intro="GlycemicGPT is a privacy-first, open-source project. This page explains what happens to your data on this website and in the self-hosted platform."
+      intro="Lumose, formerly GlycemicGPT, is a privacy-first, open-source project. This page explains what happens to your data on this website and in the self-hosted platform."
     >
       <h2>This website</h2>
       <p>
-        The GlycemicGPT website (<code>{SITE_HOST}</code>) is a static,
+        The Lumose website (<code>{SITE_HOST}</code>) is a static,
         open-source site. It sets no advertising or tracking cookies, runs no
         third-party analytics, and does not build a profile of visitors. We do
         not sell, rent, or share visitor information, because we do not collect
@@ -44,7 +45,7 @@ export default function PrivacyPage() {
 
       <h2>In production: nothing is centralized</h2>
       <p>
-        GlycemicGPT is self-hosted software. Your data &mdash; glucose readings,
+        Lumose is self-hosted software. Your data &mdash; glucose readings,
         insulin and pump data, AI chat, settings, and credentials &mdash; lives
         entirely in the database on infrastructure <strong>you</strong>{" "}control.
         The platform does not phone home, collect telemetry, or transmit your
@@ -91,7 +92,7 @@ export default function PrivacyPage() {
       <ul>
         <li>Stack trace and exception type</li>
         <li>Operating system and runtime versions</li>
-        <li>GlycemicGPT version and commit hash</li>
+        <li>Lumose version and commit hash</li>
         <li>The line of code that triggered the error</li>
       </ul>
       <p>An error report never contains:</p>
@@ -128,7 +129,7 @@ export default function PrivacyPage() {
         Privacy is load-bearing for this project and reports are taken
         seriously. For sensitive concerns, use{" "}
         <a
-          href="https://github.com/GlycemicGPT/GlycemicGPT/security/advisories/new"
+          href="https://github.com/lumose-health/lumose/security/advisories/new"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -136,7 +137,7 @@ export default function PrivacyPage() {
         </a>
         . For general privacy questions, open a{" "}
         <a
-          href="https://github.com/GlycemicGPT/GlycemicGPT/issues/new/choose"
+          href="https://github.com/lumose-health/lumose/issues/new/choose"
           target="_blank"
           rel="noopener noreferrer"
         >

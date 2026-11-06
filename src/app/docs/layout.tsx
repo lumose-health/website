@@ -10,7 +10,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       <DocsLayout
         tree={source.pageTree}
         nav={{
-          title: "GlycemicGPT Docs",
+          title: "Lumose Docs",
           children: <ThemeToggle />,
         }}
         themeSwitch={{ enabled: false }}

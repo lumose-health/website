@@ -23,7 +23,7 @@ const steps = [
     icon: Activity,
     title: "Monitor",
     description:
-      "Real-time glucose data, AI insights, caregiver alerts, and Wear OS watch face.",
+      "Real-time glucose data, AI insights, and Wear OS watch face.",
   },
 ];
 

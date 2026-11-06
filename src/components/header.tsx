@@ -15,7 +15,7 @@ const navLinks = [
   { label: "Getting Started", href: "/#getting-started" },
   { label: "Discord", href: "https://discord.gg/QbyhCQKDBs", external: true },
   { label: "Open Collective", href: "https://opencollective.com/lumose", external: true },
-  { label: "GitHub", href: "https://github.com/GlycemicGPT/GlycemicGPT", external: true },
+  { label: "GitHub", href: "https://github.com/lumose-health/lumose", external: true },
 ];
 
 export function Header() {
@@ -67,7 +67,7 @@ export function Header() {
         <Link href="/" className="flex items-center gap-2 text-lg font-bold tracking-tight">
           {/* eslint-disable-next-line @next/next/no-img-element -- SVG favicon, 6.5KB, no optimization needed */}
           <img src="/logo.svg" alt="" className="h-7 w-7" aria-hidden="true" />
-          GlycemicGPT
+          Lumose
         </Link>
 
         {/* Desktop nav */}

@@ -15,7 +15,7 @@ const differentiators = [
     icon: Brain,
     title: "AI That Knows Your Patterns",
     description:
-      "Not just alerts -- daily analysis briefs, pattern detection, and conversational AI that understands your insulin, your meals, your life.",
+      "Daily analysis briefs, pattern detection, and conversational AI that understands your insulin, your meals, your life.",
   },
   {
     icon: Puzzle,
@@ -27,7 +27,7 @@ const differentiators = [
     icon: Users,
     title: "Built for Caregivers Too",
     description:
-      "Real-time dashboards, escalating alerts, and instant notifications. Parents and partners stay informed without hovering.",
+      "Read-only access for parents and partners. Alerting is in active development and works only for some setups. Keep your CGM's own alerts on.",
   },
 ];
 

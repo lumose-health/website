@@ -4,15 +4,16 @@ import { LegalPage } from "@/components/legal-page";
 import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Medical Disclaimer - GlycemicGPT",
+  title: "Medical Disclaimer - Lumose",
   description:
-    "GlycemicGPT is not a medical device and not a substitute for professional medical care. It is experimental open-source software for informational and educational purposes only.",
+    "Lumose is not a medical device and not a substitute for professional medical care. It is experimental open-source software for informational and educational purposes only.",
+  alternates: { canonical: "/disclaimer" },
   openGraph: {
-    title: "Medical Disclaimer - GlycemicGPT",
+    title: "Medical Disclaimer - Lumose",
     description:
-      "GlycemicGPT is not a medical device and not a substitute for professional medical care.",
+      "Lumose is not a medical device and not a substitute for professional medical care.",
     url: `${SITE_URL}/disclaimer`,
-    siteName: "GlycemicGPT",
+    siteName: "Lumose",
     type: "website",
   },
 };
@@ -22,7 +23,7 @@ export default function DisclaimerPage() {
     <LegalPage
       title="Medical Disclaimer"
       lastUpdated="May 27, 2026"
-      intro="Read this before using GlycemicGPT. It is experimental, open-source software for informational and educational purposes only."
+      intro="Read this before using Lumose, formerly GlycemicGPT. It is experimental, open-source software for informational and educational purposes only."
     >
       <h2>Regulatory status</h2>
       <p>
@@ -47,7 +48,7 @@ export default function DisclaimerPage() {
         medical device under any regulatory framework.
       </p>
       <p>
-        GlycemicGPT does not control any medical devices. It reads data from
+        Lumose does not control any medical devices. It reads data from
         insulin pumps and continuous glucose monitors (CGMs), displays that
         data, and provides AI-generated text suggestions. These suggestions are
         not medical advice and must not be treated as such.
@@ -55,7 +56,7 @@ export default function DisclaimerPage() {
 
       <h2>Health data and AI providers</h2>
       <p>
-        The self-hosted GlycemicGPT platform stores your data on infrastructure
+        The self-hosted Lumose platform stores your data on infrastructure
         you control. However, whether health data leaves that infrastructure
         depends on which AI provider you configure:
       </p>
@@ -135,10 +136,10 @@ export default function DisclaimerPage() {
 
       <h2>Third-party forks and device control</h2>
       <p>
-        GlycemicGPT is a monitoring and analysis platform across all builds it
+        Lumose is a monitoring and analysis platform across all builds it
         ships; the plugin SDK is read-only by design and has no insulin-delivery
         primitives. Forks that modify the SDK to add device control or insulin
-        delivery operate <strong>outside the GlycemicGPT project</strong>. The
+        delivery operate <strong>outside the Lumose project</strong>. The
         maintainers do not review, recommend, or accept liability for them.
       </p>
       <p>
@@ -170,7 +171,7 @@ export default function DisclaimerPage() {
         DAMAGES, INJURIES, OR ADVERSE HEALTH OUTCOMES &mdash; ARISING FROM OR IN
         CONNECTION WITH THE SOFTWARE OR ITS USE.
       </p>
-      <p>By using GlycemicGPT, you acknowledge that:</p>
+      <p>By using Lumose, you acknowledge that:</p>
       <ul>
         <li>You are using this software entirely at your own risk;</li>
         <li>
@@ -194,7 +195,7 @@ export default function DisclaimerPage() {
         This software is licensed under the GPL-3.0; see Sections 15&ndash;17 of
         the <Link href="/terms">Terms of Use</Link> and the{" "}
         <a
-          href="https://github.com/GlycemicGPT/GlycemicGPT/blob/main/LICENSE"
+          href="https://github.com/lumose-health/lumose/blob/main/LICENSE"
           target="_blank"
           rel="noopener noreferrer"
         >

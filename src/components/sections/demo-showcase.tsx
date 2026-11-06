@@ -22,7 +22,7 @@ export function DemoShowcaseSection() {
         </h2>
         <p className="mx-auto max-w-2xl text-muted-foreground">
           Manage diabetes from your phone, your wrist, or the web. AI-powered
-          insights, real-time alerts, and daily briefs -- wherever you are.
+          insights and daily briefs -- wherever you are.
         </p>
       </div>
 
@@ -32,8 +32,8 @@ export function DemoShowcaseSection() {
           <PhoneDemo onDailyBriefAlert={onDailyBriefAlert} />
           <p className="text-sm font-semibold">Insights &amp; Alerts</p>
           <p className="max-w-[260px] text-center text-xs text-muted-foreground">
-            AI chat, predictive insights, and caregiver alerts -- all from your
-            phone.
+            AI chat on your phone, plus a preview of caregiver alerts, which are
+            in development. Keep your CGM&apos;s own alerts on.
           </p>
         </div>
 
@@ -42,7 +42,7 @@ export function DemoShowcaseSection() {
           <WatchDemo />
           <p className="text-sm font-semibold">Glance &amp; Go</p>
           <p className="max-w-[180px] text-center text-xs text-muted-foreground">
-            BG, trends, alerts, and AI chat on your wrist.
+            BG, trends, and AI chat on your wrist.
           </p>
         </div>
 
@@ -61,7 +61,7 @@ export function DemoShowcaseSection() {
         <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-400" />
         <p>
           Demo content shown for illustration. Names and data are fictional.
-          GlycemicGPT is a monitoring and analysis tool -- not medical advice.
+          Lumose is a monitoring and analysis tool -- not medical advice.
           Always consult your healthcare provider before making changes to your
           diabetes management.
         </p>

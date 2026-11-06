@@ -1,6 +1,6 @@
-# GlycemicGPT Website
+# Lumose Website
 
-Public website for the GlycemicGPT platform at [lumose.org](https://lumose.org).
+Public website for the Lumose platform at [lumose.org](https://lumose.org).
 
 ## Tech Stack
 
