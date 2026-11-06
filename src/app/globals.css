@@ -352,3 +352,38 @@
     @apply min-h-dvh bg-lm-page font-lm-body text-lm-ink;
   }
 }
+
+/* A region is frozen in the static HTML and until its hook marks it running. This
+   needs !important because a section's own `animation` shorthand resets the play
+   state. It stops keyframes only, so a one-shot entrance inside a region should be
+   a transition, or it would hold on its first frame while motion is paused. */
+.lm-root [data-lm-loop="frozen"],
+.lm-root [data-lm-loop="frozen"]::before,
+.lm-root [data-lm-loop="frozen"]::after,
+.lm-root [data-lm-loop="frozen"] *,
+.lm-root [data-lm-loop="frozen"] *::before,
+.lm-root [data-lm-loop="frozen"] *::after {
+  animation-play-state: paused !important;
+}
+
+/* Static styles are each region's end state. Decided here, not in JS, so nothing
+   flashes before first paint and a live setting change needs no reload. */
+@media (prefers-reduced-motion: reduce) {
+  .lm-root [data-lm-loop],
+  .lm-root [data-lm-loop]::before,
+  .lm-root [data-lm-loop]::after,
+  .lm-root [data-lm-loop] *,
+  .lm-root [data-lm-loop] *::before,
+  .lm-root [data-lm-loop] *::after {
+    animation: none !important;
+  }
+}
+
+/* The shared Reveal, in v2 timing. The live rule's own reduced-motion block still
+   applies, since this one only runs under no-preference. */
+@media (prefers-reduced-motion: no-preference) {
+  .lm-root .reveal {
+    transition-duration: var(--lm-dur-reveal);
+    transition-timing-function: var(--ease-lm-out);
+  }
+}
