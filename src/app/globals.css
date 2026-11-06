@@ -261,3 +261,94 @@
     transform: none;
   }
 }
+
+/* Website v2 tokens. Everything below is additive and lm- prefixed so it cannot
+   change a live page. `static` emits every variable even when no utility uses
+   it, because JS drivers and SVG read them directly. */
+
+/* Custom variants rather than --breakpoint-* tokens: a theme breakpoint adds a
+   max-width step to Tailwind's shared .container rule. */
+@custom-variant tablet (@media (width >= 47.5rem));
+@custom-variant desktop (@media (width >= 63.75rem));
+
+@theme static {
+  --color-lm-hero: #04070C;  --color-lm-page: #0A0D12;  --color-lm-band: #0C1016;
+  --color-lm-footer: #080B0F; --color-lm-deep: #05070A;
+  --color-lm-card: #11161D;  --color-lm-panel: #0F141A; --color-lm-raised: #161D27;
+  --color-lm-code: #0D1117;  --color-lm-cta: #0E1A2B;
+  --color-lm-frame: #14191F; --color-lm-frame-bar: #171D24;
+
+  --color-lm-line-subtle: #1A212B; --color-lm-line: #1F2630; --color-lm-line-pill: #252D38;
+  --color-lm-line-strong: #2A3340; --color-lm-line-frame: #2A3442; --color-lm-line-accent: #23406A;
+
+  --color-lm-ink: #F3F6FA; --color-lm-ink-secondary: #C3CCD7;
+  --color-lm-ink-muted: #A3AEBB; --color-lm-ink-faint: #7D8896;
+
+  --color-lm-blue: #118DFF; --color-lm-blue-fill: #0A74E6; --color-lm-blue-fill-hover: #0A62C9;
+  --color-lm-blue-light: #5EB1FF;
+  --color-lm-cyan: #45D3FF; --color-lm-logo-from: #45D3FF; --color-lm-logo-to: #0B70FF;
+  --color-lm-headline-from: #7FE3FF; --color-lm-headline-to: #1D8BFF;
+
+  --color-lm-status-supported: #5EB1FF; --color-lm-caution: #F8C129;
+  --color-lm-caution-line: #4A3E1A; --color-lm-star: #F8C129; --color-lm-heart: #F472B6;
+
+  /* Product mockups only */
+  --color-lm-glucose-in-range: #34D399; --color-lm-glucose-high-low: #F59E0B;
+  --color-lm-glucose-urgent: #EF4444;   --color-lm-glucose-band: #2B4A3E;
+  --color-lm-bolus-manual: #93C5FD;     --color-lm-bolus-auto: #F59E0B;
+  --color-lm-app-page: #20242A;  --color-lm-app-panel: #292F36; --color-lm-app-panel-header: #30363E;
+  --color-lm-app-sidebar: #1F2329; --color-lm-app-sidebar-active: #2A3038;
+  --color-lm-app-text: #F6F8FA;  --color-lm-app-text-muted: #C4CBD3; --color-lm-app-primary: #118DFF;
+  --color-lm-app-disclaimer-bar: #000000; --color-lm-app-disclaimer-box: #2C2818;
+
+  /* Docs light surface */
+  --color-lm-docs-surface: #FAFBFC; --color-lm-docs-panel: #F3F5F8; --color-lm-docs-line: #E2E7EE;
+  --color-lm-docs-ink: #0A0D12; --color-lm-docs-body: #3D4F52; --color-lm-docs-muted: #4E6265;
+  --color-lm-docs-link: #0A62C9; --color-lm-docs-link-hover: #0A4FA8; --color-lm-docs-active-bg: #E8F2FF;
+  --color-lm-docs-note-bg: #FFF8E8; --color-lm-docs-note-line: #F0D9A3; --color-lm-docs-note-ink: #4A3608;
+
+  /* Not --text-lm-hero: text-lm-hero would resolve to --color-lm-hero instead. */
+  --text-lm-hero-title: clamp(2.5rem, 5.97vw, 5.375rem);
+  --text-lm-hero-title--line-height: 0.98;
+  --text-lm-hero-title--letter-spacing: -0.045em;
+  --text-lm-hero-title--font-weight: 600;
+  --text-lm-h2: clamp(2.25rem, 4.17vw, 3.75rem);
+  --text-lm-h2--line-height: 1.02;
+  --text-lm-h2--letter-spacing: -0.04em;
+  --text-lm-h2--font-weight: 600;
+  --text-lm-h2-compact: clamp(2.125rem, 3.89vw, 3.5rem);
+  --text-lm-h2-compact--line-height: 1.02;
+  --text-lm-h2-compact--letter-spacing: -0.04em;
+  --text-lm-h2-compact--font-weight: 600;
+  --text-lm-lead: clamp(1.0625rem, 1.39vw, 1.25rem);
+  --text-lm-lead--line-height: 1.5;
+
+  --radius-lm-sm: 8px; --radius-lm-button-sm: 10px; --radius-lm-button: 12px;
+  --radius-lm-tile: 16px; --radius-lm-card: 16px; --radius-lm-card-lg: 20px; --radius-lm-cta: 24px;
+
+  --spacing-lm-gutter: 24px;
+  --spacing-lm-touch: 44px;
+  --container-lm-content: 1200px;
+
+  /* Motion. Usage rules are in EXPERIENCE.md */
+  --ease-lm-out: cubic-bezier(0.22, 1, 0.36, 1); /* entrances */
+  --ease-lm-in-out: cubic-bezier(0.65, 0, 0.35, 1); /* state changes that travel */
+  --ease-lm-breathe: ease-in-out; /* glow loops */
+  --lm-dur-instant: 120ms; /* hover, press */
+  --lm-dur-fast: 200ms;    /* tabs, tooltips, swaps */
+  --lm-dur-base: 300ms;    /* step changes */
+  --lm-dur-reveal: 600ms;  /* scroll reveals, per §7.7 */
+  --lm-stagger: 100ms;
+}
+
+@theme inline {
+  --font-lm-display: var(--font-poppins), system-ui, sans-serif;
+  --font-lm-body: var(--font-inter), system-ui, sans-serif;
+  --font-lm-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+}
+
+@layer components {
+  .lm-root {
+    @apply min-h-dvh bg-lm-page font-lm-body text-lm-ink;
+  }
+}
