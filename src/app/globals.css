@@ -387,3 +387,103 @@
     transition-timing-function: var(--ease-lm-out);
   }
 }
+
+/* Hero. The field and glow are CSS so they run with JS off. The core alpha is
+   below the design's 0.55 to keep the sub text at 4.5:1 at the top of the breath. */
+.lm-hero-glow {
+  position: absolute;
+  top: 9.3%;
+  left: 13.89%;
+  width: 72.22%;
+  height: 69.77%;
+  background: radial-gradient(
+    closest-side,
+    rgb(69 211 255 / 0.47),
+    rgb(17 141 255 / 0.22) 35%,
+    rgb(17 141 255 / 0)
+  );
+  animation: lm-hero-glow 6s var(--ease-lm-breathe) infinite;
+}
+
+@keyframes lm-hero-glow {
+  0%,
+  100% {
+    opacity: 0.85;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* A column as wide as the headline, because the field lines' ellipse lets comets
+   cross the headline's corners. Past about 2000px it widens with the art, so a
+   comet is always hidden by the time it wraps back to its tile. */
+.lm-hero-comets {
+  --lm-hole: max(415px, 21vw);
+  mask-image: linear-gradient(
+    90deg,
+    #000 calc(50% - var(--lm-hole) - 60px),
+    transparent calc(50% - var(--lm-hole)),
+    transparent calc(50% + var(--lm-hole)),
+    #000 calc(50% + var(--lm-hole) + 60px)
+  );
+}
+
+.lm-hero-comets > g {
+  opacity: 0;
+  transition: opacity var(--lm-dur-fast) linear;
+}
+
+.lm-hero-ring::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lm-tile);
+  background: rgb(69 211 255 / 0.35);
+  opacity: 0;
+}
+
+/* From the tile's edge to 14px out, as a 54px tile scaled up. */
+@keyframes lm-hero-ring {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(1.5185);
+  }
+}
+
+@keyframes lm-hero-field-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .lm-hero-field {
+    animation: lm-hero-field-in var(--lm-dur-reveal) ease-out backwards;
+  }
+}
+
+/* Only with scripting, since tiles wait for hydration to appear. */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .lm-hero-tile {
+    transition:
+      opacity 400ms var(--ease-lm-out),
+      scale 400ms var(--ease-lm-out);
+    transition-delay: calc(var(--lm-tile-index) * 60ms);
+  }
+
+  .lm-hero-tile:not([data-entered]) {
+    opacity: 0;
+    scale: 0.96;
+  }
+
+  .lm-hero-ring::before {
+    animation: lm-hero-ring 3.2s linear infinite;
+    animation-delay: calc(var(--lm-tile-index) * -550ms);
+  }
+}
