@@ -6,10 +6,15 @@ import { AlertTriangle } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { createDemoClock } from "@/lib/v2/demo-clock";
 import { useLoopRegion } from "@/lib/v2/use-loop-region";
+import { BrowserFrame } from "../browser-frame";
 import { useMotion } from "../motion-provider";
 import { PauseMotion } from "../pause-motion";
 import { QuietPill } from "../quiet-pill";
-import { PhonePlaceholder, WatchPlaceholder } from "./demo-placeholder";
+import {
+  BrowserPlaceholder,
+  PhonePlaceholder,
+  WatchPlaceholder,
+} from "./demo-placeholder";
 
 // The only way into `motion`. A chunk that can't load leaves the static frame,
 // where the import error would otherwise take down the whole page.
@@ -29,6 +34,14 @@ const WatchDemo = dynamic(
   { ssr: false, loading: WatchPlaceholder },
 );
 
+const BrowserDemo = dynamic(
+  () =>
+    import("./browser-demo")
+      .then((module) => module.BrowserDemo)
+      .catch(() => BrowserPlaceholder),
+  { ssr: false, loading: BrowserPlaceholder },
+);
+
 const NEAR_VIEWPORT = { rootMargin: "600px" };
 const STARTS_CLOCK = { threshold: 0.3 };
 
@@ -37,6 +50,9 @@ const PHONE_SUMMARY =
 
 const WATCH_SUMMARY =
   "Illustration of the Lumose Wear OS watch face with made-up data, showing glucose, trend, insulin on board, a small graph and the time. It steps through a rising reading, a high glucose screen labeled in development, a spoken question to the AI chat with an answer marked not medical advice, and a reading back in range.";
+
+const BROWSER_SUMMARY =
+  "Illustration of the Lumose AI Insights page with made-up data. A daily brief, under a not medical advice notice, sums up the last 24 hours: time in range, average glucose, low and high readings and automatic corrections. Its details list the analysis period, the data used, the AI model that wrote it and the automated dosing check it passed.";
 
 /** Calls back the first time the element meets the observer's condition. */
 function useFirstView(
@@ -142,6 +158,33 @@ export function DemoShowcase() {
                 </span>
                 <span className="mt-2 block">
                   <QuietPill status="in-development" scope="alerts" />
+                </span>
+              </figcaption>
+            </figure>
+
+            {/* Full width below phone and watch on tablets, and beside them on
+                desktop, taking what room is left. */}
+            <figure
+              ref={startWhenSeen}
+              className="flex w-full flex-col gap-3 tablet:basis-full desktop:max-w-[540px] desktop:min-w-0 desktop:flex-1 desktop:basis-0"
+            >
+              <BrowserFrame
+                url="your-server.local/dashboard/briefs"
+                label={BROWSER_SUMMARY}
+              >
+                {approached && !reduced ? (
+                  <BrowserDemo clock={clock} />
+                ) : (
+                  <BrowserPlaceholder />
+                )}
+              </BrowserFrame>
+              <figcaption className="text-center">
+                <span className="block font-semibold">
+                  Your Dashboard, Anywhere
+                </span>
+                <span className="mx-auto mt-2 block max-w-[420px] text-sm text-lm-ink-muted">
+                  Morning briefs that show the numbers behind them, the model
+                  that wrote them and the automated dosing check they passed.
                 </span>
               </figcaption>
             </figure>

@@ -1,9 +1,12 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import {
+  BROWSER_SECTIONS,
+  BROWSER_TRACK,
   CHAT_MESSAGES,
   PHONE_CYCLE_MS,
   PHONE_TRACK,
+  browserSectionsAt,
   WATCH_SETTLED,
   WATCH_TRACK,
   createDemoClock,
@@ -212,4 +215,24 @@ test("the watch steps through five states, five seconds each", () => {
   assert.equal(watchStateAt(4_999).phase, "face");
   assert.equal(watchStateAt(24_999).phase, "corrected");
   assert.equal(WATCH_SETTLED.phase, "face");
+});
+
+test("the browser brief rebuilds with the phone's Daily Brief alert", () => {
+  assert.equal(BROWSER_TRACK.cycleMs, PHONE_CYCLE_MS);
+  assert.deepEqual(phoneFrameAt(28_600), { screen: "alerts", alert: 3 });
+  assert.equal(browserSectionsAt(0), BROWSER_SECTIONS);
+  assert.equal(browserSectionsAt(28_599), BROWSER_SECTIONS);
+  for (const [at, sections] of [
+    [28_600, 0],
+    [28_900, 1],
+    [29_500, 2],
+    [30_400, 3],
+    [31_400, 4],
+    [32_400, 5],
+    [33_400, 6],
+    [36_599, 6],
+  ] as const) {
+    assert.equal(browserSectionsAt(at), sections);
+  }
+  assert.ok(BROWSER_TRACK.marks.every((at) => at < PHONE_CYCLE_MS));
 });

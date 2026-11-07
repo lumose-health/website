@@ -34,6 +34,9 @@ export const CHAT_MESSAGES: readonly ChatMessage[] = [
 
 export const PHONE_CYCLE_MS = 36_600;
 
+/** When the phone shows its Daily Brief alert, and the browser rebuilds its brief. */
+export const PHONE_BRIEF_AT_MS = 28_600;
+
 const chat = (messages: number, typing = false): PhoneChatFrame => ({
   screen: "chat",
   messages,
@@ -59,7 +62,7 @@ const PHONE_SCRIPT: readonly (readonly [number, PhoneFrame])[] = [
   [20_600, alert(1)],
   [24_600, alert(2)],
   // The Daily Brief alert, which holds until the cycle ends.
-  [28_600, alert(3)],
+  [PHONE_BRIEF_AT_MS, alert(3)],
 ];
 
 export const PHONE_TRACK: DemoTrack = {
@@ -128,6 +131,32 @@ export const WATCH_SETTLED = WATCH_STATES[0];
 
 export function watchStateAt(positionMs: number) {
   return WATCH_STATES[Math.floor(positionMs / WATCH_STEP_MS)];
+}
+
+/** When each section of the browser's brief appears, after the phone's alert. */
+const BRIEF_SECTION_DELAYS_MS = [300, 900, 1_800, 2_800, 3_800, 4_800];
+
+export const BROWSER_SECTIONS = BRIEF_SECTION_DELAYS_MS.length;
+
+// On the phone's cycle, so the two stay in step. The mark at 0 only opens the
+// cycle; the brief stays built from the end of one build to the next alert.
+export const BROWSER_TRACK: DemoTrack = {
+  cycleMs: PHONE_CYCLE_MS,
+  marks: [
+    0,
+    PHONE_BRIEF_AT_MS,
+    ...BRIEF_SECTION_DELAYS_MS.map((delay) => PHONE_BRIEF_AT_MS + delay),
+  ],
+};
+
+/**
+ * How many sections of the brief show. It's built before the first alert, so
+ * the frame is never blank.
+ */
+export function browserSectionsAt(positionMs: number) {
+  if (positionMs < PHONE_BRIEF_AT_MS) return BROWSER_SECTIONS;
+  const sinceAlert = positionMs - PHONE_BRIEF_AT_MS;
+  return BRIEF_SECTION_DELAYS_MS.filter((delay) => delay <= sinceAlert).length;
 }
 
 type Entry = DemoTrack & { onMark: (positionMs: number) => void };
