@@ -1,3 +1,4 @@
+import { Alerts } from "@/components/v2/alerts";
 import { BeamSection } from "@/components/v2/beam/beam-section";
 import { ByoAi } from "@/components/v2/byo-ai";
 import { Dashboard } from "@/components/v2/dashboard/dashboard";
@@ -13,6 +14,7 @@ export default function V2Home() {
         <Dashboard />
         <BeamSection />
         <ByoAi />
+        <Alerts />
         <DeviceCards />
       </ProviderSelectionProvider>
     </main>
