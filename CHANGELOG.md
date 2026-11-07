@@ -1,5 +1,25 @@
 # Changelog
 
+## 2026-11-07
+
+### 🌐 Website
+
+#### ✨ New Features
+
+- feat(v2): add bring your own AI section [@jlengelbrecht](https://github.com/jlengelbrecht) ([#646](https://github.com/lumose-health/website/pull/646))
+
+### 📦 Dependencies
+
+- fix(deps): update dependency next to v16.4.5 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#648](https://github.com/lumose-health/website/pull/648))
+- chore(deps): update dependency eslint-config-next to v16.4.5 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#647](https://github.com/lumose-health/website/pull/647))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#649](https://github.com/lumose-health/website/pull/649))
+
+<!-- changelog-cutoff:2026-11-07T00:57:12Z -->
+
+
 ## 2026-11-06
 
 ### 🌐 Website
