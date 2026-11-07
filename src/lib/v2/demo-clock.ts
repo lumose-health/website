@@ -89,6 +89,38 @@ export function nextMarkAfter(track: DemoTrack, elapsedMs: number) {
     : cycleStart + mark;
 }
 
+export type WatchState = {
+  phase: "face" | "rising" | "alert" | "chat" | "corrected";
+  bg: number;
+  trend: string;
+  iob: string;
+  time: string;
+};
+
+const WATCH_STEP_MS = 5_000;
+
+// Sample data. Insulin on board only falls after the high, so no step reads as a
+// new dose.
+const WATCH_STATES: readonly WatchState[] = [
+  { phase: "face", bg: 142, trend: "\u2192", iob: "0.45", time: "02:30" },
+  { phase: "rising", bg: 195, trend: "\u2197", iob: "1.2", time: "02:35" },
+  { phase: "alert", bg: 245, trend: "\u2191", iob: "1.2", time: "02:40" },
+  { phase: "chat", bg: 210, trend: "\u2198", iob: "0.9", time: "02:48" },
+  { phase: "corrected", bg: 128, trend: "\u2192", iob: "0.3", time: "03:15" },
+];
+
+export const WATCH_TRACK: DemoTrack = {
+  cycleMs: WATCH_STEP_MS * WATCH_STATES.length,
+  marks: WATCH_STATES.map((_, index) => index * WATCH_STEP_MS),
+};
+
+/** The static HTML and the reduced motion end state. */
+export const WATCH_SETTLED = WATCH_STATES[0];
+
+export function watchStateAt(positionMs: number) {
+  return WATCH_STATES[Math.floor(positionMs / WATCH_STEP_MS)];
+}
+
 type Entry = DemoTrack & { onMark: (positionMs: number) => void };
 
 export type DemoClock = ReturnType<typeof createDemoClock>;
