@@ -99,12 +99,21 @@ export type WatchState = {
 
 const WATCH_STEP_MS = 5_000;
 
+/** The high on the alert screen, which the chat reply quotes. */
+export const WATCH_PEAK_BG = 245;
+
 // Sample data. Insulin on board only falls after the high, so no step reads as a
 // new dose.
 const WATCH_STATES: readonly WatchState[] = [
   { phase: "face", bg: 142, trend: "\u2192", iob: "0.45", time: "02:30" },
   { phase: "rising", bg: 195, trend: "\u2197", iob: "1.2", time: "02:35" },
-  { phase: "alert", bg: 245, trend: "\u2191", iob: "1.2", time: "02:40" },
+  {
+    phase: "alert",
+    bg: WATCH_PEAK_BG,
+    trend: "\u2191",
+    iob: "1.2",
+    time: "02:40",
+  },
   { phase: "chat", bg: 210, trend: "\u2198", iob: "0.9", time: "02:48" },
   { phase: "corrected", bg: 128, trend: "\u2192", iob: "0.3", time: "03:15" },
 ];

@@ -3,7 +3,12 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Mic, X } from "lucide-react";
-import { WATCH_SETTLED, WATCH_TRACK, watchStateAt } from "@/lib/v2/demo-clock";
+import {
+  WATCH_PEAK_BG,
+  WATCH_SETTLED,
+  WATCH_TRACK,
+  watchStateAt,
+} from "@/lib/v2/demo-clock";
 import type { DemoClock, WatchState } from "@/lib/v2/demo-clock";
 import { WatchFaceScreen, WatchFrame } from "./demo-placeholder";
 
@@ -48,8 +53,8 @@ function ChatScreen({ state }: { state: WatchState }) {
       </span>
       <div className="mt-1.5 max-w-[90%] rounded-lg border border-zinc-700 bg-zinc-800 px-2 py-1.5">
         <span className="block text-[8px] leading-snug text-zinc-300">
-          You&apos;re at {state.bg} mg/dL and trending down. Peaked at 245 after
-          lunch.
+          You&apos;re at {state.bg} mg/dL and trending down. Peaked at{" "}
+          {WATCH_PEAK_BG} after lunch.
         </span>
       </div>
       <span className="mt-1.5 text-[7px] text-zinc-400">
