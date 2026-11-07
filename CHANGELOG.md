@@ -6,6 +6,26 @@
 
 #### ✨ New Features
 
+- feat(v2): add watch demo on the shared clock [@jlengelbrecht](https://github.com/jlengelbrecht) ([#656](https://github.com/lumose-health/website/pull/656))
+
+### 📦 Dependencies
+
+- chore(deps): update dependency lucide-react to v1.68.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#660](https://github.com/lumose-health/website/pull/660))
+- chore(deps): update dependency motion to v14.9.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#659](https://github.com/lumose-health/website/pull/659))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#657](https://github.com/lumose-health/website/pull/657))
+
+<!-- changelog-cutoff:2026-11-07T12:41:05Z -->
+
+
+## 2026-11-07
+
+### 🌐 Website
+
+#### ✨ New Features
+
 - feat(v2): add phone demo on a shared clock [@jlengelbrecht](https://github.com/jlengelbrecht) ([#653](https://github.com/lumose-health/website/pull/653))
 
 ### ❓ Uncategorized
