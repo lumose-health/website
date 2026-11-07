@@ -57,7 +57,12 @@ export function useShownOnce<T extends Element = HTMLDivElement>(
 
       const observer = new IntersectionObserver(
         (records) => {
-          if (!records.some((record) => record.isIntersecting)) return;
+          // The first report arrives whatever the ratio, so check it here too.
+          const reached = records.some(
+            (record) =>
+              record.isIntersecting && record.intersectionRatio >= threshold,
+          );
+          if (!reached) return;
           observer.disconnect();
           show(afterMs);
         },
