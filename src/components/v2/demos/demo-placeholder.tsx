@@ -1,26 +1,7 @@
 import type { ReactNode } from "react";
 import { AlertTriangle, MessageSquare, Send } from "lucide-react";
-
-type ChatMessage = { role: "user" | "assistant"; content: string };
-
-// Sample data. The chat sees about 6 hours of glucose and pump data, so keep each
-// answer to that window and one recent event, with no dosing suggestions.
-const CHAT_MESSAGES: ChatMessage[] = [
-  { role: "user", content: "How am I doing today?" },
-  {
-    role: "assistant",
-    content:
-      "Last 6 hours: time in range **78%**, average glucose **142 mg/dL**. One high after lunch (peaked 225), back in range within 90 min.",
-  },
-  { role: "user", content: "Prepare a note for my endo about that high" },
-  {
-    role: "assistant",
-    content:
-      "From the last 6 hours:\n- Peaked 225 after lunch\n- Back in range within 90 min\n- Worth raising with your care team: how often this happens",
-  },
-  { role: "user", content: "What's my glucose right now?" },
-  { role: "assistant", content: "Current: 136 mg/dL, trending down." },
-];
+import { CHAT_MESSAGES } from "@/lib/v2/demo-clock";
+import type { ChatMessage } from "@/lib/v2/demo-clock";
 
 // Shared by both screens, so swapping them never changes the frame's height.
 export const SCREEN_HEADER =

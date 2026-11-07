@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import {
-  CHAT_MESSAGE_COUNT,
+  CHAT_MESSAGES,
   PHONE_CYCLE_MS,
   PHONE_TRACK,
   createDemoClock,
@@ -26,6 +26,10 @@ function fakeTime() {
   return {
     now: () => current,
     pending: () => timer !== undefined,
+    /** Time passing while the timer is overdue, as on a busy main thread. */
+    block(ms: number) {
+      current += ms;
+    },
     advance(ms: number) {
       const end = current + ms;
       while (timer && timer.at <= end) {
@@ -68,7 +72,7 @@ test("the phone script keeps its timing", () => {
   assert.deepEqual(phoneFrameAt(7_800), chat(4));
   assert.deepEqual(phoneFrameAt(9_800), chat(5));
   assert.deepEqual(phoneFrameAt(10_600), chat(5, true));
-  assert.deepEqual(phoneFrameAt(16_599), chat(CHAT_MESSAGE_COUNT));
+  assert.deepEqual(phoneFrameAt(16_599), chat(CHAT_MESSAGES.length));
 });
 
 test("alerts change every 4 s from 16.6 s, and the last holds to the cycle end", () => {
@@ -130,6 +134,22 @@ test("a stop keeps the phase and a long stop never bursts", () => {
     clock.setRunning(true);
     time.advance(199);
     assert.deepEqual(seen, [0]);
+    time.advance(1);
+    assert.deepEqual(seen, [0, 1_200]);
+    clock.stop();
+  } finally {
+    time.restore();
+  }
+});
+
+test("a late timer cancelled after its mark came due still lands on it", () => {
+  const time = fakeTime();
+  try {
+    const { clock, seen } = runningClock(time);
+    time.advance(1_000);
+    time.block(205);
+    clock.setRunning(false);
+    clock.setRunning(true);
     time.advance(1);
     assert.deepEqual(seen, [0, 1_200]);
     clock.stop();
