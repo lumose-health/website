@@ -6,6 +6,21 @@
 
 #### ✨ New Features
 
+- feat(v2): add watch demo on the shared clock [@jlengelbrecht](https://github.com/jlengelbrecht) ([#656](https://github.com/lumose-health/website/pull/656))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#657](https://github.com/lumose-health/website/pull/657))
+
+<!-- changelog-cutoff:2026-11-07T12:40:49Z -->
+
+
+## 2026-11-07
+
+### 🌐 Website
+
+#### ✨ New Features
+
 - feat(v2): add phone demo on a shared clock [@jlengelbrecht](https://github.com/jlengelbrecht) ([#653](https://github.com/lumose-health/website/pull/653))
 
 ### ❓ Uncategorized
