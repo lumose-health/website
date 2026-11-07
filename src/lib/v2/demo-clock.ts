@@ -106,16 +106,16 @@ export const WATCH_PEAK_BG = 245;
 // new dose.
 const WATCH_STATES: readonly WatchState[] = [
   { phase: "face", bg: 142, trend: "\u2192", iob: "0.45", time: "02:30" },
-  { phase: "rising", bg: 195, trend: "\u2197", iob: "1.2", time: "02:35" },
+  { phase: "rising", bg: 195, trend: "\u2197", iob: "1.2", time: "02:55" },
   {
     phase: "alert",
     bg: WATCH_PEAK_BG,
     trend: "\u2191",
     iob: "1.2",
-    time: "02:40",
+    time: "03:15",
   },
-  { phase: "chat", bg: 210, trend: "\u2198", iob: "0.9", time: "02:48" },
-  { phase: "corrected", bg: 128, trend: "\u2192", iob: "0.3", time: "03:15" },
+  { phase: "chat", bg: 210, trend: "\u2198", iob: "0.9", time: "03:30" },
+  { phase: "corrected", bg: 128, trend: "\u2192", iob: "0.3", time: "04:30" },
 ];
 
 export const WATCH_TRACK: DemoTrack = {

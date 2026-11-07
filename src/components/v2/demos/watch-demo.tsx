@@ -23,7 +23,7 @@ const CROSSFADE = {
 // flashing, and its copy stays clear of timing and delivery.
 function AlertScreen({ state }: { state: WatchState }) {
   return (
-    <div className="flex size-full flex-col items-center justify-center px-5 py-4 text-red-500">
+    <div className="flex size-full flex-col items-center justify-center px-5 py-4 text-lm-glucose-high-low">
       <span className="text-[10px] font-bold tracking-wider uppercase">
         High Glucose
       </span>
