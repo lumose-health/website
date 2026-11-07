@@ -45,7 +45,7 @@ const ALERTS: AlertItem[] = [
   {
     level: "brief",
     title: "Daily Brief - Sarah",
-    body: "Yesterday: 76% in range. 2 highs, no lows. Trending better than last week.",
+    body: "Yesterday: 76% in range. 2 highs, no lows.",
     time: "8:00 AM",
   },
 ];
