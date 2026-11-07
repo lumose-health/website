@@ -6,6 +6,21 @@
 
 #### ✨ New Features
 
+- feat(v2): add alerts section [@jlengelbrecht](https://github.com/jlengelbrecht) ([#651](https://github.com/lumose-health/website/pull/651))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#652](https://github.com/lumose-health/website/pull/652))
+
+<!-- changelog-cutoff:2026-11-07T04:05:37Z -->
+
+
+## 2026-11-07
+
+### 🌐 Website
+
+#### ✨ New Features
+
 - feat(v2): add bring your own AI section [@jlengelbrecht](https://github.com/jlengelbrecht) ([#646](https://github.com/lumose-health/website/pull/646))
 
 ### ❓ Uncategorized
