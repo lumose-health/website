@@ -8,6 +8,21 @@
 
 - feat(v2): add bring your own AI section [@jlengelbrecht](https://github.com/jlengelbrecht) ([#646](https://github.com/lumose-health/website/pull/646))
 
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#650](https://github.com/lumose-health/website/pull/650))
+
+<!-- changelog-cutoff:2026-11-07T02:03:42Z -->
+
+
+## 2026-11-07
+
+### 🌐 Website
+
+#### ✨ New Features
+
+- feat(v2): add bring your own AI section [@jlengelbrecht](https://github.com/jlengelbrecht) ([#646](https://github.com/lumose-health/website/pull/646))
+
 ### 📦 Dependencies
 
 - fix(deps): update dependency next to v16.4.5 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#648](https://github.com/lumose-health/website/pull/648))
