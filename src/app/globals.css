@@ -850,3 +850,86 @@
     transform: translateX(-50%);
   }
 }
+
+/* Architecture diagram. Dots and lane icons each ride a track the size of their
+   connector or lane, so a percentage transform on the track crosses the whole of
+   it. Tracks rest at opacity 0, which is the reduced motion and no-script state.
+   Loops start after the cards' 1s entrance and stop with their region. */
+.lm-arch-track {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .lm-arch-card {
+    transition:
+      opacity var(--lm-dur-reveal) var(--ease-lm-out),
+      translate var(--lm-dur-reveal) var(--ease-lm-out);
+    transition-delay: calc(var(--lm-arch-index, 0) * var(--lm-stagger));
+  }
+
+  .lm-arch:not([data-lm-shown]) .lm-arch-card {
+    opacity: 0;
+    translate: 0 16px;
+  }
+
+  /* Opens by itself after 3s unless hydration arrives first, as the dashboard does. */
+  .lm-arch:not([data-lm-shown], [data-lm-hydrated]) .lm-arch-card {
+    animation: lm-arch-open 0s 3s forwards;
+  }
+
+  .lm-root [data-lm-loop="frozen"] .lm-arch:not([data-lm-shown]) .lm-arch-card {
+    animation-play-state: running !important;
+  }
+
+  .lm-arch[data-lm-shown] .lm-arch-dot-x {
+    animation: lm-arch-dot-x 2.5s linear 1s infinite;
+  }
+
+  .lm-arch[data-lm-shown] .lm-arch-dot-y {
+    animation: lm-arch-dot-y 2.5s linear 1s infinite;
+  }
+
+  .lm-arch[data-lm-shown] .lm-arch-icon-r {
+    animation: lm-arch-icon-r 3s linear infinite;
+    animation-delay: calc(1s + var(--lm-arch-delay, 0s));
+  }
+
+  .lm-arch[data-lm-shown] .lm-arch-icon-l {
+    animation: lm-arch-icon-l 3s linear infinite;
+    animation-delay: calc(1s + var(--lm-arch-delay, 0s));
+  }
+}
+
+@keyframes lm-arch-open {
+  to {
+    opacity: 1;
+    translate: none;
+  }
+}
+
+@keyframes lm-arch-dot-x {
+  0% { transform: translateX(-5%); opacity: 0; }
+  10%, 90% { opacity: 1; }
+  100% { transform: translateX(105%); opacity: 0; }
+}
+
+@keyframes lm-arch-dot-y {
+  0% { transform: translateY(-5%); opacity: 0; }
+  10%, 90% { opacity: 1; }
+  100% { transform: translateY(105%); opacity: 0; }
+}
+
+@keyframes lm-arch-icon-r {
+  0% { transform: translateX(-20%); opacity: 0; }
+  8%, 92% { opacity: 1; }
+  100% { transform: translateX(100%); opacity: 0; }
+}
+
+@keyframes lm-arch-icon-l {
+  0% { transform: translateX(100%); opacity: 0; }
+  8%, 92% { opacity: 1; }
+  100% { transform: translateX(-20%); opacity: 0; }
+}
