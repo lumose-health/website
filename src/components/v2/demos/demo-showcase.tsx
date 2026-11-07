@@ -9,7 +9,7 @@ import { useLoopRegion } from "@/lib/v2/use-loop-region";
 import { useMotion } from "../motion-provider";
 import { PauseMotion } from "../pause-motion";
 import { QuietPill } from "../quiet-pill";
-import { PhonePlaceholder } from "./demo-placeholder";
+import { PhonePlaceholder, WatchPlaceholder } from "./demo-placeholder";
 
 // The only way into `motion`. A chunk that can't load leaves the static frame,
 // where the import error would otherwise take down the whole page.
@@ -21,11 +21,22 @@ const PhoneDemo = dynamic(
   { ssr: false, loading: PhonePlaceholder },
 );
 
+const WatchDemo = dynamic(
+  () =>
+    import("./watch-demo")
+      .then((module) => module.WatchDemo)
+      .catch(() => WatchPlaceholder),
+  { ssr: false, loading: WatchPlaceholder },
+);
+
 const NEAR_VIEWPORT = { rootMargin: "600px" };
 const STARTS_CLOCK = { threshold: 0.3 };
 
 const PHONE_SUMMARY =
   "Illustration of the Lumose phone app with made-up data. Someone asks the AI chat about their last 6 hours, a recent high and their current glucose, and each answer is marked not medical advice. A second screen previews caregiver alerts, labeled in development, with a reminder to keep your CGM's own alerts on.";
+
+const WATCH_SUMMARY =
+  "Illustration of the Lumose Wear OS watch face with made-up data, showing glucose, trend, insulin on board, a small graph and the time. It steps through a rising reading, a high glucose screen labeled in development, a spoken question to the AI chat with an answer marked not medical advice, and a reading back in range.";
 
 /** Calls back the first time the element meets the observer's condition. */
 function useFirstView(
@@ -82,7 +93,7 @@ export function DemoShowcase() {
         <Reveal delay={100}>
           <div
             {...region}
-            className="flex flex-wrap items-start justify-center gap-x-8 gap-y-10"
+            className="flex flex-col items-center gap-x-8 gap-y-10 tablet:flex-row tablet:flex-wrap tablet:items-start tablet:justify-center"
           >
             <figure
               ref={startWhenSeen}
@@ -107,6 +118,30 @@ export function DemoShowcase() {
                 <span className="mt-2 block text-sm text-lm-ink-muted">
                   AI chat and insights on your phone. Caregiver alerts are being
                   built.
+                </span>
+              </figcaption>
+            </figure>
+
+            <figure
+              ref={startWhenSeen}
+              className="flex max-w-[220px] flex-col items-center gap-3"
+            >
+              <div role="img" aria-label={WATCH_SUMMARY}>
+                <div aria-hidden="true">
+                  {approached && !reduced ? (
+                    <WatchDemo clock={clock} />
+                  ) : (
+                    <WatchPlaceholder />
+                  )}
+                </div>
+              </div>
+              <figcaption className="text-center">
+                <span className="block font-semibold">Glance &amp; Go</span>
+                <span className="mt-2 block text-sm text-lm-ink-muted">
+                  BG, trends and AI chat on your wrist.
+                </span>
+                <span className="mt-2 block">
+                  <QuietPill status="in-development" scope="alerts" />
                 </span>
               </figcaption>
             </figure>

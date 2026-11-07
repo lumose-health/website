@@ -4,8 +4,11 @@ import {
   CHAT_MESSAGES,
   PHONE_CYCLE_MS,
   PHONE_TRACK,
+  WATCH_SETTLED,
+  WATCH_TRACK,
   createDemoClock,
   phoneFrameAt,
+  watchStateAt,
 } from "./demo-clock";
 
 // Timers and time under the test's control, so nothing here waits.
@@ -197,4 +200,16 @@ test("a clock with nothing on it stands still", () => {
   } finally {
     time.restore();
   }
+});
+
+test("the watch steps through five states, five seconds each", () => {
+  assert.equal(WATCH_TRACK.cycleMs, 25_000);
+  assert.deepEqual(WATCH_TRACK.marks, [0, 5_000, 10_000, 15_000, 20_000]);
+  assert.deepEqual(
+    WATCH_TRACK.marks.map((at) => watchStateAt(at).phase),
+    ["face", "rising", "alert", "chat", "corrected"],
+  );
+  assert.equal(watchStateAt(4_999).phase, "face");
+  assert.equal(watchStateAt(24_999).phase, "corrected");
+  assert.equal(WATCH_SETTLED.phase, "face");
 });
