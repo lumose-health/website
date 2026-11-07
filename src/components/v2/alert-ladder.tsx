@@ -27,8 +27,8 @@ const STEPS = [
   {
     title: "Caregiver escalation",
     inDevelopment: true,
-    litRow: "border-lm-blue-light bg-lm-raised",
-    litTile: "border-lm-blue-light bg-lm-blue-light text-lm-page",
+    litRow: "border-dashed border-lm-blue-light bg-transparent",
+    litTile: "border-lm-blue-light text-lm-blue-light",
   },
 ];
 
@@ -133,7 +133,8 @@ export function AlertLadder() {
       </ol>
 
       <figcaption className="mt-3 font-lm-mono text-[12px]/[1.5] text-lm-ink-faint tablet:text-[11px]/[1.5]">
-        Illustrative example.
+        Illustrative example. Alerting is in active development and works only
+        for some setups.
       </figcaption>
     </figure>
   );
