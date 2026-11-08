@@ -5,6 +5,7 @@ import { ByoAi } from "@/components/v2/byo-ai";
 import { Dashboard } from "@/components/v2/dashboard/dashboard";
 import { DemoShowcase } from "@/components/v2/demos/demo-showcase";
 import { DeviceCards } from "@/components/v2/device-cards";
+import { GetStarted } from "@/components/v2/get-started";
 import { Hero } from "@/components/v2/hero";
 import { ProviderSelectionProvider } from "@/components/v2/provider-context";
 
@@ -20,6 +21,7 @@ export default function V2Home() {
         <DemoShowcase />
         <DeviceCards />
         <Architecture />
+        <GetStarted />
       </ProviderSelectionProvider>
     </main>
   );
