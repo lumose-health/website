@@ -38,5 +38,12 @@ export function ButtonLink({
   className = "",
   ...props
 }: ButtonLinkProps) {
-  return <a className={`${buttonClass(variant)} ${className}`} {...props} />;
+  // Forced colors drops the fill, so a filled button would read as plain text.
+  // A border in the link color keeps every one of them looking like a button.
+  return (
+    <a
+      className={`${buttonClass(variant)} forced-colors:border forced-colors:border-[LinkText] ${className}`}
+      {...props}
+    />
+  );
 }
