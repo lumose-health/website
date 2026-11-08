@@ -1,5 +1,20 @@
 # Changelog
 
+## 2026-11-08
+
+### 🌐 Website
+
+#### ✨ New Features
+
+- feat(v2): add AI Insights browser demo [@jlengelbrecht](https://github.com/jlengelbrecht) ([#658](https://github.com/lumose-health/website/pull/658))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#662](https://github.com/lumose-health/website/pull/662))
+
+<!-- changelog-cutoff:2026-11-08T02:47:04Z -->
+
+
 ## 2026-11-07
 
 ### 🌐 Website
