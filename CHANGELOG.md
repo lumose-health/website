@@ -6,6 +6,26 @@
 
 #### ✨ New Features
 
+- feat(v2): port the architecture diagram [@jlengelbrecht](https://github.com/jlengelbrecht) ([#663](https://github.com/lumose-health/website/pull/663))
+
+### 📦 Dependencies
+
+- chore(deps): update dependency lucide-react to v1.69.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#668](https://github.com/lumose-health/website/pull/668))
+- chore(deps): update dependency fumadocs-core to v16.18.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#666](https://github.com/lumose-health/website/pull/666))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#664](https://github.com/lumose-health/website/pull/664))
+
+<!-- changelog-cutoff:2026-11-08T12:58:17Z -->
+
+
+## 2026-11-08
+
+### 🌐 Website
+
+#### ✨ New Features
+
 - feat(v2): add AI Insights browser demo [@jlengelbrecht](https://github.com/jlengelbrecht) ([#658](https://github.com/lumose-health/website/pull/658))
 
 ### ❓ Uncategorized
