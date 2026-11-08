@@ -2,6 +2,25 @@
 
 ## 2026-11-08
 
+### 🌐 Website
+
+#### ✨ New Features
+
+- feat(v2): add the Get started section with install tabs [@jlengelbrecht](https://github.com/jlengelbrecht) ([#665](https://github.com/lumose-health/website/pull/665))
+
+### 📦 Dependencies
+
+- chore(deps): update dependency fumadocs-mdx to v15.5.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#670](https://github.com/lumose-health/website/pull/670))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#671](https://github.com/lumose-health/website/pull/671))
+
+<!-- changelog-cutoff:2026-11-08T23:29:55Z -->
+
+
+## 2026-11-08
+
 ### 📦 Dependencies
 
 - chore(deps): update dependency fumadocs-ui to v16.18.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#667](https://github.com/lumose-health/website/pull/667))
