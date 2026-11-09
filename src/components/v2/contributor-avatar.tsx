@@ -42,10 +42,11 @@ export function ContributorAvatar({
   const commits = person.commits.toLocaleString("en-US");
   const label = `${login} · ${commits} ${person.commits === 1 ? "commit" : "commits"}`;
   const letters = initials(login);
-  // Initials show only when there is no photo. They are then the only visible
-  // text on the link, so the name starts with them and a speech user who says
-  // "click JL" reaches it (WCAG 2.5.3). Leaving them out of the name would not
-  // help: sighted users still read them as the label. A photo has no text.
+  // Initials show only when there is no photo. They are then the only text a
+  // sighted user sees on the link, so the name starts with them and a speech
+  // user who says "click JL" reaches it (WCAG 2.5.3). Leaving them out of the
+  // name would not help: sighted users still read them as the label. A photo
+  // has no text.
   const name = avatar ? label : `${letters}, ${label}`;
 
   const tip = useRef<HTMLSpanElement>(null);
