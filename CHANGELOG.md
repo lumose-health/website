@@ -6,6 +6,21 @@
 
 #### 🐛 Bug Fixes
 
+- fix(home): correct the AI provider and chat demo claims [@jlengelbrecht](https://github.com/jlengelbrecht) ([#673](https://github.com/lumose-health/website/pull/673))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#677](https://github.com/lumose-health/website/pull/677))
+
+<!-- changelog-cutoff:2026-11-09T02:47:01Z -->
+
+
+## 2026-11-09
+
+### 🌐 Website
+
+#### 🐛 Bug Fixes
+
 - fix(v2): demo consistency, first-view chat, forced-colors buttons and setup copy [@jlengelbrecht](https://github.com/jlengelbrecht) ([#675](https://github.com/lumose-health/website/pull/675))
 
 ### ❓ Uncategorized
