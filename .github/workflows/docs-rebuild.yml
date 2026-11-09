@@ -5,6 +5,10 @@ name: Docs Rebuild
 on:
   repository_dispatch:
     types: [docs-updated]
+  # Daily refresh so contributor counts and stars stay current.
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -30,7 +34,7 @@ jobs:
         run: npm ci
 
       - name: Sync docs from source repos
-        run: npm run sync-docs && npx fumadocs-mdx
+        run: npm run sync-docs && npm run sync-contributors && npx fumadocs-mdx
         env:
           DOCS_NO_CACHE: "1"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
