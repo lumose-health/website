@@ -1,0 +1,134 @@
+{
+  "generatedAt": "2026-11-09T02:53:41.232Z",
+  "org": "lumose-health",
+  "stars": 142,
+  "forks": 14,
+  "latestRelease": "v0.16.0",
+  "contributors": [
+    {
+      "login": "jlengelbrecht",
+      "profileUrl": "https://github.com/jlengelbrecht",
+      "commits": 915,
+      "repos": [
+        "lumose",
+        ".github",
+        "website",
+        "android-unofficial",
+        "ios-unofficial"
+      ],
+      "avatar": null
+    },
+    {
+      "login": "DanielDanielsson",
+      "profileUrl": "https://github.com/DanielDanielsson",
+      "commits": 17,
+      "repos": [
+        "lumose"
+      ],
+      "avatar": null
+    },
+    {
+      "login": "seitzbg",
+      "profileUrl": "https://github.com/seitzbg",
+      "commits": 9,
+      "repos": [
+        "lumose",
+        ".github"
+      ],
+      "avatar": null
+    },
+    {
+      "login": "palmarci",
+      "profileUrl": "https://github.com/palmarci",
+      "commits": 8,
+      "repos": [
+        "lumose",
+        "android-unofficial"
+      ],
+      "avatar": null
+    },
+    {
+      "login": "chris-clem",
+      "profileUrl": "https://github.com/chris-clem",
+      "commits": 5,
+      "repos": [
+        "lumose"
+      ],
+      "avatar": null
+    },
+    {
+      "login": "mortenfyhn",
+      "profileUrl": "https://github.com/mortenfyhn",
+      "commits": 4,
+      "repos": [
+        "lumose",
+        "android-unofficial"
+      ],
+      "avatar": null
+    },
+    {
+      "login": "rtmalikian",
+      "profileUrl": "https://github.com/rtmalikian",
+      "commits": 3,
+      "repos": [
+        "lumose"
+      ],
+      "avatar": null
+    },
+    {
+      "login": "dxwood01",
+      "profileUrl": "https://github.com/dxwood01",
+      "commits": 2,
+      "repos": [
+        "lumose",
+        "android-unofficial"
+      ],
+      "avatar": null
+    },
+    {
+      "login": "bewest",
+      "profileUrl": "https://github.com/bewest",
+      "commits": 1,
+      "repos": [
+        "lumose"
+      ],
+      "avatar": null
+    },
+    {
+      "login": "gitcommit90",
+      "profileUrl": "https://github.com/gitcommit90",
+      "commits": 1,
+      "repos": [
+        "lumose"
+      ],
+      "avatar": null
+    },
+    {
+      "login": "mixa2010",
+      "profileUrl": "https://github.com/mixa2010",
+      "commits": 1,
+      "repos": [
+        "lumose"
+      ],
+      "avatar": null
+    },
+    {
+      "login": "sanmaxdev",
+      "profileUrl": "https://github.com/sanmaxdev",
+      "commits": 1,
+      "repos": [
+        "lumose"
+      ],
+      "avatar": null
+    },
+    {
+      "login": "SleightOS",
+      "profileUrl": "https://github.com/SleightOS",
+      "commits": 1,
+      "repos": [
+        "lumose"
+      ],
+      "avatar": null
+    }
+  ]
+}

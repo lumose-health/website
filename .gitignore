@@ -64,3 +64,6 @@ AGENTS.md
 
 # Lighthouse reports
 lighthouse-report.json
+
+# Contributor avatars (downloaded at build time by scripts/sync-contributors.ts)
+/public/avatars/
