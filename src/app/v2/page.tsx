@@ -1,5 +1,6 @@
 import { Alerts } from "@/components/v2/alerts";
 import { Architecture } from "@/components/v2/architecture";
+import { Contributors } from "@/components/v2/contributors";
 import { BeamSection } from "@/components/v2/beam/beam-section";
 import { ByoAi } from "@/components/v2/byo-ai";
 import { Dashboard } from "@/components/v2/dashboard/dashboard";
@@ -23,6 +24,7 @@ export default function V2Home() {
         <Architecture />
         <GetStarted />
       </ProviderSelectionProvider>
+      <Contributors />
     </main>
   );
 }
