@@ -4,6 +4,21 @@
 
 ### 🌐 Website
 
+#### ✨ New Features
+
+- feat: sync contributor data and avatars at build time [@jlengelbrecht](https://github.com/jlengelbrecht) ([#680](https://github.com/lumose-health/website/pull/680))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#681](https://github.com/lumose-health/website/pull/681))
+
+<!-- changelog-cutoff:2026-11-09T04:34:26Z -->
+
+
+## 2026-11-09
+
+### 🌐 Website
+
 #### 🐛 Bug Fixes
 
 - fix(v2): show AI subscription sign-in in the bring your own AI section [@jlengelbrecht](https://github.com/jlengelbrecht) ([#674](https://github.com/lumose-health/website/pull/674))
