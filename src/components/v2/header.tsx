@@ -1,13 +1,10 @@
 import { Heart, Star } from "lucide-react";
 import { GitHubIcon } from "@/components/icons";
-import { routes } from "@/lib/v2/routes";
+import { GITHUB_URL, SPONSOR_URL, routes } from "@/lib/v2/routes";
 import { ButtonLink, EXTERNAL_LINK, FOCUS_RING, NAV_LINK } from "./button";
 import { hasContributors, starCount } from "./contributors";
 import { Logo } from "./logo";
 import { MobileMenu } from "./mobile-menu";
-
-export const GITHUB_URL = "https://github.com/lumose-health/lumose";
-export const SPONSOR_URL = "https://opencollective.com/lumose";
 
 // Plain anchors throughout, not next/link. Link would prefetch pages that
 // aren't built yet, and a native fragment jump moves the keyboard start point
@@ -17,13 +14,13 @@ const NAV = [
   { label: "Live demo", href: `${routes.home}#demo` },
   { label: "Devices", href: `${routes.home}#connect-logos` },
   { label: "Docs", href: routes.docs },
-  { label: "Community", href: `${routes.home}#contributors` },
-] as const;
-
-// Community points at the contributors section, which hides itself with no data.
-const LINKS = hasContributors
-  ? NAV
-  : NAV.filter((link) => !link.href.endsWith("#contributors"));
+  // The contributors section hides itself with no data, but the community
+  // cards below it always render, so the link falls back to them.
+  {
+    label: "Community",
+    href: `${routes.home}#${hasContributors ? "contributors" : "community"}`,
+  },
+];
 
 const BAR_LINK = `items-center rounded-lm-button-sm min-h-lm-touch px-3 text-sm text-lm-ink transition-colors duration-(--lm-dur-instant) hover:bg-lm-raised ${FOCUS_RING}`;
 const MENU_LINK = `${NAV_LINK} w-full text-[15px]`;
@@ -102,7 +99,7 @@ export function Header({ stars = starCount }: { stars?: number }) {
           aria-label="Main"
           className="ml-auto hidden items-center gap-1 desktop:flex"
         >
-          {LINKS.map((link) => (
+          {NAV.map((link) => (
             <a
               key={link.href}
               href={link.href}
@@ -124,7 +121,7 @@ export function Header({ stars = starCount }: { stars?: number }) {
           </ButtonLink>
         </div>
 
-        <MobileMenu links={LINKS}>
+        <MobileMenu links={NAV}>
           <SponsorLink className={MENU_LINK} />
           <StarLink stars={stars} label="GitHub" className={MENU_LINK} />
         </MobileMenu>

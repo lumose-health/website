@@ -41,6 +41,12 @@ export function ContributorAvatar({
   const { login, profileUrl, avatar } = person;
   const commits = person.commits.toLocaleString("en-US");
   const label = `${login} · ${commits} ${person.commits === 1 ? "commit" : "commits"}`;
+  const letters = initials(login);
+  // Initials show only when there is no photo. They are then the only visible
+  // text on the link, so the name starts with them and a speech user who says
+  // "click JL" reaches it (WCAG 2.5.3). Leaving them out of the name would not
+  // help: sighted users still read them as the label. A photo has no text.
+  const name = avatar ? label : `${letters}, ${label}`;
 
   const tip = useRef<HTMLSpanElement>(null);
   const [active, setActive] = useState({ hover: false, focus: false });
@@ -88,6 +94,7 @@ export function ContributorAvatar({
       style={{
         transitionDelay: `${Math.min(index, STAGGERED) * STAGGER_MS}ms`,
       }}
+      data-avatar
       data-dismissed={dismissed || undefined}
       onPointerEnter={() => activate("hover")}
       onPointerLeave={() => deactivate("hover")}
@@ -97,11 +104,10 @@ export function ContributorAvatar({
       <a
         href={profileUrl}
         {...EXTERNAL_LINK}
-        aria-label={label}
+        aria-label={name}
         className={`relative flex size-12 items-center justify-center overflow-hidden rounded-full border border-lm-line bg-lm-raised font-lm-body text-[13px] font-medium text-lm-ink-secondary transition-[translate,border-color] duration-(--lm-dur-instant) hover:-translate-y-0.5 hover:border-lm-line-strong focus-visible:-translate-y-0.5 motion-reduce:translate-y-0! ${FOCUS_RING}`}
       >
-        <span aria-hidden="true">{initials(login)}</span>
-        {avatar && (
+        {avatar ? (
           // A plain img: the export has no image optimizer, and the file is already 96px.
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -113,15 +119,20 @@ export function ContributorAvatar({
             decoding="async"
             className="absolute inset-0 size-full object-cover"
           />
+        ) : (
+          <span aria-hidden="true">{letters}</span>
         )}
       </a>
-      {/* The link's name carries this text, so the tooltip itself stays silent. */}
+      {/* The link's name carries this text, so the tooltip itself stays silent.
+          Hovering another avatar hides this one even while it has focus, so two
+          tooltips never overlap. The width stops at the panel's edges, and a
+          long login ends in an ellipsis. */}
       <span
         ref={tip}
         aria-hidden="true"
-        className="invisible absolute top-full left-1/2 z-10 -translate-x-1/2 pt-2 opacity-0 transition-[opacity,visibility] duration-(--lm-dur-fast) group-hover:visible group-hover:opacity-100 group-has-focus-visible:visible group-has-focus-visible:opacity-100 group-data-dismissed:invisible! group-data-dismissed:opacity-0! motion-reduce:transition-none"
+        className="invisible absolute top-full left-1/2 z-10 -translate-x-1/2 pt-2 opacity-0 transition-[opacity,visibility] duration-(--lm-dur-fast) group-hover:visible group-hover:opacity-100 group-has-focus-visible:visible group-has-focus-visible:opacity-100 group-data-dismissed:invisible! group-data-dismissed:opacity-0! max-w-[calc(100cqw-16px)] motion-reduce:transition-none [[data-avatar-panel]:has([data-avatar]:hover)_[data-avatar]:not(:hover)_&]:invisible! [[data-avatar-panel]:has([data-avatar]:hover)_[data-avatar]:not(:hover)_&]:opacity-0!"
       >
-        <span className="block rounded-lm-sm border border-lm-line bg-lm-raised px-2.5 py-1.5 font-lm-mono text-xs whitespace-nowrap text-lm-ink shadow-lg shadow-black/40">
+        <span className="block rounded-lm-sm border border-lm-line bg-lm-raised px-2.5 py-1.5 truncate font-lm-mono text-xs text-lm-ink shadow-lg shadow-black/40">
           {label}
         </span>
       </span>
