@@ -62,8 +62,8 @@ export function GetStarted() {
             Up and running in minutes
           </h2>
           <p className="mb-6 text-lm-lead text-lm-ink-muted">
-            Laptop, home server or a VPS. Then install the Android app to
-            connect your pump.
+            Laptop, home server or a VPS. Then install the Android app if your
+            pump connects over Bluetooth.
           </p>
           <div className="flex flex-col gap-3 tablet:flex-row tablet:flex-wrap">
             <ButtonLink href={SETUP_GUIDE} className="min-h-12! px-[22px]!">

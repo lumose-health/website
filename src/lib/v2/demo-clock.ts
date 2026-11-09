@@ -20,13 +20,13 @@ export const CHAT_MESSAGES: readonly ChatMessage[] = [
   {
     role: "assistant",
     content:
-      "Last 6 hours: time in range **78%**, average glucose **142 mg/dL**. One high after lunch (peaked 225), back in range within 90 min.",
+      "Last 6 hours: time in range **78%**, average glucose **142 mg/dL**. One high after lunch (peaked 245), back in range within 90 min.",
   },
   { role: "user", content: "Prepare a note for my endo about that high" },
   {
     role: "assistant",
     content:
-      "From the last 6 hours:\n- Peaked 225 after lunch\n- Back in range within 90 min\n- Worth raising with your care team: how often this happens",
+      "From the last 6 hours:\n- Peaked 245 after lunch\n- Back in range within 90 min\n- Worth raising with your care team: how often this happens",
   },
   { role: "user", content: "What's my glucose right now?" },
   { role: "assistant", content: "Current: 136 mg/dL, trending down." },
@@ -47,6 +47,9 @@ const alert = (index: number): PhoneAlertFrame => ({
   alert: index,
 });
 
+/** Where the alerts take over from the chat. */
+const PHONE_ALERTS_AT_MS = 16_600;
+
 const PHONE_SCRIPT: readonly (readonly [number, PhoneFrame])[] = [
   [0, chat(0)],
   [1_200, chat(1)],
@@ -58,7 +61,7 @@ const PHONE_SCRIPT: readonly (readonly [number, PhoneFrame])[] = [
   [9_800, chat(5)],
   [10_600, chat(5, true)],
   [12_100, chat(6)],
-  [16_600, alert(0)],
+  [PHONE_ALERTS_AT_MS, alert(0)],
   [20_600, alert(1)],
   [24_600, alert(2)],
   // The Daily Brief alert, which holds until the cycle ends.
@@ -73,7 +76,13 @@ export const PHONE_TRACK: DemoTrack = {
 /** The static HTML and the reduced motion end state. */
 export const PHONE_SETTLED = chat(CHAT_MESSAGES.length);
 
-export function phoneFrameAt(positionMs: number): PhoneFrame {
+/**
+ * The phone's frame at a point in a cycle. The first cycle opens on the full
+ * chat that the static HTML already shows, so nothing disappears when the clock
+ * starts. Later cycles replay the chat from an empty screen.
+ */
+export function phoneFrameAt(positionMs: number, cycle: number): PhoneFrame {
+  if (cycle === 0 && positionMs < PHONE_ALERTS_AT_MS) return PHONE_SETTLED;
   let frame = PHONE_SCRIPT[0][1];
   for (const [at, next] of PHONE_SCRIPT) {
     if (at > positionMs) break;
@@ -108,17 +117,17 @@ export const WATCH_PEAK_BG = 245;
 // Sample data. Insulin on board only falls after the high, so no step reads as a
 // new dose.
 const WATCH_STATES: readonly WatchState[] = [
-  { phase: "face", bg: 142, trend: "\u2192", iob: "0.45", time: "02:30" },
-  { phase: "rising", bg: 195, trend: "\u2197", iob: "1.2", time: "02:55" },
+  { phase: "face", bg: 142, trend: "\u2192", iob: "0.45", time: "13:30" },
+  { phase: "rising", bg: 195, trend: "\u2197", iob: "1.2", time: "13:55" },
   {
     phase: "alert",
     bg: WATCH_PEAK_BG,
     trend: "\u2191",
     iob: "1.2",
-    time: "03:15",
+    time: "14:15",
   },
-  { phase: "chat", bg: 210, trend: "\u2198", iob: "0.9", time: "03:30" },
-  { phase: "corrected", bg: 128, trend: "\u2192", iob: "0.3", time: "04:30" },
+  { phase: "chat", bg: 210, trend: "\u2198", iob: "0.9", time: "14:30" },
+  { phase: "corrected", bg: 128, trend: "\u2192", iob: "0.3", time: "15:30" },
 ];
 
 export const WATCH_TRACK: DemoTrack = {
@@ -159,7 +168,17 @@ export function browserSectionsAt(positionMs: number) {
   return BRIEF_SECTION_DELAYS_MS.filter((delay) => delay <= sinceAlert).length;
 }
 
-type Entry = DemoTrack & { onMark: (positionMs: number) => void };
+/** A mark's position within its cycle, and which cycle it's in, from 0. */
+type OnMark = (positionMs: number, cycle: number) => void;
+
+type Entry = DemoTrack & { onMark: OnMark };
+
+function fire(entry: Entry, elapsedMs: number) {
+  entry.onMark(
+    elapsedMs % entry.cycleMs,
+    Math.floor(elapsedMs / entry.cycleMs),
+  );
+}
 
 export type DemoClock = ReturnType<typeof createDemoClock>;
 
@@ -173,8 +192,8 @@ export function createDemoClock(now: () => number = () => performance.now()) {
   const entries = new Set<Entry>();
   let running = false;
   let started = false;
-  // The first cycle replaces the settled frame, so it waits for the clock to
-  // really run. A visitor who has paused motion keeps the settled frame.
+  // The first cycle takes over from the settled frame, so it waits for the
+  // clock to really run. A visitor who has paused motion keeps that frame.
   let begun = false;
   let elapsedMs = 0;
   let armedAt = 0;
@@ -196,7 +215,7 @@ export function createDemoClock(now: () => number = () => performance.now()) {
 
     if (!begun) {
       begun = true;
-      entries.forEach((entry) => entry.onMark(elapsedMs % entry.cycleMs));
+      entries.forEach((entry) => fire(entry, elapsedMs));
     }
 
     dueAt = Infinity;
@@ -211,18 +230,18 @@ export function createDemoClock(now: () => number = () => performance.now()) {
         (entry) => nextMarkAfter(entry, elapsedMs) === dueAt,
       );
       elapsedMs = dueAt;
-      due.forEach((entry) => entry.onMark(elapsedMs % entry.cycleMs));
+      due.forEach((entry) => fire(entry, elapsedMs));
       arm();
     }, dueAt - elapsedMs);
   }
 
   return {
     /** Calls back on each of the track's marks. Returns a remove function. */
-    add(track: DemoTrack, onMark: (positionMs: number) => void) {
+    add(track: DemoTrack, onMark: OnMark) {
       const entry = { ...track, onMark };
       disarm();
       entries.add(entry);
-      if (begun) onMark(elapsedMs % track.cycleMs);
+      if (begun) fire(entry, elapsedMs);
       arm();
       return () => {
         disarm();
