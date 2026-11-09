@@ -4,6 +4,21 @@
 
 ### 🌐 Website
 
+#### 🐛 Bug Fixes
+
+- fix(v2): demo consistency, first-view chat, forced-colors buttons and setup copy [@jlengelbrecht](https://github.com/jlengelbrecht) ([#675](https://github.com/lumose-health/website/pull/675))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#676](https://github.com/lumose-health/website/pull/676))
+
+<!-- changelog-cutoff:2026-11-09T02:24:43Z -->
+
+
+## 2026-11-09
+
+### 🌐 Website
+
 #### ✨ New Features
 
 - feat(v2): add the Get started section with install tabs [@jlengelbrecht](https://github.com/jlengelbrecht) ([#665](https://github.com/lumose-health/website/pull/665))
