@@ -12,7 +12,7 @@ import { MarksNotice } from "./marks-notice";
 import { useProviderSelection } from "./provider-context";
 
 const BULLETS = [
-  "Bring your own API key",
+  "Use an AI subscription you already have, or your own API key",
   "Run fully local with Ollama",
   "Or any OpenAI-compatible endpoint",
 ];

@@ -13,8 +13,8 @@ export const PROVIDERS: AiProvider[] = [
     id: "claude",
     name: "Claude",
     logo: "/ai-providers/claude.svg",
-    where: "Claude API",
-    model: "claude_api / claude-sonnet",
+    where: "Your Claude subscription",
+    model: "claude_subscription / claude-sonnet-4-5-20250929",
   },
   {
     id: "openai",
