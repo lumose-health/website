@@ -20,15 +20,15 @@ export const PROVIDERS: AiProvider[] = [
     id: "openai",
     name: "OpenAI",
     logo: "/ai-providers/openai.svg",
-    where: "OpenAI API",
-    model: "openai_api / gpt",
+    where: "Your ChatGPT subscription or API key",
+    model: "chatgpt_subscription / gpt-4o",
   },
   {
     id: "copilot",
     name: "GitHub Copilot",
     logo: "/ai-providers/githubcopilot.svg",
     where: "Your Copilot plan",
-    model: "copilot_subscription / copilot",
+    model: "copilot_subscription / copilot-claude-sonnet-4.5",
   },
   {
     // The app has no Ollama type. It connects as an OpenAI-compatible endpoint.
