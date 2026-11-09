@@ -4,6 +4,25 @@
 
 ### 🌐 Website
 
+#### ✨ New Features
+
+- feat(v2): add the contributors section and header star count [@jlengelbrecht](https://github.com/jlengelbrecht) ([#683](https://github.com/lumose-health/website/pull/683))
+
+### 📦 Dependencies
+
+- chore(deps): update dependency fumadocs-core to v16.18.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#686](https://github.com/lumose-health/website/pull/686))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#684](https://github.com/lumose-health/website/pull/684))
+
+<!-- changelog-cutoff:2026-11-09T15:32:33Z -->
+
+
+## 2026-11-09
+
+### 🌐 Website
+
 #### 🐛 Bug Fixes
 
 - fix(v2): show real provider types and default models [@jlengelbrecht](https://github.com/jlengelbrecht) ([#679](https://github.com/lumose-health/website/pull/679))
