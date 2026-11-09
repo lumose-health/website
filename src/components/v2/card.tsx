@@ -5,6 +5,7 @@ const SURFACE = "rounded-lm-card-lg border border-lm-line bg-lm-card p-[26px]";
 
 type CardProps = { className?: string; children: ReactNode };
 
+/** A static card. Use LinkCard when the whole card goes somewhere. */
 export function Card({ className = "", children }: CardProps) {
   return <div className={`${SURFACE} ${className}`}>{children}</div>;
 }
