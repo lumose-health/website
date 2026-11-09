@@ -1,0 +1,4205 @@
+{
+  "generatedAt": "2026-11-09T18:20:31.838Z",
+  "repo": "lumose-health/lumose",
+  "releasesUrl": "https://github.com/lumose-health/lumose/releases",
+  "releases": [
+    {
+      "version": "v0.16.0",
+      "date": "2026-11-05",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.16.0",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add per-user configurable web session timeout",
+          "area": "Web",
+          "pr": {
+            "number": 1002,
+            "url": "https://github.com/lumose-health/lumose/pull/1002"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Type MSW mocks with generated contracts and add shared cross-language fixtures",
+          "area": "Web",
+          "pr": {
+            "number": 994,
+            "url": "https://github.com/lumose-health/lumose/pull/994"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [
+        {
+          "text": "Preserve zero basal windows in Nightscout imports",
+          "area": "Web",
+          "pr": {
+            "number": 1049,
+            "url": "https://github.com/lumose-health/lumose/pull/1049"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Show unknown pump-profile values as not set and keep a real 0 U/h basal",
+          "area": "Web",
+          "pr": {
+            "number": 1041,
+            "url": "https://github.com/lumose-health/lumose/pull/1041"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Tighten session-length spacing and add 14/30-day session presets",
+          "area": "Web",
+          "pr": {
+            "number": 1005,
+            "url": "https://github.com/lumose-health/lumose/pull/1005"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Mock SSE stream lifecycle, unknown-event scenario, and clinical report guard",
+          "area": "Web",
+          "pr": {
+            "number": 999,
+            "url": "https://github.com/lumose-health/lumose/pull/999"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Count re-imported Nightscout doses once in IoB",
+          "area": "API",
+          "pr": {
+            "number": 1051,
+            "url": "https://github.com/lumose-health/lumose/pull/1051"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Dedupe Nightscout records in remaining readers",
+          "area": "API",
+          "pr": {
+            "number": 1050,
+            "url": "https://github.com/lumose-health/lumose/pull/1050"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Count each Nightscout record once across re-added connections",
+          "area": "API",
+          "pr": {
+            "number": 1045,
+            "url": "https://github.com/lumose-health/lumose/pull/1045"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Chunk Nightscout bulk inserts under the Postgres parameter limit",
+          "area": "API",
+          "pr": {
+            "number": 1038,
+            "url": "https://github.com/lumose-health/lumose/pull/1038"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Longer validation timeout for local AI providers, report timeouts as timeouts",
+          "area": "API",
+          "pr": {
+            "number": 1037,
+            "url": "https://github.com/lumose-health/lumose/pull/1037"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Use max_response_tokens for briefs and analyses, refuse empty output",
+          "area": "API",
+          "pr": {
+            "number": 1036,
+            "url": "https://github.com/lumose-health/lumose/pull/1036"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Carry pump profile values across breakpoints and never show unknowns as 0 to the AI",
+          "area": "API",
+          "pr": {
+            "number": 1035,
+            "url": "https://github.com/lumose-health/lumose/pull/1035"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Classify correction time periods in the user's local timezone",
+          "area": "API",
+          "pr": {
+            "number": 1034,
+            "url": "https://github.com/lumose-health/lumose/pull/1034"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "First-party-only settings access and session revocation on password change",
+          "area": "API",
+          "pr": {
+            "number": 1006,
+            "url": "https://github.com/lumose-health/lumose/pull/1006"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Accept the monorepo as GlycemicGPT or lumose in the secrets audit",
+          "area": "Security",
+          "pr": {
+            "number": 1046,
+            "url": "https://github.com/lumose-health/lumose/pull/1046"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": [
+        {
+          "text": "Reuse soft-deleted Nightscout connection on re-add",
+          "area": "Web",
+          "pr": {
+            "number": 1029,
+            "url": "https://github.com/lumose-health/lumose/pull/1029"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Keep glucose charts current during live updates",
+          "area": "Web",
+          "pr": {
+            "number": 1003,
+            "url": "https://github.com/lumose-health/lumose/pull/1003"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Populate bg_at_event on Nightscout boluses",
+          "area": "API",
+          "pr": {
+            "number": 1056,
+            "url": "https://github.com/lumose-health/lumose/pull/1056"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Keep real 0 U/h basal windows on Nightscout import",
+          "area": "API",
+          "pr": {
+            "number": 1048,
+            "url": "https://github.com/lumose-health/lumose/pull/1048"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Classify meal periods in the user's local timezone",
+          "area": "API",
+          "pr": {
+            "number": 1028,
+            "url": "https://github.com/lumose-health/lumose/pull/1028"
+          },
+          "inDevelopment": false
+        }
+      ]
+    },
+    {
+      "version": "v0.15.0",
+      "date": "2026-08-18",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.15.0",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Generate API types from the committed contract and migrate glucose/insulin wire types",
+          "area": "Web",
+          "pr": {
+            "number": 993,
+            "url": "https://github.com/lumose-health/lumose/pull/993"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Deterministic OpenAPI export with committed contract and CI drift gates",
+          "area": "API",
+          "pr": {
+            "number": 991,
+            "url": "https://github.com/lumose-health/lumose/pull/991"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [
+        {
+          "text": "Compensate for GitHub's write-only bypass-actor visibility in the scheduled audit",
+          "area": "Security",
+          "pr": {
+            "number": 990,
+            "url": "https://github.com/lumose-health/lumose/pull/990"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": []
+    },
+    {
+      "version": "v0.14.3",
+      "date": "2026-08-16",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.14.3",
+      "maintenance": false,
+      "new": [],
+      "fixed": [
+        {
+          "text": "Read leg-2 rulesets through the repo-scoped endpoint",
+          "area": "Security",
+          "pr": {
+            "number": 985,
+            "url": "https://github.com/lumose-health/lumose/pull/985"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": []
+    },
+    {
+      "version": "v0.14.2",
+      "date": "2026-08-16",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.14.2",
+      "maintenance": true,
+      "new": [],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.14.1",
+      "date": "2026-08-15",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.14.1",
+      "maintenance": true,
+      "new": [],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.14.0",
+      "date": "2026-08-14",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.14.0",
+      "maintenance": true,
+      "new": [],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.13.2",
+      "date": "2026-07-29",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.13.2",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add Lumose logo assets",
+          "area": "Web",
+          "pr": {
+            "number": 922,
+            "url": "https://github.com/lumose-health/lumose/pull/922"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [
+        {
+          "text": "Phone updater can install the Wear/WatchFace APK over the phone app",
+          "area": "Mobile",
+          "pr": {
+            "number": 921,
+            "url": "https://github.com/lumose-health/lumose/pull/921"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Track ios repo rename to ios-unofficial",
+          "area": "Security",
+          "pr": {
+            "number": 920,
+            "url": "https://github.com/lumose-health/lumose/pull/920"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Correct web-merge app slug to lumose-web-merge",
+          "area": "Security",
+          "pr": {
+            "number": 918,
+            "url": "https://github.com/lumose-health/lumose/pull/918"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": [
+        {
+          "text": "Fix history timestamps: anchor pump reference time in the device's local zone",
+          "area": "Mobile",
+          "pr": {
+            "number": 906,
+            "url": "https://github.com/lumose-health/lumose/pull/906"
+          },
+          "inDevelopment": false
+        }
+      ]
+    },
+    {
+      "version": "v0.13.1",
+      "date": "2026-07-28",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.13.1",
+      "maintenance": true,
+      "new": [],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.13.0",
+      "date": "2026-07-10",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.13.0",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Differentiate sync/backend status icons and add active-plugin brand badges",
+          "area": "Mobile",
+          "pr": {
+            "number": 889,
+            "url": "https://github.com/lumose-health/lumose/pull/889"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": [
+        {
+          "text": "Medtronic history sync fixes",
+          "area": "Mobile",
+          "pr": {
+            "number": 886,
+            "url": "https://github.com/lumose-health/lumose/pull/886"
+          },
+          "inDevelopment": false
+        }
+      ]
+    },
+    {
+      "version": "v0.12.0",
+      "date": "2026-07-07",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.12.0",
+      "maintenance": true,
+      "new": [],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.11.0",
+      "date": "2026-06-27",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.11.0",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Make the Home \"Log a meal\" FAB draggable",
+          "area": "Mobile",
+          "pr": {
+            "number": 826,
+            "url": "https://github.com/lumose-health/lumose/pull/826"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Per-user Meal Intelligence setting replacing the env-var gate",
+          "area": "Mobile",
+          "pr": {
+            "number": 823,
+            "url": "https://github.com/lumose-health/lumose/pull/823"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Seed glucose display unit from region and Nightscout (overridable)",
+          "area": "Mobile",
+          "pr": {
+            "number": 816,
+            "url": "https://github.com/lumose-health/lumose/pull/816"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Render Wear OS glucose in the user's unit (mg/dL or mmol/L)",
+          "area": "Mobile",
+          "pr": {
+            "number": 812,
+            "url": "https://github.com/lumose-health/lumose/pull/812"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Render phone glucose display in the user's unit (mg/dL or mmol/L)",
+          "area": "Mobile",
+          "pr": {
+            "number": 807,
+            "url": "https://github.com/lumose-health/lumose/pull/807"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Render glucose alerts and caregiver views in the user's unit",
+          "area": "Web",
+          "pr": {
+            "number": 804,
+            "url": "https://github.com/lumose-health/lumose/pull/804"
+          },
+          "inDevelopment": true
+        },
+        {
+          "text": "mmol/L glucose unit toggle, display conversion, and input forms",
+          "area": "Web",
+          "pr": {
+            "number": 802,
+            "url": "https://github.com/lumose-health/lumose/pull/802"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "LLM benchmarking harness for BYOAI model safety/quality",
+          "area": "API",
+          "pr": {
+            "number": 828,
+            "url": "https://github.com/lumose-health/lumose/pull/828"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Verify AI-spoken glucose figures against the user's readings",
+          "area": "API",
+          "pr": {
+            "number": 805,
+            "url": "https://github.com/lumose-health/lumose/pull/805"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Render AI text and notifications in the user's glucose unit",
+          "area": "API",
+          "pr": {
+            "number": 803,
+            "url": "https://github.com/lumose-health/lumose/pull/803"
+          },
+          "inDevelopment": true
+        }
+      ],
+      "fixed": [
+        {
+          "text": "Classify CareLink import errors as transport vs unexpected response",
+          "area": "Mobile",
+          "pr": {
+            "number": 814,
+            "url": "https://github.com/lumose-health/lumose/pull/814"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Block verb-independent specific insulin doses",
+          "area": "API",
+          "pr": {
+            "number": 829,
+            "url": "https://github.com/lumose-health/lumose/pull/829"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Return 404 when a record is deleted mid common-food promotion",
+          "area": "API",
+          "pr": {
+            "number": 825,
+            "url": "https://github.com/lumose-health/lumose/pull/825"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Drop ambiguous mmol/L follower glucose as a gap",
+          "area": "API",
+          "pr": {
+            "number": 821,
+            "url": "https://github.com/lumose-health/lumose/pull/821"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": [
+        {
+          "text": "Harden glucose ingestion for mmol/L unit safety",
+          "area": "Mobile",
+          "pr": {
+            "number": 806,
+            "url": "https://github.com/lumose-health/lumose/pull/806"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Support browser selection in connect helper",
+          "area": "Web",
+          "pr": {
+            "number": 819,
+            "url": "https://github.com/lumose-health/lumose/pull/819"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Upgrade tailwind 4",
+          "area": "Web",
+          "pr": {
+            "number": 790,
+            "url": "https://github.com/lumose-health/lumose/pull/790"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Add glucose unit preference foundation",
+          "area": "API",
+          "pr": {
+            "number": 785,
+            "url": "https://github.com/lumose-health/lumose/pull/785"
+          },
+          "inDevelopment": false
+        }
+      ]
+    },
+    {
+      "version": "v0.10.0",
+      "date": "2026-06-20",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.10.0",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Web + mobile meal comorbidity nutrition (saturated fat, sugars, sodium)",
+          "area": "Mobile",
+          "pr": {
+            "number": 795,
+            "url": "https://github.com/lumose-health/lumose/pull/795"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Meal-vision safety-language hardening",
+          "area": "Mobile",
+          "pr": {
+            "number": 753,
+            "url": "https://github.com/lumose-health/lumose/pull/753"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Empirical confidence, identity gating & auditability",
+          "area": "Mobile",
+          "pr": {
+            "number": 747,
+            "url": "https://github.com/lumose-health/lumose/pull/747"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Meal capture → estimate → correct → save (Meal Intelligence)",
+          "area": "Mobile",
+          "pr": {
+            "number": 738,
+            "url": "https://github.com/lumose-health/lumose/pull/738"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Web meal estimate provenance panel (how this was estimated)",
+          "area": "Web",
+          "pr": {
+            "number": 794,
+            "url": "https://github.com/lumose-health/lumose/pull/794"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Web common-foods management and save/link from a meal",
+          "area": "Web",
+          "pr": {
+            "number": 793,
+            "url": "https://github.com/lumose-health/lumose/pull/793"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Web meal carb correction and food-identity confirmation",
+          "area": "Web",
+          "pr": {
+            "number": 792,
+            "url": "https://github.com/lumose-health/lumose/pull/792"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Web meal management view (list, detail, delete, photo upload + serving)",
+          "area": "Web",
+          "pr": {
+            "number": 789,
+            "url": "https://github.com/lumose-health/lumose/pull/789"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Surface long-acting basal injections in TDD, AI context, and insulin views",
+          "area": "Web",
+          "pr": {
+            "number": 744,
+            "url": "https://github.com/lumose-health/lumose/pull/744"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Add per-connection Glooko cgm_sync_enabled toggle (doses-only mode)",
+          "area": "Web",
+          "pr": {
+            "number": 733,
+            "url": "https://github.com/lumose-health/lumose/pull/733"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Gate local AI vision models on a measured carb-estimation bar",
+          "area": "API",
+          "pr": {
+            "number": 788,
+            "url": "https://github.com/lumose-health/lumose/pull/788"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Ground branded restaurant items against published chain nutrition",
+          "area": "API",
+          "pr": {
+            "number": 787,
+            "url": "https://github.com/lumose-health/lumose/pull/787"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Verify AI-cited meal carb figures against logged meals",
+          "area": "API",
+          "pr": {
+            "number": 765,
+            "url": "https://github.com/lumose-health/lumose/pull/765"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Ground meal-photo carb estimates against history + USDA/OFF",
+          "area": "API",
+          "pr": {
+            "number": 746,
+            "url": "https://github.com/lumose-health/lumose/pull/746"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Surface logged meals in chat and daily brief",
+          "area": "API",
+          "pr": {
+            "number": 745,
+            "url": "https://github.com/lumose-health/lumose/pull/745"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Auto-generate daily briefs on a schedule",
+          "area": "API",
+          "pr": {
+            "number": 743,
+            "url": "https://github.com/lumose-health/lumose/pull/743"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Record long-acting (basal) pen injections from Glooko",
+          "area": "API",
+          "pr": {
+            "number": 740,
+            "url": "https://github.com/lumose-health/lumose/pull/740"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Meal correction loop + common foods",
+          "area": "API",
+          "pr": {
+            "number": 737,
+            "url": "https://github.com/lumose-health/lumose/pull/737"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "food_records model + photo carb-estimation pipeline",
+          "area": "API",
+          "pr": {
+            "number": 736,
+            "url": "https://github.com/lumose-health/lumose/pull/736"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Ingest smart-pen insulin doses (NovoPen 6 / Echo Plus) via Glooko",
+          "area": "API",
+          "pr": {
+            "number": 726,
+            "url": "https://github.com/lumose-health/lumose/pull/726"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Per-provider vision support + carb-estimation eval harness (Meal Intelligence)",
+          "area": "Sidecar",
+          "pr": {
+            "number": 735,
+            "url": "https://github.com/lumose-health/lumose/pull/735"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Variance-aware vision-carb eval harness + adversarial food set",
+          "area": "Infrastructure",
+          "pr": {
+            "number": 754,
+            "url": "https://github.com/lumose-health/lumose/pull/754"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [
+        {
+          "text": "Deterministic, self-excluding own-history meal recall",
+          "area": "API",
+          "pr": {
+            "number": 784,
+            "url": "https://github.com/lumose-health/lumose/pull/784"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Harden meal-identity clustering against verbose descriptions",
+          "area": "API",
+          "pr": {
+            "number": 766,
+            "url": "https://github.com/lumose-health/lumose/pull/766"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Show large pen doses (60U bound) and dedupe Glooko doses across sources",
+          "area": "API",
+          "pr": {
+            "number": 731,
+            "url": "https://github.com/lumose-health/lumose/pull/731"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Count non-pump insulin doses past the pump IoB anchor",
+          "area": "API",
+          "pr": {
+            "number": 730,
+            "url": "https://github.com/lumose-health/lumose/pull/730"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Harden Glooko host validation, 421 posture, and dose ingestion bounds",
+          "area": "API",
+          "pr": {
+            "number": 729,
+            "url": "https://github.com/lumose-health/lumose/pull/729"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Follow Glooko EU sub-cluster redirect when resolving the API host",
+          "area": "API",
+          "pr": {
+            "number": 725,
+            "url": "https://github.com/lumose-health/lumose/pull/725"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Fail closed on Redis outage for single-use token consumption",
+          "area": "API",
+          "pr": {
+            "number": 720,
+            "url": "https://github.com/lumose-health/lumose/pull/720"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Route codex (ChatGPT subscription) chat through codex exec --json",
+          "area": "Sidecar",
+          "pr": {
+            "number": 749,
+            "url": "https://github.com/lumose-health/lumose/pull/749"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Install ca-certificates so codex (ChatGPT subscription) works",
+          "area": "Sidecar",
+          "pr": {
+            "number": 748,
+            "url": "https://github.com/lumose-health/lumose/pull/748"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Loopback-bind dev Postgres/Redis, add Redis auth, fix k8s pgvector",
+          "area": "Infrastructure",
+          "pr": {
+            "number": 721,
+            "url": "https://github.com/lumose-health/lumose/pull/721"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": [
+        {
+          "text": "Require SIDECAR_API_KEY at startup, fail closed on missing auth",
+          "area": "Sidecar",
+          "pr": {
+            "number": 719,
+            "url": "https://github.com/lumose-health/lumose/pull/719"
+          },
+          "inDevelopment": false
+        }
+      ]
+    },
+    {
+      "version": "v0.9.0",
+      "date": "2026-06-10",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.9.0",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Nightscout cloud-source plugin",
+          "area": "Mobile",
+          "pr": {
+            "number": 712,
+            "url": "https://github.com/lumose-health/lumose/pull/712"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Advertise-and-wait pairing UX + driver kill-switch",
+          "area": "Mobile",
+          "pr": {
+            "number": 704,
+            "url": "https://github.com/lumose-health/lumose/pull/704"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Render pump connection notes in settings card",
+          "area": "Mobile",
+          "pr": {
+            "number": 703,
+            "url": "https://github.com/lumose-health/lumose/pull/703"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "poll/persist/push pipeline integration with single-flight reads",
+          "area": "Mobile",
+          "pr": {
+            "number": 702,
+            "url": "https://github.com/lumose-health/lumose/pull/702"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "On-device BluetoothGatt-client read transport",
+          "area": "Mobile",
+          "pr": {
+            "number": 701,
+            "url": "https://github.com/lumose-health/lumose/pull/701"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Capability delegates + DevicePlugin + Hilt/:app wiring",
+          "area": "Mobile",
+          "pr": {
+            "number": 700,
+            "url": "https://github.com/lumose-health/lumose/pull/700"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "IDD status + history/RACP read-only readers",
+          "area": "Mobile",
+          "pr": {
+            "number": 699,
+            "url": "https://github.com/lumose-health/lumose/pull/699"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Session-read framework + CGM/SG, Device Info, and Battery readers",
+          "area": "Mobile",
+          "pr": {
+            "number": 698,
+            "url": "https://github.com/lumose-health/lumose/pull/698"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Peripheral-mode BLE connection manager with SAKE session and reconnect",
+          "area": "Mobile",
+          "pr": {
+            "number": 697,
+            "url": "https://github.com/lumose-health/lumose/pull/697"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Read-only BLE driver module with SAKE session and protocol constants",
+          "area": "Mobile",
+          "pr": {
+            "number": 694,
+            "url": "https://github.com/lumose-health/lumose/pull/694"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Wire Sentry crash/error reporting into the Android app",
+          "area": "Mobile",
+          "pr": {
+            "number": 693,
+            "url": "https://github.com/lumose-health/lumose/pull/693"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Cross-source CGM dedupe + primary-source picker",
+          "area": "Web",
+          "pr": {
+            "number": 711,
+            "url": "https://github.com/lumose-health/lumose/pull/711"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Make Omnipod/Glooko EU region a first-class option",
+          "area": "Web",
+          "pr": {
+            "number": 690,
+            "url": "https://github.com/lumose-health/lumose/pull/690"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Omnipod cloud sync via Glooko",
+          "area": "Web",
+          "pr": {
+            "number": 689,
+            "url": "https://github.com/lumose-health/lumose/pull/689"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Medtronic CareLink Connect autonomous cloud sync",
+          "area": "Web",
+          "pr": {
+            "number": 686,
+            "url": "https://github.com/lumose-health/lumose/pull/686"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Server-side-only Sentry error monitoring (disabled by default)",
+          "area": "Web",
+          "pr": {
+            "number": 677,
+            "url": "https://github.com/lumose-health/lumose/pull/677"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Medtronic CareLink manual historical import",
+          "area": "Web",
+          "pr": {
+            "number": 671,
+            "url": "https://github.com/lumose-health/lumose/pull/671"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Cloud Sync card with per-user sync, availability, and manual import",
+          "area": "Web",
+          "pr": {
+            "number": 669,
+            "url": "https://github.com/lumose-health/lumose/pull/669"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Cross-source pump-event dedupe via content hash",
+          "area": "API",
+          "pr": {
+            "number": 710,
+            "url": "https://github.com/lumose-health/lumose/pull/710"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Add Sentry error monitoring (disabled by default)",
+          "area": "API",
+          "pr": {
+            "number": 672,
+            "url": "https://github.com/lumose-health/lumose/pull/672"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Add Sentry error monitoring (disabled by default)",
+          "area": "Sidecar",
+          "pr": {
+            "number": 676,
+            "url": "https://github.com/lumose-health/lumose/pull/676"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Offline peripheral-BLE + SAKE handshake de-risk spike",
+          "area": "Infrastructure",
+          "pr": {
+            "number": 692,
+            "url": "https://github.com/lumose-health/lumose/pull/692"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Wire Sentry DSN env passthrough for api/sidecar/web",
+          "area": "Infrastructure",
+          "pr": {
+            "number": 678,
+            "url": "https://github.com/lumose-health/lumose/pull/678"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [
+        {
+          "text": "Remove cloud-upload feature",
+          "area": "Mobile",
+          "pr": {
+            "number": 668,
+            "url": "https://github.com/lumose-health/lumose/pull/668"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Refresh Glooko card status after a failed sync/import",
+          "area": "Web",
+          "pr": {
+            "number": 691,
+            "url": "https://github.com/lumose-health/lumose/pull/691"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Stop the glucose SSE proxy from leaking aborts into Sentry",
+          "area": "Web",
+          "pr": {
+            "number": 688,
+            "url": "https://github.com/lumose-health/lumose/pull/688"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Resolve 500 on invitation creation",
+          "area": "API",
+          "pr": {
+            "number": 685,
+            "url": "https://github.com/lumose-health/lumose/pull/685"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": []
+    },
+    {
+      "version": "v0.8.2",
+      "date": "2026-05-18",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.8.2",
+      "maintenance": true,
+      "new": [],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.8.1",
+      "date": "2026-05-18",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.8.1",
+      "maintenance": false,
+      "new": [],
+      "fixed": [
+        {
+          "text": "Self-host Inter font + verify release container tags",
+          "area": "Web",
+          "pr": {
+            "number": 654,
+            "url": "https://github.com/lumose-health/lumose/pull/654"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": []
+    },
+    {
+      "version": "v0.8.0",
+      "date": "2026-05-18",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.8.0",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Vendor-agnostic data-flow disclosures for BYOAI",
+          "area": "Web",
+          "pr": {
+            "number": 634,
+            "url": "https://github.com/lumose-health/lumose/pull/634"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Hero card closed-loop surfaces",
+          "area": "Web",
+          "pr": {
+            "number": 633,
+            "url": "https://github.com/lumose-health/lumose/pull/633"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [
+        {
+          "text": "Loud signals for COOKIE_SECURE plain-HTTP deploy misconfig",
+          "area": "Web",
+          "pr": {
+            "number": 637,
+            "url": "https://github.com/lumose-health/lumose/pull/637"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": []
+    },
+    {
+      "version": "v0.7.2",
+      "date": "2026-05-13",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.7.2",
+      "maintenance": false,
+      "new": [],
+      "fixed": [
+        {
+          "text": "Trim managed-cloud-platform plan description to under 500 chars",
+          "area": null,
+          "pr": {
+            "number": 627,
+            "url": "https://github.com/lumose-health/lumose/pull/627"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": []
+    },
+    {
+      "version": "v0.7.1",
+      "date": "2026-05-13",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.7.1",
+      "maintenance": false,
+      "new": [],
+      "fixed": [
+        {
+          "text": "Make funding.json compliant with fundingjson.org v1.1.0 schema",
+          "area": null,
+          "pr": {
+            "number": 621,
+            "url": "https://github.com/lumose-health/lumose/pull/621"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": []
+    },
+    {
+      "version": "v0.7.0",
+      "date": "2026-05-13",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.7.0",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Nightscout re-import entry point on existing connection cards",
+          "area": "Web",
+          "pr": {
+            "number": 612,
+            "url": "https://github.com/lumose-health/lumose/pull/612"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [
+        {
+          "text": "Hide soft-deleted Nightscout connections from the list",
+          "area": "Web",
+          "pr": {
+            "number": 610,
+            "url": "https://github.com/lumose-health/lumose/pull/610"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Swap entries cursor to NS Mongo id",
+          "area": "API",
+          "pr": {
+            "number": 611,
+            "url": "https://github.com/lumose-health/lumose/pull/611"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": []
+    },
+    {
+      "version": "v0.6.0",
+      "date": "2026-05-11",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.6.0",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Nightscout smart-onboarding wizard route + 5 steps",
+          "area": "Web",
+          "pr": {
+            "number": 597,
+            "url": "https://github.com/lumose-health/lumose/pull/597"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Sync interval picker + per-source freshness card",
+          "area": "Web",
+          "pr": {
+            "number": 578,
+            "url": "https://github.com/lumose-health/lumose/pull/578"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Nightscout connection management UI + manual sync trigger",
+          "area": "Web",
+          "pr": {
+            "number": 575,
+            "url": "https://github.com/lumose-health/lumose/pull/575"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Nightscout apply-onboarding endpoint + derivation read",
+          "area": "API",
+          "pr": {
+            "number": 596,
+            "url": "https://github.com/lumose-health/lumose/pull/596"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Pure-function NS profile → wizard proposals derive",
+          "area": "API",
+          "pr": {
+            "number": 595,
+            "url": "https://github.com/lumose-health/lumose/pull/595"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Nightscout evaluate endpoint for smart-onboarding wizard",
+          "area": "API",
+          "pr": {
+            "number": 594,
+            "url": "https://github.com/lumose-health/lumose/pull/594"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Tconnectsync lens — Tandem t:connect cloud → NS bridge (pump-side)",
+          "area": "API",
+          "pr": {
+            "number": 591,
+            "url": "https://github.com/lumose-health/lumose/pull/591"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "AAPS v1 lens + extractor handles openaps.enacted.rate",
+          "area": "API",
+          "pr": {
+            "number": 583,
+            "url": "https://github.com/lumose-health/lumose/pull/583"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Nightscout background sync scheduler",
+          "area": "API",
+          "pr": {
+            "number": 576,
+            "url": "https://github.com/lumose-health/lumose/pull/576"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Nightscout translator orchestrator + ORM mapping layer",
+          "area": "API",
+          "pr": {
+            "number": 572,
+            "url": "https://github.com/lumose-health/lumose/pull/572"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Typed Pydantic input models for Nightscout wire shapes",
+          "area": "API",
+          "pr": {
+            "number": 571,
+            "url": "https://github.com/lumose-health/lumose/pull/571"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Nightscout v1+v3 read client + SSRF guard",
+          "area": "API",
+          "pr": {
+            "number": 570,
+            "url": "https://github.com/lumose-health/lumose/pull/570"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Nightscout connection model + endpoints",
+          "area": "API",
+          "pr": {
+            "number": 568,
+            "url": "https://github.com/lumose-health/lumose/pull/568"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "ns_emulator interactive --wizard mode for new contributors",
+          "area": "Documentation",
+          "pr": {
+            "number": 593,
+            "url": "https://github.com/lumose-health/lumose/pull/593"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Manual lens — Care Portal direct-entry web UI (final lens)",
+          "area": "Documentation",
+          "pr": {
+            "number": 592,
+            "url": "https://github.com/lumose-health/lumose/pull/592"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Share2ns lens — Dexcom Share cloud → NS bridge",
+          "area": "Documentation",
+          "pr": {
+            "number": 590,
+            "url": "https://github.com/lumose-health/lumose/pull/590"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "LibreLinkUp lens — Abbott cloud → NS bridge (entries-only)",
+          "area": "Documentation",
+          "pr": {
+            "number": 589,
+            "url": "https://github.com/lumose-health/lumose/pull/589"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "xDrip+ lens — Android pure-CGM uploader",
+          "area": "Documentation",
+          "pr": {
+            "number": 588,
+            "url": "https://github.com/lumose-health/lumose/pull/588"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "xDrip4iOS lens — pure-CGM iOS uploader (no closed-loop)",
+          "area": "Documentation",
+          "pr": {
+            "number": 587,
+            "url": "https://github.com/lumose-health/lumose/pull/587"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Oref0 lens — original OpenAPS Raspberry Pi wire format",
+          "area": "Documentation",
+          "pr": {
+            "number": 586,
+            "url": "https://github.com/lumose-health/lumose/pull/586"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Trio lens — iOS oref-derived closed-loop wire format",
+          "area": "Documentation",
+          "pr": {
+            "number": 585,
+            "url": "https://github.com/lumose-health/lumose/pull/585"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "AAPS v3 lens — NSClientV3 wire format (API v3 + JWT)",
+          "area": "Documentation",
+          "pr": {
+            "number": 584,
+            "url": "https://github.com/lumose-health/lumose/pull/584"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Multi-lens Nightscout emulator with Loop lens",
+          "area": "Documentation",
+          "pr": {
+            "number": 581,
+            "url": "https://github.com/lumose-health/lumose/pull/581"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [
+        {
+          "text": "Serialize token refresh under a single mutex",
+          "area": "Mobile",
+          "pr": {
+            "number": 555,
+            "url": "https://github.com/lumose-health/lumose/pull/555"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Configurable max_response_tokens for thinking models",
+          "area": "Web",
+          "pr": {
+            "number": 600,
+            "url": "https://github.com/lumose-health/lumose/pull/600"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Repair bootstrap knowledge seed",
+          "area": "Web",
+          "pr": {
+            "number": 567,
+            "url": "https://github.com/lumose-health/lumose/pull/567"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Promote pump telemetry to pump_events for dashboard",
+          "area": "API",
+          "pr": {
+            "number": 582,
+            "url": "https://github.com/lumose-health/lumose/pull/582"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Scheduler tick wall budget + test fixture hardening",
+          "area": "API",
+          "pr": {
+            "number": 580,
+            "url": "https://github.com/lumose-health/lumose/pull/580"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Source-agnostic Insulin Summary + Recent Boluses widgets",
+          "area": "API",
+          "pr": {
+            "number": 577,
+            "url": "https://github.com/lumose-health/lumose/pull/577"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": []
+    },
+    {
+      "version": "v0.5.0",
+      "date": "2026-04-30",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.5.0",
+      "maintenance": false,
+      "new": [],
+      "fixed": [
+        {
+          "text": "Update test assertions for sidecar API key auth change",
+          "area": "API",
+          "pr": {
+            "number": 510,
+            "url": "https://github.com/lumose-health/lumose/pull/510"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Use sidecar API key for subscription chat auth",
+          "area": "API",
+          "pr": {
+            "number": 505,
+            "url": "https://github.com/lumose-health/lumose/pull/505"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": [
+        {
+          "text": "Align repo with monitoring-only positioning + add ROADMAP.md",
+          "area": "Mobile",
+          "pr": {
+            "number": 514,
+            "url": "https://github.com/lumose-health/lumose/pull/514"
+          },
+          "inDevelopment": false
+        }
+      ]
+    },
+    {
+      "version": "v0.4.1",
+      "date": "2026-04-30",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.4.1",
+      "maintenance": true,
+      "new": [],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.4.0",
+      "date": "2026-04-06",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.4.0",
+      "maintenance": true,
+      "new": [],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.3.3",
+      "date": "2026-04-06",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.3.3",
+      "maintenance": false,
+      "new": [],
+      "fixed": [
+        {
+          "text": "Add R8 keep rules for wear release APK build",
+          "area": "Mobile",
+          "pr": {
+            "number": 496,
+            "url": "https://github.com/lumose-health/lumose/pull/496"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": []
+    },
+    {
+      "version": "v0.3.2",
+      "date": "2026-04-06",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.3.2",
+      "maintenance": true,
+      "new": [],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.3.1",
+      "date": "2026-04-06",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.3.1",
+      "maintenance": false,
+      "new": [],
+      "fixed": [
+        {
+          "text": "Close CODEOWNERS self-review loophole, align with governance",
+          "area": "Infrastructure",
+          "pr": {
+            "number": 485,
+            "url": "https://github.com/lumose-health/lumose/pull/485"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": []
+    },
+    {
+      "version": "v0.3.0",
+      "date": "2026-04-04",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.3.0",
+      "maintenance": true,
+      "new": [],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.2.0",
+      "date": "2026-04-04",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.2.0",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add AGP chart, CGM stats, insulin summary, and bolus table to mobile home screen",
+          "area": null,
+          "pr": {
+            "number": 346,
+            "url": "https://github.com/lumose-health/lumose/pull/346"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Add automated DAST and auth flow penetration testing",
+          "area": null,
+          "pr": {
+            "number": 314,
+            "url": "https://github.com/lumose-health/lumose/pull/314"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Add custom alert sounds and silent mode override",
+          "area": null,
+          "pr": {
+            "number": 278,
+            "url": "https://github.com/lumose-health/lumose/pull/278"
+          },
+          "inDevelopment": true
+        },
+        {
+          "text": "Add funding infrastructure - GitHub Sponsors + Open Collective",
+          "area": null,
+          "pr": {
+            "number": 406,
+            "url": "https://github.com/lumose-health/lumose/pull/406"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Add navigation scaffold and detail page architecture for hub-and-spoke dashboard",
+          "area": null,
+          "pr": {
+            "number": 344,
+            "url": "https://github.com/lumose-health/lumose/pull/344"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "AI Research Pipeline with configurable sources",
+          "area": null,
+          "pr": {
+            "number": 390,
+            "url": "https://github.com/lumose-health/lumose/pull/390"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Conversation memory for multi-turn AI chat",
+          "area": null,
+          "pr": {
+            "number": 388,
+            "url": "https://github.com/lumose-health/lumose/pull/388"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Enrich all AI analysis prompts with pump profile context",
+          "area": null,
+          "pr": {
+            "number": 387,
+            "url": "https://github.com/lumose-health/lumose/pull/387"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Knowledge Base viewer with document list, preview, and management",
+          "area": null,
+          "pr": {
+            "number": 391,
+            "url": "https://github.com/lumose-health/lumose/pull/391"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "RAG infrastructure with pgvector, fastembed, and clinical knowledge",
+          "area": null,
+          "pr": {
+            "number": 389,
+            "url": "https://github.com/lumose-health/lumose/pull/389"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Chart tooltip, mode-colored basal, zoom/pan/brush, and 3-way bolus categorization",
+          "area": null,
+          "pr": {
+            "number": 338,
+            "url": "https://github.com/lumose-health/lumose/pull/338"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Add text-to-speech for AI responses on phone and watch",
+          "area": null,
+          "pr": {
+            "number": 381,
+            "url": "https://github.com/lumose-health/lumose/pull/381"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "TTS voice picker with watch sync",
+          "area": null,
+          "pr": {
+            "number": 385,
+            "url": "https://github.com/lumose-health/lumose/pull/385"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Initial pump history sync for fresh installs",
+          "area": null,
+          "pr": {
+            "number": 384,
+            "url": "https://github.com/lumose-health/lumose/pull/384"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Runtime plugin loading via DexClassLoader",
+          "area": null,
+          "pr": {
+            "number": 297,
+            "url": "https://github.com/lumose-health/lumose/pull/297"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Security hardening",
+          "area": null,
+          "pr": {
+            "number": 310,
+            "url": "https://github.com/lumose-health/lumose/pull/310"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "App icons and branding",
+          "area": null,
+          "pr": {
+            "number": 323,
+            "url": "https://github.com/lumose-health/lumose/pull/323"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Full-platform visual polish with light/dark theme support",
+          "area": null,
+          "pr": {
+            "number": 355,
+            "url": "https://github.com/lumose-health/lumose/pull/355"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "GitHub org migration - secrets, references, and slogan",
+          "area": null,
+          "pr": {
+            "number": 403,
+            "url": "https://github.com/lumose-health/lumose/pull/403"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "5-bucket TIR display and CGM stats with active %",
+          "area": null,
+          "pr": {
+            "number": 354,
+            "url": "https://github.com/lumose-health/lumose/pull/354"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Phone-side Watch Face Push via ChannelClient",
+          "area": null,
+          "pr": {
+            "number": 360,
+            "url": "https://github.com/lumose-health/lumose/pull/360"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Remove AGP chart, add retention-aware period options",
+          "area": null,
+          "pr": {
+            "number": 353,
+            "url": "https://github.com/lumose-health/lumose/pull/353"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Settings > Watch full management UI",
+          "area": null,
+          "pr": {
+            "number": 361,
+            "url": "https://github.com/lumose-health/lumose/pull/361"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Navigation scaffold and tap-to-expand landscape chart detail",
+          "area": null,
+          "pr": {
+            "number": 345,
+            "url": "https://github.com/lumose-health/lumose/pull/345"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Org teams, team-based CODEOWNERS, and governance overhaul",
+          "area": null,
+          "pr": {
+            "number": 404,
+            "url": "https://github.com/lumose-health/lumose/pull/404"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Gradle module split and backend-synced safety limits",
+          "area": null,
+          "pr": {
+            "number": 282,
+            "url": "https://github.com/lumose-health/lumose/pull/282"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "General-purpose plugin platform architecture",
+          "area": null,
+          "pr": {
+            "number": 289,
+            "url": "https://github.com/lumose-health/lumose/pull/289"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Backend treatment safety scaffolding",
+          "area": null,
+          "pr": {
+            "number": 291,
+            "url": "https://github.com/lumose-health/lumose/pull/291"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Plugin-aware bolus category system with editable labels",
+          "area": null,
+          "pr": {
+            "number": 351,
+            "url": "https://github.com/lumose-health/lumose/pull/351"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "API security hardening with IDOR, SSRF, and rate limiting tests",
+          "area": null,
+          "pr": {
+            "number": 392,
+            "url": "https://github.com/lumose-health/lumose/pull/392"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Auto-create GitHub Issues from security findings",
+          "area": null,
+          "pr": {
+            "number": 393,
+            "url": "https://github.com/lumose-health/lumose/pull/393"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Full suite issue lifecycle management",
+          "area": null,
+          "pr": {
+            "number": 398,
+            "url": "https://github.com/lumose-health/lumose/pull/398"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "PR auto-close, tool-aware guards, source-pr updates",
+          "area": null,
+          "pr": {
+            "number": 400,
+            "url": "https://github.com/lumose-health/lumose/pull/400"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Track info-level findings, fix OpenAPI schema bug",
+          "area": null,
+          "pr": {
+            "number": 425,
+            "url": "https://github.com/lumose-health/lumose/pull/425"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Unauthenticated ZAP scanning + promotion PR cleanup fix",
+          "area": null,
+          "pr": {
+            "number": 410,
+            "url": "https://github.com/lumose-health/lumose/pull/410"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Aggregate stats API & extended time periods",
+          "area": null,
+          "pr": {
+            "number": 324,
+            "url": "https://github.com/lumose-health/lumose/pull/324"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Device binding & API security foundation",
+          "area": null,
+          "pr": {
+            "number": 322,
+            "url": "https://github.com/lumose-health/lumose/pull/322"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "CGM Summary Stats Panel",
+          "area": null,
+          "pr": {
+            "number": 325,
+            "url": "https://github.com/lumose-health/lumose/pull/325"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "AGP percentile band glucose chart",
+          "area": null,
+          "pr": {
+            "number": 330,
+            "url": "https://github.com/lumose-health/lumose/pull/330"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Insulin Summary and Bolus Review dashboard panels",
+          "area": null,
+          "pr": {
+            "number": 332,
+            "url": "https://github.com/lumose-health/lumose/pull/332"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Universal Tandem plugin + auth persistence fix",
+          "area": null,
+          "pr": {
+            "number": 309,
+            "url": "https://github.com/lumose-health/lumose/pull/309"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Universal Tandem plugin with BLE protocol naming and Mobi support",
+          "area": null,
+          "pr": {
+            "number": 308,
+            "url": "https://github.com/lumose-health/lumose/pull/308"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Create wear-device module with watch-side services",
+          "area": null,
+          "pr": {
+            "number": 358,
+            "url": "https://github.com/lumose-health/lumose/pull/358"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Feature toggle sync phone → watch via DataClient",
+          "area": null,
+          "pr": {
+            "number": 363,
+            "url": "https://github.com/lumose-health/lumose/pull/363"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Watch APK self-update via phone app",
+          "area": null,
+          "pr": {
+            "number": 374,
+            "url": "https://github.com/lumose-health/lumose/pull/374"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Watch face buttons, interactive graph, voice chat, and chat relay fix",
+          "area": null,
+          "pr": {
+            "number": 380,
+            "url": "https://github.com/lumose-health/lumose/pull/380"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Watch face graph rendering, variant cleanup, and complication binding fix",
+          "area": null,
+          "pr": {
+            "number": 377,
+            "url": "https://github.com/lumose-health/lumose/pull/377"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Watch Face Push API integration (watch side)",
+          "area": null,
+          "pr": {
+            "number": 359,
+            "url": "https://github.com/lumose-health/lumose/pull/359"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Watch-to-phone AI chat and alert dismiss",
+          "area": null,
+          "pr": {
+            "number": 365,
+            "url": "https://github.com/lumose-health/lumose/pull/365"
+          },
+          "inDevelopment": true
+        },
+        {
+          "text": "Clinical report, dashboard scroll fix, print CSS rearchitecture",
+          "area": null,
+          "pr": {
+            "number": 357,
+            "url": "https://github.com/lumose-health/lumose/pull/357"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Wire all bots, label-based changelog, governance alignment",
+          "area": null,
+          "pr": {
+            "number": 405,
+            "url": "https://github.com/lumose-health/lumose/pull/405"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [
+        {
+          "text": "Eliminate SSE reconnect storm in AlertStreamService",
+          "area": null,
+          "pr": {
+            "number": 382,
+            "url": "https://github.com/lumose-health/lumose/pull/382"
+          },
+          "inDevelopment": true
+        },
+        {
+          "text": "Upgrade WearChatRelayService to foreground service",
+          "area": null,
+          "pr": {
+            "number": 383,
+            "url": "https://github.com/lumose-health/lumose/pull/383"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Correct basal rate aggregation in insulin summary",
+          "area": null,
+          "pr": {
+            "number": 336,
+            "url": "https://github.com/lumose-health/lumose/pull/336"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Deduplicate insulin aggregation across sources and event types",
+          "area": null,
+          "pr": {
+            "number": 337,
+            "url": "https://github.com/lumose-health/lumose/pull/337"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Eliminate alert notification spam for sustained high glucose",
+          "area": null,
+          "pr": {
+            "number": 277,
+            "url": "https://github.com/lumose-health/lumose/pull/277"
+          },
+          "inDevelopment": true
+        },
+        {
+          "text": "GHCR token, flaky tests, funding docs",
+          "area": null,
+          "pr": {
+            "number": 407,
+            "url": "https://github.com/lumose-health/lumose/pull/407"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Preserve mobile session on transient errors and request notification permission",
+          "area": null,
+          "pr": {
+            "number": 276,
+            "url": "https://github.com/lumose-health/lumose/pull/276"
+          },
+          "inDevelopment": true
+        },
+        {
+          "text": "Fix nosemgrep placement for CORS and exported_activity",
+          "area": null,
+          "pr": {
+            "number": 424,
+            "url": "https://github.com/lumose-health/lumose/pull/424"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Suppress false positive exported_activity on launcher",
+          "area": null,
+          "pr": {
+            "number": 409,
+            "url": "https://github.com/lumose-health/lumose/pull/409"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Code quality audit (secure UUID, exception handling, resource leaks)",
+          "area": null,
+          "pr": {
+            "number": 321,
+            "url": "https://github.com/lumose-health/lumose/pull/321"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Use shared debug keystore for CI dev builds",
+          "area": null,
+          "pr": {
+            "number": 296,
+            "url": "https://github.com/lumose-health/lumose/pull/296"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Battery optimization -- throttle updates, cache graph, TimeDifference",
+          "area": null,
+          "pr": {
+            "number": 386,
+            "url": "https://github.com/lumose-health/lumose/pull/386"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Watch Face Push validation token via DwfValidatorFactory",
+          "area": null,
+          "pr": {
+            "number": 370,
+            "url": "https://github.com/lumose-health/lumose/pull/370"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "WFF APK validation, watch detection, and push pipeline fixes",
+          "area": null,
+          "pr": {
+            "number": 371,
+            "url": "https://github.com/lumose-health/lumose/pull/371"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.100",
+      "date": "2026-02-21",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.100",
+      "maintenance": true,
+      "new": [],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.99",
+      "date": "2026-02-21",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.99",
+      "maintenance": false,
+      "new": [],
+      "fixed": [
+        {
+          "text": "Bypass broken paths-filter for develop branch container builds",
+          "area": null,
+          "pr": {
+            "number": 269,
+            "url": "https://github.com/lumose-health/lumose/pull/269"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Harden onboarding flow and add markdown rendering for AI responses",
+          "area": null,
+          "pr": {
+            "number": 270,
+            "url": "https://github.com/lumose-health/lumose/pull/270"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.98",
+      "date": "2026-02-20",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.98",
+      "maintenance": false,
+      "new": [],
+      "fixed": [
+        {
+          "text": "Add DEV_BUILD_NUMBER to release build config",
+          "area": null,
+          "pr": {
+            "number": 259,
+            "url": "https://github.com/lumose-health/lumose/pull/259"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.97",
+      "date": "2026-02-20",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.97",
+      "maintenance": true,
+      "new": [],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.96",
+      "date": "2026-02-20",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.96",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add develop/main branching strategy with dev release channels",
+          "area": null,
+          "pr": {
+            "number": 254,
+            "url": "https://github.com/lumose-health/lumose/pull/254"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Add time in range bar and move pump status into hero card",
+          "area": null,
+          "pr": {
+            "number": 237,
+            "url": "https://github.com/lumose-health/lumose/pull/237"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "BLE history backfill, chart overlays, pump status hero, and V2 bolus parser fix",
+          "area": null,
+          "pr": {
+            "number": 252,
+            "url": "https://github.com/lumose-health/lumose/pull/252"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Glucose trend chart with basal/bolus overlays for mobile home",
+          "area": null,
+          "pr": {
+            "number": 236,
+            "url": "https://github.com/lumose-health/lumose/pull/236"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Make glucose thresholds dynamic from backend settings",
+          "area": null,
+          "pr": {
+            "number": 241,
+            "url": "https://github.com/lumose-health/lumose/pull/241"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Tiered BLE reconnection with indefinite slow phase",
+          "area": null,
+          "pr": {
+            "number": 244,
+            "url": "https://github.com/lumose-health/lumose/pull/244"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [
+        {
+          "text": "Use dynamic glucose thresholds in Time in Range pipeline",
+          "area": null,
+          "pr": {
+            "number": 242,
+            "url": "https://github.com/lumose-health/lumose/pull/242"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.95",
+      "date": "2026-02-17",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.95",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add auth token persistence and proactive refresh for mobile app",
+          "area": null,
+          "pr": {
+            "number": 229,
+            "url": "https://github.com/lumose-health/lumose/pull/229"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Add Dexcom-style glucose trend chart to dashboard",
+          "area": null,
+          "pr": {
+            "number": 143,
+            "url": "https://github.com/lumose-health/lumose/pull/143"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Add real data pipeline verification script",
+          "area": null,
+          "pr": {
+            "number": 125,
+            "url": "https://github.com/lumose-health/lumose/pull/125"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Implement AI Chat screen in mobile app",
+          "area": null,
+          "pr": {
+            "number": 214,
+            "url": "https://github.com/lumose-health/lumose/pull/214"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Implement BLE history log download from Tandem pump",
+          "area": null,
+          "pr": {
+            "number": 226,
+            "url": "https://github.com/lumose-health/lumose/pull/226"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Move Tandem cloud upload settings from mobile to web integrations page",
+          "area": null,
+          "pr": {
+            "number": 222,
+            "url": "https://github.com/lumose-health/lumose/pull/222"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [
+        {
+          "text": "BLE background persistence, sync reliability, and AI chat timeout",
+          "area": null,
+          "pr": {
+            "number": 219,
+            "url": "https://github.com/lumose-health/lumose/pull/219"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "BLE reconnection stability -- prevent sync loss when phone idles",
+          "area": null,
+          "pr": {
+            "number": 228,
+            "url": "https://github.com/lumose-health/lumose/pull/228"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Correct Tandem cloud upload authentication to use tconnectsync's camelCase attributes",
+          "area": null,
+          "pr": {
+            "number": 224,
+            "url": "https://github.com/lumose-health/lumose/pull/224"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Display IoB with full 2-decimal precision on web dashboard",
+          "area": null,
+          "pr": {
+            "number": 207,
+            "url": "https://github.com/lumose-health/lumose/pull/207"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Faster battery/reservoir polling and BLE connection stability",
+          "area": null,
+          "pr": {
+            "number": 221,
+            "url": "https://github.com/lumose-health/lumose/pull/221"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Use correct BLE opcode for pump hardware info parsing",
+          "area": null,
+          "pr": {
+            "number": 223,
+            "url": "https://github.com/lumose-health/lumose/pull/223"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.94",
+      "date": "2026-02-16",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.94",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Replace mock Time in Range data with real API aggregation",
+          "area": null,
+          "pr": {
+            "number": 213,
+            "url": "https://github.com/lumose-health/lumose/pull/213"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.93",
+      "date": "2026-02-16",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.93",
+      "maintenance": false,
+      "new": [],
+      "fixed": [
+        {
+          "text": "Resolve web app cross-origin cookie and redirect loop bugs",
+          "area": null,
+          "pr": {
+            "number": 211,
+            "url": "https://github.com/lumose-health/lumose/pull/211"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.92",
+      "date": "2026-02-16",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.92",
+      "maintenance": false,
+      "new": [],
+      "fixed": [
+        {
+          "text": "Correct CGM and bolus timestamp timezone conversion",
+          "area": null,
+          "pr": {
+            "number": 209,
+            "url": "https://github.com/lumose-health/lumose/pull/209"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.91",
+      "date": "2026-02-16",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.91",
+      "maintenance": false,
+      "new": [],
+      "fixed": [
+        {
+          "text": "Correct BLE status response opcodes and parser byte layouts",
+          "area": null,
+          "pr": {
+            "number": 206,
+            "url": "https://github.com/lumose-health/lumose/pull/206"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.90",
+      "date": "2026-02-15",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.90",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "BLE debug instrumentation, dev environment, and connection stability",
+          "area": null,
+          "pr": {
+            "number": 204,
+            "url": "https://github.com/lumose-health/lumose/pull/204"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.89",
+      "date": "2026-02-14",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.89",
+      "maintenance": false,
+      "new": [],
+      "fixed": [
+        {
+          "text": "Implement EC-JPAKE authentication for Tandem pump BLE pairing",
+          "area": null,
+          "pr": {
+            "number": 202,
+            "url": "https://github.com/lumose-health/lumose/pull/202"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.88",
+      "date": "2026-02-14",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.88",
+      "maintenance": false,
+      "new": [],
+      "fixed": [
+        {
+          "text": "Correct BLE authentication protocol to match Tandem pump spec",
+          "area": null,
+          "pr": {
+            "number": 200,
+            "url": "https://github.com/lumose-health/lumose/pull/200"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.87",
+      "date": "2026-02-14",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.87",
+      "maintenance": false,
+      "new": [],
+      "fixed": [
+        {
+          "text": "Add BLE runtime permission requests to prevent pump scan crash",
+          "area": null,
+          "pr": {
+            "number": 198,
+            "url": "https://github.com/lumose-health/lumose/pull/198"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.86",
+      "date": "2026-02-14",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.86",
+      "maintenance": false,
+      "new": [],
+      "fixed": [
+        {
+          "text": "Prevent cleartext requests to localhost when server URL not configured",
+          "area": null,
+          "pr": {
+            "number": 196,
+            "url": "https://github.com/lumose-health/lumose/pull/196"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.85",
+      "date": "2026-02-14",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.85",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add security hardening with token refresh, rate limiting, and TLS",
+          "area": null,
+          "pr": {
+            "number": 194,
+            "url": "https://github.com/lumose-health/lumose/pull/194"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.84",
+      "date": "2026-02-14",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.84",
+      "maintenance": true,
+      "new": [],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.83",
+      "date": "2026-02-13",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.83",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add Wear OS watch face, alerts, and AI voice chat",
+          "area": null,
+          "pr": {
+            "number": 189,
+            "url": "https://github.com/lumose-health/lumose/pull/189"
+          },
+          "inDevelopment": true
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.82",
+      "date": "2026-02-13",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.82",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add GitHub self-update mechanism",
+          "area": null,
+          "pr": {
+            "number": 187,
+            "url": "https://github.com/lumose-health/lumose/pull/187"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.81",
+      "date": "2026-02-13",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.81",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Implement app settings and configuration",
+          "area": null,
+          "pr": {
+            "number": 185,
+            "url": "https://github.com/lumose-health/lumose/pull/185"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.80",
+      "date": "2026-02-13",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.80",
+      "maintenance": false,
+      "new": [],
+      "fixed": [
+        {
+          "text": "Remove CLAUDE.md and bmad-output from repo",
+          "area": null,
+          "pr": {
+            "number": 183,
+            "url": "https://github.com/lumose-health/lumose/pull/183"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.79",
+      "date": "2026-02-13",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.79",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Complete home screen dashboard with CGM, freshness, pull-to-refresh",
+          "area": null,
+          "pr": {
+            "number": 181,
+            "url": "https://github.com/lumose-health/lumose/pull/181"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.78",
+      "date": "2026-02-13",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.78",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Implement Tandem cloud upload pipeline",
+          "area": null,
+          "pr": {
+            "number": 179,
+            "url": "https://github.com/lumose-health/lumose/pull/179"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.77",
+      "date": "2026-02-13",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.77",
+      "maintenance": false,
+      "new": [],
+      "fixed": [
+        {
+          "text": "Add R8 keep rule for Tink errorprone annotations and OptIn for ExperimentalCoroutinesApi",
+          "area": null,
+          "pr": {
+            "number": 177,
+            "url": "https://github.com/lumose-health/lumose/pull/177"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.76",
+      "date": "2026-02-13",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.76",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Backend sync -- push real-time pump data to API",
+          "area": null,
+          "pr": {
+            "number": 175,
+            "url": "https://github.com/lumose-health/lumose/pull/175"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.75",
+      "date": "2026-02-13",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.75",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add real-time data polling and local Room storage",
+          "area": null,
+          "pr": {
+            "number": 173,
+            "url": "https://github.com/lumose-health/lumose/pull/173"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.74",
+      "date": "2026-02-13",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.74",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Android mobile app scaffolding with BLE pump connectivity",
+          "area": null,
+          "pr": {
+            "number": 168,
+            "url": "https://github.com/lumose-health/lumose/pull/168"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "BLE connection manager and pump pairing",
+          "area": null,
+          "pr": {
+            "number": 169,
+            "url": "https://github.com/lumose-health/lumose/pull/169"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Implement PumpDriver status reads and live HomeScreen",
+          "area": null,
+          "pr": {
+            "number": 170,
+            "url": "https://github.com/lumose-health/lumose/pull/170"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [
+        {
+          "text": "Resolve release workflow YAML parse error on secrets in if-condition",
+          "area": null,
+          "pr": {
+            "number": 171,
+            "url": "https://github.com/lumose-health/lumose/pull/171"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.73",
+      "date": "2026-02-12",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.73",
+      "maintenance": false,
+      "new": [],
+      "fixed": [
+        {
+          "text": "Convert carbRatio from milliunits in Tandem pump profile sync",
+          "area": null,
+          "pr": {
+            "number": 165,
+            "url": "https://github.com/lumose-health/lumose/pull/165"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.72",
+      "date": "2026-02-12",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.72",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Sync pump settings profiles from Tandem API",
+          "area": null,
+          "pr": {
+            "number": 163,
+            "url": "https://github.com/lumose-health/lumose/pull/163"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.71",
+      "date": "2026-02-12",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.71",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Enhance AI Chat with comprehensive pump data context",
+          "area": null,
+          "pr": {
+            "number": 161,
+            "url": "https://github.com/lumose-health/lumose/pull/161"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.70",
+      "date": "2026-02-12",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.70",
+      "maintenance": false,
+      "new": [],
+      "fixed": [
+        {
+          "text": "Install Claude/Codex CLIs in sidecar and fix CLI invocation flags",
+          "area": null,
+          "pr": {
+            "number": 159,
+            "url": "https://github.com/lumose-health/lumose/pull/159"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.69",
+      "date": "2026-02-12",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.69",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Refactor AI provider frontend for sidecar subscription UX",
+          "area": null,
+          "pr": {
+            "number": 157,
+            "url": "https://github.com/lumose-health/lumose/pull/157"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.68",
+      "date": "2026-02-12",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.68",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Refactor AI provider backend for sidecar auto-routing",
+          "area": null,
+          "pr": {
+            "number": 155,
+            "url": "https://github.com/lumose-health/lumose/pull/155"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.67",
+      "date": "2026-02-12",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.67",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add sidecar_provider column and make encrypted_api_key nullable",
+          "area": null,
+          "pr": {
+            "number": 153,
+            "url": "https://github.com/lumose-health/lumose/pull/153"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.66",
+      "date": "2026-02-12",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.66",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add ai-sidecar to docker compose for all environments",
+          "area": null,
+          "pr": {
+            "number": 151,
+            "url": "https://github.com/lumose-health/lumose/pull/151"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.65",
+      "date": "2026-02-12",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.65",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Sidecar token-paste auth flow for subscription providers",
+          "area": null,
+          "pr": {
+            "number": 149,
+            "url": "https://github.com/lumose-health/lumose/pull/149"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.64",
+      "date": "2026-02-12",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.64",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add AI sidecar container image",
+          "area": null,
+          "pr": {
+            "number": 147,
+            "url": "https://github.com/lumose-health/lumose/pull/147"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.63",
+      "date": "2026-02-12",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.63",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Glucose trend chart, IoB pipeline fix, and insulin settings",
+          "area": null,
+          "pr": {
+            "number": 145,
+            "url": "https://github.com/lumose-health/lumose/pull/145"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.62",
+      "date": "2026-02-11",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.62",
+      "maintenance": false,
+      "new": [],
+      "fixed": [
+        {
+          "text": "Correct trend arrow mapping and deployment config",
+          "area": null,
+          "pr": {
+            "number": 142,
+            "url": "https://github.com/lumose-health/lumose/pull/142"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.61",
+      "date": "2026-02-11",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.61",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Polish landing page auth navigation and invite page links",
+          "area": null,
+          "pr": {
+            "number": 140,
+            "url": "https://github.com/lumose-health/lumose/pull/140"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.60",
+      "date": "2026-02-11",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.60",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add post-login disclaimer enforcement",
+          "area": null,
+          "pr": {
+            "number": 138,
+            "url": "https://github.com/lumose-health/lumose/pull/138"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.59",
+      "date": "2026-02-11",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.59",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add logout, auth state display, and global 401 handling",
+          "area": null,
+          "pr": {
+            "number": 136,
+            "url": "https://github.com/lumose-health/lumose/pull/136"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.58",
+      "date": "2026-02-11",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.58",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add auth middleware for route protection",
+          "area": null,
+          "pr": {
+            "number": 134,
+            "url": "https://github.com/lumose-health/lumose/pull/134"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.57",
+      "date": "2026-02-11",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.57",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add registration page with password strength indicators",
+          "area": null,
+          "pr": {
+            "number": 132,
+            "url": "https://github.com/lumose-health/lumose/pull/132"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.56",
+      "date": "2026-02-11",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.56",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add login page with email/password authentication",
+          "area": null,
+          "pr": {
+            "number": 130,
+            "url": "https://github.com/lumose-health/lumose/pull/130"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.55",
+      "date": "2026-02-11",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.55",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Expand AI provider system to support subscriptions and self-hosted models",
+          "area": null,
+          "pr": {
+            "number": 128,
+            "url": "https://github.com/lumose-health/lumose/pull/128"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.54",
+      "date": "2026-02-11",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.54",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add Docker container integration testing",
+          "area": null,
+          "pr": {
+            "number": 124,
+            "url": "https://github.com/lumose-health/lumose/pull/124"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.53",
+      "date": "2026-02-11",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.53",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add local dev server testing checklist and smoke tests",
+          "area": null,
+          "pr": {
+            "number": 123,
+            "url": "https://github.com/lumose-health/lumose/pull/123"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.52",
+      "date": "2026-02-11",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.52",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Wire daily briefs web delivery with unread badge and filter tabs",
+          "area": null,
+          "pr": {
+            "number": 121,
+            "url": "https://github.com/lumose-health/lumose/pull/121"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.51",
+      "date": "2026-02-11",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.51",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add web-based AI chat interface with backend endpoint",
+          "area": null,
+          "pr": {
+            "number": 119,
+            "url": "https://github.com/lumose-health/lumose/pull/119"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.50",
+      "date": "2026-02-11",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.50",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add AI provider configuration page",
+          "area": null,
+          "pr": {
+            "number": 117,
+            "url": "https://github.com/lumose-health/lumose/pull/117"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.49",
+      "date": "2026-02-11",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.49",
+      "maintenance": true,
+      "new": [],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.48",
+      "date": "2026-02-11",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.48",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add communications settings hub page",
+          "area": null,
+          "pr": {
+            "number": 113,
+            "url": "https://github.com/lumose-health/lumose/pull/113"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.47",
+      "date": "2026-02-11",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.47",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add graceful offline/disconnected state to all settings pages",
+          "area": null,
+          "pr": {
+            "number": 111,
+            "url": "https://github.com/lumose-health/lumose/pull/111"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.46",
+      "date": "2026-02-11",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.46",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add integrations settings page for Dexcom and Tandem",
+          "area": null,
+          "pr": {
+            "number": 109,
+            "url": "https://github.com/lumose-health/lumose/pull/109"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.45",
+      "date": "2026-02-11",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.45",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add alert settings page for thresholds and escalation",
+          "area": null,
+          "pr": {
+            "number": 107,
+            "url": "https://github.com/lumose-health/lumose/pull/107"
+          },
+          "inDevelopment": true
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.44",
+      "date": "2026-02-10",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.44",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add profile settings page with display name and password change",
+          "area": null,
+          "pr": {
+            "number": 105,
+            "url": "https://github.com/lumose-health/lumose/pull/105"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.43",
+      "date": "2026-02-10",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.43",
+      "maintenance": false,
+      "new": [],
+      "fixed": [
+        {
+          "text": "Enable Save Changes button when API is unavailable",
+          "area": null,
+          "pr": {
+            "number": 100,
+            "url": "https://github.com/lumose-health/lumose/pull/100"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.42",
+      "date": "2026-02-10",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.42",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add settings export capability",
+          "area": null,
+          "pr": {
+            "number": 98,
+            "url": "https://github.com/lumose-health/lumose/pull/98"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.41",
+      "date": "2026-02-10",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.41",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add data purge capability",
+          "area": null,
+          "pr": {
+            "number": 96,
+            "url": "https://github.com/lumose-health/lumose/pull/96"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.40",
+      "date": "2026-02-10",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.40",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add data retention settings",
+          "area": null,
+          "pr": {
+            "number": 94,
+            "url": "https://github.com/lumose-health/lumose/pull/94"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.39",
+      "date": "2026-02-10",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.39",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add daily brief delivery configuration",
+          "area": null,
+          "pr": {
+            "number": 92,
+            "url": "https://github.com/lumose-health/lumose/pull/92"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.38",
+      "date": "2026-02-10",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.38",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add target glucose range configuration",
+          "area": null,
+          "pr": {
+            "number": 90,
+            "url": "https://github.com/lumose-health/lumose/pull/90"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.37",
+      "date": "2026-02-10",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.37",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Enforce caregiver read-only access",
+          "area": null,
+          "pr": {
+            "number": 88,
+            "url": "https://github.com/lumose-health/lumose/pull/88"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.36",
+      "date": "2026-02-10",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.36",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add multi-patient card grid for caregiver dashboard",
+          "area": null,
+          "pr": {
+            "number": 86,
+            "url": "https://github.com/lumose-health/lumose/pull/86"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.35",
+      "date": "2026-02-10",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.35",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add caregiver AI chat for patient queries",
+          "area": null,
+          "pr": {
+            "number": 84,
+            "url": "https://github.com/lumose-health/lumose/pull/84"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.34",
+      "date": "2026-02-10",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.34",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add caregiver dashboard view",
+          "area": null,
+          "pr": {
+            "number": 82,
+            "url": "https://github.com/lumose-health/lumose/pull/82"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.33",
+      "date": "2026-02-09",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.33",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add caregiver data access permission management",
+          "area": null,
+          "pr": {
+            "number": 80,
+            "url": "https://github.com/lumose-health/lumose/pull/80"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.32",
+      "date": "2026-02-09",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.32",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add caregiver account creation and linking",
+          "area": null,
+          "pr": {
+            "number": 78,
+            "url": "https://github.com/lumose-health/lumose/pull/78"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.31",
+      "date": "2026-02-09",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.31",
+      "maintenance": true,
+      "new": [],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.30",
+      "date": "2026-02-09",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.30",
+      "maintenance": true,
+      "new": [],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.29",
+      "date": "2026-02-09",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.29",
+      "maintenance": true,
+      "new": [],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.28",
+      "date": "2026-02-09",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.28",
+      "maintenance": true,
+      "new": [],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.27",
+      "date": "2026-02-09",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.27",
+      "maintenance": true,
+      "new": [],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.26",
+      "date": "2026-02-09",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.26",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add automatic escalation to caregivers",
+          "area": null,
+          "pr": {
+            "number": 60,
+            "url": "https://github.com/lumose-health/lumose/pull/60"
+          },
+          "inDevelopment": true
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.25",
+      "date": "2026-02-09",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.25",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add escalation timing configuration",
+          "area": null,
+          "pr": {
+            "number": 58,
+            "url": "https://github.com/lumose-health/lumose/pull/58"
+          },
+          "inDevelopment": true
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.24",
+      "date": "2026-02-09",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.24",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add emergency contact configuration",
+          "area": null,
+          "pr": {
+            "number": 56,
+            "url": "https://github.com/lumose-health/lumose/pull/56"
+          },
+          "inDevelopment": true
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.23",
+      "date": "2026-02-09",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.23",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add AlertCard component with acknowledgment",
+          "area": null,
+          "pr": {
+            "number": 54,
+            "url": "https://github.com/lumose-health/lumose/pull/54"
+          },
+          "inDevelopment": true
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.22",
+      "date": "2026-02-09",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.22",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add tiered alert delivery with real-time notifications",
+          "area": null,
+          "pr": {
+            "number": 52,
+            "url": "https://github.com/lumose-health/lumose/pull/52"
+          },
+          "inDevelopment": true
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.21",
+      "date": "2026-02-09",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.21",
+      "maintenance": true,
+      "new": [],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.20",
+      "date": "2026-02-09",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.20",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add alert threshold configuration",
+          "area": null,
+          "pr": {
+            "number": 48,
+            "url": "https://github.com/lumose-health/lumose/pull/48"
+          },
+          "inDevelopment": true
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.19",
+      "date": "2026-02-09",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.19",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add AI reasoning display and audit logging",
+          "area": null,
+          "pr": {
+            "number": 46,
+            "url": "https://github.com/lumose-health/lumose/pull/46"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.18",
+      "date": "2026-02-09",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.18",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add AI insight card and unified insights feed",
+          "area": null,
+          "pr": {
+            "number": 44,
+            "url": "https://github.com/lumose-health/lumose/pull/44"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.17",
+      "date": "2026-02-08",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.17",
+      "maintenance": true,
+      "new": [],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.16",
+      "date": "2026-02-08",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.16",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add correction factor analysis with ISF suggestions",
+          "area": null,
+          "pr": {
+            "number": 40,
+            "url": "https://github.com/lumose-health/lumose/pull/40"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.15",
+      "date": "2026-02-08",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.15",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add meal pattern analysis with carb ratio suggestions",
+          "area": null,
+          "pr": {
+            "number": 38,
+            "url": "https://github.com/lumose-health/lumose/pull/38"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.14",
+      "date": "2026-02-08",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.14",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add daily brief generation",
+          "area": null,
+          "pr": {
+            "number": 36,
+            "url": "https://github.com/lumose-health/lumose/pull/36"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.13",
+      "date": "2026-02-08",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.13",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add BYOAI abstraction layer",
+          "area": null,
+          "pr": {
+            "number": 34,
+            "url": "https://github.com/lumose-health/lumose/pull/34"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.12",
+      "date": "2026-02-08",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.12",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add AI provider configuration",
+          "area": null,
+          "pr": {
+            "number": 32,
+            "url": "https://github.com/lumose-health/lumose/pull/32"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.11",
+      "date": "2026-02-08",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.11",
+      "maintenance": true,
+      "new": [],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.10",
+      "date": "2026-02-08",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.10",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add dashboard accessibility and branding",
+          "area": null,
+          "pr": {
+            "number": 28,
+            "url": "https://github.com/lumose-health/lumose/pull/28"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.9",
+      "date": "2026-02-08",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.9",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add real-time glucose updates via SSE",
+          "area": null,
+          "pr": {
+            "number": 26,
+            "url": "https://github.com/lumose-health/lumose/pull/26"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.8",
+      "date": "2026-02-08",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.8",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add TimeInRangeBar component for dashboard",
+          "area": null,
+          "pr": {
+            "number": 24,
+            "url": "https://github.com/lumose-health/lumose/pull/24"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.7",
+      "date": "2026-02-08",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.7",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add TrendArrow component for reusable trend display",
+          "area": null,
+          "pr": {
+            "number": 22,
+            "url": "https://github.com/lumose-health/lumose/pull/22"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.6",
+      "date": "2026-02-07",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.6",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add GlucoseHero component for dashboard",
+          "area": null,
+          "pr": {
+            "number": 20,
+            "url": "https://github.com/lumose-health/lumose/pull/20"
+          },
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.5",
+      "date": "2026-02-07",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.5",
+      "maintenance": true,
+      "new": [],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.4",
+      "date": "2026-02-07",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.4",
+      "maintenance": true,
+      "new": [],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.3",
+      "date": "2026-02-07",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.3",
+      "maintenance": true,
+      "new": [],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.2",
+      "date": "2026-02-07",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.2",
+      "maintenance": true,
+      "new": [],
+      "fixed": [],
+      "breaking": []
+    },
+    {
+      "version": "v0.1.1",
+      "date": "2026-02-07",
+      "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.1",
+      "maintenance": false,
+      "new": [
+        {
+          "text": "Add FastAPI backend, Next.js frontend, and K8s deployment",
+          "area": null,
+          "pr": null,
+          "inDevelopment": false
+        },
+        {
+          "text": "Add Control-IQ activity parsing and aggregation",
+          "area": null,
+          "pr": null,
+          "inDevelopment": false
+        },
+        {
+          "text": "Add dashboard layout and navigation",
+          "area": null,
+          "pr": {
+            "number": 3,
+            "url": "https://github.com/lumose-health/lumose/pull/3"
+          },
+          "inDevelopment": false
+        },
+        {
+          "text": "Add data freshness indicator component",
+          "area": null,
+          "pr": null,
+          "inDevelopment": false
+        }
+      ],
+      "fixed": [],
+      "breaking": []
+    }
+  ]
+}
