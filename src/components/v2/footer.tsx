@@ -1,9 +1,14 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { routes } from "@/lib/v2/routes";
+import {
+  DISCORD_URL,
+  DISCUSSIONS_URL,
+  GITHUB_URL,
+  SPONSOR_URL,
+  routes,
+} from "@/lib/v2/routes";
 import { EXTERNAL_LINK, NAV_LINK } from "./button";
-import { GITHUB_URL, SPONSOR_URL } from "./header";
 import { Logo } from "./logo";
 import { PauseMotion } from "./pause-motion";
 
@@ -20,11 +25,8 @@ const COLUMNS = [
   {
     title: "Community",
     links: [
-      { label: "Discord", href: "https://discord.gg/QbyhCQKDBs" },
-      {
-        label: "Discussions",
-        href: "https://github.com/orgs/lumose-health/discussions",
-      },
+      { label: "Discord", href: DISCORD_URL },
+      { label: "Discussions", href: DISCUSSIONS_URL },
       { label: "Open Collective", href: SPONSOR_URL },
     ],
   },

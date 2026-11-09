@@ -1,10 +1,7 @@
 import { Reveal } from "@/components/reveal";
-import { routes } from "@/lib/v2/routes";
+import { DISCORD_URL, SPONSOR_URL, routes } from "@/lib/v2/routes";
 import { EXTERNAL_LINK, FOCUS_RING } from "./button";
 import { LinkCard } from "./card";
-import { SPONSOR_URL } from "./header";
-
-const DISCORD_URL = "https://discord.gg/QbyhCQKDBs";
 
 // From SPONSORS.md in lumose-health/.github: two in-kind programs and the
 // fiscal host. Each links to the program Lumose is part of, not a home page.
