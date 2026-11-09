@@ -2,6 +2,21 @@
 
 ## 2026-11-09
 
+### 🌐 Website
+
+#### ✨ New Features
+
+- feat(v2): add the docs, community and support cards and the closing call to action [@jlengelbrecht](https://github.com/jlengelbrecht) ([#685](https://github.com/lumose-health/website/pull/685))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#692](https://github.com/lumose-health/website/pull/692))
+
+<!-- changelog-cutoff:2026-11-09T19:46:34Z -->
+
+
+## 2026-11-09
+
 ### 📦 Dependencies
 
 - chore(deps): update dependency motion to v14.10.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#689](https://github.com/lumose-health/website/pull/689))
