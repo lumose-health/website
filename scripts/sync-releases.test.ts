@@ -80,6 +80,10 @@ test("AC2: chores, sync-release, merge-bot, dependency lines, Other Changes and 
     ["chore", "bot", "bot", "dependency", "Real feature", "other-changes", "container-images"]
   );
   assert.equal(keptText(`**deps:** update retrofit monorepo to v2.12.0 ${pr(7)}`), undefined);
+  assert.equal(keptText("fix(api): bump pyjwt to 2.13.0"), undefined);
+  // Product changes that mention updating a value are not dependency lines.
+  assert.equal(keptText("update low glucose threshold to 70"), "Update low glucose threshold to 70");
+  assert.equal(keptText("bump session timeout to 30 days"), "Bump session timeout to 30 days");
   assert.equal(keptText(`**ci:** skip self-approval for release PR auto-merge ${pr(8)}`), undefined);
 
   for (const e of REAL_ENTRIES) {
@@ -119,8 +123,9 @@ test("AC4: lines naming Telegram, prediction, push notifications, FCM, APNs or a
     "feat: wire FCM tokens",
     "feat: APNs support",
     "feat: iOS alarm sound",
-    // A banned word inside a link still counts.
+    // A banned word inside a link, or split by markdown, still counts.
     "feat: chat bridge ([docs](https://example.com/telegram))",
+    "feat: caregiver push **notifications**",
   ]) {
     assert.equal(classifyLine(line, null, "new").reason, "banned", line);
   }
@@ -188,18 +193,20 @@ test("HTML and markdown never reach the output", () => {
     "feat: **bold** and `code` and ~~gone~~ text",
     "feat: Settings &gt; Watch &amp; phone -&gt; watch",
     "feat: trailing <b",
+    "fix: warn when glucose < 70 or > 180 mg/dL",
   ].map((l) => classifyLine(l, null, "new").kept?.text);
   assert.deepEqual(nasty, [
     "Alert(1) chart",
     "Picture",
     "Click link",
     "Bold and code and gone text",
-    "Settings → Watch & phone → watch",
+    "Settings > Watch & phone → watch",
     "Trailing",
+    "Warn when glucose < 70 or > 180 mg/dL",
   ]);
   assert.equal(plain("a\u0000b‮c"), "a b c");
   for (const e of REAL_ENTRIES) {
-    assert.doesNotMatch(e.text, /[<>[\]`*]|\]\(|https?:|&[a-z]+;/i, e.text);
+    assert.doesNotMatch(e.text, /<\/?[a-z]|[[\]`*]|\]\(|https?:|&[a-z]+;/i, e.text);
     assert.ok(e.text.length <= 240);
   }
 });

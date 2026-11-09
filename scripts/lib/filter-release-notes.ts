@@ -115,13 +115,14 @@ function headingKey(text: string): string {
 /** Removes markdown, HTML and anything outside printable text. */
 export function plain(s: string): string {
   let out = decodeEntities(s).replace(/\s*-+>\s*/g, " → ");
-  out = out.replace(/<[^>]*>?/g, " "); // HTML tags, including an unclosed one at the end
+  // Real HTML tags only, plus an unclosed one at the very end. A lone "<" or ">", as in
+  // "glucose < 70", stays as text: the output is rendered as text, never as HTML.
+  out = out.replace(/<\/?[a-z][^<>]*>|<\/?[a-z][^<>]*$/gi, " ");
   // Images and links, allowing one level of parentheses inside the URL.
   out = out.replace(/!?\[([^\]]*)\]\((?:[^()]|\([^()]*\))*\)/g, "$1");
   out = out.replace(/\bhttps?:\/\/\S+/gi, " "); // bare URLs
   out = out.replace(/[*~`]+/g, ""); // emphasis and code marks
   out = out.replace(/(?<![A-Za-z0-9])_+|_+(?![A-Za-z0-9])/g, ""); // underscores, but not inside snake_case
-  out = out.replace(/[<>]/g, (c) => (c === ">" ? "→" : " ")); // leftover angle brackets
   out = out.replace(/\p{Extended_Pictographic}|\p{Regional_Indicator}|[\uFE0F\u200D]/gu, "");
   out = out.replace(/[\p{Cc}\p{Cf}]/gu, " ");
   return out.replace(/\s+/g, " ").trim();
@@ -130,7 +131,7 @@ export function plain(s: string): string {
 /** "Wear OS", "API" and similar. Anything odd-looking is dropped rather than shown. */
 function cleanArea(text: string): string | null {
   const a = plain(text);
-  if (/^uncategori[sz]ed$/i.test(a)) return null;
+  if (/^uncategori[sz]ed$/i.test(a) || BANNED.test(a)) return null;
   return /^[A-Za-z][A-Za-z0-9 /&.-]{0,29}$/.test(a) ? a : null;
 }
 
@@ -212,13 +213,14 @@ export function classifyLine(raw: string, area: string | null, heading: Group | 
   const drop = (reason: DropReason): LineResult => ({ raw, kept: null, reason });
   if (heading === null) return drop("other-changes");
   // Checked on the raw line so a banned word in a link or scope can't slip through.
-  if (BANNED.test(decodeEntities(raw))) return drop("banned");
+  // Also checked after markdown is removed, so "push **notifications**" is caught too.
+  if (BANNED.test(decodeEntities(raw)) || BANNED.test(plain(raw))) return drop("banned");
 
   const p = parseItem(raw);
   if (isBot(p.author, raw)) return drop("bot");
   if (/\bsync (?:release|changelog)\b|\bfrom main to develop\b/i.test(p.text)) return drop("sync-release");
   if (p.scope === "deps" || p.scope === "deps-dev") return drop("dependency");
-  if (/\b(?:update|bump)\b.*\b(?:dependenc|to v?\d)|\bdependenc(?:y|ies)\b|\block ?file\b/i.test(p.text)) {
+  if (/\b(?:update|bump)\s+(?:[\w@./:-]+\s+(?:monorepo\s+)?to\s+[v^~]?\d)|\bdependenc(?:y|ies)\b|\block ?file\b/i.test(p.text)) {
     return drop("dependency");
   }
   if ((p.type && DROP_TYPES.has(p.type)) || (p.scope && DROP_SCOPES.has(p.scope))) return drop("chore");

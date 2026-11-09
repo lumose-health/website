@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-09T17:33:52.675Z",
+  "generatedAt": "2026-11-09T17:45:23.860Z",
   "repo": "lumose-health/lumose",
   "releasesUrl": "https://github.com/lumose-health/lumose/releases",
   "releases": [
@@ -1905,7 +1905,7 @@
           "inDevelopment": false
         },
         {
-          "text": "Settings → Watch full management UI",
+          "text": "Settings > Watch full management UI",
           "area": null,
           "pr": {
             "number": 361,
