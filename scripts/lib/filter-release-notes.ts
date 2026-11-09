@@ -75,7 +75,7 @@ const BANNED_STEMS = ["telegram", "predict", "pushnotif", "alarm", "alwaysfires"
 const BANNED_WORD_STEMS = ["fcm", "apns"];
 // Claims about safety that the site doesn't make.
 const SAFETY_CLAIM = /guardrail|safety layer|never[\s-]*dose/i;
-const IN_DEVELOPMENT = /alert|escalat|notif|emergency|urgent|threshold|siren|caregiver/i;
+const IN_DEVELOPMENT = /alert|escalat|notif|emergency|urgent|siren/i;
 
 // Cyrillic and Greek letters that look like Latin ones.
 const LOOKALIKES: Record<string, string> = {

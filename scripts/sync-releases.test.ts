@@ -180,14 +180,15 @@ test("AC5: alerting-related lines are kept and flagged in development", () => {
     "notify caregivers",
     "add emergency contact configuration",
     "urgent low handling",
-    "make glucose thresholds dynamic",
     "siren sound option",
-    "add caregiver dashboard view",
   ]) {
     assert.equal(classifyLine(line, null, "new").kept?.inDevelopment, true, line);
   }
-  assert.equal(classifyLine("add a chart", null, "new").kept?.inDevelopment, false);
-  const marker = /alert|escalat|notif|emergency|urgent|threshold|siren|caregiver/i;
+  // Shipped features: caregiver access and thresholds that also drive Time in Range.
+  for (const line of ["add a chart", "add caregiver dashboard view", "make glucose thresholds dynamic"]) {
+    assert.equal(classifyLine(line, null, "new").kept?.inDevelopment, false, line);
+  }
+  const marker = /alert|escalat|notif|emergency|urgent|siren/i;
   const flagged = REAL_ENTRIES.filter((e) => e.inDevelopment);
   assert.ok(flagged.length > 0);
   assert.ok(flagged.every((e) => marker.test(e.text)));
