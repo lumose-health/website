@@ -4,6 +4,21 @@
 
 ### 🌐 Website
 
+#### 🐛 Bug Fixes
+
+- fix(v2): show real provider types and default models [@jlengelbrecht](https://github.com/jlengelbrecht) ([#679](https://github.com/lumose-health/website/pull/679))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#682](https://github.com/lumose-health/website/pull/682))
+
+<!-- changelog-cutoff:2026-11-09T15:10:58Z -->
+
+
+## 2026-11-09
+
+### 🌐 Website
+
 #### ✨ New Features
 
 - feat: sync contributor data and avatars at build time [@jlengelbrecht](https://github.com/jlengelbrecht) ([#680](https://github.com/lumose-health/website/pull/680))
