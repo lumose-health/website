@@ -2,6 +2,19 @@
 
 ## 2026-11-09
 
+### 📦 Dependencies
+
+- chore(deps): update dependency fumadocs-ui to v16.18.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#687](https://github.com/lumose-health/website/pull/687))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#690](https://github.com/lumose-health/website/pull/690))
+
+<!-- changelog-cutoff:2026-11-09T15:33:06Z -->
+
+
+## 2026-11-09
+
 ### 🌐 Website
 
 #### ✨ New Features
