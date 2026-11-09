@@ -9,6 +9,7 @@ import {
   buildChangelog,
   classifyLine,
   filterNotes,
+  BANNED,
   isStable,
   plain,
   type RawRelease,
@@ -21,8 +22,13 @@ const FIXTURE: RawRelease[] = JSON.parse(readFileSync(path.join(__dirname, "fixt
 const REAL = buildChangelog(FIXTURE);
 const allEntries = (releases: Release[]) => releases.flatMap((r) => [...r.new, ...r.fixed, ...r.breaking]);
 const REAL_ENTRIES = allEntries(REAL.releases);
-// The same pattern scripts/check-v2.sh scans src/data with.
-const CHECK_V2_BANNED = /telegram|predict|push notif|ios alarm|fcm|apns|always fires|never waits|forecast|projection/i;
+// Read from scripts/check-v2.sh, so these tests follow any change to its scan.
+const CHECK_V2_TERMS = (() => {
+  const m = readFileSync(path.join(__dirname, "check-v2.sh"), "utf8").match(/^banned='([^']+)'$/m);
+  if (!m) throw new Error("banned= pattern not found in scripts/check-v2.sh");
+  return m[1].split("|");
+})();
+const CHECK_V2_BANNED = new RegExp(CHECK_V2_TERMS.join("|"), "i");
 
 const release = (tag: string, body: string, extra: Partial<RawRelease> = {}): RawRelease => ({
   tag_name: tag,
@@ -277,6 +283,11 @@ test("HTML and markdown never reach the output", () => {
     assert.doesNotMatch(e.text, /<\/?[a-z]|[[\]`*]|\]\(|https?:|&[a-z]+;/i, e.text);
     assert.ok(e.text.length <= 240);
   }
+});
+
+test("the filter bans every term check-v2.sh scans for", () => {
+  assert.ok(CHECK_V2_TERMS.length > 5);
+  for (const term of CHECK_V2_TERMS) assert.match(term, BANNED, term);
 });
 
 test("AC9: the filtered real notes contain no banned word anywhere", () => {
