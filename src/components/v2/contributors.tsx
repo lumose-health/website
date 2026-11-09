@@ -38,8 +38,9 @@ const people: AvatarPerson[] = data.contributors
     avatar: c.avatar && AVATAR_PATH.test(c.avatar) ? c.avatar : null,
   }));
 
-/** The header reads the star count from here too, and hides it along with this section. */
-export const starCount = people.length > 0 ? data.stars : undefined;
+/** The header reads these too, so its star count and Community link hide along with this section. */
+export const hasContributors = people.length > 0;
+export const starCount = hasContributors ? data.stars : undefined;
 
 // UTC on both server and client, so the date can't change between them.
 const syncedOn = new Date(data.generatedAt).toLocaleDateString("en-US", {
@@ -66,7 +67,7 @@ function PlusTile({ count, className }: { count: number; className: string }) {
 }
 
 export function Contributors() {
-  if (people.length === 0) return null;
+  if (!hasContributors) return null;
 
   const shown = people.slice(0, MAX_WIDE);
   const moreWide = people.length - shown.length;

@@ -2,7 +2,7 @@ import { Heart, Star } from "lucide-react";
 import { GitHubIcon } from "@/components/icons";
 import { routes } from "@/lib/v2/routes";
 import { ButtonLink, EXTERNAL_LINK, FOCUS_RING, NAV_LINK } from "./button";
-import { starCount } from "./contributors";
+import { hasContributors, starCount } from "./contributors";
 import { Logo } from "./logo";
 import { MobileMenu } from "./mobile-menu";
 
@@ -19,6 +19,11 @@ const NAV = [
   { label: "Docs", href: routes.docs },
   { label: "Community", href: `${routes.home}#contributors` },
 ] as const;
+
+// Community points at the contributors section, which hides itself with no data.
+const LINKS = hasContributors
+  ? NAV
+  : NAV.filter((link) => !link.href.endsWith("#contributors"));
 
 const BAR_LINK = `items-center rounded-lm-button-sm min-h-lm-touch px-3 text-sm text-lm-ink transition-colors duration-(--lm-dur-instant) hover:bg-lm-raised ${FOCUS_RING}`;
 const MENU_LINK = `${NAV_LINK} w-full text-[15px]`;
@@ -97,7 +102,7 @@ export function Header({ stars = starCount }: { stars?: number }) {
           aria-label="Main"
           className="ml-auto hidden items-center gap-1 desktop:flex"
         >
-          {NAV.map((link) => (
+          {LINKS.map((link) => (
             <a
               key={link.href}
               href={link.href}
@@ -119,7 +124,7 @@ export function Header({ stars = starCount }: { stars?: number }) {
           </ButtonLink>
         </div>
 
-        <MobileMenu links={NAV}>
+        <MobileMenu links={LINKS}>
           <SponsorLink className={MENU_LINK} />
           <StarLink stars={stars} label="GitHub" className={MENU_LINK} />
         </MobileMenu>
