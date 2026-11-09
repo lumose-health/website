@@ -54,6 +54,7 @@ export type DropReason =
   | "chore"
   | "dependency"
   | "banned"
+  | "safety-claim"
   | "no-group"
   | "empty"
   | "duplicate";
@@ -65,8 +66,47 @@ export interface LineResult {
 }
 
 /** Words that must never reach the site. Kept in step with scripts/check-v2.sh. */
-export const BANNED = /telegram|predict|push notif|fcm|apns|alarm|always fires|never waits/i;
-const IN_DEVELOPMENT = /alert|escalat/i;
+export const BANNED = /telegram|predict|push notif|fcm|apns|alarm|always fires|never waits|forecast|projection/i;
+// The same words with separators removed, matched against a squashed copy of the line,
+// so "tele-gram", "push_notif", a zero-width split or "push **notif**" can't slip through.
+const BANNED_STEMS = ["telegram", "predict", "pushnotif", "alarm", "alwaysfires", "neverwaits", "forecast", "projection"];
+// Short stems can appear across word boundaries once spaces are gone ("of cmd"), so
+// they are matched against each squashed word instead.
+const BANNED_WORD_STEMS = ["fcm", "apns"];
+// Claims about safety that the site doesn't make.
+const SAFETY_CLAIM = /guardrail|safety layer|never[\s-]*dose/i;
+const IN_DEVELOPMENT = /alert|escalat|notif|emergency|urgent|threshold|siren|caregiver/i;
+
+// Cyrillic and Greek letters that look like Latin ones.
+const LOOKALIKES: Record<string, string> = {
+  а: "a", в: "b", с: "c", ԁ: "d", е: "e", ё: "e", һ: "h", н: "h", і: "i", ї: "i", ј: "j", к: "k",
+  ӏ: "l", м: "m", о: "o", р: "p", ԛ: "q", ѕ: "s", т: "t", у: "y", х: "x", ԝ: "w",
+  α: "a", β: "b", ε: "e", η: "n", ι: "i", κ: "k", ν: "v", ο: "o", ρ: "p", τ: "t", υ: "u", χ: "x",
+};
+
+/** NFKC, lowercase, look-alikes folded, then only a-z kept. */
+function squash(s: string): string {
+  return s
+    .normalize("NFKC")
+    .toLowerCase()
+    .replace(/./gu, (c) => LOOKALIKES[c] ?? c)
+    .replace(/[^a-z]/g, "");
+}
+
+/** True when a line names a banned word in any spelling this filter knows about. */
+export function isBanned(raw: string): boolean {
+  if (BANNED.test(decodeEntities(raw))) return true;
+  const text = plain(raw);
+  if (BANNED.test(text)) return true;
+  const all = squash(text);
+  if (BANNED_STEMS.some((w) => all.includes(w))) return true;
+  // Split on whitespace only, so "f-c-m" and "f_c_m" still count as one word.
+  const words = text.split(/\s+/).map(squash);
+  if (words.some((w) => BANNED_WORD_STEMS.some((stem) => w.includes(stem)))) return true;
+  // Cyrillic or Greek letters that don't fold to Latin could be hiding a word.
+  const unfolded = text.normalize("NFKC").toLowerCase().replace(/./gu, (c) => (LOOKALIKES[c] ? "" : c));
+  return /[\p{Script=Cyrillic}\p{Script=Greek}]/u.test(unfolded);
+}
 
 const TYPE_HEADINGS: Record<string, Group | null> = {
   features: "new",
@@ -101,10 +141,15 @@ const DROP_SCOPES = new Set(["ci", "deps", "deps-dev", "release"]);
 const SEMVER_TAG = /^v\d{1,4}\.\d{1,4}\.\d{1,4}$/;
 const MAX_TEXT = 240;
 
-const ENTITIES: Record<string, string> = { amp: "&", lt: "<", gt: ">", quot: '"', "#39": "'", apos: "'", nbsp: " " };
+const ENTITIES: Record<string, string> = { amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " ", shy: "\u00AD" };
 
+/** Named entities from the list above, and every numeric one. */
 function decodeEntities(s: string): string {
-  return s.replace(/&(amp|lt|gt|quot|#39|apos|nbsp);/g, (_, e: string) => ENTITIES[e]);
+  return s.replace(/&(?:#(\d{1,7})|#x([0-9a-f]{1,6})|([a-z]+));/gi, (m, dec?: string, hex?: string, name?: string) => {
+    if (name) return ENTITIES[name.toLowerCase()] ?? m;
+    const code = dec ? Number(dec) : parseInt(hex ?? "0", 16);
+    return code > 0 && code <= 0x10ffff ? String.fromCodePoint(code) : " ";
+  });
 }
 
 /** Heading text with emoji, markdown and links removed, lowercased for lookup. */
@@ -114,7 +159,9 @@ function headingKey(text: string): string {
 
 /** Removes markdown, HTML and anything outside printable text. */
 export function plain(s: string): string {
-  let out = decodeEntities(s).replace(/\s*-+>\s*/g, " → ");
+  // Zero-width characters and soft hyphens are removed outright, so they can't split a word.
+  let out = decodeEntities(s).replace(/[\u00AD\u200B-\u200D\u2060\uFEFF]/g, "");
+  out = out.replace(/\s*-+>\s*/g, " → ");
   // Real HTML tags only, plus an unclosed one at the very end. A lone "<" or ">", as in
   // "glucose < 70", stays as text: the output is rendered as text, never as HTML.
   out = out.replace(/<\/?[a-z][^<>]*>|<\/?[a-z][^<>]*$/gi, " ");
@@ -124,14 +171,14 @@ export function plain(s: string): string {
   out = out.replace(/[*~`]+/g, ""); // emphasis and code marks
   out = out.replace(/(?<![A-Za-z0-9])_+|_+(?![A-Za-z0-9])/g, ""); // underscores, but not inside snake_case
   out = out.replace(/\p{Extended_Pictographic}|\p{Regional_Indicator}|[\uFE0F\u200D]/gu, "");
-  out = out.replace(/[\p{Cc}\p{Cf}]/gu, " ");
+  out = out.replace(/\p{Cf}/gu, "").replace(/\p{Cc}/gu, " ");
   return out.replace(/\s+/g, " ").trim();
 }
 
 /** "Wear OS", "API" and similar. Anything odd-looking is dropped rather than shown. */
 function cleanArea(text: string): string | null {
   const a = plain(text);
-  if (/^uncategori[sz]ed$/i.test(a) || BANNED.test(a)) return null;
+  if (/^uncategori[sz]ed$/i.test(a) || isBanned(a)) return null;
   return /^[A-Za-z][A-Za-z0-9 /&.-]{0,29}$/.test(a) ? a : null;
 }
 
@@ -213,8 +260,8 @@ export function classifyLine(raw: string, area: string | null, heading: Group | 
   const drop = (reason: DropReason): LineResult => ({ raw, kept: null, reason });
   if (heading === null) return drop("other-changes");
   // Checked on the raw line so a banned word in a link or scope can't slip through.
-  // Also checked after markdown is removed, so "push **notifications**" is caught too.
-  if (BANNED.test(decodeEntities(raw)) || BANNED.test(plain(raw))) return drop("banned");
+  if (isBanned(raw)) return drop("banned");
+  if (SAFETY_CLAIM.test(decodeEntities(raw)) || SAFETY_CLAIM.test(plain(raw))) return drop("safety-claim");
 
   const p = parseItem(raw);
   if (isBot(p.author, raw)) return drop("bot");
@@ -334,7 +381,9 @@ export function buildChangelog(raw: RawRelease[]): { releases: Release[]; stats:
     };
     for (const l of lines) {
       if (l.kept) {
-        const key = l.kept.pr ? `#${l.kept.pr.number}` : l.kept.text.toLowerCase();
+        // Group and text are part of the key, so a Breaking line isn't lost to a New
+        // line from the same PR.
+        const key = `${l.kept.group}|${l.kept.pr?.number ?? ""}|${l.kept.text.toLowerCase()}`;
         if (shipped.has(key)) {
           l.kept = null;
           l.reason = "duplicate";

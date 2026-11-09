@@ -22,7 +22,7 @@ const REAL = buildChangelog(FIXTURE);
 const allEntries = (releases: Release[]) => releases.flatMap((r) => [...r.new, ...r.fixed, ...r.breaking]);
 const REAL_ENTRIES = allEntries(REAL.releases);
 // The same pattern scripts/check-v2.sh scans src/data with.
-const CHECK_V2_BANNED = /telegram|predict|push notif|ios alarm|fcm|apns|always fires|never waits/i;
+const CHECK_V2_BANNED = /telegram|predict|push notif|ios alarm|fcm|apns|always fires|never waits|forecast|projection/i;
 
 const release = (tag: string, body: string, extra: Partial<RawRelease> = {}): RawRelease => ({
   tag_name: tag,
@@ -98,7 +98,7 @@ test("AC3: prefixes, heading emoji and planning references are stripped, first l
   assert.equal(keptText("Story 30.3 -- CGM Summary Stats Panel"), "CGM Summary Stats Panel");
   assert.equal(keptText("Epic 28 security hardening (stories 28.1-28.10)"), "Security hardening");
   assert.equal(keptText("feat:(GLY-57) upgrade tailwind 4"), "Upgrade tailwind 4");
-  assert.equal(keptText("forecast read endpoint (43.12 PR 3)"), "Forecast read endpoint");
+  assert.equal(keptText("read endpoint + picker preference (43.12 PR 3)"), "Read endpoint + picker preference");
   assert.equal(keptText("reuse connection on re-add (#1025)"), "Reuse connection on re-add");
   // Identifiers and units keep their case.
   assert.equal(keptText("mmol/L glucose unit toggle"), "mmol/L glucose unit toggle");
@@ -115,8 +115,10 @@ test("AC3: prefixes, heading emoji and planning references are stripped, first l
   }
 });
 
-test("AC4: lines naming Telegram, prediction, push notifications, FCM, APNs or alarms are dropped", () => {
+test("AC4: lines naming Telegram, prediction, forecasts, push notifications, FCM, APNs or alarms are dropped", () => {
   for (const line of [
+    "feat(api): forecast read endpoint + picker preference (43.12 PR 3)",
+    "add IoB projection engine with decay curve",
     "**api:** add Telegram alert delivery for glucose alerts (Story 7.2)",
     "add predictive alert engine with IoB escalation (Story 6.2)",
     "implement caregiver and emergency contact push notifications",
@@ -126,20 +128,70 @@ test("AC4: lines naming Telegram, prediction, push notifications, FCM, APNs or a
     // A banned word inside a link, or split by markdown, still counts.
     "feat: chat bridge ([docs](https://example.com/telegram))",
     "feat: caregiver push **notifications**",
+    "feat: caregiver push <b>notif</b>ications",
+    // Hyphens, underscores, zero-width characters, soft hyphens and entities.
+    "feat: tele-gram bridge",
+    "feat: push_notifications",
+    "feat: tele\u200Bgram bridge",
+    "feat: fore\u00ADcast picker",
+    "feat: wire F-C-M tokens",
+    "feat: a_p_n_s support",
+    "feat: tele&#103;ram bridge",
+    "feat: tele&#x67;ram bridge",
+    "feat: pre&shy;dict lows",
+    "feat: ALWAYS-FIRES alerts",
+    // Look-alike Cyrillic letters fold to Latin; other Cyrillic text drops the line.
+    "feat: \u0442elegram bridge",
+    "feat: \u0430l\u0430rm sounds",
+    "feat: \u0436\u0443\u0440\u043d\u0430\u043b",
   ]) {
     assert.equal(classifyLine(line, null, "new").reason, "banned", line);
   }
+  // Pushing data to the watch isn't a notification, and "fcm" across words isn't FCM.
+  for (const line of [
+    "**mobile:** phone-side Watch Face Push via ChannelClient",
+    "feat: poll/persist/push pipeline integration with single-flight reads",
+    "fix: show list of cmd options",
+    "feat: map snapshots",
+  ]) {
+    assert.equal(classifyLine(line, null, "new").reason, null, line);
+  }
+  assert.ok(REAL_ENTRIES.some((e) => /watch face push/i.test(e.text)));
+  assert.ok(REAL_ENTRIES.some((e) => /push pipeline/i.test(e.text)));
 });
 
-test("AC5: alert and escalation lines are kept and flagged in development", () => {
+test("lines that make safety claims are dropped", () => {
+  for (const line of [
+    "feat: surface glucose-relevant meal nutrition with never-dose guardrails",
+    "**api:** add pre-validation safety layer for AI suggestions (Story 5.6)",
+    "feat: never dose without a check",
+  ]) {
+    assert.equal(classifyLine(line, null, "new").reason, "safety-claim", line);
+  }
+  for (const e of REAL_ENTRIES) assert.doesNotMatch(e.text, /guardrail|safety layer|never[\s-]*dose/i, e.text);
+});
+
+test("AC5: alerting-related lines are kept and flagged in development", () => {
   const a = classifyLine("add alert threshold configuration (Story 6.1)", "API", "new").kept;
   assert.equal(a?.inDevelopment, true);
   assert.equal(classifyLine("add escalation timing configuration", null, "new").kept?.inDevelopment, true);
+  for (const line of [
+    "request notification permission",
+    "notify caregivers",
+    "add emergency contact configuration",
+    "urgent low handling",
+    "make glucose thresholds dynamic",
+    "siren sound option",
+    "add caregiver dashboard view",
+  ]) {
+    assert.equal(classifyLine(line, null, "new").kept?.inDevelopment, true, line);
+  }
   assert.equal(classifyLine("add a chart", null, "new").kept?.inDevelopment, false);
+  const marker = /alert|escalat|notif|emergency|urgent|threshold|siren|caregiver/i;
   const flagged = REAL_ENTRIES.filter((e) => e.inDevelopment);
   assert.ok(flagged.length > 0);
-  assert.ok(flagged.every((e) => /alert|escalat/i.test(e.text)));
-  assert.ok(REAL_ENTRIES.filter((e) => /alert|escalat/i.test(e.text)).every((e) => e.inDevelopment));
+  assert.ok(flagged.every((e) => marker.test(e.text)));
+  assert.ok(REAL_ENTRIES.filter((e) => marker.test(e.text)).every((e) => e.inDevelopment));
 });
 
 test("AC6: PR links are rebuilt for lumose-health/lumose from the number alone", () => {
@@ -185,6 +237,21 @@ test("a change listed again in a later release stays with the release that first
   );
 });
 
+test("a Breaking line is kept even when the same PR is also listed under New", () => {
+  const { releases } = buildChangelog([
+    release(
+      "v1.0.0",
+      `### 🌐 Web\n#### ✨ New Features\n- feat: a thing ${pr(2)}\n### 📡 API\n#### 💥 Breaking Changes\n- feat: a thing ${pr(2)}`
+    ),
+  ]);
+  assert.deepEqual(releases[0].breaking.map((e) => e.text), ["A thing"]);
+  assert.deepEqual(releases[0].new.map((e) => e.text), ["A thing"]);
+});
+
+test("zero-width characters and soft hyphens are removed, not turned into spaces", () => {
+  assert.equal(plain("glu\u200Bcose\u00AD level\uFEFF"), "glucose level");
+});
+
 test("HTML and markdown never reach the output", () => {
   const nasty = [
     `feat: <script>alert(1)</script> chart ${pr(1)}`,
@@ -204,7 +271,7 @@ test("HTML and markdown never reach the output", () => {
     "Trailing",
     "Warn when glucose < 70 or > 180 mg/dL",
   ]);
-  assert.equal(plain("a\u0000b‮c"), "a b c");
+  assert.equal(plain("a\u0000b\u202Ec"), "a bc");
   for (const e of REAL_ENTRIES) {
     assert.doesNotMatch(e.text, /<\/?[a-z]|[[\]`*]|\]\(|https?:|&[a-z]+;/i, e.text);
     assert.ok(e.text.length <= 240);

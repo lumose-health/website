@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-09T17:45:23.860Z",
+  "generatedAt": "2026-11-09T18:02:45.052Z",
   "repo": "lumose-health/lumose",
   "releasesUrl": "https://github.com/lumose-health/lumose/releases",
   "releases": [
@@ -486,7 +486,7 @@
             "number": 803,
             "url": "https://github.com/lumose-health/lumose/pull/803"
           },
-          "inDevelopment": false
+          "inDevelopment": true
         }
       ],
       "fixed": [
@@ -578,15 +578,6 @@
           "pr": {
             "number": 795,
             "url": "https://github.com/lumose-health/lumose/pull/795"
-          },
-          "inDevelopment": false
-        },
-        {
-          "text": "Surface glucose-relevant meal nutrition with never-dose guardrails",
-          "area": "Mobile",
-          "pr": {
-            "number": 791,
-            "url": "https://github.com/lumose-health/lumose/pull/791"
           },
           "inDevelopment": false
         },
@@ -1053,15 +1044,6 @@
           "inDevelopment": false
         },
         {
-          "text": "Forecast picker + dotted-line overlay",
-          "area": "Web",
-          "pr": {
-            "number": 636,
-            "url": "https://github.com/lumose-health/lumose/pull/636"
-          },
-          "inDevelopment": false
-        },
-        {
           "text": "Cross-source pump-event dedupe via content hash",
           "area": "API",
           "pr": {
@@ -1198,24 +1180,6 @@
             "url": "https://github.com/lumose-health/lumose/pull/633"
           },
           "inDevelopment": false
-        },
-        {
-          "text": "Forecast read endpoint + picker preference",
-          "area": "API",
-          "pr": {
-            "number": 635,
-            "url": "https://github.com/lumose-health/lumose/pull/635"
-          },
-          "inDevelopment": false
-        },
-        {
-          "text": "Forecast translator extension",
-          "area": "API",
-          "pr": {
-            "number": 615,
-            "url": "https://github.com/lumose-health/lumose/pull/615"
-          },
-          "inDevelopment": false
         }
       ],
       "fixed": [
@@ -1281,15 +1245,6 @@
           "pr": {
             "number": 612,
             "url": "https://github.com/lumose-health/lumose/pull/612"
-          },
-          "inDevelopment": false
-        },
-        {
-          "text": "forecast_snapshots + forecast_evaluations schema",
-          "area": "API",
-          "pr": {
-            "number": 613,
-            "url": "https://github.com/lumose-health/lumose/pull/613"
           },
           "inDevelopment": false
         }
@@ -2228,7 +2183,7 @@
             "number": 276,
             "url": "https://github.com/lumose-health/lumose/pull/276"
           },
-          "inDevelopment": false
+          "inDevelopment": true
         },
         {
           "text": "Fix nosemgrep placement for CORS and exported_activity",
@@ -2410,7 +2365,7 @@
             "number": 241,
             "url": "https://github.com/lumose-health/lumose/pull/241"
           },
-          "inDevelopment": false
+          "inDevelopment": true
         },
         {
           "text": "Tiered BLE reconnection with indefinite slow phase",
@@ -2430,7 +2385,7 @@
             "number": 242,
             "url": "https://github.com/lumose-health/lumose/pull/242"
           },
-          "inDevelopment": false
+          "inDevelopment": true
         }
       ],
       "breaking": []
@@ -2984,15 +2939,6 @@
           "pr": {
             "number": 165,
             "url": "https://github.com/lumose-health/lumose/pull/165"
-          },
-          "inDevelopment": false
-        },
-        {
-          "text": "Use hybrid dose-summation for accurate IoB projection",
-          "area": null,
-          "pr": {
-            "number": 166,
-            "url": "https://github.com/lumose-health/lumose/pull/166"
           },
           "inDevelopment": false
         }
@@ -3667,7 +3613,7 @@
             "number": 88,
             "url": "https://github.com/lumose-health/lumose/pull/88"
           },
-          "inDevelopment": false
+          "inDevelopment": true
         }
       ],
       "fixed": [],
@@ -3686,7 +3632,7 @@
             "number": 86,
             "url": "https://github.com/lumose-health/lumose/pull/86"
           },
-          "inDevelopment": false
+          "inDevelopment": true
         }
       ],
       "fixed": [],
@@ -3705,7 +3651,7 @@
             "number": 84,
             "url": "https://github.com/lumose-health/lumose/pull/84"
           },
-          "inDevelopment": false
+          "inDevelopment": true
         }
       ],
       "fixed": [],
@@ -3724,7 +3670,7 @@
             "number": 82,
             "url": "https://github.com/lumose-health/lumose/pull/82"
           },
-          "inDevelopment": false
+          "inDevelopment": true
         }
       ],
       "fixed": [],
@@ -3743,7 +3689,7 @@
             "number": 80,
             "url": "https://github.com/lumose-health/lumose/pull/80"
           },
-          "inDevelopment": false
+          "inDevelopment": true
         }
       ],
       "fixed": [],
@@ -3762,7 +3708,7 @@
             "number": 78,
             "url": "https://github.com/lumose-health/lumose/pull/78"
           },
-          "inDevelopment": false
+          "inDevelopment": true
         }
       ],
       "fixed": [],
@@ -3864,7 +3810,7 @@
             "number": 56,
             "url": "https://github.com/lumose-health/lumose/pull/56"
           },
-          "inDevelopment": false
+          "inDevelopment": true
         }
       ],
       "fixed": [],
@@ -3978,18 +3924,8 @@
       "version": "v0.1.17",
       "date": "2026-02-08",
       "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.17",
-      "maintenance": false,
-      "new": [
-        {
-          "text": "Add pre-validation safety layer for AI suggestions",
-          "area": null,
-          "pr": {
-            "number": 42,
-            "url": "https://github.com/lumose-health/lumose/pull/42"
-          },
-          "inDevelopment": false
-        }
-      ],
+      "maintenance": true,
+      "new": [],
       "fixed": [],
       "breaking": []
     },
@@ -4244,15 +4180,6 @@
           "text": "Add Control-IQ activity parsing and aggregation",
           "area": null,
           "pr": null,
-          "inDevelopment": false
-        },
-        {
-          "text": "Add IoB projection engine with decay curve",
-          "area": null,
-          "pr": {
-            "number": 1,
-            "url": "https://github.com/lumose-health/lumose/pull/1"
-          },
           "inDevelopment": false
         },
         {

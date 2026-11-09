@@ -46,7 +46,7 @@ else
   fail "live page files differ from origin/main, or the diff could not run"
 fi
 
-banned='telegram|predict|push notif|ios alarm|fcm|apns|always fires|never waits'
+banned='telegram|predict|push notif|ios alarm|fcm|apns|always fires|never waits|forecast|projection'
 scan_paths=(src/components/v2 src/app/v2 src/data)
 
 hits=$(grep -rIinE "$banned" "${scan_paths[@]}")
