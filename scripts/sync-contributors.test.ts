@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { existsSync } from "node:fs";
-import { mkdtemp, readdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, readdir, readFile, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { test } from "node:test";
@@ -8,6 +8,7 @@ import { test } from "node:test";
 import {
   collect,
   downloadAvatar,
+  GitHubError,
   isHuman,
   MAX_AVATARS,
   safeLogin,
@@ -27,7 +28,7 @@ function image(body: Uint8Array<ArrayBuffer> = PNG, type = "image/png"): Respons
 
 function routes(map: Record<string, unknown>): JsonFetcher {
   return async (url) => {
-    if (!(url in map)) throw new Error(`GitHub 404 for ${url}`);
+    if (!(url in map)) throw new GitHubError(404, url);
     return map[url];
   };
 }
@@ -91,12 +92,27 @@ test("collect merges people across repos, pages through results and uses the mai
   assert.equal(alice.profileUrl, "https://github.com/Alice");
 });
 
+test("collect fails, instead of dropping the release, when the release lookup errors", async () => {
+  const repos = [{ name: "lumose", private: false, fork: false, archived: false, stargazers_count: 1, forks_count: 0 }];
+  const get: JsonFetcher = async (url) => {
+    if (url.includes("/releases/")) throw new GitHubError(503, url);
+    return url.includes("/orgs/") ? repos : [person("alice", 1)];
+  };
+  await assert.rejects(collect(get, "acme"), /GitHub 503/);
+});
+
 test("downloadAvatar only accepts small images from the avatar host", async () => {
   const dir = await tempDir();
-  const ok: FetchImpl = async () => image();
+  const seen: RequestInit[] = [];
+  const ok: FetchImpl = async (_url, init) => {
+    if (init) seen.push(init);
+    return image();
+  };
 
   assert.equal(await downloadAvatar("Alice", "https://avatars.githubusercontent.com/u/1?v=4", dir, ok), "/avatars/alice.png");
   assert.deepEqual(new Uint8Array(await readFile(path.join(dir, "alice.png"))), PNG);
+  assert.equal(seen[0].redirect, "error");
+  assert.equal(seen[0].headers, undefined, "no token goes to the avatar host");
 
   assert.equal(await downloadAvatar("bob", "https://evil.example/u/1", dir, ok), null);
   assert.equal(await downloadAvatar("bob", "http://avatars.githubusercontent.com/u/1", dir, ok), null);
@@ -146,8 +162,15 @@ test("sync keeps the last JSON when GitHub fails, and drops avatars missing on d
     stars: 4,
     forks: 1,
     latestRelease: null,
-    contributors: [{ login: "a", avatar: "/avatars/a.png", profileUrl: "https://github.com/a", commits: 1, repos: [] }],
+    contributors: [
+      { login: "a", avatar: "/avatars/a.png", profileUrl: "https://github.com/a", commits: 1, repos: [] },
+      { login: "b", avatar: "/avatars/b.png", profileUrl: "https://github.com/b", commits: 1, repos: [] },
+      { login: "c", avatar: "/../contributors.json", profileUrl: "https://github.com/c", commits: 1, repos: [] },
+      { login: "d", avatar: "https://avatars.githubusercontent.com/u/4", profileUrl: "https://github.com/d", commits: 1, repos: [] },
+    ],
   };
+  await mkdir(path.join(dir, "public", "avatars"), { recursive: true });
+  await writeFile(path.join(dir, "public", "avatars", "b.png"), PNG);
   await writeFile(outFile, JSON.stringify(prev));
   const down: JsonFetcher = async () => {
     throw new Error("GitHub 403 for rate limit");
@@ -157,7 +180,10 @@ test("sync keeps the last JSON when GitHub fails, and drops avatars missing on d
   const kept = JSON.parse(await readFile(outFile, "utf8")) as ContributorsData;
   assert.equal(kept.generatedAt, prev.generatedAt);
   assert.equal(kept.stars, 4);
-  assert.equal(kept.contributors[0].avatar, null);
+  assert.deepEqual(
+    kept.contributors.map((c) => c.avatar),
+    [null, "/avatars/b.png", null, null]
+  );
 });
 
 test("sync writes an empty file when GitHub fails and there is no JSON yet", async () => {

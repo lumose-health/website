@@ -49,6 +49,8 @@ const EXCLUDE = new Set([
 
 // GitHub logins: alphanumerics and single inner hyphens, at most 39 characters.
 const LOGIN_RE = /^[a-z0-9](?:[a-z0-9]|-(?=[a-z0-9])){0,38}$/i;
+// The only avatar paths this script writes.
+const AVATAR_PATH_RE = /^\/avatars\/[a-z0-9-]+\.(?:png|jpg|gif|webp)$/;
 
 export interface Contributor {
   login: string;
@@ -92,6 +94,15 @@ export interface CollectedContributor extends Omit<Contributor, "avatar"> {
 export type JsonFetcher = (url: string) => Promise<unknown>;
 export type FetchImpl = (url: string, init?: RequestInit) => Promise<Response>;
 
+export class GitHubError extends Error {
+  constructor(
+    readonly status: number,
+    url: string
+  ) {
+    super(`GitHub ${status} for ${url}`);
+  }
+}
+
 function ghFetcher(fetchImpl: FetchImpl = fetch): JsonFetcher {
   const headers: Record<string, string> = {
     Accept: "application/vnd.github+json",
@@ -104,7 +115,7 @@ function ghFetcher(fetchImpl: FetchImpl = fetch): JsonFetcher {
     const res = await fetchImpl(url, { headers, signal: AbortSignal.timeout(TIMEOUT_MS) });
     // /contributors answers 204 for an empty repo.
     if (res.status === 204) return [];
-    if (!res.ok) throw new Error(`GitHub ${res.status} for ${url}`);
+    if (!res.ok) throw new GitHubError(res.status, url);
     return res.json();
   };
 }
@@ -169,9 +180,10 @@ export async function collect(
       tag_name?: string;
     };
     latestRelease = rel.tag_name ?? null;
-  } catch {
-    // 404 when the repo has no release yet.
-    latestRelease = null;
+  } catch (err) {
+    // 404 means the repo has no release yet. Anything else fails the sync,
+    // so the last good data is kept instead of losing the release.
+    if (!(err instanceof GitHubError && err.status === 404)) throw err;
   }
 
   const main = repos.find((r) => r.name.toLowerCase() === mainRepo.toLowerCase());
@@ -301,9 +313,12 @@ export async function sync({
     const reason = (err as Error).message;
     const prev = await readPrevious(outFile);
     if (prev) {
-      // Kept data may point at avatars that aren't on disk in a fresh checkout.
+      // Kept data may point at avatars that aren't on disk in a fresh checkout,
+      // or carry a path this script would never have written.
       for (const c of prev.contributors) {
-        if (c.avatar && !existsSync(path.join(publicDir, c.avatar))) c.avatar = null;
+        const keep =
+          typeof c.avatar === "string" && AVATAR_PATH_RE.test(c.avatar) && existsSync(path.join(publicDir, c.avatar));
+        if (!keep) c.avatar = null;
       }
       await writeJson(outFile, prev);
       console.warn(`contributors: sync failed (${reason}); keeping data from ${prev.generatedAt}`);
