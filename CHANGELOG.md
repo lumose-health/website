@@ -1,5 +1,20 @@
 # Changelog
 
+## 2026-11-09
+
+### 🌐 Website
+
+#### ✨ New Features
+
+- feat(v2): add the Get started section with install tabs [@jlengelbrecht](https://github.com/jlengelbrecht) ([#665](https://github.com/lumose-health/website/pull/665))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#672](https://github.com/lumose-health/website/pull/672))
+
+<!-- changelog-cutoff:2026-11-09T02:22:10Z -->
+
+
 ## 2026-11-08
 
 ### 🌐 Website

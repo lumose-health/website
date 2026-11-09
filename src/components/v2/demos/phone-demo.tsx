@@ -45,7 +45,7 @@ const ALERTS: AlertItem[] = [
   {
     level: "brief",
     title: "Daily Brief - Sarah",
-    body: "Yesterday: 76% in range. 2 highs, no lows.",
+    body: "Last 24 hours: 76% in range, no lows.",
     time: "8:00 AM",
   },
 ];
@@ -191,7 +191,9 @@ export function PhoneDemo({ clock }: { clock: DemoClock }) {
 
   useEffect(
     () =>
-      clock.add(PHONE_TRACK, (position) => setFrame(phoneFrameAt(position))),
+      clock.add(PHONE_TRACK, (position, cycle) =>
+        setFrame(phoneFrameAt(position, cycle)),
+      ),
     [clock],
   );
 
