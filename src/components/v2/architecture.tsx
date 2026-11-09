@@ -227,6 +227,10 @@ export function Architecture() {
           </p>
         </Reveal>
         <Diagram />
+        <p className="mx-auto mt-8 max-w-[560px] text-center font-lm-mono text-[12px]/[1.5] text-balance text-lm-ink-faint tablet:text-[11px]/[1.5]">
+          Cloud sources like Dexcom, CareLink, Glooko and Nightscout connect to
+          your server directly.
+        </p>
       </div>
     </section>
   );
