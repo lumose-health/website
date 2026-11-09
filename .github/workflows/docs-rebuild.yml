@@ -20,6 +20,9 @@ concurrency:
 jobs:
   build-and-deploy:
     name: Rebuild docs and deploy to production
+    # This job always deploys to production. repository_dispatch and schedule
+    # runs use the default branch; a manual run from any other branch is skipped.
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -47,4 +50,4 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy out --project-name=lumose --branch=main --commit-message="docs rebuild (dispatched by ${{ github.event.client_payload.source }}@${{ github.event.client_payload.sha }})"
+          command: pages deploy out --project-name=lumose --branch=main --commit-message="${{ github.event_name == 'repository_dispatch' && format('docs rebuild (dispatched by {0}@{1})', github.event.client_payload.source, github.event.client_payload.sha) || format('docs rebuild ({0} by {1})', github.event_name, github.actor) }}"
