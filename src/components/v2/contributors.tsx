@@ -1,13 +1,11 @@
 import { Reveal } from "@/components/reveal";
 import json from "@/data/contributors.json";
-import { routes } from "@/lib/v2/routes";
+import { CONTRIBUTE_URL, routes } from "@/lib/v2/routes";
 import { EXTERNAL_LINK, FOCUS_RING } from "./button";
 import { ContributorAvatar } from "./contributor-avatar";
 import type { AvatarPerson } from "./contributor-avatar";
 import { CountUp } from "./count-up";
 
-const CONTRIBUTE_URL =
-  "https://github.com/lumose-health/lumose/blob/main/CONTRIBUTING.md";
 // All 48 from 760px up, the first 20 below. Everyone else goes into "+N".
 const MAX_WIDE = 48;
 const MAX_NARROW = 20;
@@ -38,7 +36,7 @@ const people: AvatarPerson[] = data.contributors
     avatar: c.avatar && AVATAR_PATH.test(c.avatar) ? c.avatar : null,
   }));
 
-/** The header reads these too, so its star count and Community link hide along with this section. */
+/** The header reads these too: its star count hides with this section, and its Community link falls back to the community cards. */
 export const hasContributors = people.length > 0;
 export const starCount = hasContributors ? data.stars : undefined;
 
@@ -123,8 +121,8 @@ export function Contributors() {
           delay={100}
           className="group/panel mt-12 rounded-lm-card border border-lm-line bg-lm-card"
         >
-          {/* Clipped sideways only, so tooltips can't widen the page but can still drop below a row. */}
-          <div data-avatar-panel className="overflow-x-clip">
+          {/* Clipped sideways only, so tooltips can't widen the page but can still drop below a row. Tooltips cap their width to it. */}
+          <div data-avatar-panel className="@container overflow-x-clip">
             {/* The role keeps list semantics in Safari, which drops them when list markers are removed. */}
             <ul
               role="list"

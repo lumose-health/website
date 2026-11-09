@@ -1,6 +1,6 @@
 import { Reveal } from "@/components/reveal";
+import { GITHUB_URL } from "@/lib/v2/routes";
 import { ButtonLink, EXTERNAL_LINK } from "./button";
-import { GITHUB_URL } from "./header";
 
 // The page ends still on purpose: the panel reveals once and nothing else moves.
 export function FinalCta() {
