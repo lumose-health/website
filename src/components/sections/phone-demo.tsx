@@ -32,13 +32,13 @@ const chatMessages: ChatMsg[] = [
   {
     role: "assistant",
     content:
-      "Time in range is **78%** today -- above your 70% target. Average glucose **142 mg/dL**. One high after lunch (peaked 225) but your correction worked within 90 min.",
+      "Last 6 hours: time in range **78%**, average glucose **142 mg/dL**. One high after lunch (peaked 225), back in range within 90 min.",
   },
-  { role: "user", content: "Prepare a summary for my endo appointment" },
+  { role: "user", content: "Prepare a note for my endo about that high" },
   {
     role: "assistant",
     content:
-      "14-day report:\n- Time in range: 74%\n- Avg: 151 mg/dL, GMI: 6.9%\n- Pattern: Post-dinner highs 3x/week\n- Worth raising with your care team",
+      "From the last 6 hours:\n- Peaked 225 after lunch\n- Back in range within 90 min\n- Worth raising with your care team: how often this happens",
   },
   { role: "user", content: "What's my glucose right now?" },
   {
@@ -69,7 +69,7 @@ const alerts: AlertItem[] = [
   {
     level: "brief",
     title: "Daily Brief - Sarah",
-    body: "Yesterday: 76% in range. 2 highs, no lows. Trending better than last week.",
+    body: "Last 24 hours: 76% in range, no lows.",
     time: "8:00 AM",
   },
 ];

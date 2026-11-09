@@ -23,7 +23,7 @@ const features = [
     icon: Brain,
     title: "AI-Powered Analysis",
     description:
-      "Daily briefs, pattern detection, and conversational AI. Bring your own provider or use the built-in subscription.",
+      "Daily briefs, pattern detection, and conversational AI. Bring your own AI provider, with your own API key or an existing subscription.",
   },
   {
     icon: LayoutDashboard,

@@ -108,7 +108,7 @@ export function BrowserDemo({ trigger }: { trigger: number }) {
                 <h3 className="text-xs font-semibold">Daily Brief</h3>
               </div>
               <p className="text-[10px] text-muted-foreground">
-                Today
+                Last 24 hours
               </p>
             </div>
           </RevealBlock>
@@ -121,10 +121,10 @@ export function BrowserDemo({ trigger }: { trigger: number }) {
                 <span className="text-[10px] font-semibold">Good morning, Sarah</span>
               </div>
               <p className="text-[10px] leading-relaxed text-muted-foreground">
-                Here&apos;s your overnight summary. Glucose stayed in range{" "}
-                <strong className="text-foreground">82-156 mg/dL</strong> with
-                no lows detected. Time in range yesterday was{" "}
-                <strong className="text-foreground">76%</strong>.
+                Over the last 24 hours,{" "}
+                <strong className="text-foreground">76%</strong> of your 288
+                readings were in range, with an average of{" "}
+                <strong className="text-foreground">148 mg/dL</strong>.
               </p>
             </div>
           </RevealBlock>
@@ -141,8 +141,8 @@ export function BrowserDemo({ trigger }: { trigger: number }) {
                 <div className="text-[9px] text-muted-foreground">Avg mg/dL</div>
               </div>
               <div className="rounded-lg border border-border p-2.5 text-center">
-                <div className="text-lg font-bold text-amber-400">2</div>
-                <div className="text-[9px] text-muted-foreground">Highs Yesterday</div>
+                <div className="text-lg font-bold text-amber-400">68</div>
+                <div className="text-[9px] text-muted-foreground">Highs, Last 24h</div>
               </div>
             </div>
           </RevealBlock>
@@ -152,11 +152,10 @@ export function BrowserDemo({ trigger }: { trigger: number }) {
             <div className="mb-3 rounded-lg border border-amber-500/30 bg-amber-500/5 p-3">
               <div className="flex items-center gap-1.5 mb-1.5">
                 <TrendingUp className="h-3.5 w-3.5 text-amber-400" />
-                <span className="text-[10px] font-semibold text-amber-400">Pattern Detected</span>
+                <span className="text-[10px] font-semibold text-amber-400">Highs and Lows</span>
               </div>
               <p className="text-[9px] text-muted-foreground leading-relaxed">
-                Post-dinner highs for the <strong className="text-foreground">3rd day in a row</strong>.
-                Average post-dinner peak: <strong className="text-foreground">218 mg/dL</strong>.
+                None were low and <strong className="text-foreground">68</strong> were high.
               </p>
             </div>
           </RevealBlock>
@@ -166,12 +165,10 @@ export function BrowserDemo({ trigger }: { trigger: number }) {
             <div className="mb-3 rounded-lg border border-blue-500/30 bg-blue-500/5 p-3">
               <div className="flex items-center gap-1.5 mb-1.5">
                 <Activity className="h-3.5 w-3.5 text-blue-400" />
-                <span className="text-[10px] font-semibold text-blue-400">AI Pattern Summary</span>
+                <span className="text-[10px] font-semibold text-blue-400">Pump Activity</span>
               </div>
               <p className="text-[9px] text-muted-foreground leading-relaxed">
-                Overnight glucose stayed stable. Post-dinner remains the
-                recurring pattern this week. A summary your care team will
-                want to see.
+                Control-IQ made 3 automatic corrections.
               </p>
             </div>
           </RevealBlock>
