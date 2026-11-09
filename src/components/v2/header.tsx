@@ -2,6 +2,7 @@ import { Heart, Star } from "lucide-react";
 import { GitHubIcon } from "@/components/icons";
 import { routes } from "@/lib/v2/routes";
 import { ButtonLink, EXTERNAL_LINK, FOCUS_RING, NAV_LINK } from "./button";
+import { starCount } from "./contributors";
 import { Logo } from "./logo";
 import { MobileMenu } from "./mobile-menu";
 
@@ -80,7 +81,7 @@ function StarLink({ stars, label, className }: StarLinkProps) {
   );
 }
 
-export function Header({ stars }: { stars?: number }) {
+export function Header({ stars = starCount }: { stars?: number }) {
   return (
     <header className="border-b border-lm-line-subtle bg-lm-hero">
       <div className="mx-auto flex max-w-lm-content flex-wrap items-center gap-x-1.5 px-lm-gutter py-3.5 tablet:gap-x-2.5">
