@@ -6,6 +6,21 @@
 
 #### 🐛 Bug Fixes
 
+- fix(v2): show AI subscription sign-in in the bring your own AI section [@jlengelbrecht](https://github.com/jlengelbrecht) ([#674](https://github.com/lumose-health/website/pull/674))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#678](https://github.com/lumose-health/website/pull/678))
+
+<!-- changelog-cutoff:2026-11-09T04:33:44Z -->
+
+
+## 2026-11-09
+
+### 🌐 Website
+
+#### 🐛 Bug Fixes
+
 - fix(home): correct the AI provider and chat demo claims [@jlengelbrecht](https://github.com/jlengelbrecht) ([#673](https://github.com/lumose-health/website/pull/673))
 
 ### ❓ Uncategorized
