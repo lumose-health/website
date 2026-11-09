@@ -72,6 +72,22 @@ test("AC2: bullets and body text are never published, and Delivered is left out"
   );
   assert.deepEqual(parsed.phases[0].items, [{ title: "Item", inDevelopment: false }]);
   assert.ok(!JSON.stringify(parsed.phases).includes("bullet"));
+
+  // A Delivered section after a kept phase, in any heading form, takes its items with it.
+  for (const heading of [
+    "## Current State (Delivered)",
+    "  ## Current State (Delivered)",
+    "# Delivered",
+    "Current State (Delivered)\n---",
+    "Current State (Delivered)\n===",
+  ]) {
+    const p = parseRoadmap(doc("## Phase 1 -- A", "### Kept", heading, "### Delivered Item", "## Phase 2 -- B", "### Next"));
+    assert.deepEqual(
+      p.phases.map((ph) => ph.items.map((i) => i.title)),
+      [["Kept"], ["Next"]],
+      heading
+    );
+  }
 });
 
 test("AC3: titles and focus lines with banned words are dropped", () => {
@@ -122,15 +138,17 @@ test("strings are plain text: markdown, HTML and links are removed", () => {
       "## Phase 1 -- <b>Bold</b> [Link](https://evil.example) `code`",
       "**Focus:** Do <script>alert(1)</script>things https://evil.example/x",
       "### <img src=x onerror=alert(1)>Item **one**",
+      "### <!-- note --> Two www.evil.example ftp://x.example/y",
+      "### Three <!-- unclosed",
       "### " + "x".repeat(500)
     )
   );
   const p = parsed.phases[0];
   assert.equal(parsed.lead, "Sequenced, not scheduled.");
   assert.equal(p.title, "Bold Link code");
-  assert.ok(!/[<>]|https?:/.test(JSON.stringify(parsed)));
-  assert.equal(p.items[0].title, "Item one");
-  assert.ok(p.items[1].title.length <= 120);
+  assert.ok(!/[<>]|:\/\/|www\./.test(JSON.stringify(parsed)));
+  assert.deepEqual(p.items.slice(0, 3).map((i) => i.title), ["Item one", "Two", "Three"]);
+  assert.ok(p.items[3].title.length <= 120);
 });
 
 test("fenced code, a second focus line and duplicate phases are ignored", () => {

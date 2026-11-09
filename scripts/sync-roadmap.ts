@@ -82,7 +82,11 @@ export interface Dropped {
 
 /** Plain text, "GlycemicGPT" renamed, `--` shown as a dash, capped in length. */
 export function cleanLine(raw: string, max = MAX_LINE): string {
-  let t = plain(raw)
+  // HTML comments go whole, including an unclosed one, before plain() sees them.
+  let t = plain(raw.replace(/<!--[\s\S]*?(?:-->|$)/g, " "))
+    // plain() removes http and https links; other schemes and bare www. hosts go too.
+    .replace(/\b[a-z][a-z0-9+.-]*:\/\/\S*|\bwww\.\S+/gi, " ")
+    .replace(/\s+/g, " ")
     .replace(/glycemic\s*gpt/gi, "Lumose")
     .replace(/\s+-{2,3}\s+/g, " — ")
     .trim();
@@ -125,7 +129,15 @@ export function parseRoadmap(doc: string): { lead: string | null; phases: Roadma
     }
     if (inFence) continue;
 
-    const h = line.match(/^(#{1,6})\s+(.*?)\s*#*\s*$/);
+    const h = line.match(/^ {0,3}(#{1,6})\s+(.*?)\s*#*\s*$/);
+    // A top-level heading, or a setext heading under a paragraph line, ends the
+    // current section. Neither is a phase, so what follows is skipped.
+    const setext = /^ {0,3}(=+|-+)\s*$/.test(line) && /^ {0,3}[^\s#>*+\-|]/.test(lines[i - 1] ?? "");
+    if ((h && h[1].length === 1) || setext) {
+      current = null;
+      section = "skip";
+      continue;
+    }
     if (h && h[1].length === 2) {
       current = null;
       const heading = plain(h[2]);
