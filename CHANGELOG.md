@@ -1,5 +1,20 @@
 # Changelog
 
+## 2026-11-10
+
+### 🌐 Website
+
+#### 💥 Breaking Changes
+
+- feat(changelog): sync and filter release notes at build time [@jlengelbrecht](https://github.com/jlengelbrecht) ([#693](https://github.com/lumose-health/website/pull/693))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#696](https://github.com/lumose-health/website/pull/696))
+
+<!-- changelog-cutoff:2026-11-10T21:57:21Z -->
+
+
 ## 2026-11-09
 
 ### 🌐 Website
