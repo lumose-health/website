@@ -4,6 +4,21 @@
 
 ### 🌐 Website
 
+#### 🐛 Bug Fixes
+
+- fix(v2): keep contributor data out of client JS and fix avatar tooltips [@jlengelbrecht](https://github.com/jlengelbrecht) ([#694](https://github.com/lumose-health/website/pull/694))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#695](https://github.com/lumose-health/website/pull/695))
+
+<!-- changelog-cutoff:2026-11-09T20:24:09Z -->
+
+
+## 2026-11-09
+
+### 🌐 Website
+
 #### ✨ New Features
 
 - feat(v2): add the docs, community and support cards and the closing call to action [@jlengelbrecht](https://github.com/jlengelbrecht) ([#685](https://github.com/lumose-health/website/pull/685))
