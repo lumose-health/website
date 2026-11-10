@@ -1,0 +1,138 @@
+{
+  "generatedAt": "2026-11-09T20:28:27.221Z",
+  "source": {
+    "repo": "lumose-health/.github",
+    "path": "docs/roadmap.md",
+    "url": "https://github.com/lumose-health/.github/blob/main/docs/roadmap.md"
+  },
+  "lead": "Phases below are sequenced, not scheduled. Development moves at the pace of the community and the project's small maintainer team; we don't commit to dates.",
+  "phases": [
+    {
+      "id": "ongoing",
+      "label": "Ongoing",
+      "title": "Community Feedback & Bug Fixes",
+      "focus": null,
+      "items": []
+    },
+    {
+      "id": "phase-1",
+      "label": "Phase 1",
+      "title": "Stability & Trust",
+      "focus": "Harden the platform, build community confidence, and establish legal and organizational foundations.",
+      "items": [
+        {
+          "title": "AI Engine 2.0",
+          "inDevelopment": false
+        },
+        {
+          "title": "Meal Intelligence — Vision Carb Estimation",
+          "inDevelopment": false
+        },
+        {
+          "title": "Platform Stability",
+          "inDevelopment": false
+        },
+        {
+          "title": "Platform Safety Enforcement Layer",
+          "inDevelopment": false
+        },
+        {
+          "title": "Behavioral Pattern Detection",
+          "inDevelopment": false
+        },
+        {
+          "title": "Documentation Infrastructure",
+          "inDevelopment": false
+        },
+        {
+          "title": "Legal & Organizational",
+          "inDevelopment": false
+        }
+      ]
+    },
+    {
+      "id": "phase-2",
+      "label": "Phase 2",
+      "title": "Ecosystem Integration",
+      "focus": "Meet users where they are. Integrate with the platforms the diabetes community already uses so they don't have to change their existing setup.",
+      "items": [
+        {
+          "title": "Third-Party Platform Integrations",
+          "inDevelopment": false
+        },
+        {
+          "title": "Pump Report Ingestion (Adoption Path for Users Without Direct Integration)",
+          "inDevelopment": false
+        },
+        {
+          "title": "Device Data Support Expansion",
+          "inDevelopment": false
+        },
+        {
+          "title": "AI-Enhanced Endo Reports",
+          "inDevelopment": false
+        },
+        {
+          "title": "Multi-Session Caregiver Escalation",
+          "inDevelopment": true
+        }
+      ]
+    },
+    {
+      "id": "phase-3",
+      "label": "Phase 3",
+      "title": "Mobile Expansion",
+      "focus": "Bring Lumose to iOS and establish official app store presence.",
+      "items": [
+        {
+          "title": "iOS Development",
+          "inDevelopment": false
+        },
+        {
+          "title": "Android Official (Google Play)",
+          "inDevelopment": false
+        },
+        {
+          "title": "Unofficial vs. Official App Distinction",
+          "inDevelopment": false
+        },
+        {
+          "title": "Repository Architecture",
+          "inDevelopment": false
+        },
+        {
+          "title": "Wear & Watch",
+          "inDevelopment": false
+        },
+        {
+          "title": "Conversational Channel Expansion",
+          "inDevelopment": false
+        }
+      ]
+    },
+    {
+      "id": "phase-4",
+      "label": "Phase 4",
+      "title": "Intelligence & Scale",
+      "focus": null,
+      "items": [
+        {
+          "title": "Advanced Behavioral Analytics",
+          "inDevelopment": false
+        },
+        {
+          "title": "Hosted Service for Non-Technical Users",
+          "inDevelopment": false
+        },
+        {
+          "title": "Accessibility & Onboarding",
+          "inDevelopment": false
+        },
+        {
+          "title": "Community & Sustainability",
+          "inDevelopment": false
+        }
+      ]
+    }
+  ]
+}
