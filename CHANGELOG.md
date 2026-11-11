@@ -1,5 +1,20 @@
 # Changelog
 
+## 2026-11-11
+
+### 🌐 Website
+
+#### ✨ New Features
+
+- feat(roadmap): sync roadmap headings at build time [@jlengelbrecht](https://github.com/jlengelbrecht) ([#697](https://github.com/lumose-health/website/pull/697))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#698](https://github.com/lumose-health/website/pull/698))
+
+<!-- changelog-cutoff:2026-11-11T13:47:31Z -->
+
+
 ## 2026-11-10
 
 ### 🌐 Website
