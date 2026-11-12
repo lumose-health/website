@@ -1,5 +1,20 @@
 # Changelog
 
+## 2026-11-12
+
+### 📦 Dependencies
+
+- chore(deps): update dependency fumadocs-core to v16.18.3 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#705](https://github.com/lumose-health/website/pull/705))
+- chore(deps): update dependency fumadocs-mdx to v15.5.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#700](https://github.com/lumose-health/website/pull/700))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#704](https://github.com/lumose-health/website/pull/704))
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#703](https://github.com/lumose-health/website/pull/703))
+
+<!-- changelog-cutoff:2026-11-12T00:14:16Z -->
+
+
 ## 2026-11-11
 
 ### 📦 Dependencies
