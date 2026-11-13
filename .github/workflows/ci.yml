@@ -23,8 +23,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Runs before the sync step so tests read the committed src/data files,
+      # not the ones the sync regenerates.
+      - name: Unit tests
+        run: npm test
+
       - name: Sync docs and generate Fumadocs source
-        run: npm run sync-docs && npm run sync-contributors && npx fumadocs-mdx
+        run: npm run sync-docs && npm run sync-contributors && npm run sync-releases && npm run sync-roadmap && npx fumadocs-mdx
         env:
           DOCS_NO_CACHE: "1"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
