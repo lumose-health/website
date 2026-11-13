@@ -29,7 +29,7 @@ jobs:
         run: npm ci
 
       - name: Sync docs from source repos
-        run: npm run sync-docs && npm run sync-contributors && npx fumadocs-mdx
+        run: npm run sync-docs && npm run sync-contributors && npm run sync-releases && npm run sync-roadmap && npx fumadocs-mdx
         env:
           DOCS_NO_CACHE: "1"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

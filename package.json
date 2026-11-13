@@ -4,13 +4,16 @@
   "private": true,
   "scripts": {
     "sync-docs": "tsx scripts/sync-docs.ts",
-    "predev": "npm run sync-docs && npm run sync-contributors && npx fumadocs-mdx",
-    "prebuild": "npm run sync-docs && npm run sync-contributors && npx fumadocs-mdx",
+    "predev": "npm run sync-docs && npm run sync-contributors && npm run sync-releases && npm run sync-roadmap && npx fumadocs-mdx",
+    "prebuild": "npm run sync-docs && npm run sync-contributors && npm run sync-releases && npm run sync-roadmap && npx fumadocs-mdx",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "sync-contributors": "tsx scripts/sync-contributors.ts"
+    "sync-contributors": "tsx scripts/sync-contributors.ts",
+    "sync-releases": "tsx scripts/sync-releases.ts",
+    "sync-roadmap": "tsx scripts/sync-roadmap.ts",
+    "test": "tsx --test scripts/*.test.ts src/lib/v2/*.test.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.3.0",
