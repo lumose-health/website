@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-11-13
+
+### 📦 Dependencies
+
+- fix(deps): update dependency next to v16.4.6 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#719](https://github.com/lumose-health/website/pull/719))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#721](https://github.com/lumose-health/website/pull/721))
+
+<!-- changelog-cutoff:2026-11-13T14:09:03Z -->
+
+
 ## 2026-11-12
 
 ### 📦 Dependencies
