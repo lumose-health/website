@@ -14,7 +14,13 @@ const READ_LINE = 120;
  * <details> row opens it first, because a closed row can't be scrolled to.
  */
 function focusHashTarget() {
-  const id = decodeURIComponent(window.location.hash.slice(1));
+  let id: string;
+  try {
+    id = decodeURIComponent(window.location.hash.slice(1));
+  } catch {
+    // A malformed fragment such as #% names no heading.
+    return;
+  }
   if (!id) return;
   const target = document.getElementById(id);
   if (!target) return;
