@@ -937,7 +937,9 @@
 /* Docs light surface. Every rule needs .lm-docs, which the docs layout only
    renders in a preview build, so the live docs never match any of it. The
    :root:has() form reaches the search dialog, which is portalled to body. */
-:root:has(.lm-docs) {
+:root:has(.lm-docs),
+.lm-docs {
+  --fd-banner-height: 56px;
   --color-fd-background: var(--color-lm-docs-surface);
   --color-fd-foreground: var(--color-lm-docs-ink);
   --color-fd-muted: var(--color-lm-docs-panel);
@@ -961,16 +963,27 @@
 /* The theme provider still puts .dark and a dark color-scheme on <html>, so
    the wrapper sets its own. */
 .lm-docs {
-  --fd-banner-height: 56px;
   color-scheme: light;
   background-color: var(--color-lm-docs-surface);
   color: var(--color-lm-docs-ink);
 }
 
 @media (width >= 47.5rem) {
+  :root:has(.lm-docs),
   .lm-docs {
     --fd-banner-height: 72px;
   }
+}
+
+/* Keeps anything scrolled into view, such as a link reached with Shift+Tab,
+   clear of the sticky header and the "on this page" bar under it on narrow
+   screens. Headings give most of their own margin back. */
+:root:has(.lm-docs) {
+  scroll-padding-top: calc(var(--fd-banner-height) + 3rem);
+}
+
+.lm-docs .prose :is(h1, h2, h3, h4, h5, h6) {
+  scroll-margin-top: 0.5rem;
 }
 
 /* The header is in the flow above the layout, so the layout gives its height
@@ -1007,17 +1020,17 @@
 }
 
 /* Links change color on hover instead of dimming. */
-.lm-docs .prose a:not([data-card]) {
+.lm-docs .prose a:not([data-card], .not-prose *) {
   transition: color var(--lm-dur-instant);
 }
 
-.lm-docs .prose a:not([data-card]):hover {
+.lm-docs .prose a:not([data-card], .not-prose *):hover {
   opacity: 1;
   color: var(--color-lm-docs-link-hover);
 }
 
 /* Notes. The synced docs write them as block quotes. */
-.lm-docs .prose blockquote {
+.lm-docs .prose blockquote:not(.not-prose *) {
   border: 1px solid var(--color-lm-docs-note-line);
   border-radius: var(--radius-lm-button);
   background-color: var(--color-lm-docs-note-bg);
@@ -1041,6 +1054,7 @@
   --color-fd-muted-foreground: var(--color-lm-ink-muted);
   --color-fd-accent: var(--color-lm-raised);
   --color-fd-accent-foreground: var(--color-lm-ink);
+  --color-fd-primary: var(--color-lm-blue-light);
   --color-fd-ring: var(--color-lm-blue-light);
   --border: var(--color-lm-line);
   color-scheme: dark;
@@ -1067,7 +1081,10 @@
 }
 
 /* These sit inside clipping boxes, so the outline goes on the inside. */
-.lm-docs #nd-docs-layout :is(#nd-toc, [data-toc-popover], figure.shiki) :focus-visible {
+.lm-docs
+  #nd-docs-layout
+  :is(#nd-sidebar, #nd-sidebar-mobile, #nd-toc, [data-toc-popover], figure.shiki)
+  :focus-visible {
   outline-offset: -2px;
 }
 
