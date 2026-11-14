@@ -1,8 +1,21 @@
-import { defineConfig, defineDocs } from "fumadocs-mdx/config";
+import {
+  defineCollections,
+  defineConfig,
+  defineDocs,
+  frontmatterSchema,
+} from "fumadocs-mdx/config";
 import { remarkStripMdExtension } from "./scripts/remark-strip-md-extension";
 
 export const docs = defineDocs({
   dir: "content/docs",
+});
+
+// Pages the site owns that are not docs, such as the rename note. They are
+// kept out of content/docs so the docs sidebar and sitemap never list them.
+export const pages = defineCollections({
+  type: "doc",
+  dir: "content/pages",
+  schema: frontmatterSchema,
 });
 
 export default defineConfig({
