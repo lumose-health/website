@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useStaticSearch } from "fumadocs-core/search/client/orama-static";
 import {
   SearchDialog,
@@ -24,7 +24,14 @@ const SEARCH_INDEX = "/api/search.json";
  * the browser. Loaded with React.lazy, so none of this is in a page load.
  */
 export default function DocsSearchDialog(props: SharedProps) {
-  const search = useStaticSearch({ from: SEARCH_INDEX });
+  // Fumadocs keeps the index download per URL, including one that failed, so
+  // a dropped connection would leave search broken until a reload. Typing
+  // again after a failure asks under a new URL, which downloads it afresh.
+  const [attempt, setAttempt] = useState(0);
+  const search = useStaticSearch({
+    from: attempt === 0 ? SEARCH_INDEX : `${SEARCH_INDEX}?retry=${attempt}`,
+  });
+  const failed = search.error !== undefined;
 
   // The dialog has no trigger element of its own, so it would drop focus on
   // the page body when it closes. This remembers what had focus on the way in
@@ -32,7 +39,14 @@ export default function DocsSearchDialog(props: SharedProps) {
   const opener = useRef<HTMLElement | null>(null);
 
   return (
-    <SearchDialog {...search} {...props}>
+    <SearchDialog
+      {...search}
+      {...props}
+      onSearchChange={(value) => {
+        if (failed) setAttempt((count) => count + 1);
+        search.onSearchChange(value);
+      }}
+    >
       <SearchDialogOverlay />
       <SearchDialogContent
         onOpenAutoFocus={() => {
