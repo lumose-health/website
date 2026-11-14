@@ -13,6 +13,7 @@ import {
   RepoSidebarItem,
   RepoSidebarSeparator,
 } from "@/components/v2/docs/repo-sidebar";
+import { DocsSearchProvider } from "@/components/v2/docs/search-shortcut";
 import { groupDocsTree } from "@/lib/v2/docs-tree";
 import { isV2Preview } from "@/lib/v2/preview";
 
@@ -21,9 +22,10 @@ export default function Layout({ children }: { children: ReactNode }) {
     // The new look: a dark header over a reading surface that stays light.
     // Search, the theme switch and the title move out of the sidebar, because
     // the header carries the first and the last and there is no theme choice.
-    // The sidebar lists pages by the repo they come from.
+    // The sidebar lists pages by the repo they come from. Search runs in the
+    // browser against the index the build writes, and "/" opens it.
     return (
-      <RootProvider theme={{ enabled: false }}>
+      <DocsSearchProvider>
         <div className="lm-docs">
           <DocsLayout
             tree={groupDocsTree(source.pageTree)}
@@ -46,7 +48,7 @@ export default function Layout({ children }: { children: ReactNode }) {
             {children}
           </DocsLayout>
         </div>
-      </RootProvider>
+      </DocsSearchProvider>
     );
   }
 
