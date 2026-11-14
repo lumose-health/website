@@ -67,6 +67,12 @@ export function ContentRail({
         if (el.getBoundingClientRect().top <= READ_LINE) active = el.id;
         else break;
       }
+      // A short last section can't reach the line, because the page runs out
+      // of scroll first. At the foot of a scrolled page it is the one in view.
+      const page = document.documentElement;
+      if (window.scrollY > 0 && window.scrollY + window.innerHeight >= page.scrollHeight - 2) {
+        active = targets[targets.length - 1].id;
+      }
       setCurrent(active);
     };
     const onScroll = () => {
