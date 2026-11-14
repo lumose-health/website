@@ -2,6 +2,21 @@
 
 ## 2026-11-14
 
+### 🏗️ Infrastructure
+
+#### 📝 Other Changes
+
+- chore(deps): update renovatebot/github-action action to v46.3.13 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#713](https://github.com/lumose-health/website/pull/713))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#739](https://github.com/lumose-health/website/pull/739))
+
+<!-- changelog-cutoff:2026-11-14T08:11:52Z -->
+
+
+## 2026-11-14
+
 ### 🌐 Website
 
 #### ✨ New Features
