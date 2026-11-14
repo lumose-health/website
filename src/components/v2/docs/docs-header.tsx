@@ -20,7 +20,8 @@ const LINKS = [
 ];
 
 // Both controls open the same search dialog. The hint shows "/", which
-// search-shortcut.tsx listens for; Ctrl/⌘ K still works as well.
+// search-shortcut.tsx listens for; Ctrl/⌘ K still works as well. The data
+// attribute lets the dialog find whichever one is showing when it closes.
 function SearchControls() {
   const { enabled, setOpenSearch } = useSearchContext();
   if (!enabled) return null;
@@ -30,6 +31,7 @@ function SearchControls() {
       <button
         type="button"
         aria-keyshortcuts="/"
+        data-docs-search=""
         onClick={() => setOpenSearch(true)}
         className={`mx-auto hidden min-h-lm-touch max-w-[360px] min-w-0 flex-1 cursor-pointer items-center gap-2.5 rounded-lm-button-sm border border-lm-line-strong bg-lm-card px-3.5 text-sm text-lm-ink-muted transition-colors duration-(--lm-dur-instant) hover:border-lm-ink-faint tablet:flex ${FOCUS_RING}`}
       >
@@ -46,6 +48,7 @@ function SearchControls() {
         type="button"
         aria-label="Search docs"
         aria-keyshortcuts="/"
+        data-docs-search=""
         onClick={() => setOpenSearch(true)}
         className={`${buttonClass("icon")} ml-auto tablet:hidden`}
       >

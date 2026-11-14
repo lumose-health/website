@@ -1,7 +1,10 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import {
+  hasOpenOverlay,
   isTypingTarget,
+  OPEN_OVERLAYS,
+  pickFocusTarget,
   shouldOpenSearch,
   type ShortcutKeyEvent,
   type ShortcutTarget,
@@ -75,4 +78,50 @@ test("isTypingTarget covers fields and editable regions only", () => {
   assert.equal(isTypingTarget(element("SPAN", true)), true);
   assert.equal(isTypingTarget(element("MAIN")), false);
   assert.equal(isTypingTarget(null), false);
+});
+
+// A document that only knows which selectors currently match something.
+function documentWith(...matching: string[]) {
+  return {
+    querySelector(selector: string) {
+      const parts = selector.split(", ");
+      return parts.some((part) => matching.includes(part)) ? {} : null;
+    },
+  };
+}
+
+test("an open dialog or the open sidebar drawer counts as an overlay", () => {
+  assert.equal(hasOpenOverlay(documentWith()), false);
+  for (const selector of OPEN_OVERLAYS) {
+    assert.equal(hasOpenOverlay(documentWith(selector)), true, selector);
+  }
+});
+
+test("the drawer only counts while it is open", () => {
+  assert.ok(OPEN_OVERLAYS.includes('#nd-sidebar-mobile[data-state="open"]'));
+  assert.equal(hasOpenOverlay(documentWith("#nd-sidebar-mobile")), false);
+  assert.equal(
+    hasOpenOverlay(documentWith('#nd-sidebar-mobile[data-state="closed"]')),
+    false,
+  );
+});
+
+test("focus returns to the opener while it is visible", () => {
+  const visible = (name: string) => name !== "hidden";
+  assert.equal(pickFocusTarget("opener", ["a", "b"], "main", visible), "opener");
+});
+
+test("a hidden opener hands focus to the visible search control", () => {
+  const visible = (name: string) => name === "mobile" || name === "main";
+  assert.equal(
+    pickFocusTarget("desktop", ["desktop", "mobile"], "main", visible),
+    "mobile",
+  );
+});
+
+test("with no visible control, focus goes to the fallback", () => {
+  const visible = (name: string) => name === "main";
+  assert.equal(pickFocusTarget("desktop", ["desktop"], "main", visible), "main");
+  assert.equal(pickFocusTarget(null, [], "main", visible), "main");
+  assert.equal(pickFocusTarget(null, [], null, visible), null);
 });

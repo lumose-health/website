@@ -41,3 +41,34 @@ export function shouldOpenSearch(
   if (dialogOpen) return false;
   return !isTypingTarget(target);
 }
+
+// Anything open that should keep "/" to itself: a modal (the search dialog, a
+// zoomed image) or the sidebar drawer on narrow screens.
+export const OPEN_OVERLAYS = [
+  '[role="dialog"]',
+  '[role="alertdialog"]',
+  "dialog[open]",
+  '#nd-sidebar-mobile[data-state="open"]',
+];
+
+/** True while a modal or the sidebar drawer is open. */
+export function hasOpenOverlay(root: {
+  querySelector(selector: string): unknown;
+}): boolean {
+  return root.querySelector(OPEN_OVERLAYS.join(", ")) !== null;
+}
+
+/**
+ * Where focus goes when search closes: back to what opened it. If that is no
+ * longer visible (the header swaps its search control at 760px), the search
+ * control that is visible now, and failing that the given fallback.
+ */
+export function pickFocusTarget<T>(
+  opener: T | null,
+  controls: readonly T[],
+  fallback: T | null,
+  isVisible: (element: T) => boolean,
+): T | null {
+  if (opener !== null && isVisible(opener)) return opener;
+  return controls.find(isVisible) ?? fallback;
+}
