@@ -4,12 +4,12 @@
 # Sync runs as a prebuild step (see package.json prebuild script).
 #
 # To preview a feature branch's docs locally, set the DOCS_OVERRIDE env var:
-#   DOCS_OVERRIDE="glycemicgpt:feat/docs-rewrite-phase-1" npm run dev
+#   DOCS_OVERRIDE="lumose:feat/docs-rewrite-phase-1" npm run dev
 # Format: "repoKey:branch[,repoKey:branch...]". The repoKey matches the `key` field below.
 
 sources:
-  - key: glycemicgpt
-    repo: GlycemicGPT/GlycemicGPT
+  - key: lumose
+    repo: lumose-health/lumose
     branch: main
     docsPath: docs/
     targetPath: platform/
@@ -23,10 +23,10 @@ sources:
       - LICENSE
       - MEDICAL-DISCLAIMER.md
 
-  # Org-level docs from the GlycemicGPT/.github repo. Currently the canonical
+  # Org-level docs from the lumose-health/.github repo. Currently the canonical
   # acknowledgments page, sourced org-wide rather than per-repo.
   - key: github-org
-    repo: GlycemicGPT/.github
+    repo: lumose-health/.github
     branch: main
     docsPath: docs/
     targetPath: about/
