@@ -72,3 +72,21 @@ export function pickFocusTarget<T>(
   if (opener !== null && isVisible(opener)) return opener;
   return controls.find(isVisible) ?? fallback;
 }
+
+// Set on the search dialog, so its own shortcut can tell it from the other
+// overlays.
+export const SEARCH_DIALOG = "[data-docs-search-dialog]";
+
+/**
+ * Whether Ctrl/⌘ K should toggle docs search. It always closes search when it
+ * is open. It opens search only when nothing else is open, the same rule "/"
+ * follows, so search never lands on top of the sidebar drawer.
+ */
+export function shouldToggleSearch(
+  event: Pick<ShortcutKeyEvent, "key" | "ctrlKey" | "metaKey">,
+  searchOpen: boolean,
+  overlayOpen: boolean,
+): boolean {
+  if (event.key !== "k" || !(event.ctrlKey || event.metaKey)) return false;
+  return searchOpen || !overlayOpen;
+}

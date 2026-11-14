@@ -47,7 +47,10 @@ export default function DocsSearchDialog(props: SharedProps) {
   // "Try again" repeats the current query.
   const [run, setRun] = useState(makeSearch);
   const search = useSearch(run);
-  const gaveUp = search.error !== undefined && loader.exhausted;
+  // Shown after any failed download, not only once the automatic retries
+  // have run out: those need another keystroke each, and a stalled download
+  // takes 20 seconds to fail.
+  const loadFailed = search.error !== undefined && loader.failed;
 
   // The dialog has no trigger element of its own, so it would drop focus on
   // the page body when it closes. This remembers what had focus on the way in
@@ -57,7 +60,10 @@ export default function DocsSearchDialog(props: SharedProps) {
   return (
     <SearchDialog {...search} {...props}>
       <SearchDialogOverlay />
+      {/* The attribute is how the Ctrl/⌘ K shortcut and the forced-colors
+          styles find this dialog. */}
       <SearchDialogContent
+        data-docs-search-dialog=""
         onOpenAutoFocus={() => {
           const active = document.activeElement;
           opener.current = active instanceof HTMLElement ? active : null;
@@ -77,7 +83,8 @@ export default function DocsSearchDialog(props: SharedProps) {
           if (main && target === main && !main.hasAttribute("tabindex")) {
             main.tabIndex = -1;
           }
-          target?.focus();
+          // No scrolling: the reader is put back where they were.
+          target?.focus({ preventScroll: true });
           opener.current = null;
         }}
       >
@@ -94,9 +101,9 @@ export default function DocsSearchDialog(props: SharedProps) {
             and with different words, and the line below is kept out of the
             way so this is said once. */}
         <p role="status" className="sr-only">
-          {gaveUp ? "The search index did not load. Try again is available." : ""}
+          {loadFailed ? "The search index did not load. Try again is available." : ""}
         </p>
-        {gaveUp && (
+        {loadFailed && (
           <div className="flex items-center justify-between gap-3 p-3 text-sm">
             <span aria-hidden="true">The search index did not load.</span>
             <button

@@ -74,6 +74,58 @@ test("a search right after a failure retries, with no failure shown first", asyn
   assert.equal(loader.exhausted, false);
 });
 
+test("one failed download is reported, through the retry, until the index loads", async () => {
+  const loader = createIndexLoader(BASE);
+  const client = fakeClient();
+  assert.equal(loader.failed, false);
+  const first = loader.run(client.search);
+  assert.equal(loader.failed, false);
+  client.calls[0].reject(down());
+  await assert.rejects(first);
+  assert.equal(loader.failed, true);
+  assert.equal(loader.exhausted, false);
+
+  const retry = loader.run(client.search);
+  assert.equal(loader.failed, true);
+  client.calls[1].resolve("ok");
+  await retry;
+  assert.equal(loader.failed, false);
+});
+
+test("a timed out download is reported as failed", async (t) => {
+  t.mock.timers.enable({ apis: ["setTimeout"] });
+  const loader = createIndexLoader(BASE, 3, 20_000);
+  const client = fakeClient();
+  const stalled = loader.run(client.search);
+  t.mock.timers.tick(20_000);
+  await assert.rejects(stalled, /too long/);
+  assert.equal(loader.failed, true);
+});
+
+test("a search error after the index has loaded is not a failed download", async () => {
+  const loader = createIndexLoader(BASE);
+  const client = fakeClient();
+  const first = loader.run(client.search);
+  client.calls[0].resolve("ok");
+  await first;
+  const broken = loader.run(client.search);
+  client.calls[1].reject(new Error("bad query"));
+  await assert.rejects(broken);
+  assert.equal(loader.failed, false);
+});
+
+test("reset keeps the failure reported until the index loads", async () => {
+  const loader = createIndexLoader(BASE, 3);
+  const client = fakeClient();
+  for (let i = 0; i < 4; i++) await failNext(loader, client);
+  loader.reset();
+  assert.equal(loader.failed, true);
+  const run = loader.run(client.search);
+  client.calls.at(-1)?.resolve("ok");
+  await run;
+  assert.equal(loader.failed, false);
+});
+
 test("retries stop at the cap without another request", async () => {
   const loader = createIndexLoader(BASE, 3);
   const client = fakeClient();
