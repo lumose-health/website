@@ -3,11 +3,31 @@
 import { lazy, useEffect, type ReactNode } from "react";
 import { useSearchContext } from "fumadocs-ui/contexts/search";
 import { RootProvider } from "fumadocs-ui/provider/next";
-import { hasOpenOverlay, shouldOpenSearch } from "@/lib/v2/search-shortcut";
+import {
+  hasOpenOverlay,
+  SEARCH_DIALOG,
+  shouldOpenSearch,
+  shouldToggleSearch,
+} from "@/lib/v2/search-shortcut";
 
 const DocsSearchDialog = lazy(() => import("./search-dialog"));
 
-/** Opens docs search on "/". Ctrl/⌘ K stays with the Fumadocs provider. */
+// Ctrl/⌘ K stays with the Fumadocs provider, which toggles search on it. This
+// replaces its test for the key, so that it also leaves search shut while the
+// sidebar drawer or another dialog is open.
+const HOT_KEY = [
+  {
+    display: "K",
+    key: (event: KeyboardEvent) =>
+      shouldToggleSearch(
+        event,
+        document.querySelector(SEARCH_DIALOG) !== null,
+        hasOpenOverlay(document),
+      ),
+  },
+];
+
+/** Opens docs search on "/". */
 function SearchShortcut() {
   const { setOpenSearch } = useSearchContext();
 
@@ -37,7 +57,11 @@ export function DocsSearchProvider({ children }: { children: ReactNode }) {
   return (
     <RootProvider
       theme={{ enabled: false }}
-      search={{ SearchDialog: DocsSearchDialog, preload: false }}
+      search={{
+        SearchDialog: DocsSearchDialog,
+        preload: false,
+        hotKey: HOT_KEY,
+      }}
     >
       <SearchShortcut />
       {children}

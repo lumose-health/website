@@ -975,15 +975,15 @@
   }
 }
 
-/* Keeps anything scrolled into view, such as a link reached with Shift+Tab,
-   clear of the sticky header and the "on this page" bar under it on narrow
-   screens. Headings give most of their own margin back. */
-:root:has(.lm-docs) {
-  scroll-padding-top: calc(var(--fd-banner-height) + 3rem);
-}
-
-.lm-docs .prose :is(h1, h2, h3, h4, h5, h6) {
-  scroll-margin-top: 0.5rem;
+/* Keeps anything in the page column that is scrolled into view, such as a
+   heading from a link or a link reached with Shift+Tab, clear of the sticky
+   header and the "on this page" bar under it on narrow screens. This is a
+   margin on the targets and not scroll padding on the page, because Chromium
+   counts the padding against the sticky header too and scrolls the page each
+   time one of the header controls takes focus. */
+.lm-docs #nd-page,
+.lm-docs #nd-page :is([id], a, button, summary, [tabindex]) {
+  scroll-margin-top: calc(var(--fd-banner-height) + 3.5rem);
 }
 
 /* The header is in the flow above the layout, so the layout gives its height
@@ -1067,6 +1067,15 @@
   font-style: var(--shiki-dark-font-style);
 }
 
+/* The theme's comment gray is 3.9:1 on the code background. This one is
+   6.2:1. */
+.lm-docs
+  .shiki:not(.not-fumadocs-codeblock *)
+  code
+  span[style*="--shiki-dark:#6a737d" i] {
+  color: #8B949E;
+}
+
 /* Focus on the light page: one indicator for every control. Fumadocs hides
    the outline on several of them and draws a shadow on others, so this sets
    the outline everywhere and switches the shadow off. */
@@ -1108,4 +1117,34 @@
   animation-duration: 0.01ms !important;
   animation-delay: 0s !important;
   animation-iteration-count: 1 !important;
+}
+
+/* Forced colors drop backgrounds and shadows, which is all that marks the
+   current sidebar page, the search result picked with the arrow keys and
+   focus on the Esc control. Each gets an outline in a system color. The
+   search dialog is outside .lm-docs, so it is reached from the root. */
+@media (forced-colors: active) {
+  .lm-docs :is(#nd-sidebar, #nd-sidebar-mobile) a[data-active="true"] {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
+
+  /* Thicker while it also has focus, so neither mark hides the other. */
+  .lm-docs
+    #nd-docs-layout
+    :is(#nd-sidebar, #nd-sidebar-mobile)
+    a[data-active="true"]:focus-visible {
+    outline: 4px solid Highlight;
+    outline-offset: -4px;
+  }
+
+  :root:has(.lm-docs) [data-docs-search-dialog] [role="option"][aria-selected="true"] {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
+
+  :root:has(.lm-docs) [data-docs-search-dialog] button:focus-visible {
+    outline: 2px solid CanvasText;
+    outline-offset: 2px;
+  }
 }

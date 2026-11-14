@@ -11,8 +11,9 @@ type Status = "idle" | "loading" | "ready" | "failed";
  * way to try again is a new URL. Left alone, that means either search stays
  * broken until a reload, or every keystroke starts another multi-megabyte
  * download. This allows one download at a time and a fixed number of retries,
- * after which it stops until reset() is called. A download that stalls counts
- * as failed once the timeout passes, so it cannot hold search up for good.
+ * one per search that follows a failure, after which it stops until reset()
+ * is called. A download that stalls counts as failed once the timeout passes,
+ * so it cannot hold search up for good.
  */
 export function createIndexLoader(
   base: string,
@@ -24,6 +25,8 @@ export function createIndexLoader(
   let serial = 0;
   // Retries spent since the first load or the last reset.
   let retries = 0;
+  // Set by a failed download and cleared once the index has loaded.
+  let failed = false;
 
   // Rejects when the current download runs out of time. Every search that
   // waits on that download races against the same one.
@@ -38,7 +41,10 @@ export function createIndexLoader(
     clearTimeout(timer);
     deadline = new Promise<never>((_, reject) => {
       timer = setTimeout(() => {
-        if (status === "loading" && from === url()) status = "failed";
+        if (status === "loading" && from === url()) {
+          status = "failed";
+          failed = true;
+        }
         reject(new Error("The search index took too long to download."));
       }, timeoutMs);
     });
@@ -47,6 +53,15 @@ export function createIndexLoader(
   }
 
   return {
+    /**
+     * True from the first failed download until the index loads. It stays
+     * true while a retry is on its way, so what it shows does not come and go
+     * with every attempt.
+     */
+    get failed() {
+      return failed;
+    },
+
     /** True when the download failed and no retries are left. */
     get exhausted() {
       return status === "failed" && retries >= maxRetries;
@@ -85,6 +100,7 @@ export function createIndexLoader(
           : search(from));
         if (from === url() && status === "loading") {
           status = "ready";
+          failed = false;
           clearTimeout(timer);
         }
         return result;
@@ -92,6 +108,7 @@ export function createIndexLoader(
         // A late failure from an older URL must not undo a newer attempt.
         if (status === "loading" && from === url()) {
           status = "failed";
+          failed = true;
           clearTimeout(timer);
         }
         throw error;

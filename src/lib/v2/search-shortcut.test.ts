@@ -6,6 +6,7 @@ import {
   OPEN_OVERLAYS,
   pickFocusTarget,
   shouldOpenSearch,
+  shouldToggleSearch,
   type ShortcutKeyEvent,
   type ShortcutTarget,
 } from "./search-shortcut";
@@ -104,6 +105,24 @@ test("the drawer only counts while it is open", () => {
     hasOpenOverlay(documentWith('#nd-sidebar-mobile[data-state="closed"]')),
     false,
   );
+});
+
+const ctrlK = { key: "k", ctrlKey: true, metaKey: false };
+
+test("Ctrl or ⌘ K opens search when nothing else is open", () => {
+  const metaK = { key: "k", ctrlKey: false, metaKey: true };
+  assert.equal(shouldToggleSearch(ctrlK, false, false), true);
+  assert.equal(shouldToggleSearch(metaK, false, false), true);
+  assert.equal(shouldToggleSearch({ ...ctrlK, ctrlKey: false }, false, false), false);
+  assert.equal(shouldToggleSearch({ ...ctrlK, key: "j" }, false, false), false);
+});
+
+test("Ctrl K does not open search over the drawer or another dialog", () => {
+  assert.equal(shouldToggleSearch(ctrlK, false, true), false);
+});
+
+test("Ctrl K still closes search, which is an open dialog itself", () => {
+  assert.equal(shouldToggleSearch(ctrlK, true, true), true);
 });
 
 test("focus returns to the opener while it is visible", () => {
