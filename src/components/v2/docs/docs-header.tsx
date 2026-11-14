@@ -19,36 +19,36 @@ const LINKS = [
   { label: "Discord", href: DISCORD_URL, ...EXTERNAL_LINK },
 ];
 
-// Both controls open the search dialog the docs already use. That dialog asks
-// /api/search, which the exported site does not have, so results stay empty
-// until a prebuilt index replaces it.
+// Both controls open the same search dialog. The hint shows "/", which
+// search-shortcut.tsx listens for; Ctrl/⌘ K still works as well. The data
+// attribute lets the dialog find whichever one is showing when it closes.
 function SearchControls() {
-  const { enabled, hotKey, setOpenSearch } = useSearchContext();
+  const { enabled, setOpenSearch } = useSearchContext();
   if (!enabled) return null;
 
   return (
     <>
       <button
         type="button"
+        aria-keyshortcuts="/"
+        data-docs-search=""
         onClick={() => setOpenSearch(true)}
         className={`mx-auto hidden min-h-lm-touch max-w-[360px] min-w-0 flex-1 cursor-pointer items-center gap-2.5 rounded-lm-button-sm border border-lm-line-strong bg-lm-card px-3.5 text-sm text-lm-ink-muted transition-colors duration-(--lm-dur-instant) hover:border-lm-ink-faint tablet:flex ${FOCUS_RING}`}
       >
         <Search size={16} aria-hidden="true" />
         <span className="flex-1 truncate text-left">Search all docs</span>
-        <span aria-hidden="true" className="hidden gap-1 desktop:inline-flex">
-          {hotKey.map((key, index) => (
-            <kbd
-              key={index}
-              className="rounded-md border border-lm-line-strong px-1.5 font-mono text-xs"
-            >
-              {key.display}
-            </kbd>
-          ))}
-        </span>
+        <kbd
+          aria-hidden="true"
+          className="hidden rounded-md border border-lm-line-strong px-1.5 font-mono text-xs desktop:inline"
+        >
+          /
+        </kbd>
       </button>
       <button
         type="button"
         aria-label="Search docs"
+        aria-keyshortcuts="/"
+        data-docs-search=""
         onClick={() => setOpenSearch(true)}
         className={`${buttonClass("icon")} ml-auto tablet:hidden`}
       >
