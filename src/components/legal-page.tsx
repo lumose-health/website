@@ -1,6 +1,5 @@
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { isV2Preview } from "@/lib/v2/preview";
 
 interface LegalPageProps {
   title: string;
@@ -9,18 +8,6 @@ interface LegalPageProps {
   /** Optional one-line summary shown under the title. */
   intro?: string;
   children: React.ReactNode;
-}
-
-// Loaded on demand, and only in a preview build. A plain import would put the
-// new fonts on every page that uses this file, in every build. The check is
-// written out, not isV2Preview(), because the bundler only drops the import
-// when it can see the inlined value from next.config.ts right here.
-async function PreviewLegalPage(props: LegalPageProps) {
-  if (process.env.NEXT_PUBLIC_V2_PREVIEW === "1") {
-    const { LegalShell } = await import("@/components/v2/legal-shell");
-    return <LegalShell {...props} />;
-  }
-  return null;
 }
 
 /**
@@ -33,12 +20,16 @@ async function PreviewLegalPage(props: LegalPageProps) {
  */
 export function LegalPage({ title, lastUpdated, intro, children }: LegalPageProps) {
   // The new look, in preview builds only. The words are the same either way.
-  if (isV2Preview()) {
-    return (
-      <PreviewLegalPage title={title} lastUpdated={lastUpdated} intro={intro}>
+  // The shell is imported here, on demand, because a plain import would put
+  // the new fonts on every page that uses this file, in every build. The check
+  // reads the value next.config.ts inlines, which is what lets the bundler
+  // drop the import from other builds. Anything but "1" gets the page below.
+  if (process.env.NEXT_PUBLIC_V2_PREVIEW === "1") {
+    return import("@/components/v2/legal-shell").then(({ LegalShell }) => (
+      <LegalShell title={title} lastUpdated={lastUpdated} intro={intro}>
         {children}
-      </PreviewLegalPage>
-    );
+      </LegalShell>
+    ));
   }
 
   return (
