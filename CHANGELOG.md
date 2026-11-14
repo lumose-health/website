@@ -4,6 +4,21 @@
 
 ### 🌐 Website
 
+#### ✨ New Features
+
+- feat(v2): add the docs source bar behind the preview flag [@jlengelbrecht](https://github.com/jlengelbrecht) ([#746](https://github.com/lumose-health/website/pull/746))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#747](https://github.com/lumose-health/website/pull/747))
+
+<!-- changelog-cutoff:2026-11-14T19:21:03Z -->
+
+
+## 2026-11-14
+
+### 🌐 Website
+
 #### 🐛 Bug Fixes
 
 - fix(v2): drop dosing-setting suggestion lines from the changelog [@jlengelbrecht](https://github.com/jlengelbrecht) ([#743](https://github.com/lumose-health/website/pull/743))
