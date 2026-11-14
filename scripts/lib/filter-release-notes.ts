@@ -55,6 +55,7 @@ export type DropReason =
   | "dependency"
   | "banned"
   | "safety-claim"
+  | "dosing-advice"
   | "no-group"
   | "empty"
   | "duplicate";
@@ -77,6 +78,11 @@ const BANNED_WORD_STEMS = ["fcm", "apns"];
 // about stopping doses. Lines that only count or import doses are not claims.
 const SAFETY_CLAIM =
   /guardrail|safety[\s-]+(?:layer|scaffolding|limits?|enforcement)|never[\s-]*dose|\bblock\w*\b[^.;]*\binsulin[\s-]+dos(?:es?|ing)\b/i;
+// Suggestions about insulin dosing settings, which the site says it doesn't give: a
+// setting named on the same line as a suggestion or recommendation. Lines that only
+// show, sync or convert a setting are not advice.
+const DOSING_SETTING = /\bISF\b|\binsulin[\s-]+sensitivit|\bcorrection[\s-]+factor|\bcarb(?:ohydrate)?s?[\s-]*ratio/i;
+const ADVICE = /\b(?:suggest|recommend)/i;
 // Wording fixes for kept lines whose phrasing reads as a safety claim.
 const REWRITES: readonly (readonly [RegExp, string])[] = [
   [/\bmmol\/L unit safety\b/i, "mmol/L units"],
@@ -118,6 +124,11 @@ export function isBanned(raw: string): boolean {
 /** True when a line makes a safety claim, checked with and without its markdown. */
 export function isSafetyClaim(raw: string): boolean {
   return SAFETY_CLAIM.test(decodeEntities(raw)) || SAFETY_CLAIM.test(plain(raw));
+}
+
+/** True when a line offers suggestions about a dosing setting, checked with and without its markdown. */
+export function isDosingAdvice(raw: string): boolean {
+  return [decodeEntities(raw), plain(raw)].some((t) => DOSING_SETTING.test(t) && ADVICE.test(t));
 }
 
 const TYPE_HEADINGS: Record<string, Group | null> = {
@@ -276,6 +287,7 @@ export function classifyLine(raw: string, area: string | null, heading: Group | 
   // Checked on the raw line so a banned word in a link or scope can't slip through.
   if (isBanned(raw)) return drop("banned");
   if (isSafetyClaim(raw)) return drop("safety-claim");
+  if (isDosingAdvice(raw)) return drop("dosing-advice");
 
   const p = parseItem(raw);
   if (isBot(p.author, raw)) return drop("bot");
