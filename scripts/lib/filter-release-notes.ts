@@ -79,10 +79,28 @@ const BANNED_WORD_STEMS = ["fcm", "apns"];
 const SAFETY_CLAIM =
   /guardrail|safety[\s-]+(?:layer|scaffolding|limits?|enforcement)|never[\s-]*dose|\bblock\w*\b[^.;]*\binsulin[\s-]+dos(?:es?|ing)\b/i;
 // Suggestions about insulin dosing settings, which the site says it doesn't give: a
-// setting named on the same line as a suggestion or recommendation. Lines that only
-// show, sync or convert a setting are not advice.
-const DOSING_SETTING = /\bISF\b|\binsulin[\s-]+sensitivit|\bcorrection[\s-]+factor|\bcarb(?:ohydrate)?s?[\s-]*ratio/i;
-const ADVICE = /\b(?:suggest|recommend)/i;
+// setting named on the same line as a word for advising on it. Lines that only show,
+// sync or convert a setting are not advice. Both are matched against a copy with
+// snake_case and camelCase split into words, so "isf_suggestions" and "carbRatio" count.
+const DOSING_SETTING = new RegExp(
+  [
+    String.raw`\bISFs?\b`,
+    String.raw`\binsulin[\s-]+sensitivit`,
+    String.raw`\bsensitivity[\s-]+factor`,
+    String.raw`\bcorrection[\s-]+factor`,
+    String.raw`\bcarb(?:ohydrate)?s?[\s-]*ratio`,
+    // carb-to-insulin, carb:insulin, insulin-to-carb, I:C ratio, ICR
+    String.raw`\bcarb(?:ohydrate)?s?[\s:/-]*(?:to[\s-]*)?insulin[\s-]*ratio`,
+    String.raw`\binsulin[\s:/-]*(?:to[\s-]*)?carb(?:ohydrate)?s?[\s-]*ratio`,
+    String.raw`\bI\s*[:/]\s*C[\s-]+ratio`,
+    String.raw`\bICRs?\b`,
+    String.raw`\bbasal[\s-]+(?:rates?\b|adjust|profile)`,
+  ].join("|"),
+  "i"
+);
+const ADVICE = /\b(?:suggest|recommend|advice|advis|propos|optimi[sz]|tun(?:e[drs]?|ing)\b)/i;
+/** snake_case and camelCase split into words, so `\b` sees the parts. */
+const splitIdentifiers = (s: string) => s.replace(/_+/g, " ").replace(/([a-z0-9])([A-Z])/g, "$1 $2");
 // Wording fixes for kept lines whose phrasing reads as a safety claim.
 const REWRITES: readonly (readonly [RegExp, string])[] = [
   [/\bmmol\/L unit safety\b/i, "mmol/L units"],
@@ -126,9 +144,11 @@ export function isSafetyClaim(raw: string): boolean {
   return SAFETY_CLAIM.test(decodeEntities(raw)) || SAFETY_CLAIM.test(plain(raw));
 }
 
-/** True when a line offers suggestions about a dosing setting, checked with and without its markdown. */
+/** True when a line offers advice on a dosing setting, checked with and without its markdown. */
 export function isDosingAdvice(raw: string): boolean {
-  return [decodeEntities(raw), plain(raw)].some((t) => DOSING_SETTING.test(t) && ADVICE.test(t));
+  return [decodeEntities(raw), plain(raw)]
+    .map(splitIdentifiers)
+    .some((t) => DOSING_SETTING.test(t) && ADVICE.test(t));
 }
 
 const TYPE_HEADINGS: Record<string, Group | null> = {

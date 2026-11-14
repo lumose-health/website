@@ -223,6 +223,28 @@ test("suggestions about insulin dosing settings are dropped", () => {
     "feat: suggested carbohydrate ratio changes",
     "**api:** insulin-sensitivity recommendations",
     "feat: **ISF** [suggestions](https://example.com)",
+    // Identifier, plural and abbreviated forms of the setting.
+    "feat: isf_suggestions endpoint",
+    "feat: add `carb_ratio` suggestion card",
+    "feat: carbRatio suggestions",
+    "feat: ISFs suggestions",
+    "feat: carb-to-insulin ratio recommendations",
+    "feat: carb:insulin ratio suggestions",
+    "feat: insulin-to-carb ratio suggestions",
+    "feat: suggest I:C ratio changes",
+    "feat: ICR suggestions",
+    "feat: sensitivity factor suggestions",
+    "feat: basal rate suggestions",
+    "feat: suggest basal adjustments",
+    "feat: suggest a basal profile",
+    // Other words for advice.
+    "feat: ISF advice from corrections",
+    "feat: advise on correction factor",
+    "feat: propose correction factor changes",
+    "feat: optimise carb ratios",
+    "feat: optimize carb ratios",
+    "feat: basal rate tuning",
+    "feat: tune ISF from recent corrections",
   ]) {
     assert.equal(classifyLine(line, null, "new").reason, "dosing-advice", line);
   }
@@ -244,7 +266,10 @@ test("lines that name a dosing setting without a suggestion are kept", () => {
   assert.equal(keptText("feat: show carb ratio in the pump settings card"), "Show carb ratio in the pump settings card");
   assert.equal(keptText("feat: display ISF in the profile summary"), "Display ISF in the profile summary");
   assert.equal(keptText("feat: suggest a display name during setup"), "Suggest a display name during setup");
-  const text = "Convert carbRatio from milliunits in Tandem pump profile sync";
+  assert.equal(keptText("feat: show basal rate on the dashboard"), "Show basal rate on the dashboard");
+  assert.equal(keptText("feat: sync carb_ratio and isf_value from the pump"), "Sync carb_ratio and isf_value from the pump");
+  assert.equal(keptText("feat: optimize chart rendering"), "Optimize chart rendering");
+  const text ="Convert carbRatio from milliunits in Tandem pump profile sync";
   assert.ok(REAL_ENTRIES.some((e) => e.text === text), text);
 });
 
