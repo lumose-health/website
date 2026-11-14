@@ -1,5 +1,20 @@
 # Changelog
 
+## 2026-11-14
+
+### 🏗️ Infrastructure
+
+#### 📝 Other Changes
+
+- ci: run release and roadmap syncs in builds and unit tests in CI [@jlengelbrecht](https://github.com/jlengelbrecht) ([#725](https://github.com/lumose-health/website/pull/725))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#726](https://github.com/lumose-health/website/pull/726))
+
+<!-- changelog-cutoff:2026-11-14T01:42:47Z -->
+
+
 ## 2026-11-13
 
 ### 📦 Dependencies
