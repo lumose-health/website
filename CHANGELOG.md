@@ -6,6 +6,21 @@
 
 #### ✨ New Features
 
+- feat(docs): add static docs search with a / shortcut behind the preview flag [@jlengelbrecht](https://github.com/jlengelbrecht) ([#748](https://github.com/lumose-health/website/pull/748))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#749](https://github.com/lumose-health/website/pull/749))
+
+<!-- changelog-cutoff:2026-11-14T20:33:54Z -->
+
+
+## 2026-11-14
+
+### 🌐 Website
+
+#### ✨ New Features
+
 - feat(v2): add the docs source bar behind the preview flag [@jlengelbrecht](https://github.com/jlengelbrecht) ([#746](https://github.com/lumose-health/website/pull/746))
 
 ### ❓ Uncategorized
