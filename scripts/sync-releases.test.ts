@@ -210,14 +210,67 @@ test("lines that only count or import doses are kept", () => {
   }
 });
 
-test("lines the owner hasn't ruled on still pass through", () => {
-  for (const text of [
-    "LLM benchmarking harness for BYOAI model safety/quality",
-    "Add correction factor analysis with ISF suggestions",
-    "Add meal pattern analysis with carb ratio suggestions",
+test("the benchmarking harness line still passes through", () => {
+  const text = "LLM benchmarking harness for BYOAI model safety/quality";
+  assert.ok(REAL_ENTRIES.some((e) => e.text === text), text);
+});
+
+test("suggestions about insulin dosing settings are dropped", () => {
+  for (const line of [
+    "feat: add correction factor analysis with ISF suggestions",
+    "feat: add meal pattern analysis with carb ratio suggestions",
+    "feat: recommend an insulin sensitivity factor from recent corrections",
+    "feat: suggested carbohydrate ratio changes",
+    "**api:** insulin-sensitivity recommendations",
+    "feat: **ISF** [suggestions](https://example.com)",
+    // Identifier, plural and abbreviated forms of the setting.
+    "feat: isf_suggestions endpoint",
+    "feat: add `carb_ratio` suggestion card",
+    "feat: carbRatio suggestions",
+    "feat: ISFs suggestions",
+    "feat: carb-to-insulin ratio recommendations",
+    "feat: carb:insulin ratio suggestions",
+    "feat: insulin-to-carb ratio suggestions",
+    "feat: suggest I:C ratio changes",
+    "feat: ICR suggestions",
+    "feat: sensitivity factor suggestions",
+    "feat: basal rate suggestions",
+    "feat: suggest basal adjustments",
+    "feat: suggest a basal profile",
+    // Other words for advice.
+    "feat: ISF advice from corrections",
+    "feat: advise on correction factor",
+    "feat: propose correction factor changes",
+    "feat: optimise carb ratios",
+    "feat: optimize carb ratios",
+    "feat: basal rate tuning",
+    "feat: tune ISF from recent corrections",
   ]) {
-    assert.ok(REAL_ENTRIES.some((e) => e.text === text), text);
+    assert.equal(classifyLine(line, null, "new").reason, "dosing-advice", line);
   }
+  // The raw notes do contain them, so the test is meaningful.
+  const droppedInReal = REAL.lines.filter((l) => l.reason === "dosing-advice").map((l) => l.raw);
+  const expected = [
+    /correction factor analysis with ISF suggestions/i,
+    /meal pattern analysis with carb ratio suggestions/i,
+  ];
+  // Each is listed in more than one release, and nothing else is caught by the rule.
+  for (const l of droppedInReal) assert.ok(expected.some((re) => re.test(l)), l);
+  for (const dropped of expected) {
+    assert.ok(droppedInReal.some((l) => dropped.test(l)), String(dropped));
+    for (const e of REAL_ENTRIES) assert.doesNotMatch(e.text, dropped, e.text);
+  }
+});
+
+test("lines that name a dosing setting without a suggestion are kept", () => {
+  assert.equal(keptText("feat: show carb ratio in the pump settings card"), "Show carb ratio in the pump settings card");
+  assert.equal(keptText("feat: display ISF in the profile summary"), "Display ISF in the profile summary");
+  assert.equal(keptText("feat: suggest a display name during setup"), "Suggest a display name during setup");
+  assert.equal(keptText("feat: show basal rate on the dashboard"), "Show basal rate on the dashboard");
+  assert.equal(keptText("feat: sync carb_ratio and isf_value from the pump"), "Sync carb_ratio and isf_value from the pump");
+  assert.equal(keptText("feat: optimize chart rendering"), "Optimize chart rendering");
+  const text ="Convert carbRatio from milliunits in Tandem pump profile sync";
+  assert.ok(REAL_ENTRIES.some((e) => e.text === text), text);
 });
 
 test("two kept lines are reworded so they don't read as safety claims", () => {

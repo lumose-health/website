@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-14T06:54:21.893Z",
+  "generatedAt": "2026-11-14T09:47:42.390Z",
   "repo": "lumose-health/lumose",
   "releasesUrl": "https://github.com/lumose-health/lumose/releases",
   "releases": [
@@ -3906,18 +3906,8 @@
       "version": "v0.1.16",
       "date": "2026-02-08",
       "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.16",
-      "maintenance": false,
-      "new": [
-        {
-          "text": "Add correction factor analysis with ISF suggestions",
-          "area": null,
-          "pr": {
-            "number": 40,
-            "url": "https://github.com/lumose-health/lumose/pull/40"
-          },
-          "inDevelopment": false
-        }
-      ],
+      "maintenance": true,
+      "new": [],
       "fixed": [],
       "breaking": []
     },
@@ -3925,18 +3915,8 @@
       "version": "v0.1.15",
       "date": "2026-02-08",
       "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.15",
-      "maintenance": false,
-      "new": [
-        {
-          "text": "Add meal pattern analysis with carb ratio suggestions",
-          "area": null,
-          "pr": {
-            "number": 38,
-            "url": "https://github.com/lumose-health/lumose/pull/38"
-          },
-          "inDevelopment": false
-        }
-      ],
+      "maintenance": true,
+      "new": [],
       "fixed": [],
       "breaking": []
     },

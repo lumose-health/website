@@ -117,6 +117,31 @@ test("titles and focus lines that make safety claims are dropped", () => {
   assert.equal(parsed.dropped.filter((d) => d.reason === "safety-claim").length, 4);
 });
 
+test("titles and focus lines that suggest dosing settings are dropped", () => {
+  // Nothing in the real roadmap is of this kind.
+  assert.ok(!REAL.dropped.some((d) => d.reason === "dosing-advice"));
+
+  const parsed = parseRoadmap(
+    doc(
+      "*Suggested ISF changes, sequenced, not scheduled.*",
+      "## Phase 1 -- A",
+      "**Focus:** Recommend correction factor changes from recent data.",
+      "### Carb Ratio Suggestions",
+      "### Carb Ratio Display",
+      "## Phase 2 -- Insulin Sensitivity Recommendations",
+      "### Hidden under a dropped phase"
+    )
+  );
+  assert.equal(parsed.lead, null);
+  assert.deepEqual(parsed.phases.map((p) => p.label), ["Phase 1"]);
+  assert.equal(parsed.phases[0].focus, null);
+  assert.deepEqual(parsed.phases[0].items, [{ title: "Carb Ratio Display", inDevelopment: false }]);
+  assert.deepEqual(
+    parsed.dropped.filter((d) => d.reason === "dosing-advice").map((d) => d.kind).sort(),
+    ["focus", "item", "lead", "phase"]
+  );
+});
+
 test("AC3: titles and focus lines with banned words are dropped", () => {
   assert.ok(!titles().includes("Predictive Analytics"));
   assert.equal(phase("phase-4")?.focus, null);

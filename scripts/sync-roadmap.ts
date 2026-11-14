@@ -6,7 +6,7 @@
  * titles are kept. Bullets and body text are never published, and the
  * Current State (Delivered) section is left out, because the source still
  * lists alerting as delivered. Titles and focus lines go through the same
- * banned-word and safety-claim checks as the changelog, and every string is
+ * banned-word, safety-claim and dosing-advice checks as the changelog, and every string is
  * plain text.
  *
  * This never fails the build because of GitHub. If the file can't be fetched
@@ -24,7 +24,7 @@ import { existsSync } from "node:fs";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
-import { BANNED, isBanned, isSafetyClaim, plain } from "./lib/filter-release-notes";
+import { BANNED, isBanned, isDosingAdvice, isSafetyClaim, plain } from "./lib/filter-release-notes";
 import { GitHubError } from "./sync-releases";
 
 export const SOURCE_REPO = "lumose-health/.github";
@@ -73,12 +73,20 @@ export interface RoadmapData {
   phases: RoadmapPhase[];
 }
 
-export type DropReason = "banned" | "safety-claim" | "not-a-phase" | "delivered" | "empty" | "too-many";
+export type DropReason =
+  | "banned"
+  | "safety-claim"
+  | "dosing-advice"
+  | "not-a-phase"
+  | "delivered"
+  | "empty"
+  | "too-many";
 
 /** Why a heading or line can't be published, or null when it can. */
-function blocked(raw: string): "banned" | "safety-claim" | null {
+function blocked(raw: string): "banned" | "safety-claim" | "dosing-advice" | null {
   if (isBanned(raw)) return "banned";
-  return isSafetyClaim(raw) ? "safety-claim" : null;
+  if (isSafetyClaim(raw)) return "safety-claim";
+  return isDosingAdvice(raw) ? "dosing-advice" : null;
 }
 
 export interface Dropped {
