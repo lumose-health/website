@@ -8,6 +8,12 @@ import {
   DocsDrawerLinks,
   DocsSidebarTitle,
 } from "@/components/v2/docs/docs-header";
+import {
+  RepoSidebarFolder,
+  RepoSidebarItem,
+  RepoSidebarSeparator,
+} from "@/components/v2/docs/repo-sidebar";
+import { groupDocsTree } from "@/lib/v2/docs-tree";
 import { isV2Preview } from "@/lib/v2/preview";
 
 export default function Layout({ children }: { children: ReactNode }) {
@@ -15,11 +21,12 @@ export default function Layout({ children }: { children: ReactNode }) {
     // The new look: a dark header over a reading surface that stays light.
     // Search, the theme switch and the title move out of the sidebar, because
     // the header carries the first and the last and there is no theme choice.
+    // The sidebar lists pages by the repo they come from.
     return (
       <RootProvider theme={{ enabled: false }}>
         <div className="lm-docs">
           <DocsLayout
-            tree={source.pageTree}
+            tree={groupDocsTree(source.pageTree)}
             nav={{ enabled: false }}
             slots={{ container: DocsContainer, navTitle: DocsSidebarTitle }}
             searchToggle={{ enabled: false }}
@@ -29,6 +36,11 @@ export default function Layout({ children }: { children: ReactNode }) {
               defaultOpenLevel: 1,
               collapsible: false,
               banner: <DocsDrawerLinks />,
+              components: {
+                Item: RepoSidebarItem,
+                Folder: RepoSidebarFolder,
+                Separator: RepoSidebarSeparator,
+              },
             }}
           >
             {children}
