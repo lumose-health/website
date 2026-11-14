@@ -40,7 +40,8 @@ function focusHashTarget() {
 /**
  * The side list of sections on a content page, from 1020px up. Links are plain
  * fragments, so it works without JS. With JS, the section being read is
- * marked by color alone, and a jump moves focus to its heading.
+ * marked with aria-current and a colored edge, and a jump moves focus to its
+ * heading.
  */
 export function ContentRail({
   label,
@@ -74,13 +75,16 @@ export function ContentRail({
       // Sections near the end can't reach the line, because the page runs out
       // of scroll first. At the foot of a scrolled page, mark the section the
       // reader jumped to while its heading is on screen, or else the last one.
+      // A page too short to scroll is always at its foot, so a jump there marks
+      // its heading too, and with no jump the first section stays marked.
       const page = document.documentElement;
-      if (window.scrollY > 0 && window.scrollY + window.innerHeight >= page.scrollHeight - 2) {
+      if (window.scrollY + window.innerHeight >= page.scrollHeight - 2) {
         const id = hashId();
         const jumped = targets.find((el) => el.id === id);
         const top = jumped?.getBoundingClientRect().top;
         const onScreen = top !== undefined && top >= 0 && top < window.innerHeight;
-        active = jumped && onScreen ? jumped.id : targets[targets.length - 1].id;
+        if (jumped && onScreen) active = jumped.id;
+        else if (window.scrollY > 0) active = targets[targets.length - 1].id;
       }
       setCurrent(active);
     };
@@ -111,12 +115,15 @@ export function ContentRail({
             <li key={item.id} className="h-9">
               <a
                 href={`#${item.id}`}
+                aria-current={isCurrent ? "location" : undefined}
                 // Re-clicking the current link fires no hashchange, so focus it here too.
                 onClick={() => requestAnimationFrame(focusHashTarget)}
                 className={`-my-1 flex min-h-lm-touch items-center border-l-2 pl-3.5 text-sm transition-colors duration-(--lm-dur-instant) hover:text-lm-ink ${FOCUS_RING} ${
+                  // Forced colors paint a transparent edge as text, so there the
+                  // current item takes the system highlight and the rest match the page.
                   isCurrent
-                    ? "border-lm-blue-light text-lm-ink"
-                    : "border-transparent text-lm-ink-muted"
+                    ? "border-lm-blue-light text-lm-ink forced-colors:border-[Highlight]"
+                    : "border-transparent text-lm-ink-muted forced-colors:border-[Canvas]"
                 }`}
               >
                 {item.label}

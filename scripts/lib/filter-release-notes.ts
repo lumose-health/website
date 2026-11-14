@@ -73,8 +73,15 @@ const BANNED_STEMS = ["telegram", "predict", "pushnotif", "alarm", "alwaysfires"
 // Short stems can appear across word boundaries once spaces are gone ("of cmd"), so
 // they are matched against each squashed word instead.
 const BANNED_WORD_STEMS = ["fcm", "apns"];
-// Claims about safety that the site doesn't make.
-const SAFETY_CLAIM = /guardrail|safety layer|never[\s-]*dose/i;
+// Claims about safety that the site doesn't make: a named safety mechanism, or a line
+// about stopping doses. Lines that only count or import doses are not claims.
+const SAFETY_CLAIM =
+  /guardrail|safety[\s-]+(?:layer|scaffolding|limits?|enforcement)|never[\s-]*dose|\bblock\w*\b[^.;]*\binsulin[\s-]+dos(?:es?|ing)\b/i;
+// Wording fixes for kept lines whose phrasing reads as a safety claim.
+const REWRITES: readonly (readonly [RegExp, string])[] = [
+  [/\bmmol\/L unit safety\b/i, "mmol/L units"],
+  [/\bsafety-language hardening\b/i, "wording hardening"],
+];
 const IN_DEVELOPMENT = /alert|escalat|notif|emergency|urgent|siren/i;
 
 // Cyrillic and Greek letters that look like Latin ones.
@@ -106,6 +113,11 @@ export function isBanned(raw: string): boolean {
   // Cyrillic or Greek letters that don't fold to Latin could be hiding a word.
   const unfolded = text.normalize("NFKC").toLowerCase().replace(/./gu, (c) => (LOOKALIKES[c] ? "" : c));
   return /[\p{Script=Cyrillic}\p{Script=Greek}]/u.test(unfolded);
+}
+
+/** True when a line makes a safety claim, checked with and without its markdown. */
+export function isSafetyClaim(raw: string): boolean {
+  return SAFETY_CLAIM.test(decodeEntities(raw)) || SAFETY_CLAIM.test(plain(raw));
 }
 
 const TYPE_HEADINGS: Record<string, Group | null> = {
@@ -240,6 +252,8 @@ function cleanText(text: string): string {
   let t = plain(text).replace(REF_PAREN, "");
   for (const re of TRACKER_PAREN) t = t.replace(re, "");
   t = t.replace(REF_PREFIX, "").replace(LEADING_EPIC, "").replace(/\s+([.,;:])/g, "$1").trim();
+  // Before the capital letter is set, so a reworded first word still gets one.
+  for (const [from, to] of REWRITES) t = t.replace(from, to);
   if (t.length > MAX_TEXT) t = t.slice(0, MAX_TEXT - 1).trimEnd() + "…";
   // Capitalize, but leave identifiers and units such as mmol/L, xDrip+ or ns_emulator alone.
   const first = t.split(" ", 1)[0];
@@ -261,7 +275,7 @@ export function classifyLine(raw: string, area: string | null, heading: Group | 
   if (heading === null) return drop("other-changes");
   // Checked on the raw line so a banned word in a link or scope can't slip through.
   if (isBanned(raw)) return drop("banned");
-  if (SAFETY_CLAIM.test(decodeEntities(raw)) || SAFETY_CLAIM.test(plain(raw))) return drop("safety-claim");
+  if (isSafetyClaim(raw)) return drop("safety-claim");
 
   const p = parseItem(raw);
   if (isBot(p.author, raw)) return drop("bot");

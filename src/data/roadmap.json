@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-09T20:28:27.221Z",
+  "generatedAt": "2026-11-14T06:54:23.255Z",
   "source": {
     "repo": "lumose-health/.github",
     "path": "docs/roadmap.md",
@@ -30,10 +30,6 @@
         },
         {
           "title": "Platform Stability",
-          "inDevelopment": false
-        },
-        {
-          "title": "Platform Safety Enforcement Layer",
           "inDevelopment": false
         },
         {
