@@ -134,3 +134,63 @@ test("a late failure from an old URL does not undo the retry", async () => {
   client.calls[3].resolve("ok");
   await Promise.all([retry, typedDuringRetry]);
 });
+
+test("a stalled download fails at the timeout and the next search retries", async (t) => {
+  t.mock.timers.enable({ apis: ["setTimeout"] });
+  const loader = createIndexLoader(BASE, 3, 20_000);
+  const client = fakeClient();
+  const stalled = loader.run(client.search);
+  const alsoWaiting = loader.run(client.search);
+
+  t.mock.timers.tick(19_999);
+  assert.equal(client.calls.length, 2);
+  t.mock.timers.tick(1);
+  await assert.rejects(stalled, /too long/);
+  await assert.rejects(alsoWaiting, /too long/);
+
+  const retry = loader.run(client.search);
+  assert.equal(client.calls.at(-1)?.from, `${BASE}?retry=1`);
+
+  // The stalled attempt finishing now must not mark the retry as loaded.
+  client.calls[0].resolve("late");
+  client.calls[1].reject(down());
+  await Promise.resolve();
+  const typedDuringRetry = loader.run(client.search);
+  assert.equal(client.calls.at(-1)?.from, `${BASE}?retry=1`);
+
+  // The retry is still on the clock: it can time out too.
+  t.mock.timers.tick(20_000);
+  await assert.rejects(retry, /too long/);
+  await assert.rejects(typedDuringRetry, /too long/);
+  assert.equal(loader.exhausted, false);
+});
+
+test("timeouts count toward the retry cap", async (t) => {
+  t.mock.timers.enable({ apis: ["setTimeout"] });
+  const loader = createIndexLoader(BASE, 3, 20_000);
+  const client = fakeClient();
+  for (let i = 0; i < 4; i++) {
+    const run = loader.run(client.search);
+    t.mock.timers.tick(20_000);
+    await assert.rejects(run, /too long/);
+  }
+  assert.equal(loader.exhausted, true);
+  await assert.rejects(loader.run(client.search));
+  assert.equal(client.calls.length, 4);
+});
+
+test("a download that finishes in time stops the clock", async (t) => {
+  t.mock.timers.enable({ apis: ["setTimeout"] });
+  const loader = createIndexLoader(BASE, 3, 20_000);
+  const client = fakeClient();
+  const first = loader.run(client.search);
+  client.calls[0].resolve("ok");
+  assert.equal(await first, "ok");
+
+  t.mock.timers.tick(60_000);
+  const later = loader.run(client.search);
+  client.calls[1].resolve("ok");
+  assert.equal(await later, "ok");
+  assert.deepEqual(client.urls(), [BASE]);
+  assert.equal(loader.exhausted, false);
+});

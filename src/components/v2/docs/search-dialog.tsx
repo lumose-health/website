@@ -89,9 +89,16 @@ export default function DocsSearchDialog(props: SharedProps) {
           <SearchDialogClose />
         </SearchDialogHeader>
         <SearchDialogList />
+        {/* Always in the page, so screen readers hear it when the text
+            arrives. Fumadocs announces "Search failed" on its own, earlier
+            and with different words, and the line below is kept out of the
+            way so this is said once. */}
+        <p role="status" className="sr-only">
+          {gaveUp ? "The search index did not load. Try again is available." : ""}
+        </p>
         {gaveUp && (
           <div className="flex items-center justify-between gap-3 p-3 text-sm">
-            <span>The search index did not load.</span>
+            <span aria-hidden="true">The search index did not load.</span>
             <button
               type="button"
               className="min-h-lm-touch cursor-pointer rounded-md border px-3 font-medium text-lm-docs-link hover:text-lm-docs-link-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lm-docs-link"
