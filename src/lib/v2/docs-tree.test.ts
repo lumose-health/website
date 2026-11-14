@@ -135,6 +135,23 @@ test("a group fills in by itself once its path has pages", () => {
   assert.equal(ios.children[0].name, COMING_SOON);
 });
 
+test("a link that leaves the docs does not decide a folder's group", () => {
+  const grouped = groupDocsTree(
+    liveTree([
+      folder("Android", [
+        page("Source", "https://github.com/lumose-health/android-unofficial"),
+        page("Install the app", "/docs/android/install"),
+      ]),
+    ]),
+  );
+  const [, android] = groups(grouped);
+
+  assert.deepEqual(
+    android.children.map((node) => node.name),
+    ["Source", "Install the app"],
+  );
+});
+
 test("a single page at a group's path joins the group too", () => {
   const grouped = groupDocsTree(liveTree([page("iOS", "/docs/ios/")]));
   const [, , ios] = groups(grouped);

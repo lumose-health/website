@@ -55,13 +55,24 @@ export function isCurrentPage(href: string, pathname: string): boolean {
   return stripTrailingSlash(href) === stripTrailingSlash(pathname);
 }
 
-/** The first page link in a node, reading a folder's own page first. */
-function firstUrl(node: PageTree.Node): string | undefined {
-  if (node.type === "page") return node.url;
-  if (node.type !== "folder") return undefined;
-  if (node.index) return node.index.url;
+/**
+ * The first docs page a node links to, reading a folder's own page first.
+ * Links that leave the docs, such as one to GitHub, say nothing about where
+ * a folder belongs, so they are passed over.
+ */
+function firstDocsUrl(
+  node: PageTree.Node,
+  baseUrl: string,
+): string | undefined {
+  if (node.type === "separator") return undefined;
+  if (node.type === "page") {
+    const inDocs = node.url === baseUrl || node.url.startsWith(`${baseUrl}/`);
+    return inDocs ? node.url : undefined;
+  }
+  const own = node.index && firstDocsUrl(node.index, baseUrl);
+  if (own) return own;
   for (const child of node.children) {
-    const url = firstUrl(child);
+    const url = firstDocsUrl(child, baseUrl);
     if (url) return url;
   }
   return undefined;
@@ -72,7 +83,7 @@ function groupFor(
   groups: readonly DocsGroup[],
   baseUrl: string,
 ): DocsGroup | undefined {
-  const url = firstUrl(node);
+  const url = firstDocsUrl(node, baseUrl);
   if (!url) return undefined;
   const target = stripTrailingSlash(url);
   return groups.find((group) => {
