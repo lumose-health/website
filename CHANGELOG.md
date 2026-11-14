@@ -4,6 +4,25 @@
 
 ### 🌐 Website
 
+#### 🐛 Bug Fixes
+
+- fix(docs): stop the page jumping on header focus, plus review fixes [@jlengelbrecht](https://github.com/jlengelbrecht) ([#750](https://github.com/lumose-health/website/pull/750))
+
+### 📦 Dependencies
+
+- chore(deps): update dependency tar to v7.5.23 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#753](https://github.com/lumose-health/website/pull/753))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#751](https://github.com/lumose-health/website/pull/751))
+
+<!-- changelog-cutoff:2026-11-14T22:07:22Z -->
+
+
+## 2026-11-14
+
+### 🌐 Website
+
 #### ✨ New Features
 
 - feat(docs): add static docs search with a / shortcut behind the preview flag [@jlengelbrecht](https://github.com/jlengelbrecht) ([#748](https://github.com/lumose-health/website/pull/748))
