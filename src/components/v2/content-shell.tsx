@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 type ContentShellProps = {
   title: string;
-  lead: string;
+  lead?: string;
   /** Side navigation, shown from 1020px up. Pages without one get a narrower column. */
   rail?: ReactNode;
   children: ReactNode;
@@ -32,7 +32,9 @@ export function ContentShell({ title, lead, rail, children }: ContentShellProps)
         )}
         <div className={`mx-auto min-w-0 ${column}`}>
           <h1 className="font-lm-display text-lm-h2 text-balance">{title}</h1>
-          <p className="mt-3.5 text-lm-lead text-lm-ink-muted">{lead}</p>
+          {lead && (
+            <p className="mt-3.5 text-lm-lead text-lm-ink-muted">{lead}</p>
+          )}
           <div className="mt-12">{children}</div>
         </div>
       </div>
