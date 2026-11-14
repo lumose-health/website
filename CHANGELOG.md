@@ -2,6 +2,21 @@
 
 ## 2026-11-14
 
+### 🌐 Website
+
+#### ✨ New Features
+
+- feat(docs): add the light docs surface behind the preview flag [@jlengelbrecht](https://github.com/jlengelbrecht) ([#736](https://github.com/lumose-health/website/pull/736))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#738](https://github.com/lumose-health/website/pull/738))
+
+<!-- changelog-cutoff:2026-11-14T08:06:20Z -->
+
+
+## 2026-11-14
+
 ### 📚 Documentation
 
 - chore(docs): pull docs from the lumose-health repos [@jlengelbrecht](https://github.com/jlengelbrecht) ([#733](https://github.com/lumose-health/website/pull/733))
