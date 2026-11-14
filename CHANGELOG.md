@@ -2,6 +2,19 @@
 
 ## 2026-11-14
 
+### 📚 Documentation
+
+- chore(docs): pull docs from the lumose-health repos [@jlengelbrecht](https://github.com/jlengelbrecht) ([#733](https://github.com/lumose-health/website/pull/733))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#737](https://github.com/lumose-health/website/pull/737))
+
+<!-- changelog-cutoff:2026-11-14T08:04:35Z -->
+
+
+## 2026-11-14
+
 ### 🌐 Website
 
 #### 🐛 Bug Fixes
