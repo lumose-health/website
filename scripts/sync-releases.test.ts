@@ -177,6 +177,58 @@ test("lines that make safety claims are dropped", () => {
   for (const e of REAL_ENTRIES) assert.doesNotMatch(e.text, /guardrail|safety layer|never[\s-]*dose/i, e.text);
 });
 
+test("lines about safety mechanisms and blocked doses are dropped", () => {
+  for (const line of [
+    "feat: block verb-independent specific insulin doses",
+    "feat: backend treatment safety scaffolding",
+    "feat: Gradle module split and backend-synced safety limits",
+    "feat: add a safety-limit check",
+    "feat: platform safety enforcement",
+    "fix: blocking of insulin dosing advice",
+  ]) {
+    assert.equal(classifyLine(line, null, "new").reason, "safety-claim", line);
+  }
+  // The raw notes do contain them, so the test is meaningful.
+  const raw = JSON.stringify(FIXTURE);
+  for (const dropped of [
+    /block verb-independent specific insulin doses/i,
+    /backend treatment safety scaffolding/i,
+    /backend-synced safety limits/i,
+  ]) {
+    assert.match(raw, dropped);
+    for (const e of REAL_ENTRIES) assert.doesNotMatch(e.text, dropped, e.text);
+  }
+});
+
+test("lines that only count or import doses are kept", () => {
+  for (const text of [
+    "Count non-pump insulin doses past the pump IoB anchor",
+    "Ingest smart-pen insulin doses (NovoPen 6 / Echo Plus) via Glooko",
+    "Harden Glooko host validation, 421 posture, and dose ingestion bounds",
+  ]) {
+    assert.ok(REAL_ENTRIES.some((e) => e.text === text), text);
+  }
+});
+
+test("lines the owner hasn't ruled on still pass through", () => {
+  for (const text of [
+    "LLM benchmarking harness for BYOAI model safety/quality",
+    "Add correction factor analysis with ISF suggestions",
+    "Add meal pattern analysis with carb ratio suggestions",
+  ]) {
+    assert.ok(REAL_ENTRIES.some((e) => e.text === text), text);
+  }
+});
+
+test("two kept lines are reworded so they don't read as safety claims", () => {
+  assert.equal(keptText("fix: harden glucose ingestion for mmol/L unit safety"), "Harden glucose ingestion for mmol/L units");
+  assert.equal(keptText("feat: meal-vision safety-language hardening"), "Meal-vision wording hardening");
+  const texts = REAL_ENTRIES.map((e) => e.text);
+  assert.ok(texts.includes("Harden glucose ingestion for mmol/L units"));
+  assert.ok(texts.includes("Meal-vision wording hardening"));
+  for (const t of texts) assert.doesNotMatch(t, /unit safety|safety-language/i, t);
+});
+
 test("AC5: alerting-related lines are kept and flagged in development", () => {
   const a = classifyLine("add alert threshold configuration (Story 6.1)", "API", "new").kept;
   assert.equal(a?.inDevelopment, true);

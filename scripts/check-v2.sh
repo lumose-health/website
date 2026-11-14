@@ -14,11 +14,13 @@ fail() {
 }
 
 # noindex must come from a robots meta tag, not a stray string in the page data.
-if grep -Eq '<meta name="robots" content="noindex, nofollow"' out/v2.html 2>/dev/null; then
-  pass "out/v2.html has a noindex robots tag"
-else
-  fail "out/v2.html is missing or has no noindex robots tag"
-fi
+for file in out/v2.html out/v2/changelog.html out/v2/roadmap.html out/v2/rename.html; do
+  if grep -Eq '<meta name="robots" content="noindex, nofollow"' "$file" 2>/dev/null; then
+    pass "$file has a noindex robots tag"
+  else
+    fail "$file is missing or has no noindex robots tag"
+  fi
+done
 
 for file in out/sitemap.xml out/robots.txt out/index.html; do
   if [ ! -f "$file" ]; then
@@ -47,7 +49,7 @@ else
 fi
 
 banned='telegram|predict|push notif|ios alarm|fcm|apns|always fires|never waits|forecast|projection'
-scan_paths=(src/components/v2 src/app/v2 src/data)
+scan_paths=(src/components/v2 src/app/v2 src/data content/pages)
 
 hits=$(grep -rIinE "$banned" "${scan_paths[@]}")
 status=$?
