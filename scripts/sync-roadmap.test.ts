@@ -90,6 +90,33 @@ test("AC2: bullets and body text are never published, and Delivered is left out"
   }
 });
 
+test("titles and focus lines that make safety claims are dropped", () => {
+  assert.match(FIXTURE, /^### Platform Safety Enforcement Layer$/m);
+  assert.ok(!titles().includes("Platform Safety Enforcement Layer"));
+  assert.ok(
+    REAL.dropped.some(
+      (d) => d.kind === "item" && d.text === "Platform Safety Enforcement Layer" && d.reason === "safety-claim"
+    )
+  );
+  assert.ok(!/safety enforcement|safety layer/i.test(REAL_JSON));
+
+  const parsed = parseRoadmap(
+    doc(
+      "## Phase 1 -- A",
+      "**Focus:** Add safety enforcement to plugins.",
+      "### Safety Enforcement",
+      "### AI Guardrails",
+      "### Kept",
+      "## Phase 2 -- Safety Layer",
+      "### Hidden under a dropped phase"
+    )
+  );
+  assert.deepEqual(parsed.phases.map((p) => p.label), ["Phase 1"]);
+  assert.equal(parsed.phases[0].focus, null);
+  assert.deepEqual(parsed.phases[0].items, [{ title: "Kept", inDevelopment: false }]);
+  assert.equal(parsed.dropped.filter((d) => d.reason === "safety-claim").length, 4);
+});
+
 test("AC3: titles and focus lines with banned words are dropped", () => {
   assert.ok(!titles().includes("Predictive Analytics"));
   assert.equal(phase("phase-4")?.focus, null);
