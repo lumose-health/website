@@ -40,7 +40,8 @@ const PHASE_ID = /^[a-z][a-z0-9-]*$/;
 const seen = new Set<string>();
 
 const phases: RoadmapPhase[] = (Array.isArray(data.phases) ? data.phases : [])
-  .filter((p) => PHASE_ID.test(text(p?.id)) && text(p.title).length > 0)
+  .map((p) => ({ ...p, id: text(p?.id) }))
+  .filter((p) => PHASE_ID.test(p.id) && text(p.title).length > 0)
   .filter((p) => !seen.has(p.id) && seen.add(p.id))
   .map((p) => ({
     id: p.id,

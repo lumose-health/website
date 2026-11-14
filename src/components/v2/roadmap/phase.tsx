@@ -47,7 +47,7 @@ export function Phase({ phase }: { phase: RoadmapPhase }) {
               className="break-inside-avoid border-t border-lm-line-subtle py-3 [overflow-wrap:anywhere]"
             >
               {item.inDevelopment ? `${item.title} ` : item.title}
-              {item.inDevelopment && <QuietPill status="in-development" />}
+              {item.inDevelopment && <QuietPill status="in-development" scope="alerts" />}
             </li>
           ))}
         </ul>
