@@ -1,0 +1,22 @@
+---
+title: GlycemicGPT is now Lumose
+description: The project has a new name. Some parts still carry the old one.
+---
+
+## What changed
+
+- The project is now called Lumose.
+- The site is `lumose.org`, and `glycemicgpt.org` redirects to it.
+- The code is at `github.com/lumose-health/lumose`. Old repository links redirect.
+
+## What hasn't changed yet
+
+- In releases up to v0.16.0, container images still use `glycemicgpt` names, such as `glycemicgpt-api`.
+- The default database name and user are still `glycemicgpt`.
+- The Android app and project email addresses still use the old name.
+
+## Before you upgrade
+
+New image names are merged but not released yet. Docker Compose names volumes after the folder it runs in, so a fresh clone in a new folder starts with empty volumes while your data stays in the old ones.
+
+Read the <NoteLink to="changelog">Changelog</NoteLink> before upgrading. For a new install, follow the <NoteLink to="setup">setup guide</NoteLink>. Questions are welcome on <NoteLink to="discord">Discord</NoteLink>.

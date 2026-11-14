@@ -51,7 +51,7 @@ function Entry({ entry }: { entry: ChangelogEntry }) {
     <li className="flex flex-col gap-x-6 gap-y-1 py-3 tablet:flex-row tablet:items-baseline tablet:justify-between">
       <p className="min-w-0 [overflow-wrap:anywhere]">
         {entry.inDevelopment ? `${entry.text} ` : entry.text}
-        {entry.inDevelopment && <QuietPill status="in-development" />}
+        {entry.inDevelopment && <QuietPill status="in-development" scope="alerts" />}
       </p>
       {(entry.area || entry.prUrl) && (
         <p className="flex shrink-0 items-center gap-3 font-lm-mono text-xs font-medium text-lm-ink-faint">

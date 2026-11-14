@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-09T18:20:31.838Z",
+  "generatedAt": "2026-11-14T06:54:21.893Z",
   "repo": "lumose-health/lumose",
   "releasesUrl": "https://github.com/lumose-health/lumose/releases",
   "releases": [
@@ -500,15 +500,6 @@
           "inDevelopment": false
         },
         {
-          "text": "Block verb-independent specific insulin doses",
-          "area": "API",
-          "pr": {
-            "number": 829,
-            "url": "https://github.com/lumose-health/lumose/pull/829"
-          },
-          "inDevelopment": false
-        },
-        {
           "text": "Return 404 when a record is deleted mid common-food promotion",
           "area": "API",
           "pr": {
@@ -529,7 +520,7 @@
       ],
       "breaking": [
         {
-          "text": "Harden glucose ingestion for mmol/L unit safety",
+          "text": "Harden glucose ingestion for mmol/L units",
           "area": "Mobile",
           "pr": {
             "number": 806,
@@ -582,7 +573,7 @@
           "inDevelopment": false
         },
         {
-          "text": "Meal-vision safety-language hardening",
+          "text": "Meal-vision wording hardening",
           "area": "Mobile",
           "pr": {
             "number": 753,
@@ -1887,29 +1878,11 @@
           "inDevelopment": false
         },
         {
-          "text": "Gradle module split and backend-synced safety limits",
-          "area": null,
-          "pr": {
-            "number": 282,
-            "url": "https://github.com/lumose-health/lumose/pull/282"
-          },
-          "inDevelopment": false
-        },
-        {
           "text": "General-purpose plugin platform architecture",
           "area": null,
           "pr": {
             "number": 289,
             "url": "https://github.com/lumose-health/lumose/pull/289"
-          },
-          "inDevelopment": false
-        },
-        {
-          "text": "Backend treatment safety scaffolding",
-          "area": null,
-          "pr": {
-            "number": 291,
-            "url": "https://github.com/lumose-health/lumose/pull/291"
           },
           "inDevelopment": false
         },

@@ -6,7 +6,8 @@
  * titles are kept. Bullets and body text are never published, and the
  * Current State (Delivered) section is left out, because the source still
  * lists alerting as delivered. Titles and focus lines go through the same
- * banned-word check as the changelog, and every string is plain text.
+ * banned-word and safety-claim checks as the changelog, and every string is
+ * plain text.
  *
  * This never fails the build because of GitHub. If the file can't be fetched
  * or parses to nothing usable, the existing JSON is kept. With no JSON yet, an
@@ -23,7 +24,7 @@ import { existsSync } from "node:fs";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
-import { BANNED, isBanned, plain } from "./lib/filter-release-notes";
+import { BANNED, isBanned, isSafetyClaim, plain } from "./lib/filter-release-notes";
 import { GitHubError } from "./sync-releases";
 
 export const SOURCE_REPO = "lumose-health/.github";
@@ -72,7 +73,13 @@ export interface RoadmapData {
   phases: RoadmapPhase[];
 }
 
-export type DropReason = "banned" | "not-a-phase" | "delivered" | "empty" | "too-many";
+export type DropReason = "banned" | "safety-claim" | "not-a-phase" | "delivered" | "empty" | "too-many";
+
+/** Why a heading or line can't be published, or null when it can. */
+function blocked(raw: string): "banned" | "safety-claim" | null {
+  if (isBanned(raw)) return "banned";
+  return isSafetyClaim(raw) ? "safety-claim" : null;
+}
 
 export interface Dropped {
   kind: "lead" | "phase" | "focus" | "item";
@@ -153,9 +160,10 @@ export function parseRoadmap(doc: string): { lead: string | null; phases: Roadma
         continue;
       }
       section = "phase";
-      if (isBanned(h[2])) {
+      const phaseBlock = blocked(h[2]);
+      if (phaseBlock) {
         section = "skip";
-        dropped.push({ kind: "phase", text: heading, reason: "banned" });
+        dropped.push({ kind: "phase", text: heading, reason: phaseBlock });
         continue;
       }
       if (phases.length >= MAX_PHASES) {
@@ -177,7 +185,8 @@ export function parseRoadmap(doc: string): { lead: string | null; phases: Roadma
     if (h && h[1].length === 3) {
       if (section !== "phase" || !current) continue;
       const title = cleanLine(h[2], MAX_TITLE);
-      if (isBanned(h[2])) dropped.push({ kind: "item", text: plain(h[2]), reason: "banned" });
+      const itemBlock = blocked(h[2]);
+      if (itemBlock) dropped.push({ kind: "item", text: plain(h[2]), reason: itemBlock });
       else if (title.length < 2) dropped.push({ kind: "item", text: plain(h[2]), reason: "empty" });
       else if (current.items.length >= MAX_ITEMS) dropped.push({ kind: "item", text: title, reason: "too-many" });
       else current.items.push({ title, inDevelopment: IN_DEVELOPMENT.test(title) });
@@ -189,7 +198,8 @@ export function parseRoadmap(doc: string): { lead: string | null; phases: Roadma
     if (focus) {
       if (section !== "phase" || !current || current.focus !== null) continue;
       const text = cleanLine(focus[1]);
-      if (isBanned(focus[1])) dropped.push({ kind: "focus", text: plain(focus[1]), reason: "banned" });
+      const focusBlock = blocked(focus[1]);
+      if (focusBlock) dropped.push({ kind: "focus", text: plain(focus[1]), reason: focusBlock });
       else if (text) current.focus = text;
       continue;
     }
@@ -199,7 +209,8 @@ export function parseRoadmap(doc: string): { lead: string | null; phases: Roadma
       const m = line.match(/^\s*([*_])(?![*_])(.+)\1\s*$/);
       if (m) {
         const text = cleanLine(m[2]);
-        if (isBanned(m[2])) dropped.push({ kind: "lead", text: plain(m[2]), reason: "banned" });
+        const leadBlock = blocked(m[2]);
+        if (leadBlock) dropped.push({ kind: "lead", text: plain(m[2]), reason: leadBlock });
         else if (text) lead = text;
       }
     }

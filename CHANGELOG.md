@@ -2,6 +2,52 @@
 
 ## 2026-11-14
 
+### 🌐 Website
+
+#### ✨ New Features
+
+- feat(v2): add the rename note page [@jlengelbrecht](https://github.com/jlengelbrecht) ([#731](https://github.com/lumose-health/website/pull/731))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#732](https://github.com/lumose-health/website/pull/732))
+
+<!-- changelog-cutoff:2026-11-14T07:03:22Z -->
+
+
+## 2026-11-14
+
+### 🌐 Website
+
+#### ✨ New Features
+
+- feat(v2): add the rename note page [@jlengelbrecht](https://github.com/jlengelbrecht) ([#731](https://github.com/lumose-health/website/pull/731))
+- feat(v2): add the roadmap page [@jlengelbrecht](https://github.com/jlengelbrecht) ([#729](https://github.com/lumose-health/website/pull/729))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#730](https://github.com/lumose-health/website/pull/730))
+
+<!-- changelog-cutoff:2026-11-14T06:18:43Z -->
+
+
+## 2026-11-14
+
+### 🌐 Website
+
+#### ✨ New Features
+
+- feat(v2): add the changelog page and shared content page shell [@jlengelbrecht](https://github.com/jlengelbrecht) ([#727](https://github.com/lumose-health/website/pull/727))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#728](https://github.com/lumose-health/website/pull/728))
+
+<!-- changelog-cutoff:2026-11-14T05:49:48Z -->
+
+
+## 2026-11-14
+
 ### 🏗️ Infrastructure
 
 #### 📝 Other Changes
