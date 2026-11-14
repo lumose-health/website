@@ -223,6 +223,7 @@ test("lines the owner hasn't ruled on still pass through", () => {
 test("two kept lines are reworded so they don't read as safety claims", () => {
   assert.equal(keptText("fix: harden glucose ingestion for mmol/L unit safety"), "Harden glucose ingestion for mmol/L units");
   assert.equal(keptText("feat: meal-vision safety-language hardening"), "Meal-vision wording hardening");
+  assert.equal(keptText("feat: safety-language hardening for meal vision"), "Wording hardening for meal vision");
   const texts = REAL_ENTRIES.map((e) => e.text);
   assert.ok(texts.includes("Harden glucose ingestion for mmol/L units"));
   assert.ok(texts.includes("Meal-vision wording hardening"));

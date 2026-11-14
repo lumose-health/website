@@ -252,6 +252,8 @@ function cleanText(text: string): string {
   let t = plain(text).replace(REF_PAREN, "");
   for (const re of TRACKER_PAREN) t = t.replace(re, "");
   t = t.replace(REF_PREFIX, "").replace(LEADING_EPIC, "").replace(/\s+([.,;:])/g, "$1").trim();
+  // Before the capital letter is set, so a reworded first word still gets one.
+  for (const [from, to] of REWRITES) t = t.replace(from, to);
   if (t.length > MAX_TEXT) t = t.slice(0, MAX_TEXT - 1).trimEnd() + "…";
   // Capitalize, but leave identifiers and units such as mmol/L, xDrip+ or ns_emulator alone.
   const first = t.split(" ", 1)[0];
@@ -292,8 +294,7 @@ export function classifyLine(raw: string, area: string | null, heading: Group | 
   }
   if (!group) return drop("no-group");
 
-  let text = cleanText(p.text);
-  for (const [from, to] of REWRITES) text = text.replace(from, to);
+  const text = cleanText(p.text);
   if (text.length < 3) return drop("empty");
   return {
     raw,
