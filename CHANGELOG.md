@@ -2,6 +2,21 @@
 
 ## 2026-11-14
 
+### 🌐 Website
+
+#### ✨ New Features
+
+- feat(v2): add the changelog page and shared content page shell [@jlengelbrecht](https://github.com/jlengelbrecht) ([#727](https://github.com/lumose-health/website/pull/727))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#728](https://github.com/lumose-health/website/pull/728))
+
+<!-- changelog-cutoff:2026-11-14T05:49:48Z -->
+
+
+## 2026-11-14
+
 ### 🏗️ Infrastructure
 
 #### 📝 Other Changes
