@@ -8,19 +8,23 @@ export type RailItem = { id: string; label: string };
 // How far below the viewport top a heading must pass to count as the one being read.
 const READ_LINE = 120;
 
+/** The id the fragment names, or an empty string when it names none. */
+function hashId(): string {
+  try {
+    return decodeURIComponent(window.location.hash.slice(1));
+  } catch {
+    // A malformed fragment such as #% names no heading.
+    return "";
+  }
+}
+
 /**
  * Moves focus to the heading a fragment points at, so keyboard and screen
  * reader users land where the page scrolled. A target inside a closed
  * <details> row opens it first, because a closed row can't be scrolled to.
  */
 function focusHashTarget() {
-  let id: string;
-  try {
-    id = decodeURIComponent(window.location.hash.slice(1));
-  } catch {
-    // A malformed fragment such as #% names no heading.
-    return;
-  }
+  const id = hashId();
   if (!id) return;
   const target = document.getElementById(id);
   if (!target) return;
@@ -67,16 +71,33 @@ export function ContentRail({
         if (el.getBoundingClientRect().top <= READ_LINE) active = el.id;
         else break;
       }
+      // Sections near the end can't reach the line, because the page runs out
+      // of scroll first. At the foot of a scrolled page, mark the section the
+      // reader jumped to while its heading is on screen, or else the last one.
+      const page = document.documentElement;
+      if (window.scrollY > 0 && window.scrollY + window.innerHeight >= page.scrollHeight - 2) {
+        const id = hashId();
+        const jumped = targets.find((el) => el.id === id);
+        const top = jumped?.getBoundingClientRect().top;
+        const onScreen = top !== undefined && top >= 0 && top < window.innerHeight;
+        active = jumped && onScreen ? jumped.id : targets[targets.length - 1].id;
+      }
       setCurrent(active);
     };
-    const onScroll = () => {
+    const schedule = () => {
       if (!frame) frame = requestAnimationFrame(update);
     };
 
     update();
-    window.addEventListener("scroll", onScroll, { passive: true });
+    // A resize changes how far the page scrolls, so the foot can move too. A
+    // jump made at the foot may not scroll at all, so the fragment is watched.
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    window.addEventListener("hashchange", schedule);
     return () => {
-      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      window.removeEventListener("hashchange", schedule);
       if (frame) cancelAnimationFrame(frame);
     };
   }, [items]);
