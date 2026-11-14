@@ -4,6 +4,21 @@
 
 ### 🌐 Website
 
+#### 🐛 Bug Fixes
+
+- fix(v2): tighten changelog and roadmap filters, fix the section rail [@jlengelbrecht](https://github.com/jlengelbrecht) ([#734](https://github.com/lumose-health/website/pull/734))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#735](https://github.com/lumose-health/website/pull/735))
+
+<!-- changelog-cutoff:2026-11-14T08:03:28Z -->
+
+
+## 2026-11-14
+
+### 🌐 Website
+
 #### ✨ New Features
 
 - feat(v2): add the rename note page [@jlengelbrecht](https://github.com/jlengelbrecht) ([#731](https://github.com/lumose-health/website/pull/731))
