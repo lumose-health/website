@@ -933,3 +933,162 @@
   8%, 92% { opacity: 1; }
   100% { transform: translateX(-20%); opacity: 0; }
 }
+
+/* Docs light surface. Every rule needs .lm-docs, which the docs layout only
+   renders in a preview build, so the live docs never match any of it. The
+   :root:has() form reaches the search dialog, which is portalled to body. */
+:root:has(.lm-docs) {
+  --color-fd-background: var(--color-lm-docs-surface);
+  --color-fd-foreground: var(--color-lm-docs-ink);
+  --color-fd-muted: var(--color-lm-docs-panel);
+  --color-fd-muted-foreground: var(--color-lm-docs-muted);
+  --color-fd-popover: var(--color-lm-docs-surface);
+  --color-fd-popover-foreground: var(--color-lm-docs-ink);
+  --color-fd-card: var(--color-lm-docs-panel);
+  --color-fd-card-foreground: var(--color-lm-docs-ink);
+  --color-fd-border: var(--color-lm-docs-line);
+  --color-fd-primary: var(--color-lm-docs-link);
+  --color-fd-primary-foreground: var(--color-lm-docs-surface);
+  --color-fd-secondary: var(--color-lm-docs-panel);
+  --color-fd-secondary-foreground: var(--color-lm-docs-ink);
+  --color-fd-accent: var(--color-lm-docs-line);
+  --color-fd-accent-foreground: var(--color-lm-docs-ink);
+  --color-fd-ring: var(--color-lm-docs-link);
+  --border: var(--color-lm-docs-line);
+  --ring: var(--color-lm-docs-link);
+}
+
+/* The theme provider still puts .dark and a dark color-scheme on <html>, so
+   the wrapper sets its own. */
+.lm-docs {
+  --fd-banner-height: 56px;
+  color-scheme: light;
+  background-color: var(--color-lm-docs-surface);
+  color: var(--color-lm-docs-ink);
+}
+
+@media (width >= 47.5rem) {
+  .lm-docs {
+    --fd-banner-height: 72px;
+  }
+}
+
+/* The header is in the flow above the layout, so the layout gives its height
+   back. Its own skip link goes too: the header has one that comes first. */
+.lm-docs #nd-docs-layout {
+  min-height: calc(100dvh - var(--fd-banner-height));
+}
+
+.lm-docs #nd-docs-layout > a[href="#nd-page"] {
+  display: none;
+}
+
+.lm-docs #nd-sidebar {
+  --color-fd-muted: var(--color-lm-docs-panel);
+  --color-fd-secondary: var(--color-lm-docs-panel);
+  --color-fd-muted-foreground: var(--color-lm-docs-muted);
+  background-color: var(--color-lm-docs-surface);
+}
+
+.lm-docs :is(#nd-sidebar, #nd-sidebar-mobile) a[data-active="true"] {
+  background-color: var(--color-lm-docs-active-bg);
+  color: var(--color-lm-docs-link-hover);
+}
+
+.lm-docs .prose {
+  --tw-prose-body: var(--color-lm-docs-body);
+  --tw-prose-headings: var(--color-lm-docs-ink);
+  --tw-prose-lead: var(--color-lm-docs-body);
+  --tw-prose-links: var(--color-lm-docs-link);
+  --tw-prose-bold: var(--color-lm-docs-ink);
+  --tw-prose-captions: var(--color-lm-docs-muted);
+  --tw-prose-code: var(--color-lm-docs-ink);
+  --tw-prose-kbd: var(--color-lm-docs-ink);
+}
+
+/* Links change color on hover instead of dimming. */
+.lm-docs .prose a:not([data-card]) {
+  transition: color var(--lm-dur-instant);
+}
+
+.lm-docs .prose a:not([data-card]):hover {
+  opacity: 1;
+  color: var(--color-lm-docs-link-hover);
+}
+
+/* Notes. The synced docs write them as block quotes. */
+.lm-docs .prose blockquote {
+  border: 1px solid var(--color-lm-docs-note-line);
+  border-radius: var(--radius-lm-button);
+  background-color: var(--color-lm-docs-note-bg);
+  padding: 14px 16px;
+  color: var(--color-lm-docs-note-ink);
+  font-style: normal;
+  font-weight: inherit;
+  quotes: none;
+}
+
+.lm-docs .prose blockquote p:first-of-type::before,
+.lm-docs .prose blockquote p:last-of-type::after {
+  content: none;
+}
+
+/* Code blocks stay dark on the light page, with the dark syntax colors. */
+.lm-docs figure.shiki {
+  --color-fd-card: var(--color-lm-code);
+  --color-fd-secondary: var(--color-lm-code);
+  --color-fd-muted: var(--color-lm-raised);
+  --color-fd-muted-foreground: var(--color-lm-ink-muted);
+  --color-fd-accent: var(--color-lm-raised);
+  --color-fd-accent-foreground: var(--color-lm-ink);
+  --color-fd-ring: var(--color-lm-blue-light);
+  --border: var(--color-lm-line);
+  color-scheme: dark;
+  background-color: var(--color-lm-code);
+  color: var(--color-lm-ink);
+}
+
+.lm-docs .shiki:not(.not-fumadocs-codeblock *) code span {
+  color: var(--shiki-dark);
+  font-style: var(--shiki-dark-font-style);
+}
+
+/* Focus on the light page: one indicator for every control. Fumadocs hides
+   the outline on several of them and draws a shadow on others, so this sets
+   the outline everywhere and switches the shadow off. */
+.lm-docs #nd-docs-layout :focus-visible,
+.lm-docs #nd-docs-layout :focus-visible img {
+  --tw-ring-shadow: 0 0 #0000;
+}
+
+.lm-docs #nd-docs-layout :focus-visible {
+  outline: 2px solid var(--color-lm-docs-link);
+  outline-offset: 2px;
+}
+
+/* These sit inside clipping boxes, so the outline goes on the inside. */
+.lm-docs #nd-docs-layout :is(#nd-toc, [data-toc-popover], figure.shiki) :focus-visible {
+  outline-offset: -2px;
+}
+
+.lm-docs #nd-docs-layout figure.shiki :focus-visible {
+  outline-color: var(--color-lm-blue-light);
+}
+
+/* Motion: color fades only, at 120ms. Anything that would travel or fade in
+   lands at once. Near zero rather than none, because the drawer hands focus
+   back to its button when its closing animation ends. */
+:root:has(.lm-docs) :is([class*="transition"], [class*="duration-"]) {
+  transition-property:
+    color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-duration: var(--lm-dur-instant);
+  transition-delay: 0s;
+}
+
+:root:has(.lm-docs) *,
+:root:has(.lm-docs) *::before,
+:root:has(.lm-docs) *::after {
+  animation-duration: 0.01ms !important;
+  animation-delay: 0s !important;
+  animation-iteration-count: 1 !important;
+}
