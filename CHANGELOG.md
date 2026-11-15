@@ -8,6 +8,25 @@
 
 - feat(v2): restyle legal pages and the 404 behind the preview flag [@jlengelbrecht](https://github.com/jlengelbrecht) ([#752](https://github.com/lumose-health/website/pull/752))
 
+#### ⚡ Performance
+
+- perf(v2): cut main-thread work on the /v2 home page [@jlengelbrecht](https://github.com/jlengelbrecht) ([#760](https://github.com/lumose-health/website/pull/760))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#759](https://github.com/lumose-health/website/pull/759))
+
+<!-- changelog-cutoff:2026-11-15T05:12:37Z -->
+
+
+## 2026-11-15
+
+### 🌐 Website
+
+#### ✨ New Features
+
+- feat(v2): restyle legal pages and the 404 behind the preview flag [@jlengelbrecht](https://github.com/jlengelbrecht) ([#752](https://github.com/lumose-health/website/pull/752))
+
 ### 📦 Dependencies
 
 - chore(deps): update dependency fumadocs-mdx to v15.6.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#755](https://github.com/lumose-health/website/pull/755))
