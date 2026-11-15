@@ -174,7 +174,13 @@ function Diagram() {
   return (
     <div role="img" aria-label={DIAGRAM_LABEL}>
       <div {...region} aria-hidden="true">
-        <div ref={shownRef} className="lm-arch">
+        {/* The diagram is skipped while far from the viewport, which also clips
+            it to this box. The padding, taken back by the margins, leaves room
+            for the AI Engine's glow, so the clip never reaches it. */}
+        <div
+          ref={shownRef}
+          className="lm-arch -mx-lm-gutter -my-[60px] px-lm-gutter py-[60px]"
+        >
           {/* Wide layout: AI Engine above Platform Core. The offset is half the
               row's width minus the center of the third node: 444 - 326 = 118. */}
           <div className="hidden flex-col items-center desktop:flex">

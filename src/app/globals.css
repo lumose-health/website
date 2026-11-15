@@ -706,20 +706,21 @@
   }
 
   .lm-beam:not([data-lm-shown]) .lm-beam-base {
-    stroke-dashoffset: 1;
+    stroke-dashoffset: calc(1 - var(--lm-beam-open, 0));
   }
 
   .lm-beam:not([data-lm-hydrated]) .lm-beam-rest {
-    opacity: 0;
+    opacity: var(--lm-beam-open, 0);
   }
 
-  .lm-beam:not([data-lm-shown], [data-lm-hydrated]) .lm-beam-base,
-  .lm-beam:not([data-lm-hydrated]) .lm-beam-rest {
+  /* The 3s timer runs on the stage and hands its result down as a value. The
+     paths can't time it themselves: they are skipped while the stage is far from
+     the viewport, and a skipped element's timer only starts once it is drawn. */
+  .lm-beam:not([data-lm-hydrated]) {
     animation: lm-beam-open 0s 3s forwards;
   }
 
-  .lm-root [data-lm-loop="frozen"] .lm-beam:not([data-lm-shown]) .lm-beam-base,
-  .lm-root [data-lm-loop="frozen"] .lm-beam:not([data-lm-hydrated]) .lm-beam-rest {
+  .lm-root [data-lm-loop="frozen"] .lm-beam:not([data-lm-hydrated]) {
     animation-play-state: running !important;
   }
 
@@ -743,8 +744,7 @@
 
 @keyframes lm-beam-open {
   to {
-    stroke-dashoffset: 0;
-    opacity: 1;
+    --lm-beam-open: 1;
   }
 }
 
@@ -913,16 +913,22 @@
   }
 
   .lm-arch:not([data-lm-shown]) .lm-arch-card {
-    opacity: 0;
-    translate: 0 16px;
+    opacity: var(--lm-arch-open, 0);
+    translate: 0 calc((1 - var(--lm-arch-open, 0)) * 16px);
   }
 
-  /* Opens by itself after 3s unless hydration arrives first, as the dashboard does. */
-  .lm-arch:not([data-lm-shown], [data-lm-hydrated]) .lm-arch-card {
+  /* Opens by itself after 3s unless hydration arrives first, as the dashboard
+     does. The timer runs on the diagram and hands its result down as a value,
+     for the reason given at the beam's, and the cards land at once. */
+  .lm-arch:not([data-lm-shown], [data-lm-hydrated]) {
     animation: lm-arch-open 0s 3s forwards;
   }
 
-  .lm-root [data-lm-loop="frozen"] .lm-arch:not([data-lm-shown]) .lm-arch-card {
+  .lm-arch:not([data-lm-hydrated]) .lm-arch-card {
+    transition: none;
+  }
+
+  .lm-root [data-lm-loop="frozen"] .lm-arch:not([data-lm-shown], [data-lm-hydrated]) {
     animation-play-state: running !important;
   }
 
@@ -947,8 +953,7 @@
 
 @keyframes lm-arch-open {
   to {
-    opacity: 1;
-    translate: none;
+    --lm-arch-open: 1;
   }
 }
 
@@ -974,6 +979,48 @@
   0% { transform: translateX(100%); opacity: 0; }
   8%, 92% { opacity: 1; }
   100% { transform: translateX(-20%); opacity: 0; }
+}
+
+/* Illustrations below the fold aren't laid out or drawn until they come near
+   the viewport. Each one's height doesn't depend on the page width, so it is
+   given here as the height of its content, leaving out padding and edges, and
+   drawing it later moves nothing on the page. Change the number when the
+   illustration changes. The beam stage and the watch screen have a height of
+   their own already. */
+.lm-beam,
+.lm-arch,
+.lm-phone-screen,
+.lm-watch-screen {
+  content-visibility: auto;
+}
+
+.lm-phone-screen {
+  contain-intrinsic-height: auto 401px;
+}
+
+.lm-arch {
+  contain-intrinsic-height: auto 874px;
+}
+
+@media (width >= 47.5rem) {
+  .lm-arch {
+    contain-intrinsic-height: auto 838px;
+  }
+}
+
+@media (width >= 63.75rem) {
+  .lm-arch {
+    contain-intrinsic-height: auto 338.5px;
+  }
+}
+
+/* The marquee is one line of this height only while it can scroll. Its
+   wrapped layouts, for reduced motion and no scripting, vary with width. */
+@media (prefers-reduced-motion: no-preference) and (scripting: enabled) {
+  .lm-marquee {
+    content-visibility: auto;
+    contain-intrinsic-height: auto 55px;
+  }
 }
 
 /* Docs light surface. Every rule needs .lm-docs, which the docs layout only
@@ -1145,17 +1192,26 @@
 
 /* Motion: color fades only, at 120ms. Anything that would travel or fade in
    lands at once. Near zero rather than none, because the drawer hands focus
-   back to its button when its closing animation ends. */
-:root:has(.lm-docs) :is([class*="transition"], [class*="duration-"]) {
+   back to its button when its closing animation ends.
+
+   These name the search dialog's two portalled parts and don't reach them
+   from the root. A rule of the form :root:has(.x) * makes the browser restyle
+   the whole document every time a node is added anywhere, on every page that
+   loads this file, whether or not .x exists. */
+:is(.lm-docs, [data-docs-search-portal]) :is([class*="transition"], [class*="duration-"]),
+[data-docs-search-portal]:is([class*="transition"], [class*="duration-"]) {
   transition-property:
     color, background-color, border-color, text-decoration-color, fill, stroke;
   transition-duration: var(--lm-dur-instant);
   transition-delay: 0s;
 }
 
-:root:has(.lm-docs) *,
-:root:has(.lm-docs) *::before,
-:root:has(.lm-docs) *::after {
+:is(.lm-docs, [data-docs-search-portal]) *,
+:is(.lm-docs, [data-docs-search-portal]) *::before,
+:is(.lm-docs, [data-docs-search-portal]) *::after,
+[data-docs-search-portal],
+[data-docs-search-portal]::before,
+[data-docs-search-portal]::after {
   animation-duration: 0.01ms !important;
   animation-delay: 0s !important;
   animation-iteration-count: 1 !important;
