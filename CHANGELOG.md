@@ -2,6 +2,40 @@
 
 ## 2026-11-14
 
+### 📦 Dependencies
+
+- chore(deps): update dependency fumadocs-ui to v16.19.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#756](https://github.com/lumose-health/website/pull/756))
+- chore(deps): update dependency fumadocs-mdx to v15.6.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#755](https://github.com/lumose-health/website/pull/755))
+- chore(deps): update dependency fumadocs-core to v16.19.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#754](https://github.com/lumose-health/website/pull/754))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#757](https://github.com/lumose-health/website/pull/757))
+
+<!-- changelog-cutoff:2026-11-14T22:08:18Z -->
+
+
+## 2026-11-14
+
+### 🌐 Website
+
+#### 🐛 Bug Fixes
+
+- fix(docs): stop the page jumping on header focus, plus review fixes [@jlengelbrecht](https://github.com/jlengelbrecht) ([#750](https://github.com/lumose-health/website/pull/750))
+
+### 📦 Dependencies
+
+- chore(deps): update dependency tar to v7.5.23 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#753](https://github.com/lumose-health/website/pull/753))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#751](https://github.com/lumose-health/website/pull/751))
+
+<!-- changelog-cutoff:2026-11-14T22:07:22Z -->
+
+
+## 2026-11-14
+
 ### 🌐 Website
 
 #### ✨ New Features
