@@ -59,10 +59,13 @@ export default function DocsSearchDialog(props: SharedProps) {
 
   return (
     <SearchDialog {...search} {...props}>
-      <SearchDialogOverlay />
-      {/* The attribute is how the Ctrl/⌘ K shortcut and the forced-colors
-          styles find this dialog. */}
+      {/* Both parts are portalled to the body, outside the docs wrapper, so
+          the docs motion rules find them by this attribute. */}
+      <SearchDialogOverlay data-docs-search-portal="" />
+      {/* The dialog attribute is how the Ctrl/⌘ K shortcut and the
+          forced-colors styles find this dialog. */}
       <SearchDialogContent
+        data-docs-search-portal=""
         data-docs-search-dialog=""
         onOpenAutoFocus={() => {
           const active = document.activeElement;

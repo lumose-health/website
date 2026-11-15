@@ -81,9 +81,11 @@ function DocsHeader() {
           ))}
         </nav>
 
-        {/* md, not tablet: Fumadocs switches the sidebar to a drawer at 768px,
-            so the button has to stay until then. */}
-        <SidebarTrigger className={`${buttonClass("icon")} md:hidden`}>
+        {/* 48rem, not tablet: Fumadocs switches the sidebar to a drawer at
+            768px, so the button has to stay until then. Written as a width
+            because the default breakpoint names aren't used in these
+            components. */}
+        <SidebarTrigger className={`${buttonClass("icon")} min-[48rem]:hidden`}>
           <Menu size={22} aria-hidden="true" />
         </SidebarTrigger>
       </div>

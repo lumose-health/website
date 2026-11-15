@@ -30,7 +30,7 @@ export function PhoneFrame({ children }: { children: ReactNode }) {
     <div className="w-[280px] tablet:w-[300px]">
       <div className="rounded-[2.5rem] border-2 border-border bg-background p-2 shadow-xl">
         <div className="mx-auto mb-1 h-5 w-20 rounded-full bg-border/50" />
-        <div className="overflow-hidden rounded-[2rem] border border-border bg-background">
+        <div className="lm-phone-screen overflow-hidden rounded-[2rem] border border-border bg-background">
           {children}
         </div>
         <div className="mx-auto mt-1 h-1 w-14 rounded-full bg-border/50" />
@@ -133,7 +133,7 @@ export function WatchFrame({ children }: { children: ReactNode }) {
       {/* Crown */}
       <div className="absolute top-1/2 right-[-6px] h-6 w-2 -translate-y-1/2 rounded-r-sm bg-zinc-600" />
       <div className="rounded-full border-[3px] border-zinc-700 bg-zinc-800 p-1 shadow-xl">
-        <div className="flex aspect-square items-center justify-center overflow-hidden rounded-full bg-black">
+        <div className="lm-watch-screen flex aspect-square items-center justify-center overflow-hidden rounded-full bg-black">
           {children}
         </div>
       </div>
