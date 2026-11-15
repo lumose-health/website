@@ -9,6 +9,21 @@ export function nextLabelIndex(index: number, count: number) {
   return count > 0 ? (index + 1) % count : 0;
 }
 
+export type LabelSlot = "current" | "previous" | "waiting";
+
+/**
+ * Where a name sits while the label rolls: showing, just rolled out above, or
+ * waiting below for its turn. With a single name there is nothing to roll out.
+ */
+export function labelSlot(
+  position: number,
+  index: number,
+  count: number,
+): LabelSlot {
+  if (position === index) return "current";
+  return nextLabelIndex(position, count) === index ? "previous" : "waiting";
+}
+
 export type RotationHold = "hover" | "focus";
 
 /**

@@ -10,8 +10,10 @@ import { createStepTimer } from "@/lib/v2/dashboard-range";
 import {
   LABEL_STEP_MS,
   createRotationGate,
+  labelSlot,
   nextLabelIndex,
 } from "@/lib/v2/label-rotation";
+import type { LabelSlot } from "@/lib/v2/label-rotation";
 import { useLoopRegion } from "@/lib/v2/use-loop-region";
 import { FOCUS_RING } from "./button";
 import { ChatMockup } from "./chat-mockup";
@@ -54,10 +56,18 @@ function useHydrated() {
 const LOGO =
   "size-4 flex-none transition-opacity duration-(--lm-dur-fast) motion-reduce:transition-none";
 // Stacked in one cell, so the cell is as wide as the longest name and the
-// button never changes size. A stopped loop drops the fade, so a change caught
-// mid-way doesn't keep moving.
-const ROTATING =
-  "[grid-area:1/1] whitespace-nowrap transition-[opacity,translate] duration-(--lm-dur-base) ease-(--ease-lm-in-out) motion-reduce:transition-none in-data-[lm-loop=frozen]:transition-none";
+// button never changes size. Names roll through at full strength, clipped by
+// the cell, because text caught half faded fails a contrast check.
+const ROTATING = "[grid-area:1/1] whitespace-nowrap";
+// A stopped loop drops the move, so a change caught mid-way doesn't carry on.
+const ROLL =
+  "transition-[translate] duration-(--lm-dur-base) ease-(--ease-lm-in-out) motion-reduce:transition-none in-data-[lm-loop=frozen]:transition-none";
+// A waiting name has no transition, so it returns below the cell unseen.
+const SLOT: Record<LabelSlot, string> = {
+  current: ROLL,
+  previous: `${ROLL} -translate-y-full`,
+  waiting: "invisible translate-y-full",
+};
 
 const ROTATING_NAMES =
   PROVIDERS.find((item) => item.rotatingNames)?.rotatingNames ?? [];
@@ -105,11 +115,15 @@ type RotatingLabelProps = {
 /** Drawn only. The button's name for assistive tech is the fixed text beside this. */
 function RotatingLabel({ names, index, region }: RotatingLabelProps) {
   return (
-    <span {...region} aria-hidden="true" className="inline-grid">
+    <span
+      {...region}
+      aria-hidden="true"
+      className="inline-grid overflow-hidden"
+    >
       {names.map((name, position) => (
         <span
           key={name}
-          className={`${ROTATING} ${position === index ? "" : "translate-y-1 opacity-0"}`}
+          className={`${ROTATING} ${SLOT[labelSlot(position, index, names.length)]}`}
         >
           {name}
         </span>

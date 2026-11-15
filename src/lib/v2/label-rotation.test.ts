@@ -3,6 +3,7 @@ import { test } from "node:test";
 import {
   LABEL_STEP_MS,
   createRotationGate,
+  labelSlot,
   nextLabelIndex,
 } from "./label-rotation";
 
@@ -28,6 +29,29 @@ test("a list with one name or none stays on the first", () => {
 
 test("each name stays up for about 2.5 to 3 seconds", () => {
   assert.ok(LABEL_STEP_MS >= 2500 && LABEL_STEP_MS <= 3000);
+});
+
+test("one name shows, the one before it has rolled out, the rest wait", () => {
+  const slots = (index: number) =>
+    [0, 1, 2, 3].map((position) => labelSlot(position, index, 4));
+  assert.deepEqual(slots(0), ["current", "waiting", "waiting", "previous"]);
+  assert.deepEqual(slots(1), ["previous", "current", "waiting", "waiting"]);
+  assert.deepEqual(slots(3), ["waiting", "waiting", "previous", "current"]);
+});
+
+test("a name is never moved straight from rolled out to showing", () => {
+  // It would cross the cell backwards. It has to wait below first.
+  for (let index = 0; index < 4; index++) {
+    const next = nextLabelIndex(index, 4);
+    for (let position = 0; position < 4; position++) {
+      if (labelSlot(position, index, 4) !== "previous") continue;
+      assert.equal(labelSlot(position, next, 4), "waiting");
+    }
+  }
+});
+
+test("a single name is always the one showing", () => {
+  assert.equal(labelSlot(0, 0, 1), "current");
 });
 
 test("the rotation waits for its region to run", () => {
