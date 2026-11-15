@@ -1,11 +1,18 @@
 "use client";
 
-import { useRef, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import type { KeyboardEvent } from "react";
-import { Check } from "lucide-react";
+import { Check, Cpu } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { flags } from "@/data/flags";
 import { PROVIDER_NOTICE_SUBJECT, PROVIDERS } from "@/data/providers";
+import { createStepTimer } from "@/lib/v2/dashboard-range";
+import {
+  LABEL_STEP_MS,
+  createRotationGate,
+  nextLabelIndex,
+} from "@/lib/v2/label-rotation";
+import { useLoopRegion } from "@/lib/v2/use-loop-region";
 import { FOCUS_RING } from "./button";
 import { ChatMockup } from "./chat-mockup";
 import { MarksNotice } from "./marks-notice";
@@ -20,8 +27,9 @@ const BULLETS = [
 const CAPTION_PREFIX = "Illustrative example. Answering with:";
 
 // Tighter from 1020px to 1179px, so all four still fit on one row beside the
-// text. The range has an upper limit because desktop: sorts after min-[1180px]:.
-const BUTTON = `inline-flex min-h-lm-touch min-w-0 items-center gap-2 rounded-lm-button border px-3 text-left text-sm transition-colors duration-(--lm-dur-fast) enabled:cursor-pointer motion-reduce:transition-none desktop:max-[1179px]:gap-1.5 desktop:max-[1179px]:px-2.5 min-[1180px]:px-4 ${FOCUS_RING}`;
+// text, with the last one as wide as its longest name. The range has an upper
+// limit because desktop: sorts after min-[1180px]:.
+const BUTTON = `inline-flex min-h-lm-touch min-w-0 items-center gap-2 rounded-lm-button border px-3 text-left text-sm transition-colors duration-(--lm-dur-fast) enabled:cursor-pointer motion-reduce:transition-none desktop:max-[1179px]:gap-1.5 desktop:max-[1179px]:px-2 min-[1180px]:px-4 ${FOCUS_RING}`;
 // Forced colors would otherwise remove the fill, and with it the pressed state.
 const PRESSED =
   "border-[#3E7BC4] bg-[#13253B] text-lm-ink forced-colors:border-[Highlight] forced-colors:bg-[Highlight] forced-colors:text-[HighlightText] forced-colors:forced-color-adjust-none";
@@ -43,10 +51,78 @@ function useHydrated() {
   );
 }
 
+const LOGO =
+  "size-4 flex-none transition-opacity duration-(--lm-dur-fast) motion-reduce:transition-none";
+// Stacked in one cell, so the cell is as wide as the longest name and the
+// button never changes size. A stopped loop drops the fade, so a change caught
+// mid-way doesn't keep moving.
+const ROTATING =
+  "[grid-area:1/1] whitespace-nowrap transition-[opacity,translate] duration-(--lm-dur-base) ease-(--ease-lm-in-out) motion-reduce:transition-none in-data-[lm-loop=frozen]:transition-none";
+
+const ROTATING_NAMES =
+  PROVIDERS.find((item) => item.rotatingNames)?.rotatingNames ?? [];
+
+/**
+ * Steps through the names on a timer that follows the loop region, so it stops
+ * offscreen, in a hidden tab, while paused and under reduced motion. It also
+ * holds the current name while the button is hovered or focused.
+ */
+function useRotatingLabel(count: number) {
+  const [index, setIndex] = useState(0);
+  const [{ timer, gate }] = useState(() => {
+    const stepTimer = createStepTimer(LABEL_STEP_MS, () =>
+      setIndex((current) => nextLabelIndex(current, count)),
+    );
+    return { timer: stepTimer, gate: createRotationGate(stepTimer.setRunning) };
+  });
+
+  const region = useLoopRegion<HTMLSpanElement>({
+    onRunningChange: gate.setRegionRunning,
+    onSettle: () => setIndex(0),
+  });
+
+  useEffect(() => {
+    timer.start();
+    return timer.stop;
+  }, [timer]);
+
+  const holdProps = {
+    onPointerEnter: () => gate.setHold("hover", true),
+    onPointerLeave: () => gate.setHold("hover", false),
+    onFocus: () => gate.setHold("focus", true),
+    onBlur: () => gate.setHold("focus", false),
+  };
+
+  return { index, region, holdProps };
+}
+
+type RotatingLabelProps = {
+  names: readonly string[];
+  index: number;
+  region: ReturnType<typeof useLoopRegion<HTMLSpanElement>>;
+};
+
+/** Drawn only. The button's name for assistive tech is the text beside this. */
+function RotatingLabel({ names, index, region }: RotatingLabelProps) {
+  return (
+    <span {...region} aria-hidden="true" className="inline-grid">
+      {names.map((name, position) => (
+        <span
+          key={name}
+          className={`${ROTATING} ${position === index ? "" : "translate-y-1 opacity-0"}`}
+        >
+          {name}
+        </span>
+      ))}
+    </span>
+  );
+}
+
 function ProviderButtons() {
   const { provider, setProvider } = useProviderSelection();
   const hydrated = useHydrated();
   const buttons = useRef<(HTMLButtonElement | null)[]>([]);
+  const rotation = useRotatingLabel(ROTATING_NAMES.length);
 
   function moveWithArrows(event: KeyboardEvent, index: number) {
     // Alt+Left is the browser's Back shortcut.
@@ -71,6 +147,8 @@ function ProviderButtons() {
     >
       {PROVIDERS.map((item, index) => {
         const pressed = item.id === provider.id;
+        // The logo belongs to the first name only. The others get a plain chip.
+        const ownLogo = !item.rotatingNames || rotation.index === 0;
         return (
           <button
             key={item.id}
@@ -82,21 +160,44 @@ function ProviderButtons() {
             disabled={!hydrated}
             onClick={() => setProvider(item)}
             onKeyDown={(event) => moveWithArrows(event, index)}
+            {...(item.rotatingNames ? rotation.holdProps : null)}
             className={`${BUTTON} ${!hydrated ? PLAIN : pressed ? PRESSED : IDLE}`}
           >
             {flags.logosCleared ? (
-              // eslint-disable-next-line @next/next/no-img-element -- static export, and the name sits next to it
-              <img
-                src={item.logo}
-                alt=""
-                width={16}
-                height={16}
-                loading="lazy"
-                decoding="async"
-                className={`size-4 flex-none transition-opacity duration-(--lm-dur-fast) motion-reduce:transition-none ${hydrated && !pressed ? "opacity-70" : ""}`}
-              />
+              <span
+                className={`grid ${LOGO} ${hydrated && !pressed ? "opacity-70" : ""}`}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element -- static export, and the name sits next to it */}
+                <img
+                  src={item.logo}
+                  alt=""
+                  width={16}
+                  height={16}
+                  loading="lazy"
+                  decoding="async"
+                  className={`[grid-area:1/1] ${LOGO} ${ownLogo ? "" : "opacity-0"}`}
+                />
+                {item.rotatingNames ? (
+                  <Cpu
+                    aria-hidden="true"
+                    strokeWidth={1.75}
+                    className={`[grid-area:1/1] ${LOGO} ${ownLogo ? "opacity-0" : ""}`}
+                  />
+                ) : null}
+              </span>
             ) : null}
-            {item.name}
+            {item.rotatingNames ? (
+              <>
+                <span className="sr-only">{item.name}</span>
+                <RotatingLabel
+                  names={item.rotatingNames}
+                  index={rotation.index}
+                  region={rotation.region}
+                />
+              </>
+            ) : (
+              item.name
+            )}
           </button>
         );
       })}

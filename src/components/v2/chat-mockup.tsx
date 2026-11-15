@@ -1,4 +1,7 @@
 import { Trash2 } from "lucide-react";
+import { PROVIDERS } from "@/data/providers";
+import type { SampleChat } from "@/data/providers";
+import { useProviderSelection } from "./provider-context";
 
 const DISCLAIMER = "Not medical advice. Consult your healthcare provider.";
 
@@ -7,54 +10,69 @@ const BORDER = "border-[#343A42]";
 const ON_BLUE = "text-[#14212A]";
 const PANEL_RADIUS = "rounded-[4px]";
 
-const SUMMARY = `Illustration of the Lumose AI Chat page with sample data. Someone asks why they went high after breakfast. The answer describes the rise in their glucose and suggests raising it with their care team. It ends: ${DISCLAIMER}`;
+const summaryFor = (chat: SampleChat) =>
+  `Illustration of the Lumose AI Chat page with sample data. ${chat.summary} It ends: ${DISCLAIMER}`;
+
+// Every sample stays in place, stacked in one cell, so the chat is always as
+// tall as the tallest of them and a swap is a true crossfade. A hidden sample
+// also drops out of find-in-page and text selection once it has faded.
+const SAMPLE =
+  "[grid-area:1/1] flex min-w-0 flex-col gap-3.5 transition-[opacity,visibility] duration-(--lm-dur-fast) motion-reduce:transition-none";
 
 /**
- * Drawn from the app's AI Chat page. Nothing here is a control, and the answer
- * is the same for every provider. Don't add dosing suggestions to the sample,
- * and keep it to one recent event, since the chat sees about 6 hours of data.
+ * Drawn from the app's AI Chat page. Nothing here is a control. Each provider
+ * shows its own sample from the provider data, which holds the content rules.
  */
 export function ChatMockup() {
+  const { provider } = useProviderSelection();
+
   return (
     <div
       role="img"
-      aria-label={SUMMARY}
+      aria-label={summaryFor(provider.chat)}
       className={`overflow-hidden rounded-[14px] border ${BORDER} bg-lm-app-panel text-left text-lm-app-text`}
     >
       <div className="bg-lm-app-disclaimer-bar p-[5px] text-center font-lm-mono text-[12px] font-bold tablet:text-[10px]">
         Not medical advice
       </div>
 
-      <div className="flex flex-col gap-3.5 px-3.5 pt-4 pb-3 tablet:px-[18px]">
-        <p
-          className={`max-w-[85%] self-end ${PANEL_RADIUS} bg-lm-app-primary px-3 py-2 text-sm ${ON_BLUE}`}
-        >
-          Why did I go high after breakfast?
-        </p>
-
-        <div
-          className={`max-w-[94%] self-start ${PANEL_RADIUS} border ${BORDER} bg-lm-app-page px-3.5 py-3 text-[13.5px]/[1.5]`}
-        >
-          <p className="mb-2">
-            <strong>What I see in your data:</strong> you rose about 75 mg/dL
-            within an hour of eating.
-          </p>
-          <ul className="mb-2 list-disc pl-[18px]">
-            <li>
-              You were in range before breakfast, so the rise started after you
-              ate.
-            </li>
-          </ul>
-          <p className="mb-2.5">
-            <strong>Worth mentioning to your endo/CDE:</strong> how often this
-            happens after breakfast.
-          </p>
-          <p
-            className={`border-t ${BORDER} pt-2 font-lm-mono text-[12px]/[1.4] font-bold tablet:text-[11px]`}
+      <div className="grid px-3.5 pt-4 pb-3 tablet:px-[18px]">
+        {PROVIDERS.map(({ id, chat }) => (
+          <div
+            key={id}
+            data-chat-sample={id}
+            className={`${SAMPLE} ${id === provider.id ? "" : "invisible opacity-0"}`}
           >
-            {DISCLAIMER}
-          </p>
-        </div>
+            <p
+              className={`max-w-[85%] self-end ${PANEL_RADIUS} bg-lm-app-primary px-3 py-2 text-sm ${ON_BLUE}`}
+            >
+              {chat.question}
+            </p>
+
+            <div
+              className={`max-w-[94%] self-start ${PANEL_RADIUS} border ${BORDER} bg-lm-app-page px-3.5 py-3 text-[13.5px]/[1.5]`}
+            >
+              <p className="mb-2">
+                <strong>What I see in your data:</strong>
+                {` ${chat.seen}`}
+              </p>
+              <ul className="mb-2 list-disc pl-[18px]">
+                {chat.points.map((point) => (
+                  <li key={point}>{point}</li>
+                ))}
+              </ul>
+              <p className="mb-2.5">
+                <strong>Worth mentioning to your endo/CDE:</strong>
+                {` ${chat.mention}`}
+              </p>
+              <p
+                className={`border-t ${BORDER} pt-2 font-lm-mono text-[12px]/[1.4] font-bold tablet:text-[11px]`}
+              >
+                {DISCLAIMER}
+              </p>
+            </div>
+          </div>
+        ))}
       </div>
 
       <p className="px-3.5 pb-2 text-center font-lm-mono text-[12px]/[1.4] font-bold tablet:text-[11px]">
