@@ -353,6 +353,48 @@
   }
 }
 
+/* Long-form text on the legal pages in the dark frame. Those pages pass plain
+   elements, so the type is set from here. Every rule needs .lm-root, which a
+   live page never renders. */
+@layer components {
+  .lm-root .lm-legal {
+    @apply text-lm-ink-secondary [overflow-wrap:anywhere];
+  }
+  .lm-root .lm-legal h2 {
+    @apply mt-10 mb-3 font-lm-display text-[22px]/[1.25] font-medium text-lm-ink first:mt-0;
+  }
+  .lm-root .lm-legal h3 {
+    @apply mt-6 mb-2 font-semibold text-lm-ink;
+  }
+  .lm-root .lm-legal p,
+  .lm-root .lm-legal ul,
+  .lm-root .lm-legal ol,
+  .lm-root .lm-legal blockquote {
+    @apply mt-4;
+  }
+  .lm-root .lm-legal ul {
+    @apply list-disc pl-6;
+  }
+  .lm-root .lm-legal ol {
+    @apply list-decimal pl-6;
+  }
+  .lm-root .lm-legal li {
+    @apply mt-2 pl-1;
+  }
+  .lm-root .lm-legal strong {
+    @apply font-semibold text-lm-ink;
+  }
+  .lm-root .lm-legal a {
+    @apply rounded-lm-sm text-lm-blue-light underline underline-offset-4 transition-colors duration-(--lm-dur-instant) hover:text-lm-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lm-blue-light;
+  }
+  .lm-root .lm-legal code {
+    @apply font-lm-mono text-[0.9em] text-lm-ink;
+  }
+  .lm-root .lm-legal blockquote {
+    @apply border-l-2 border-lm-line-strong pl-4;
+  }
+}
+
 /* A region is frozen in the static HTML and until its hook marks it running. This
    needs !important because a section's own `animation` shorthand resets the play
    state. It stops keyframes only, so a one-shot entrance inside a region should be

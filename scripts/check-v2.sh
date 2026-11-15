@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Proves the hidden /v2 route stays hidden and live pages stay untouched.
-# Run after a build. Exits non-zero if any check fails.
+# Run after a production build, one without the preview flag. A preview build
+# shows the new look on shared pages on purpose, so it fails the checks below.
+# Exits non-zero if any check fails.
 set -uo pipefail
 
 cd "$(dirname "$0")/.." || exit 1
@@ -29,6 +31,31 @@ for file in out/sitemap.xml out/robots.txt out/index.html; do
     fail "$file mentions /v2"
   else
     pass "$file does not mention /v2"
+  fi
+done
+
+# Shared pages must carry none of the new look in a production build. The new
+# shell is dropped from these builds by the bundler, and this is what notices
+# if that stops working.
+for file in out/index.html out/privacy.html out/404.html out/docs.html; do
+  if [ ! -f "$file" ]; then
+    fail "$file does not exist"
+  elif grep -qF 'lm-root' "$file"; then
+    fail "$file contains lm-root (new-look markup on a live page, or this is a preview build)"
+  else
+    pass "$file has no lm-root"
+  fi
+done
+
+# Two font files are preloaded on a live page today, both from the root layout.
+# More means the new fonts leaked in. Update the number if the live fonts change.
+expected_font_preloads=2
+for file in out/index.html out/privacy.html; do
+  count=$(grep -o '<link rel="preload"[^>]*as="font"' "$file" 2>/dev/null | wc -l)
+  if [ "$count" -eq "$expected_font_preloads" ]; then
+    pass "$file preloads $count fonts"
+  else
+    fail "$file preloads $count fonts, expected $expected_font_preloads (new fonts on a live page, or this is a preview build)"
   fi
 done
 

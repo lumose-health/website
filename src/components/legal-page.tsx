@@ -19,6 +19,19 @@ interface LegalPageProps {
  * local avoids adding one just for a handful of long-form pages.
  */
 export function LegalPage({ title, lastUpdated, intro, children }: LegalPageProps) {
+  // The new look, in preview builds only. The words are the same either way.
+  // The shell is imported here, on demand, because a plain import would put
+  // the new fonts on every page that uses this file, in every build. The check
+  // reads the value next.config.ts inlines, which is what lets the bundler
+  // drop the import from other builds. Anything but "1" gets the page below.
+  if (process.env.NEXT_PUBLIC_V2_PREVIEW === "1") {
+    return import("@/components/v2/legal-shell").then(({ LegalShell }) => (
+      <LegalShell title={title} lastUpdated={lastUpdated} intro={intro}>
+        {children}
+      </LegalShell>
+    ));
+  }
+
   return (
     <>
       <Header />
