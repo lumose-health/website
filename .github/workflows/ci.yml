@@ -143,6 +143,7 @@ jobs:
       # Needs the build above: one without the preview flag. Fails the job if
       # /v2 is indexable or linked from live pages, or if live pages changed.
       - name: Check /v2 stays hidden and live pages are untouched
+        id: check-v2
         run: bash scripts/check-v2.sh
 
       - name: Generate token for glycemicgpt-ci
@@ -169,6 +170,7 @@ jobs:
         uses: actions/github-script@v9
         env:
           LHCI_OUTCOME: ${{ steps.lhci.outcome }}
+          CHECK_V2_OUTCOME: ${{ steps.check-v2.outcome }}
         with:
           github-token: ${{ steps.ci-token.outputs.token || secrets.GITHUB_TOKEN }}
           script: |
@@ -196,11 +198,16 @@ jobs:
               return sorted.length % 2 ? sorted[mid] : (sorted[mid] + sorted[mid + 1]) / 2;
             };
 
-            // http://localhost:1234/v2.html -> /v2, .../index.html -> /
+            // The result files and .lighthouserc.json come from the PR, so no
+            // string from them goes into the comment. Pages are named from this
+            // list, and values are printed only as numbers. Add a page here
+            // when one is added to the config.
+            const knownPages = new Map([
+              ['/index.html', '/'],
+              ['/v2.html', '/v2'],
+            ]);
             const pageLabel = (url) => {
-              let pathname = String(url);
-              try { pathname = new URL(url).pathname; } catch {}
-              return pathname.replace(/\.html$/, '').replace(/\/index$/, '/') || '/';
+              try { return knownPages.get(new URL(url).pathname) ?? null; } catch { return null; }
             };
 
             // One entry per audited URL, in the order the runs were collected.
@@ -210,7 +217,10 @@ jobs:
               for (const file of files) {
                 const lhr = readJson(path.join(lhciDir, file));
                 const url = lhr.requestedUrl || lhr.finalDisplayedUrl || lhr.finalUrl;
-                if (!url) continue;
+                if (!url || pageLabel(url) === null) {
+                  console.log(`Skipping ${file}: not one of the known pages`);
+                  continue;
+                }
                 if (!pages.has(url)) pages.set(url, []);
                 pages.get(url).push(lhr);
                 const audit = (id) => lhr.audits?.[id]?.numericValue;
@@ -288,11 +298,21 @@ jobs:
             // Category scores are already in the table.
             const metricLines = [];
             try {
-              const round = (n) => (typeof n === 'number' ? Number(n.toPrecision(4)) : n);
+              const operators = ['<=', '>=', '=='];
+              const number = (value) => {
+                const n = typeof value === 'number' ? value : Number.NaN;
+                return Number.isFinite(n) ? String(Number(n.toPrecision(4))) : 'n/a';
+              };
               for (const r of readJson(path.join(lhciDir, 'assertion-results.json'))) {
                 if (r.passed || r.auditId === 'categories') continue;
+                const label = pageLabel(r.url);
+                if (label === null || typeof r.auditId !== 'string' || !/^[a-z0-9-]+$/.test(r.auditId)) {
+                  console.log('Skipping an assertion result with an unexpected page or audit id');
+                  continue;
+                }
                 const icon = r.level === 'error' ? '❌' : '⚠️';
-                metricLines.push(`- ${icon} \`${pageLabel(r.url)}\` ${r.auditId}: ${round(r.actual)} (expected ${r.operator} ${round(r.expected)})`);
+                const operator = operators.includes(r.operator) ? `${r.operator} ` : '';
+                metricLines.push(`- ${icon} \`${label}\` ${r.auditId}: ${number(r.actual)} (expected ${operator}${number(r.expected)})`);
               }
             } catch (e) {
               console.log('Could not read assertion results:', e.message);
@@ -302,8 +322,10 @@ jobs:
             const emoji = outcome === 'success' ? '✅' : '⚠️';
 
             const body = [marker, `## 🔦 Lighthouse Audit ${emoji}`, ''];
-            if (rows.length === 0) {
-              body.push(`No Lighthouse results were found (Lighthouse step: ${outcome || 'unknown'}). See the job log.`);
+            if (process.env.CHECK_V2_OUTCOME === 'failure') {
+              body.push('The site checks (`scripts/check-v2.sh`) failed, so Lighthouse did not run. The failing checks are listed in the job log.');
+            } else if (rows.length === 0) {
+              body.push('No Lighthouse results were found. See the job log.');
             } else {
               body.push(
                 `| Page | ${categories.map(([, name]) => name).join(' | ')} |`,
