@@ -17,11 +17,12 @@ export type SampleChat = {
 
 export type AiProvider = {
   id: "claude" | "openai" | "copilot" | "ollama";
-  /** The button's accessible name, and the name in the caption under the chat. */
+  /** The name on the button and in the caption under the chat. */
   name: string;
   /**
-   * Shown on the button one at a time in place of the name. Each has to be a
-   * runtime the product docs name for the OpenAI-compatible option.
+   * Shown on the button one at a time in place of the name, which stays as the
+   * start of the button's fixed accessible name. Each has to be a runtime the
+   * product docs name for the OpenAI-compatible option.
    */
   rotatingNames?: readonly string[];
   logo: string;

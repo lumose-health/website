@@ -102,7 +102,7 @@ type RotatingLabelProps = {
   region: ReturnType<typeof useLoopRegion<HTMLSpanElement>>;
 };
 
-/** Drawn only. The button's name for assistive tech is the text beside this. */
+/** Drawn only. The button's name for assistive tech is the fixed text beside this. */
 function RotatingLabel({ names, index, region }: RotatingLabelProps) {
   return (
     <span {...region} aria-hidden="true" className="inline-grid">
@@ -188,7 +188,10 @@ function ProviderButtons() {
             ) : null}
             {item.rotatingNames ? (
               <>
-                <span className="sr-only">{item.name}</span>
+                {/* Lists every name, so it never changes and still holds whichever one is showing, for voice control. */}
+                <span className="sr-only">
+                  {`${item.name}: ${item.rotatingNames.join(", ")}`}
+                </span>
                 <RotatingLabel
                   names={item.rotatingNames}
                   index={rotation.index}
