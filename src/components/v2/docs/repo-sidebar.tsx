@@ -19,11 +19,11 @@ import { isCurrentPage, isRepoGroup } from "@/lib/v2/docs-tree";
 
 // Rows are 44px in the drawer, which is touch only, and tighter in the sidebar.
 const ROW =
-  "flex min-h-lm-touch w-full items-center gap-2 rounded-lm-sm py-1.5 pe-2 text-start text-[15px] wrap-anywhere md:min-h-9 [&_svg]:size-4 [&_svg]:shrink-0";
+  "flex min-h-lm-touch w-full items-center gap-2 rounded-lm-sm py-1.5 pe-2 text-start text-[15px] wrap-anywhere min-[48rem]:min-h-9 [&_svg]:size-4 [&_svg]:shrink-0";
 const ROW_LINK = `${ROW} text-lm-docs-body transition-colors duration-(--lm-dur-instant) hover:bg-lm-docs-panel hover:text-lm-docs-ink data-[active=true]:font-medium`;
 const ROW_BUTTON = `${ROW} cursor-pointer text-lm-docs-body transition-colors duration-(--lm-dur-instant) hover:bg-lm-docs-panel hover:text-lm-docs-ink`;
 const GROUP_HEAD =
-  "flex min-h-lm-touch w-full items-center gap-2 rounded-lm-sm px-2 py-1.5 text-start md:min-h-9 [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:text-lm-docs-muted";
+  "flex min-h-lm-touch w-full items-center gap-2 rounded-lm-sm px-2 py-1.5 text-start min-[48rem]:min-h-9 [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:text-lm-docs-muted";
 
 // Left padding by depth: top level, inside a group, then one step per folder.
 const INDENT = ["ps-2", "ps-[18px]", "ps-[30px]", "ps-[42px]", "ps-[54px]"];
