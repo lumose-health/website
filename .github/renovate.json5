@@ -16,6 +16,13 @@
   "prConcurrentLimit": 10,
   "minimumReleaseAge": "3 days",
   "internalChecksFilter": "strict",
+  // The npm inside Renovate refuses "remote" package fetches, and an npm bug
+  // (npm/cli#9347) treats some ordinary registry packages as remote, so lock
+  // file maintenance failed with EALLOWREMOTE on
+  // @tailwindcss/oxide-wasm32-wasi. This only affects
+  // Renovate's own npm runs, not local or CI installs. Remove it once the npm
+  // fix ships in the npm that Renovate uses.
+  "npmrc": "allow-remote=all",
   "lockFileMaintenance": {
     "enabled": true,
     "schedule": ["before 9am on saturday"]
