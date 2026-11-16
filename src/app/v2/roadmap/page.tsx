@@ -5,7 +5,7 @@ import { Card } from "@/components/v2/card";
 import { EXTERNAL_LINK } from "@/components/v2/button";
 import { ContentRail, type RailItem } from "@/components/v2/content-rail";
 import { ContentShell } from "@/components/v2/content-shell";
-import { TEXT_LINK, formatDate } from "@/components/v2/changelog/release";
+import { TEXT_LINK } from "@/components/v2/changelog/release";
 import { Phase, type RoadmapPhase } from "@/components/v2/roadmap/phase";
 
 // noindex comes from the v2 layout. Only the title is set here.
@@ -54,7 +54,6 @@ const phases: RoadmapPhase[] = (Array.isArray(data.phases) ? data.phases : [])
   }));
 
 const lead = text(data.lead) || FALLBACK_LEAD;
-const syncedOn = formatDate(text(data.generatedAt));
 
 const railItems: RailItem[] = phases.map((p) => ({ id: p.id, label: p.label || p.title }));
 
@@ -115,14 +114,7 @@ export default function RoadmapPage() {
               <Phase key={phase.id} phase={phase} />
             ))}
           </div>
-          <div className="mt-14 border-t border-lm-line-subtle pt-4">
-            <OnwardLinks className="flex flex-col gap-x-8 tablet:flex-row desktop:hidden" />
-            {syncedOn && (
-              <p className="mt-2 text-sm text-lm-ink-faint">
-                Synced from GitHub on {syncedOn}.
-              </p>
-            )}
-          </div>
+          <OnwardLinks className="mt-14 flex flex-col gap-x-8 border-t border-lm-line-subtle pt-4 tablet:flex-row desktop:hidden" />
         </>
       )}
     </ContentShell>
