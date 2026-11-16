@@ -1,20 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalPage } from "@/components/legal-page";
-import { SITE_URL } from "@/lib/site";
+import { OPEN_GRAPH, pageTitle, SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Medical Disclaimer - Lumose",
+  title: "Medical Disclaimer",
   description:
     "Lumose is not a medical device and not a substitute for professional medical care. It is experimental open-source software for informational and educational purposes only.",
   alternates: { canonical: "/disclaimer" },
   openGraph: {
-    title: "Medical Disclaimer - Lumose",
+    ...OPEN_GRAPH,
+    title: pageTitle("Medical Disclaimer"),
     description:
       "Lumose is not a medical device and not a substitute for professional medical care.",
     url: `${SITE_URL}/disclaimer`,
-    siteName: "Lumose",
-    type: "website",
   },
 };
 

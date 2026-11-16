@@ -55,7 +55,11 @@ const TABS: CodeTab[] = [
 
 export function GetStarted() {
   return (
-    <section id="start" className="border-t border-lm-line-subtle">
+    <section id="start" className="relative border-t border-lm-line-subtle">
+      {/* The old home page called this section #getting-started. This empty
+          target sits on the section's top edge, so old links land where
+          #start does. */}
+      <span id="getting-started" aria-hidden="true" className="absolute -top-px" />
       <div className="mx-auto grid max-w-lm-content grid-cols-1 items-center gap-12 px-lm-gutter py-[72px] tablet:py-[96px] desktop:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] desktop:py-[112px]">
         <Reveal className="min-w-0">
           <h2 className="mb-3.5 font-lm-display text-lm-h2 text-balance">

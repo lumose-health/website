@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { OPEN_GRAPH } from "@/lib/site";
+import { OPEN_GRAPH, pageTitle } from "@/lib/site";
 import json from "@/data/roadmap.json";
 import { CONTRIBUTE_URL, routes } from "@/lib/v2/routes";
 import { Card } from "@/components/v2/card";
@@ -9,7 +9,7 @@ import { ContentShell } from "@/components/v2/content-shell";
 import { TEXT_LINK } from "@/components/v2/changelog/release";
 import { Phase, type RoadmapPhase } from "@/components/v2/roadmap/phase";
 
-const TITLE = "Roadmap | Lumose";
+const TITLE = "Roadmap";
 const DESCRIPTION =
   "The phases planned for Lumose. They are sequenced, not scheduled, and we don't commit to dates.";
 
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: routes.roadmap },
-  openGraph: { ...OPEN_GRAPH, title: TITLE, description: DESCRIPTION, url: routes.roadmap },
+  openGraph: { ...OPEN_GRAPH, title: pageTitle(TITLE), description: DESCRIPTION, url: routes.roadmap },
 };
 
 // The synced copy of the whole roadmap document, in the docs.

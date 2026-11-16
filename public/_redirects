@@ -1,6 +1,7 @@
 # Cloudflare Pages redirects. The new site was built under /v2 and now lives
 # at the root, so old /v2 links go to the same page there. Specific lines come
 # first; the last line catches anything else under /v2.
+/v2.html / 301
 /v2 / 301
 /v2/changelog /changelog 301
 /v2/roadmap /roadmap 301

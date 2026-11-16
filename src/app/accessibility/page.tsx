@@ -1,20 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalPage } from "@/components/legal-page";
-import { SITE_URL } from "@/lib/site";
+import { OPEN_GRAPH, pageTitle, SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Accessibility Statement - Lumose",
+  title: "Accessibility Statement",
   description:
     "Lumose's commitment to an accessible website and platform, the standards we aim for, and how to report accessibility issues.",
   alternates: { canonical: "/accessibility" },
   openGraph: {
-    title: "Accessibility Statement - Lumose",
+    ...OPEN_GRAPH,
+    title: pageTitle("Accessibility Statement"),
     description:
       "Our commitment to an accessible website and platform, and how to report issues.",
     url: `${SITE_URL}/accessibility`,
-    siteName: "Lumose",
-    type: "website",
   },
 };
 

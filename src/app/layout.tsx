@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Poppins } from "next/font/google";
 import { PreviewBanner } from "@/components/preview-banner";
-import { OPEN_GRAPH, SITE_URL } from "@/lib/site";
+import { OG_IMAGE, OPEN_GRAPH, SITE_URL, TITLE_TEMPLATE } from "@/lib/site";
 import "./globals.css";
 
 // "preview" on PR builds (set in .github/workflows/ci.yml). Anything else
@@ -28,7 +28,10 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Lumose - Open Source Diabetes Management Platform",
+  title: {
+    default: "Lumose - Open Source Diabetes Management Platform",
+    template: TITLE_TEMPLATE,
+  },
   description:
     "Because no one should manage diabetes alone. Real-time glucose monitoring, AI-powered analysis, and Wear OS support. Self-hosted, privacy-first, open source.",
   icons: {
@@ -43,6 +46,12 @@ export const metadata: Metadata = {
   openGraph: {
     ...OPEN_GRAPH,
     url: SITE_URL,
+  },
+  // Pages set no twitter fields of their own, so every page keeps this. X
+  // reads the title and description from the Open Graph tags.
+  twitter: {
+    card: "summary_large_image",
+    images: [OG_IMAGE],
   },
   // Preview builds emit a noindex meta tag so search engines do not index
   // pr-*.lumose.pages.dev URLs. Production builds emit no robots meta and
