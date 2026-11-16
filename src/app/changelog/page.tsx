@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { OPEN_GRAPH } from "@/lib/site";
+import { OPEN_GRAPH, pageTitle } from "@/lib/site";
 import json from "@/data/changelog.json";
 import { GITHUB_URL, releaseAnchor, routes } from "@/lib/v2/routes";
 import { Card } from "@/components/v2/card";
@@ -14,14 +14,14 @@ import {
   type ChangelogRelease,
 } from "@/components/v2/changelog/release";
 
-const TITLE = "Changelog | Lumose";
+const TITLE = "Changelog";
 const DESCRIPTION = "What changed in each Lumose release, newest first.";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: routes.changelog },
-  openGraph: { ...OPEN_GRAPH, title: TITLE, description: DESCRIPTION, url: routes.changelog },
+  openGraph: { ...OPEN_GRAPH, title: pageTitle(TITLE), description: DESCRIPTION, url: routes.changelog },
 };
 
 const OPEN_COUNT = 10;

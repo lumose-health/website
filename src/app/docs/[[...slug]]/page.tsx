@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import {
   DocsBody,
@@ -5,6 +6,7 @@ import {
   DocsPage,
   DocsTitle,
 } from "fumadocs-ui/page";
+import { OPEN_GRAPH, pageTitle } from "@/lib/site";
 import { source } from "@/lib/source";
 import { getMDXComponents } from "@/components/mdx-components";
 import { SourceBar } from "@/components/v2/docs/source-bar";
@@ -45,9 +47,18 @@ export async function generateMetadata(props: {
   const page = source.getPage(params.slug);
   if (!page) notFound();
 
+  // A title that already names Lumose, like the docs home's, skips the
+  // " - Lumose" ending.
+  const named = /\bLumose\b/.test(page.data.title);
   return {
-    title: page.data.title,
+    title: named ? { absolute: page.data.title } : page.data.title,
     description: page.data.description,
     alternates: { canonical: page.url },
-  };
+    openGraph: {
+      ...OPEN_GRAPH,
+      title: named ? page.data.title : pageTitle(page.data.title),
+      description: page.data.description,
+      url: page.url,
+    },
+  } satisfies Metadata;
 }

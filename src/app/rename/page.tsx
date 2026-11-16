@@ -1,6 +1,6 @@
 import type { ComponentProps, ReactNode } from "react";
 import type { Metadata } from "next";
-import { OPEN_GRAPH } from "@/lib/site";
+import { OPEN_GRAPH, pageTitle } from "@/lib/site";
 import { notFound } from "next/navigation";
 import { getSitePage } from "@/lib/source";
 import { DISCORD_URL, routes } from "@/lib/v2/routes";
@@ -11,7 +11,7 @@ import { TEXT_LINK } from "@/components/v2/changelog/release";
 // The note itself is content/pages/rename.mdx. This file only frames it.
 const note = getSitePage("rename");
 
-const TITLE = "GlycemicGPT is now Lumose | Lumose";
+const TITLE = "GlycemicGPT is now Lumose";
 // The note's own one-line summary, from content/pages/rename.mdx.
 const DESCRIPTION = note?.description;
 
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: routes.rename },
-  openGraph: { ...OPEN_GRAPH, title: TITLE, description: DESCRIPTION, url: routes.rename },
+  openGraph: { ...OPEN_GRAPH, title: pageTitle(TITLE), description: DESCRIPTION, url: routes.rename },
 };
 
 // The note names its links by key, so every address still comes from routes.ts
