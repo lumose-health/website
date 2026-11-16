@@ -2,6 +2,21 @@
 
 ## 2026-11-16
 
+### 🏗️ Infrastructure
+
+#### 📝 Other Changes
+
+- ci: audit /v2 in Lighthouse and run check-v2.sh [@jlengelbrecht](https://github.com/jlengelbrecht) ([#762](https://github.com/lumose-health/website/pull/762))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#768](https://github.com/lumose-health/website/pull/768))
+
+<!-- changelog-cutoff:2026-11-16T00:31:11Z -->
+
+
+## 2026-11-16
+
 ### 📦 Dependencies
 
 - chore(deps): update dependency motion to v14.13.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#766](https://github.com/lumose-health/website/pull/766))
