@@ -4,6 +4,25 @@
 
 ### 🌐 Website
 
+#### ✨ New Features
+
+- feat(v2): rotate local runtimes on the diagram's Ollama tile [@jlengelbrecht](https://github.com/jlengelbrecht) ([#779](https://github.com/lumose-health/website/pull/779))
+
+#### 📝 Other Changes
+
+- Fix social tags, favicons, asset caching and old links after the switch [@jlengelbrecht](https://github.com/jlengelbrecht) ([#780](https://github.com/lumose-health/website/pull/780))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#782](https://github.com/lumose-health/website/pull/782))
+
+<!-- changelog-cutoff:2026-11-16T05:04:33Z -->
+
+
+## 2026-11-16
+
+### 🌐 Website
+
 #### 🐛 Bug Fixes
 
 - fix(v2): release link anchor, mockup email, delivery-claim filter [@jlengelbrecht](https://github.com/jlengelbrecht) ([#776](https://github.com/lumose-health/website/pull/776))
