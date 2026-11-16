@@ -10,11 +10,14 @@ import { TEXT_LINK } from "@/components/v2/changelog/release";
 import { Phase, type RoadmapPhase } from "@/components/v2/roadmap/phase";
 
 const TITLE = "Roadmap | Lumose";
+const DESCRIPTION =
+  "The phases planned for Lumose. They are sequenced, not scheduled, and we don't commit to dates.";
 
 export const metadata: Metadata = {
   title: TITLE,
+  description: DESCRIPTION,
   alternates: { canonical: routes.roadmap },
-  openGraph: { ...OPEN_GRAPH, title: TITLE, url: routes.roadmap },
+  openGraph: { ...OPEN_GRAPH, title: TITLE, description: DESCRIPTION, url: routes.roadmap },
 };
 
 // The synced copy of the whole roadmap document, in the docs.

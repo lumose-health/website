@@ -12,11 +12,14 @@ import { TEXT_LINK } from "@/components/v2/changelog/release";
 const note = getSitePage("rename");
 
 const TITLE = "GlycemicGPT is now Lumose | Lumose";
+// The note's own one-line summary, from content/pages/rename.mdx.
+const DESCRIPTION = note?.description;
 
 export const metadata: Metadata = {
   title: TITLE,
+  description: DESCRIPTION,
   alternates: { canonical: routes.rename },
-  openGraph: { ...OPEN_GRAPH, title: TITLE, url: routes.rename },
+  openGraph: { ...OPEN_GRAPH, title: TITLE, description: DESCRIPTION, url: routes.rename },
 };
 
 // The note names its links by key, so every address still comes from routes.ts

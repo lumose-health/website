@@ -15,11 +15,13 @@ import {
 } from "@/components/v2/changelog/release";
 
 const TITLE = "Changelog | Lumose";
+const DESCRIPTION = "What changed in each Lumose release, newest first.";
 
 export const metadata: Metadata = {
   title: TITLE,
+  description: DESCRIPTION,
   alternates: { canonical: routes.changelog },
-  openGraph: { ...OPEN_GRAPH, title: TITLE, url: routes.changelog },
+  openGraph: { ...OPEN_GRAPH, title: TITLE, description: DESCRIPTION, url: routes.changelog },
 };
 
 const OPEN_COUNT = 10;

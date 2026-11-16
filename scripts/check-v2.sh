@@ -17,6 +17,15 @@ fail() {
   failed=1
 }
 
+# Pages carry synced text (release notes, the roadmap, the docs tree), so the
+# page checks below read only what the build itself writes: the <head>, the
+# <body> tag, links outside the synced docs, CSS and generated files. A word in
+# synced text can't fail them. The banned-word scan at the end is the one check
+# meant to catch synced text.
+head_of() {
+  awk '{ i = index($0, "</head>"); if (i) { print substr($0, 1, i - 1); exit } print }' "$1"
+}
+
 # The pages people land on. Each is built from the root layout.
 pages=(
   out/index.html
@@ -30,10 +39,10 @@ pages=(
 for file in "${pages[@]}"; do
   if [ ! -f "$file" ]; then
     fail "$file does not exist"
-  elif grep -qi 'noindex' "$file"; then
-    fail "$file mentions noindex (an unindexed page, or this is a preview build)"
+  elif head_of "$file" | grep -Eq '<meta name="robots" content="[^"]*noindex'; then
+    fail "$file has a noindex robots tag (or this is a preview build)"
   else
-    pass "$file has no noindex"
+    pass "$file has no noindex robots tag"
   fi
 done
 
@@ -41,7 +50,7 @@ done
 for file in "${pages[@]}" out/404.html; do
   if [ ! -f "$file" ]; then
     fail "$file does not exist"
-  elif grep -qF 'class="lm-root' "$file"; then
+  elif grep -oE '<body [^>]*>' "$file" | head -n 1 | grep -Eq 'class="([^"]* )?lm-root[ "]'; then
     pass "$file has the site look (lm-root)"
   else
     fail "$file has no lm-root"
@@ -67,10 +76,10 @@ else
       fail "sitemap does not list ${route:-/} (or this is a preview build)"
     fi
   done
-  if grep -qF '/v2' out/sitemap.xml; then
-    fail "sitemap mentions /v2"
+  if grep -Eq '<loc>https://lumose\.org/v2[/<]' out/sitemap.xml; then
+    fail "sitemap lists a /v2 page"
   else
-    pass "sitemap does not mention /v2"
+    pass "sitemap lists no /v2 page"
   fi
 fi
 
@@ -82,10 +91,12 @@ else
   pass "robots.txt allows the site"
 fi
 
-# Links to /v2 on any page, as an href in the HTML or in the page data Next
-# inlines next to it. Text that only mentions a /v2 path, such as a route in
-# the product docs, is not a link and is not matched.
-v2_links=$(grep -rlE --include='*.html' \
+# Links to /v2 on the site's own pages, as an href in the HTML or in the page
+# data Next inlines next to it. Text that only mentions a /v2 path is not a
+# link and is not matched. Synced docs pages (out/docs/) are skipped: a link
+# there comes from another repo, and the redirects still catch it. The docs
+# home, out/docs.html, is the site's own and is scanned.
+v2_links=$(grep -rlE --include='*.html' --exclude-dir=docs \
   -e 'href="(https://lumose\.org)?/v2([/?#"])' \
   -e '\\"href\\":\\"(https://lumose\.org)?/v2([/?#\\])' \
   out)
@@ -111,17 +122,22 @@ else
 fi
 
 # Geist was the old site's font. The site uses Poppins, Inter and JetBrains Mono.
-if grep -rqi 'geist' out --include='*.html' --include='*.css'; then
-  fail "the build still references Geist"
+# Only the built CSS declares fonts, so only it is read.
+geist=$(grep -rlE --include='*.css' "font-family: *['\"]?Geist" out/_next)
+status=$?
+if [ "$status" -eq 1 ]; then
+  pass "no Geist font in the built CSS"
+elif [ "$status" -eq 0 ]; then
+  fail "the built CSS declares Geist: $geist"
 else
-  pass "no Geist in the build"
+  fail "could not scan the built CSS for Geist"
 fi
 
 # The root layout preloads four font files on every page. A different number
 # means a font was added or lost; update this when that is intended.
 expected_font_preloads=4
 for file in "${pages[@]}"; do
-  count=$(grep -o '<link rel="preload"[^>]*as="font"' "$file" 2>/dev/null | wc -l)
+  count=$(head_of "$file" 2>/dev/null | grep -o '<link rel="preload"[^>]*as="font"' | wc -l)
   if [ "$count" -eq "$expected_font_preloads" ]; then
     pass "$file preloads $count fonts"
   else
