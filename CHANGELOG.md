@@ -2,6 +2,21 @@
 
 ## 2026-11-16
 
+### 🌐 Website
+
+#### 🐛 Bug Fixes
+
+- fix(v2): drop the sync date from the contributors card [@jlengelbrecht](https://github.com/jlengelbrecht) ([#763](https://github.com/lumose-health/website/pull/763))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#769](https://github.com/lumose-health/website/pull/769))
+
+<!-- changelog-cutoff:2026-11-16T01:08:14Z -->
+
+
+## 2026-11-16
+
 ### 🏗️ Infrastructure
 
 #### 📝 Other Changes
