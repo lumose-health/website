@@ -4,6 +4,21 @@
 
 ### 🌐 Website
 
+#### ⚡ Performance
+
+- perf(v2): cut main-thread work on the /v2 home page [@jlengelbrecht](https://github.com/jlengelbrecht) ([#760](https://github.com/lumose-health/website/pull/760))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#761](https://github.com/lumose-health/website/pull/761))
+
+<!-- changelog-cutoff:2026-11-15T22:38:25Z -->
+
+
+## 2026-11-15
+
+### 🌐 Website
+
 #### ✨ New Features
 
 - feat(v2): restyle legal pages and the 404 behind the preview flag [@jlengelbrecht](https://github.com/jlengelbrecht) ([#752](https://github.com/lumose-health/website/pull/752))

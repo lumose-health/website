@@ -120,6 +120,10 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/checkout@v7
+        with:
+          # scripts/check-v2.sh diffs the live page files against origin/main,
+          # which needs the branch history and the origin/main ref.
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v7
@@ -136,6 +140,12 @@ jobs:
           DOCS_NO_CACHE: "1"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      # Needs the build above: one without the preview flag. Fails the job if
+      # /v2 is indexable or linked from live pages, or if live pages changed.
+      - name: Check /v2 stays hidden and live pages are untouched
+        id: check-v2
+        run: bash scripts/check-v2.sh
+
       - name: Generate token for glycemicgpt-ci
         id: ci-token
         continue-on-error: true
@@ -150,11 +160,17 @@ jobs:
         with:
           uploadArtifacts: true
           configPath: .lighthouserc.json
+          # The action passes this on the command line, so it wins over
+          # numberOfRuns in the config. Keep the two the same.
+          runs: 3
 
       - name: Post Lighthouse scores to PR
         if: always() && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
         continue-on-error: true
         uses: actions/github-script@v9
+        env:
+          LHCI_OUTCOME: ${{ steps.lhci.outcome }}
+          CHECK_V2_OUTCOME: ${{ steps.check-v2.outcome }}
         with:
           github-token: ${{ steps.ci-token.outputs.token || secrets.GITHUB_TOKEN }}
           script: |
@@ -165,80 +181,163 @@ jobs:
 
             const marker = '<!-- lighthouse-comment -->';
             const repo = context.repo;
-
-            // Find the LHCI results directory
             const lhciDir = '.lighthouseci';
-            let scores = { performance: null, accessibility: null, 'best-practices': null, seo: null };
-            let reportUrl = '';
+            const categories = [
+              ['performance', 'Performance'],
+              ['accessibility', 'Accessibility'],
+              ['best-practices', 'Best Practices'],
+              ['seo', 'SEO'],
+            ];
 
+            const readJson = (file) => JSON.parse(fs.readFileSync(file, 'utf8'));
+
+            // Same rule LHCI uses for "aggregationMethod": "median".
+            const median = (values) => {
+              const sorted = [...values].sort((a, b) => a - b);
+              const mid = Math.floor((sorted.length - 1) / 2);
+              return sorted.length % 2 ? sorted[mid] : (sorted[mid] + sorted[mid + 1]) / 2;
+            };
+
+            // The result files and .lighthouserc.json come from the PR, so no
+            // string from them goes into the comment. Pages are named from this
+            // list, and values are printed only as numbers. Add a page here
+            // when one is added to the config.
+            const knownPages = new Map([
+              ['/index.html', '/'],
+              ['/v2.html', '/v2'],
+            ]);
+            const pageLabel = (url) => {
+              try { return knownPages.get(new URL(url).pathname) ?? null; } catch { return null; }
+            };
+
+            // One entry per audited URL, in the order the runs were collected.
+            const pages = new Map();
             try {
-              const files = fs.readdirSync(lhciDir);
-              const jsonFiles = files.filter(f => f.startsWith('lhr-') && f.endsWith('.json'));
-
-              if (jsonFiles.length > 0) {
-                const report = JSON.parse(fs.readFileSync(path.join(lhciDir, jsonFiles[0]), 'utf8'));
-                for (const [key, cat] of Object.entries(report.categories || {})) {
-                  if (scores.hasOwnProperty(key)) {
-                    scores[key] = Math.round(cat.score * 100);
-                  }
+              const files = fs.readdirSync(lhciDir).filter(f => /^lhr-\d+\.json$/.test(f)).sort();
+              for (const file of files) {
+                const lhr = readJson(path.join(lhciDir, file));
+                const url = lhr.requestedUrl || lhr.finalDisplayedUrl || lhr.finalUrl;
+                if (!url || pageLabel(url) === null) {
+                  console.log(`Skipping ${file}: not one of the known pages`);
+                  continue;
                 }
-              }
-
-              // Try to find the upload URL from links file
-              const linksFiles = files.filter(f => f === 'links.json');
-              if (linksFiles.length > 0) {
-                const links = JSON.parse(fs.readFileSync(path.join(lhciDir, linksFiles[0]), 'utf8'));
-                const urls = Object.values(links);
-                if (urls.length > 0) reportUrl = urls[0];
+                if (!pages.has(url)) pages.set(url, []);
+                pages.get(url).push(lhr);
+                const audit = (id) => lhr.audits?.[id]?.numericValue;
+                console.log(
+                  `${pageLabel(url)} ${file}: performance ${lhr.categories?.performance?.score}, ` +
+                  `TBT ${audit('total-blocking-time')} ms, LCP ${audit('largest-contentful-paint')} ms, ` +
+                  `CLS ${audit('cumulative-layout-shift')}`
+                );
               }
             } catch (e) {
               console.log('Could not parse Lighthouse results:', e.message);
             }
 
-            // Thresholds from .lighthouserc.json
-            const thresholds = {
-              performance: { min: 50, level: 'warn' },
-              accessibility: { min: 95, level: 'error' },
-              'best-practices': { min: 90, level: 'error' },
-              seo: { min: 90, level: 'error' },
-            };
-
-            function badge(score, key) {
-              if (score === null) return '? | -';
-              const t = thresholds[key];
-              const pass = score >= t.min;
-              const icon = pass ? '✅' : (t.level === 'error' ? '❌' : '⚠️');
-              const status = pass ? 'Pass' : (t.level === 'error' ? `Fail (min: ${t.min})` : `Warning (min: ${t.min})`);
-              return `${score} | ${icon} ${status}`;
+            // Thresholds come from the config LHCI asserted with, so the
+            // comment cannot drift from it.
+            let matrix = [];
+            try {
+              const assert = readJson('.lighthouserc.json').ci?.assert || {};
+              matrix = assert.assertMatrix
+                || (assert.assertions ? [{ matchingUrlPattern: '.*', assertions: assert.assertions }] : []);
+            } catch (e) {
+              console.log('Could not read .lighthouserc.json:', e.message);
             }
 
-            const labels = {
-              performance: 'Performance',
-              accessibility: 'Accessibility',
-              'best-practices': 'Best Practices',
-              seo: 'SEO',
-            };
-
-            let rows = '';
-            for (const [key, label] of Object.entries(labels)) {
-              rows += `| ${label} | ${badge(scores[key], key)} |\n`;
+            function rulesFor(url, key) {
+              const rules = [];
+              for (const entry of matrix) {
+                let matches = false;
+                try { matches = new RegExp(entry.matchingUrlPattern || '.*').test(url); } catch {}
+                if (!matches) continue;
+                const rule = entry.assertions?.[`categories:${key}`];
+                if (!Array.isArray(rule) || typeof rule[1]?.minScore !== 'number') continue;
+                if (rule[0] !== 'error' && rule[0] !== 'warn') continue;
+                rules.push({ level: rule[0], min: rule[1].minScore });
+              }
+              // Errors first, then the higher bar first.
+              return rules.sort((a, b) => (a.level === b.level ? b.min - a.min : a.level === 'error' ? -1 : 1));
             }
 
-            const reportLink = reportUrl ? `\n[View full report](${reportUrl})` : '';
-            const jobPassed = '${{ steps.lhci.outcome }}' === 'success';
-            const emoji = jobPassed ? '✅' : '⚠️';
+            const pct = (score) => Math.round(score * 100);
 
-            const body = [
-              marker,
-              `## 🔦 Lighthouse Audit ${emoji}`,
-              '',
-              '| Category | Score | Status |',
-              '|----------|-------|--------|',
-              rows.trim(),
-              '',
-              '**Thresholds:** Accessibility >= 95, Best Practices >= 90, SEO >= 90 (blocks PR). Performance >= 50 (warning only).',
-              reportLink,
-            ].join('\n');
+            function cell(url, key, lhrs) {
+              const values = lhrs.map(l => l.categories?.[key]?.score).filter(v => typeof v === 'number');
+              if (values.length === 0) return '?';
+              const score = median(values);
+              const rules = rulesFor(url, key);
+              if (rules.length === 0) return `${pct(score)} (not checked)`;
+              const missed = rules.filter(r => score < r.min);
+              const error = missed.find(r => r.level === 'error');
+              if (error) return `${pct(score)} ❌ (min ${pct(error.min)})`;
+              if (missed.length > 0) return `${pct(score)} ⚠️ (target ${pct(missed[0].min)})`;
+              return `${pct(score)} ✅`;
+            }
+
+            const rows = [];
+            const thresholdLines = [];
+            const runLines = [];
+            for (const [url, lhrs] of pages) {
+              const label = pageLabel(url);
+              rows.push(`| \`${label}\` | ${categories.map(([key]) => cell(url, key, lhrs)).join(' | ')} |`);
+
+              const parts = [];
+              for (const [key, name] of categories) {
+                const rules = rulesFor(url, key);
+                if (rules.length === 0) continue;
+                parts.push(`${name} ${rules.map(r => `>= ${pct(r.min)} (${r.level === 'error' ? 'blocks PR' : 'warning only'})`).join(', ')}`);
+              }
+              if (parts.length > 0) thresholdLines.push(`- \`${label}\`: ${parts.join('; ')}`);
+
+              const perf = lhrs.map(l => l.categories?.performance?.score).filter(v => typeof v === 'number');
+              if (perf.length > 1) runLines.push(`\`${label}\` ${perf.map(pct).join(', ')}`);
+            }
+
+            // Failed assertions on single metrics (blocking time and so on).
+            // Category scores are already in the table.
+            const metricLines = [];
+            try {
+              const operators = ['<=', '>=', '=='];
+              const number = (value) => {
+                const n = typeof value === 'number' ? value : Number.NaN;
+                return Number.isFinite(n) ? String(Number(n.toPrecision(4))) : 'n/a';
+              };
+              for (const r of readJson(path.join(lhciDir, 'assertion-results.json'))) {
+                if (r.passed || r.auditId === 'categories') continue;
+                const label = pageLabel(r.url);
+                if (label === null || typeof r.auditId !== 'string' || !/^[a-z0-9-]+$/.test(r.auditId)) {
+                  console.log('Skipping an assertion result with an unexpected page or audit id');
+                  continue;
+                }
+                const icon = r.level === 'error' ? '❌' : '⚠️';
+                const operator = operators.includes(r.operator) ? `${r.operator} ` : '';
+                metricLines.push(`- ${icon} \`${label}\` ${r.auditId}: ${number(r.actual)} (expected ${operator}${number(r.expected)})`);
+              }
+            } catch (e) {
+              console.log('Could not read assertion results:', e.message);
+            }
+
+            const outcome = process.env.LHCI_OUTCOME;
+            const emoji = outcome === 'success' ? '✅' : '⚠️';
+
+            const body = [marker, `## 🔦 Lighthouse Audit ${emoji}`, ''];
+            if (process.env.CHECK_V2_OUTCOME === 'failure') {
+              body.push('The site checks (`scripts/check-v2.sh`) failed, so Lighthouse did not run. The failing checks are listed in the job log.');
+            } else if (rows.length === 0) {
+              body.push('No Lighthouse results were found. See the job log.');
+            } else {
+              body.push(
+                `| Page | ${categories.map(([, name]) => name).join(' | ')} |`,
+                `|------|${categories.map(() => '------').join('|')}|`,
+                ...rows,
+                '',
+                'Each score is the median of the runs for that page.',
+              );
+              if (runLines.length > 0) body.push(`Performance per run: ${runLines.join('; ')}.`);
+              if (metricLines.length > 0) body.push('', '**Metrics outside their limits:**', ...metricLines);
+              if (thresholdLines.length > 0) body.push('', '**Thresholds:**', ...thresholdLines);
+            }
 
             // Upsert comment
             const comments = await github.rest.issues.listComments({
@@ -247,9 +346,9 @@ jobs:
             const existing = comments.data.find(c => c.body?.includes(marker));
 
             if (existing) {
-              await github.rest.issues.updateComment({ ...repo, comment_id: existing.id, body });
+              await github.rest.issues.updateComment({ ...repo, comment_id: existing.id, body: body.join('\n') });
             } else {
-              await github.rest.issues.createComment({ ...repo, issue_number: prNumber, body });
+              await github.rest.issues.createComment({ ...repo, issue_number: prNumber, body: body.join('\n') });
             }
 
   autolabeler:
