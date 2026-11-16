@@ -1,14 +1,8 @@
 "use client";
 
+import { BEAM_DEVICES, BEAM_PROVIDERS } from "@/data/beam-marks";
 import type { BeamCurve } from "./beam-tiles";
-import {
-  BEAM_DEVICES,
-  BEAM_PROVIDERS,
-  BeamCore,
-  BeamLabel,
-  BeamStage,
-  BeamTile,
-} from "./beam-tiles";
+import { BeamCore, BeamLabel, BeamStage, BeamTile } from "./beam-tiles";
 
 const CORE = { x: 380, y: 180 };
 const DEVICE_X = 70;

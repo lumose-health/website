@@ -2,6 +2,26 @@
 
 ## 2026-11-16
 
+### 🌐 Website
+
+#### 🐛 Bug Fixes
+
+- fix(v2): release link anchor, mockup email, delivery-claim filter [@jlengelbrecht](https://github.com/jlengelbrecht) ([#776](https://github.com/lumose-health/website/pull/776))
+- fix(v2): drop the sync date from the changelog and roadmap pages [@jlengelbrecht](https://github.com/jlengelbrecht) ([#773](https://github.com/lumose-health/website/pull/773))
+
+#### 📝 Other Changes
+
+- Switch the site to the new design [@jlengelbrecht](https://github.com/jlengelbrecht) ([#778](https://github.com/lumose-health/website/pull/778))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#777](https://github.com/lumose-health/website/pull/777))
+
+<!-- changelog-cutoff:2026-11-16T05:01:43Z -->
+
+
+## 2026-11-16
+
 ### 🏗️ Infrastructure
 
 #### 📝 Other Changes

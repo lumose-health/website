@@ -8,7 +8,7 @@ import { BeamDesktop } from "./beam-desktop";
 import { BeamMobile } from "./beam-mobile";
 
 const DIAGRAM_LABEL =
-  "Illustration: Dexcom, Tandem, Medtronic, Glooko and Nightscout connect to your server, which connects to Claude, OpenAI, GitHub Copilot and Ollama.";
+  "Illustration: Dexcom, Tandem, Medtronic, Glooko and Nightscout connect to your server, which connects to Claude, OpenAI, GitHub Copilot, and Ollama or another local model.";
 
 export function BeamSection() {
   return (

@@ -112,13 +112,44 @@ fi
 
 # Cloudflare Pages reads redirects from this file. The specific lines must come
 # before the catch-all, which must be last.
-expected_redirects=$'/v2 / 301\n/v2/changelog /changelog 301\n/v2/roadmap /roadmap 301\n/v2/rename /rename 301\n/v2/* /:splat 301'
+expected_redirects=$'/v2.html / 301\n/v2 / 301\n/v2/changelog /changelog 301\n/v2/roadmap /roadmap 301\n/v2/rename /rename 301\n/v2/* /:splat 301'
 if [ ! -f out/_redirects ]; then
   fail "out/_redirects does not exist"
 elif [ "$(grep -E '^/v2' out/_redirects)" = "$expected_redirects" ]; then
   pass "out/_redirects has the /v2 rules in order"
 else
   fail "out/_redirects does not have the expected /v2 rules in order"
+fi
+
+# Cloudflare Pages reads response headers from this file. Hashed build files
+# are cached for a year.
+if [ ! -f out/_headers ]; then
+  fail "out/_headers does not exist"
+elif awk '
+    /^\/_next\/static\/\*$/ { in_rule = 1; next }
+    /^[^ \t]/ { in_rule = 0 }
+    in_rule && /^[ \t]+Cache-Control: public, max-age=31536000, immutable$/ { found = 1 }
+    END { exit !found }
+  ' out/_headers; then
+  pass "out/_headers caches /_next/static/* as immutable"
+else
+  fail "out/_headers has no immutable Cache-Control rule for /_next/static/*"
+fi
+
+# Link previews need an absolute image URL. The home page carries the default.
+if head_of out/index.html 2>/dev/null | grep -Eq '<meta property="og:image" content="https://lumose\.org/[^"]+"'; then
+  pass "out/index.html has an absolute og:image"
+else
+  fail "out/index.html has no absolute og:image"
+fi
+
+# The browser-tab icon is a plain vector, not the old logo's embedded picture.
+if [ ! -f out/favicon.svg ]; then
+  fail "out/favicon.svg does not exist"
+elif grep -q 'data:image' out/favicon.svg; then
+  fail "out/favicon.svg embeds a raster image"
+else
+  pass "out/favicon.svg is a plain vector"
 fi
 
 # Geist was the old site's font. The site uses Poppins, Inter and JetBrains Mono.

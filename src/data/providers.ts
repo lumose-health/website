@@ -22,6 +22,14 @@ export type SampleChat = {
  */
 export type LocalRuntime = { name: string; logo: string };
 
+/** In the order they're shown, wherever the local model steps through them. */
+export const LOCAL_RUNTIMES: readonly LocalRuntime[] = [
+  { name: "Ollama", logo: "/ai-providers/ollama.svg" },
+  { name: "LM Studio", logo: "/ai-providers/lmstudio.svg" },
+  { name: "llama.cpp", logo: "/ai-providers/llamacpp.svg" },
+  { name: "vLLM", logo: "/ai-providers/vllm.svg" },
+];
+
 export type AiProvider = {
   id: "claude" | "openai" | "copilot" | "ollama";
   /** The name on the button and in the caption under the chat. */
@@ -97,13 +105,8 @@ export const PROVIDERS: AiProvider[] = [
     // OpenAI-compatible endpoint.
     id: "ollama",
     name: "Local model",
-    runtimes: [
-      { name: "Ollama", logo: "/ai-providers/ollama.svg" },
-      { name: "LM Studio", logo: "/ai-providers/lmstudio.svg" },
-      { name: "llama.cpp", logo: "/ai-providers/llamacpp.svg" },
-      { name: "vLLM", logo: "/ai-providers/vllm.svg" },
-    ],
-    logo: "/ai-providers/ollama.svg",
+    runtimes: LOCAL_RUNTIMES,
+    logo: LOCAL_RUNTIMES[0].logo,
     where: "Runs on your network",
     model: "openai_compatible / local model",
     chat: {
