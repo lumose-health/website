@@ -100,9 +100,21 @@ const DOSING_SETTING = new RegExp(
   "i"
 );
 // Claims that notifications or alerts arrive in real time, which the site doesn't
-// make: a timing word on the same line as a word for a notification or alert.
-const DELIVERY_TIMING = /\breal[\s_-]*time\b|\binstant(?:ly|aneous(?:ly)?)?\b|\bimmediate(?:ly)?\b/i;
-const DELIVERY_SUBJECT = /\bnotif|\balert/i;
+// make: a timing word right before the notification or alert ("real-time
+// notifications", "instant alert delivery"), or a word for sending them followed by
+// one ("alerts delivered instantly"). A timing word elsewhere on the line, as in
+// "real-time glucose chart with alert thresholds", is not a claim.
+const TIMING = String.raw`(?:real[\s_-]*time|instant(?:ly|aneous(?:ly)?)?|immediate(?:ly)?)\b`;
+const SUBJECT = String.raw`(?:notif\w*|alerts?)\b`;
+const SENDING = String.raw`(?:deliver\w*|sen[dt]\w*|dispatch\w*|arriv\w*|fir(?:e[sd]?|ing))\b`;
+const DELIVERY_CLAIM = new RegExp(
+  [
+    String.raw`\b${TIMING}[\s-]+(?:\w+[\s-]+)?${SUBJECT}`,
+    String.raw`\b${SUBJECT}[^.;]*\b${SENDING}[^.;]*\b${TIMING}`,
+    String.raw`\b${SENDING}[^.;]*\b${SUBJECT}[^.;]*\b${TIMING}`,
+  ].join("|"),
+  "i"
+);
 const ADVICE = /\b(?:suggest|recommend|advice|advis|propos|optimi[sz]|tun(?:e[drs]?|ing)\b)/i;
 /** snake_case and camelCase split into words, so `\b` sees the parts. */
 const splitIdentifiers = (s: string) => s.replace(/_+/g, " ").replace(/([a-z0-9])([A-Z])/g, "$1 $2");
@@ -160,7 +172,7 @@ export function isDosingAdvice(raw: string): boolean {
 export function isDeliveryClaim(raw: string): boolean {
   return [decodeEntities(raw), plain(raw)]
     .map(splitIdentifiers)
-    .some((t) => DELIVERY_TIMING.test(t) && DELIVERY_SUBJECT.test(t));
+    .some((t) => DELIVERY_CLAIM.test(t));
 }
 
 const TYPE_HEADINGS: Record<string, Group | null> = {

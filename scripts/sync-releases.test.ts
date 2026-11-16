@@ -271,8 +271,19 @@ test("lines that claim real-time notification delivery are dropped", () => {
     "feat: send alerts instantly",
     "feat: instant notification delivery",
     "feat: immediate alert dispatch",
+    "feat: alerts delivered instantly to caregivers",
+    "feat: notifications arrive in real time",
   ]) {
     assert.equal(classifyLine(line, null, "new").reason, "delivery-claim", line);
+  }
+  // A timing word that doesn't say how notifications arrive is not a claim.
+  for (const line of [
+    "feat: real-time glucose chart with alert thresholds",
+    "fix: close the alert banner immediately on tap",
+    "feat: notification settings save instantly",
+    "feat: instantiate the alert service once",
+  ]) {
+    assert.equal(classifyLine(line, null, "new").reason, null, line);
   }
   // Real-time data and other notification work are not delivery claims.
   assert.equal(keptText("feat: add real-time glucose updates via SSE"), "Add real-time glucose updates via SSE");
