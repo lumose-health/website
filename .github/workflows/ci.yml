@@ -120,10 +120,6 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/checkout@v7
-        with:
-          # scripts/check-v2.sh diffs the live page files against origin/main,
-          # which needs the branch history and the origin/main ref.
-          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v7
@@ -141,8 +137,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # Needs the build above: one without the preview flag. Fails the job if
-      # /v2 is indexable or linked from live pages, or if live pages changed.
-      - name: Check /v2 stays hidden and live pages are untouched
+      # a page is noindex, the sitemap or /v2 redirects are wrong, a page links
+      # to /v2, the fonts change, or the site source or synced data has a
+      # banned word.
+      - name: Check the built site and synced data
         id: check-v2
         run: bash scripts/check-v2.sh
 
@@ -204,7 +202,6 @@ jobs:
             // when one is added to the config.
             const knownPages = new Map([
               ['/index.html', '/'],
-              ['/v2.html', '/v2'],
             ]);
             const pageLabel = (url) => {
               try { return knownPages.get(new URL(url).pathname) ?? null; } catch { return null; }

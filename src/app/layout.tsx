@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { ThemeProvider } from "@/components/theme-provider";
+import { Inter, JetBrains_Mono, Poppins } from "next/font/google";
 import { PreviewBanner } from "@/components/preview-banner";
-import { SITE_URL } from "@/lib/site";
+import { OPEN_GRAPH, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 // "preview" on PR builds (set in .github/workflows/ci.yml). Anything else
@@ -10,14 +9,21 @@ import "./globals.css";
 // treated as production.
 const isPreview = process.env.NEXT_PUBLIC_BUILD_ENV === "preview";
 
-const geistSans = Geist({
-  variable: "--font-sans",
+const poppins = Poppins({
+  variable: "--font-poppins",
+  subsets: ["latin"],
+  weight: ["500", "600"],
+});
+
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
   subsets: ["latin"],
+  weight: ["400", "500", "700"],
 });
 
 export const metadata: Metadata = {
@@ -35,12 +41,8 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   openGraph: {
-    title: "Lumose - Open Source Diabetes Management Platform",
-    description:
-      "Because no one should manage diabetes alone. Real-time glucose monitoring, AI-powered analysis, and Wear OS support.",
+    ...OPEN_GRAPH,
     url: SITE_URL,
-    siteName: "Lumose",
-    type: "website",
   },
   // Preview builds emit a noindex meta tag so search engines do not index
   // pr-*.lumose.pages.dev URLs. Production builds emit no robots meta and
@@ -62,24 +64,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // The site is dark only, so `dark` is fixed here. The docs set their own
+  // light reading surface inside it.
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable}`}
-      suppressHydrationWarning
+      className={`dark ${poppins.variable} ${inter.variable} ${jetbrainsMono.variable}`}
+      style={{ colorScheme: "dark" }}
     >
-      <body className="min-h-screen bg-background text-foreground antialiased">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {isPreview && <PreviewBanner />}
-          {/* fumadocs RootProvider lives in src/app/docs/layout.tsx so the
-              marketing landing page does not ship the docs framework runtime. */}
-          {children}
-        </ThemeProvider>
+      <body className="lm-root antialiased">
+        {isPreview && <PreviewBanner />}
+        {/* The fumadocs RootProvider lives under src/app/docs/layout.tsx so
+            the marketing pages do not ship the docs framework runtime. */}
+        {children}
       </body>
     </html>
   );

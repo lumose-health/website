@@ -44,8 +44,7 @@ const COLUMNS = [
 
 export function Footer() {
   // Only the home page has loops. Content pages stay free of the control. The
-  // suffix goes because a host serving the export literally reports /v2.html,
-  // or /index.html once this is the root.
+  // suffix goes because a host serving the export may report /index.html.
   const pathname = usePathname().replace(/(\/index)?(\.html)?$/, "") || "/";
   const showPause = pathname === routes.home;
 

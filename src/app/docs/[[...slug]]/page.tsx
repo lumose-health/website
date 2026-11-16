@@ -9,7 +9,6 @@ import { source } from "@/lib/source";
 import { getMDXComponents } from "@/components/mdx-components";
 import { SourceBar } from "@/components/v2/docs/source-bar";
 import { loadDocsSources, resolveDocSource } from "@/lib/v2/doc-source";
-import { isV2Preview } from "@/lib/v2/preview";
 
 export default async function Page(props: {
   params: Promise<{ slug?: string[] }>;
@@ -20,27 +19,14 @@ export default async function Page(props: {
 
   const MDX = page.data.body;
 
-  if (isV2Preview()) {
-    // The new look adds the source bar, and the description sits closer to
-    // it. This is a separate tree so the one below renders as it always has.
-    return (
-      <DocsPage toc={page.data.toc} full={page.data.full}>
-        <DocsTitle>{page.data.title}</DocsTitle>
-        <DocsDescription className="mb-2">
-          {page.data.description}
-        </DocsDescription>
-        <SourceBar source={resolveDocSource(page.path, loadDocsSources())} />
-        <DocsBody>
-          <MDX components={getMDXComponents()} />
-        </DocsBody>
-      </DocsPage>
-    );
-  }
-
+  // The source bar sits under the description, which sits closer to it.
   return (
     <DocsPage toc={page.data.toc} full={page.data.full}>
       <DocsTitle>{page.data.title}</DocsTitle>
-      <DocsDescription>{page.data.description}</DocsDescription>
+      <DocsDescription className="mb-2">
+        {page.data.description}
+      </DocsDescription>
+      <SourceBar source={resolveDocSource(page.path, loadDocsSources())} />
       <DocsBody>
         <MDX components={getMDXComponents()} />
       </DocsBody>

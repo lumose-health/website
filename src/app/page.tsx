@@ -1,11 +1,44 @@
 import type { Metadata } from "next";
-import { HomePage } from "@/components/home-page";
+import { Alerts } from "@/components/v2/alerts";
+import { Architecture } from "@/components/v2/architecture";
+import { Community } from "@/components/v2/community";
+import { Contributors } from "@/components/v2/contributors";
+import { BeamSection } from "@/components/v2/beam/beam-section";
+import { ByoAi } from "@/components/v2/byo-ai";
+import { Dashboard } from "@/components/v2/dashboard/dashboard";
+import { DemoShowcase } from "@/components/v2/demos/demo-showcase";
+import { DeviceCards } from "@/components/v2/device-cards";
+import { FinalCta } from "@/components/v2/final-cta";
+import { GetStarted } from "@/components/v2/get-started";
+import { Hero } from "@/components/v2/hero";
+import { ProviderSelectionProvider } from "@/components/v2/provider-context";
+import { SiteFrame } from "@/components/v2/site-frame";
+import { routes } from "@/lib/v2/routes";
 
 // Set here rather than in the root layout, which every route would inherit.
 export const metadata: Metadata = {
-  alternates: { canonical: "/" },
+  alternates: { canonical: routes.home },
 };
 
 export default function Home() {
-  return <HomePage />;
+  return (
+    <SiteFrame>
+      <main>
+        <ProviderSelectionProvider>
+          <Hero />
+          <Dashboard />
+          <BeamSection />
+          <ByoAi />
+          <Alerts />
+          <DemoShowcase />
+          <DeviceCards />
+          <Architecture />
+          <GetStarted />
+        </ProviderSelectionProvider>
+        <Contributors />
+        <Community />
+        <FinalCta />
+      </main>
+    </SiteFrame>
+  );
 }

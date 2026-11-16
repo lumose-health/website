@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import { OPEN_GRAPH } from "@/lib/site";
 import json from "@/data/changelog.json";
-import { GITHUB_URL, releaseAnchor } from "@/lib/v2/routes";
+import { GITHUB_URL, releaseAnchor, routes } from "@/lib/v2/routes";
 import { Card } from "@/components/v2/card";
 import { EXTERNAL_LINK } from "@/components/v2/button";
 import { ContentRail, type RailItem } from "@/components/v2/content-rail";
@@ -13,9 +14,14 @@ import {
   type ChangelogRelease,
 } from "@/components/v2/changelog/release";
 
-// noindex comes from the v2 layout. Only the title is set here.
+const TITLE = "Changelog | Lumose";
+const DESCRIPTION = "What changed in each Lumose release, newest first.";
+
 export const metadata: Metadata = {
-  title: "Changelog | Lumose",
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: routes.changelog },
+  openGraph: { ...OPEN_GRAPH, title: TITLE, description: DESCRIPTION, url: routes.changelog },
 };
 
 const OPEN_COUNT = 10;
