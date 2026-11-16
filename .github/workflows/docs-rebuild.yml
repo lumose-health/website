@@ -1,7 +1,7 @@
 name: Docs Rebuild
 
 # Triggered by source repos when their docs change.
-# Source repos call: gh api repos/GlycemicGPT/website/dispatches -f event_type=docs-updated
+# Source repos call: gh api repos/lumose-health/website/dispatches -f event_type=docs-updated
 on:
   repository_dispatch:
     types: [docs-updated]
@@ -45,9 +45,48 @@ jobs:
       - name: Build
         run: npx next build
 
+      # Checks the freshly synced data (banned words) and the build output
+      # before anything goes live. A failure stops the deploy, and production
+      # keeps the previous version.
+      - name: Check build output and synced data
+        run: bash scripts/check-v2.sh
+
+      # The dispatch payload is whatever the sender put in it. Its values are
+      # read from env, never expanded into this script, and kept only when they
+      # match a strict pattern; anything else becomes "unknown". The message
+      # placed in the wrangler command line can then hold no quotes, $,
+      # backticks or newlines.
+      - name: Build deploy message
+        id: deploy-message
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          ACTOR: ${{ github.actor }}
+          PAYLOAD_SOURCE: ${{ github.event.client_payload.source }}
+          PAYLOAD_SHA: ${{ github.event.client_payload.sha }}
+        run: |
+          keep_if() {
+            if [[ "$1" =~ $2 ]]; then printf '%s' "$1"; else printf 'unknown'; fi
+          }
+          event=$(keep_if "$EVENT_NAME" '^[a-z_]{1,50}$')
+          actor=$(keep_if "$ACTOR" '^[A-Za-z0-9-]{1,39}(\[bot\])?$')
+          source=$(keep_if "$PAYLOAD_SOURCE" '^[A-Za-z0-9._/-]{1,100}$')
+          sha=$(keep_if "$PAYLOAD_SHA" '^[0-9a-f]{7,40}$')
+          if [ "$event" = "repository_dispatch" ]; then
+            message="docs rebuild (dispatched by ${source}@${sha})"
+          else
+            message="docs rebuild (${event} by ${actor})"
+          fi
+          # Last guard: only the characters the patterns above can produce.
+          allowed='^[]A-Za-z0-9._/@()[ -]+$'
+          if ! [[ "$message" =~ $allowed ]]; then
+            message="docs rebuild"
+          fi
+          echo "message=$message" >> "$GITHUB_OUTPUT"
+          echo "Deploy message: $message"
+
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy out --project-name=lumose --branch=main --commit-message="${{ github.event_name == 'repository_dispatch' && format('docs rebuild (dispatched by {0}@{1})', github.event.client_payload.source, github.event.client_payload.sha) || format('docs rebuild ({0} by {1})', github.event_name, github.actor) }}"
+          command: pages deploy out --project-name=lumose --branch=main --commit-message="${{ steps.deploy-message.outputs.message }}"
