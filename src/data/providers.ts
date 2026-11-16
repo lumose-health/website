@@ -15,16 +15,22 @@ export type SampleChat = {
   summary: string;
 };
 
+/**
+ * A local server for the OpenAI-compatible option. Each has to be one the
+ * product docs name, with its mark taken unchanged from the project's own
+ * brand files. The README lists where each came from.
+ */
+export type LocalRuntime = { name: string; logo: string };
+
 export type AiProvider = {
   id: "claude" | "openai" | "copilot" | "ollama";
   /** The name on the button and in the caption under the chat. */
   name: string;
   /**
-   * Shown on the button one at a time in place of the name, which stays as the
-   * start of the button's fixed accessible name. Each has to be a runtime the
-   * product docs name for the OpenAI-compatible option.
+   * Shown on the button one at a time in place of the name and logo. The name
+   * stays as the start of the button's fixed accessible name.
    */
-  rotatingNames?: readonly string[];
+  runtimes?: readonly LocalRuntime[];
   logo: string;
   /** Where the answer comes from, as shown in the caption under the chat. */
   where: string;
@@ -91,7 +97,12 @@ export const PROVIDERS: AiProvider[] = [
     // OpenAI-compatible endpoint.
     id: "ollama",
     name: "Local model",
-    rotatingNames: ["Ollama", "LM Studio", "llama.cpp", "vLLM"],
+    runtimes: [
+      { name: "Ollama", logo: "/ai-providers/ollama.svg" },
+      { name: "LM Studio", logo: "/ai-providers/lmstudio.svg" },
+      { name: "llama.cpp", logo: "/ai-providers/llamacpp.svg" },
+      { name: "vLLM", logo: "/ai-providers/vllm.svg" },
+    ],
     logo: "/ai-providers/ollama.svg",
     where: "Runs on your network",
     model: "openai_compatible / local model",

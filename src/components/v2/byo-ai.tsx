@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import type { KeyboardEvent } from "react";
-import { Check, Cpu } from "lucide-react";
+import { Check } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { flags } from "@/data/flags";
 import { PROVIDER_NOTICE_SUBJECT, PROVIDERS } from "@/data/providers";
+import type { LocalRuntime } from "@/data/providers";
 import { createStepTimer } from "@/lib/v2/dashboard-range";
 import {
   LABEL_STEP_MS,
@@ -53,11 +54,12 @@ function useHydrated() {
   );
 }
 
-const LOGO =
-  "size-4 flex-none transition-opacity duration-(--lm-dur-fast) motion-reduce:transition-none";
+const FADE =
+  "transition-opacity duration-(--lm-dur-fast) motion-reduce:transition-none";
 // Stacked in one cell, so the cell is as wide as the longest name and the
 // button never changes size. Names roll through at full strength, clipped by
-// the cell, because text caught half faded fails a contrast check.
+// the cell, because text caught half faded fails a contrast check. Each name's
+// logo rolls through its own cell in step with it.
 const ROTATING = "[grid-area:1/1] whitespace-nowrap";
 // A stopped loop drops the move, so a change caught mid-way doesn't carry on.
 const ROLL =
@@ -69,8 +71,7 @@ const SLOT: Record<LabelSlot, string> = {
   waiting: "invisible translate-y-full",
 };
 
-const ROTATING_NAMES =
-  PROVIDERS.find((item) => item.rotatingNames)?.rotatingNames ?? [];
+const RUNTIMES = PROVIDERS.find((item) => item.runtimes)?.runtimes ?? [];
 
 /**
  * Steps through the names on a timer that follows the loop region, so it stops
@@ -86,7 +87,7 @@ function useRotatingLabel(count: number) {
     return { timer: stepTimer, gate: createRotationGate(stepTimer.setRunning) };
   });
 
-  const region = useLoopRegion<HTMLSpanElement>({
+  const region = useLoopRegion<HTMLButtonElement>({
     onRunningChange: gate.setRegionRunning,
     onSettle: () => setIndex(0),
   });
@@ -106,26 +107,43 @@ function useRotatingLabel(count: number) {
   return { index, region, holdProps };
 }
 
-type RotatingLabelProps = {
-  names: readonly string[];
+type RotatingProps = {
+  runtimes: readonly LocalRuntime[];
   index: number;
-  region: ReturnType<typeof useLoopRegion<HTMLSpanElement>>;
 };
 
-/** Drawn only. The button's name for assistive tech is the fixed text beside this. */
-function RotatingLabel({ names, index, region }: RotatingLabelProps) {
+/** One logo per name, all fetched with the page so none arrives mid-roll. */
+function RotatingLogo({ runtimes, index }: RotatingProps) {
   return (
-    <span
-      {...region}
-      aria-hidden="true"
-      className="inline-grid overflow-hidden"
-    >
-      {names.map((name, position) => (
+    <span className="grid size-4 overflow-hidden">
+      {runtimes.map((runtime, position) => (
+        // eslint-disable-next-line @next/next/no-img-element -- static export, and the name sits next to it
+        <img
+          key={runtime.name}
+          src={runtime.logo}
+          alt=""
+          width={16}
+          height={16}
+          loading="eager"
+          fetchPriority="low"
+          decoding="async"
+          className={`[grid-area:1/1] size-4 ${SLOT[labelSlot(position, index, runtimes.length)]}`}
+        />
+      ))}
+    </span>
+  );
+}
+
+/** Drawn only. The button's name for assistive tech is the fixed text beside this. */
+function RotatingLabel({ runtimes, index }: RotatingProps) {
+  return (
+    <span aria-hidden="true" className="inline-grid overflow-hidden">
+      {runtimes.map((runtime, position) => (
         <span
-          key={name}
-          className={`${ROTATING} ${SLOT[labelSlot(position, index, names.length)]}`}
+          key={runtime.name}
+          className={`${ROTATING} ${SLOT[labelSlot(position, index, runtimes.length)]}`}
         >
-          {name}
+          {runtime.name}
         </span>
       ))}
     </span>
@@ -135,8 +153,7 @@ function RotatingLabel({ names, index, region }: RotatingLabelProps) {
 function ProviderButtons() {
   const { provider, setProvider } = useProviderSelection();
   const hydrated = useHydrated();
-  const buttons = useRef<(HTMLButtonElement | null)[]>([]);
-  const rotation = useRotatingLabel(ROTATING_NAMES.length);
+  const rotation = useRotatingLabel(RUNTIMES.length);
 
   function moveWithArrows(event: KeyboardEvent, index: number) {
     // Alt+Left is the browser's Back shortcut.
@@ -150,7 +167,8 @@ function ProviderButtons() {
     event.preventDefault();
     const next = (index + step + PROVIDERS.length) % PROVIDERS.length;
     setProvider(PROVIDERS[next]);
-    buttons.current[next]?.focus();
+    const buttons = event.currentTarget.parentElement?.children;
+    (buttons?.[next] as HTMLElement | undefined)?.focus();
   }
 
   return (
@@ -161,55 +179,46 @@ function ProviderButtons() {
     >
       {PROVIDERS.map((item, index) => {
         const pressed = item.id === provider.id;
-        // The logo belongs to the first name only. The others get a plain chip.
-        const ownLogo = !item.rotatingNames || rotation.index === 0;
+        const dim = hydrated && !pressed ? "opacity-70" : "";
         return (
           <button
             key={item.id}
-            ref={(element) => {
-              buttons.current[index] = element;
-            }}
+            // The loop region sits on the button, so its stopped state reaches
+            // the logo and the name alike.
+            {...(item.runtimes ? rotation.region : null)}
             type="button"
             aria-pressed={pressed}
             disabled={!hydrated}
             onClick={() => setProvider(item)}
             onKeyDown={(event) => moveWithArrows(event, index)}
-            {...(item.rotatingNames ? rotation.holdProps : null)}
+            {...(item.runtimes ? rotation.holdProps : null)}
             className={`${BUTTON} ${!hydrated ? PLAIN : pressed ? PRESSED : IDLE}`}
           >
-            {flags.logosCleared ? (
-              <span
-                className={`grid ${LOGO} ${hydrated && !pressed ? "opacity-70" : ""}`}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element -- static export, and the name sits next to it */}
-                <img
-                  src={item.logo}
-                  alt=""
-                  width={16}
-                  height={16}
-                  loading="lazy"
-                  decoding="async"
-                  className={`[grid-area:1/1] ${LOGO} ${ownLogo ? "" : "opacity-0"}`}
-                />
-                {item.rotatingNames ? (
-                  <Cpu
-                    aria-hidden="true"
-                    strokeWidth={1.75}
-                    className={`[grid-area:1/1] ${LOGO} ${ownLogo ? "opacity-0" : ""}`}
-                  />
-                ) : null}
+            {!flags.logosCleared ? null : item.runtimes ? (
+              <span className={`flex-none ${FADE} ${dim}`}>
+                <RotatingLogo runtimes={item.runtimes} index={rotation.index} />
               </span>
-            ) : null}
-            {item.rotatingNames ? (
+            ) : (
+              // eslint-disable-next-line @next/next/no-img-element -- static export, and the name sits next to it
+              <img
+                src={item.logo}
+                alt=""
+                width={16}
+                height={16}
+                loading="lazy"
+                decoding="async"
+                className={`size-4 flex-none ${FADE} ${dim}`}
+              />
+            )}
+            {item.runtimes ? (
               <>
                 {/* Lists every name, so it never changes and still holds whichever one is showing, for voice control. */}
                 <span className="sr-only">
-                  {`${item.name}: ${item.rotatingNames.join(", ")}`}
+                  {`${item.name}: ${item.runtimes.map((runtime) => runtime.name).join(", ")}`}
                 </span>
                 <RotatingLabel
-                  names={item.rotatingNames}
+                  runtimes={item.runtimes}
                   index={rotation.index}
-                  region={rotation.region}
                 />
               </>
             ) : (

@@ -92,9 +92,9 @@ test("the lunch peak matches the device demos", () => {
 });
 
 test("only one button rotates, and it opens on Ollama", () => {
-  const rotating = PROVIDERS.filter((p) => p.rotatingNames);
+  const rotating = PROVIDERS.filter((p) => p.runtimes);
   assert.equal(rotating.length, 1);
-  const names = rotating[0].rotatingNames ?? [];
+  const names = (rotating[0].runtimes ?? []).map((runtime) => runtime.name);
   assert.equal(names[0], "Ollama");
   assert.ok(names.length >= 4 && names.length <= 5);
   assert.equal(new Set(names).size, names.length);
@@ -102,9 +102,35 @@ test("only one button rotates, and it opens on Ollama", () => {
   assert.ok(!names.includes(rotating[0].name));
 });
 
+test("every runtime has its own small logo file", () => {
+  const local = PROVIDERS.find((p) => p.runtimes);
+  const runtimes = local?.runtimes ?? [];
+  // Ollama keeps the mark the provider already had.
+  assert.equal(runtimes[0].logo, local?.logo);
+  assert.equal(new Set(runtimes.map((r) => r.logo)).size, runtimes.length);
+  for (const { name, logo } of runtimes) {
+    assert.match(logo, /^\/ai-providers\/[a-z]+\.svg$/, name);
+    const svg = readFileSync(`public${logo}`, "utf8");
+    assert.ok(svg.length > 0 && svg.length < 6000, `${name}: ${svg.length}`);
+    // Nothing that runs or embeds a raster.
+    assert.doesNotMatch(
+      svg,
+      /<script|<foreignObject|<image|<iframe|<style|data:|javascript:|\son\w+=/i,
+      name,
+    );
+    // Links and url() may only point inside the same file.
+    for (const [, target] of svg.matchAll(/href="([^"]*)"/g)) {
+      assert.match(target, /^#/, `${name}: ${target}`);
+    }
+    for (const [, target] of svg.matchAll(/url\(([^)]*)\)/g)) {
+      assert.match(target, /^#/, `${name}: ${target}`);
+    }
+  }
+});
+
 test("the notice names every fixed provider and covers the rest", () => {
   for (const provider of PROVIDERS) {
-    const shown = provider.rotatingNames?.[0] ?? provider.name;
+    const shown = provider.runtimes?.[0].name ?? provider.name;
     assert.ok(PROVIDER_NOTICE_SUBJECT.includes(shown), shown);
   }
   assert.match(PROVIDER_NOTICE_SUBJECT, /and other product names and logos$/);
