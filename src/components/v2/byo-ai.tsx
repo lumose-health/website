@@ -1,11 +1,21 @@
 "use client";
 
-import { useRef, useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import type { KeyboardEvent } from "react";
 import { Check } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { flags } from "@/data/flags";
 import { PROVIDER_NOTICE_SUBJECT, PROVIDERS } from "@/data/providers";
+import type { LocalRuntime } from "@/data/providers";
+import { createStepTimer } from "@/lib/v2/dashboard-range";
+import {
+  LABEL_STEP_MS,
+  createRotationGate,
+  labelSlot,
+  nextLabelIndex,
+} from "@/lib/v2/label-rotation";
+import type { LabelSlot } from "@/lib/v2/label-rotation";
+import { useLoopRegion } from "@/lib/v2/use-loop-region";
 import { FOCUS_RING } from "./button";
 import { ChatMockup } from "./chat-mockup";
 import { MarksNotice } from "./marks-notice";
@@ -20,8 +30,9 @@ const BULLETS = [
 const CAPTION_PREFIX = "Illustrative example. Answering with:";
 
 // Tighter from 1020px to 1179px, so all four still fit on one row beside the
-// text. The range has an upper limit because desktop: sorts after min-[1180px]:.
-const BUTTON = `inline-flex min-h-lm-touch min-w-0 items-center gap-2 rounded-lm-button border px-3 text-left text-sm transition-colors duration-(--lm-dur-fast) enabled:cursor-pointer motion-reduce:transition-none desktop:max-[1179px]:gap-1.5 desktop:max-[1179px]:px-2.5 min-[1180px]:px-4 ${FOCUS_RING}`;
+// text, with the last one as wide as its longest name. The range has an upper
+// limit because desktop: sorts after min-[1180px]:.
+const BUTTON = `inline-flex min-h-lm-touch min-w-0 items-center gap-2 rounded-lm-button border px-3 text-left text-sm transition-colors duration-(--lm-dur-fast) enabled:cursor-pointer motion-reduce:transition-none desktop:max-[1179px]:gap-1.5 desktop:max-[1179px]:px-2 min-[1180px]:px-4 ${FOCUS_RING}`;
 // Forced colors would otherwise remove the fill, and with it the pressed state.
 const PRESSED =
   "border-[#3E7BC4] bg-[#13253B] text-lm-ink forced-colors:border-[Highlight] forced-colors:bg-[Highlight] forced-colors:text-[HighlightText] forced-colors:forced-color-adjust-none";
@@ -43,10 +54,106 @@ function useHydrated() {
   );
 }
 
+const FADE =
+  "transition-opacity duration-(--lm-dur-fast) motion-reduce:transition-none";
+// Stacked in one cell, so the cell is as wide as the longest name and the
+// button never changes size. Names roll through at full strength, clipped by
+// the cell, because text caught half faded fails a contrast check. Each name's
+// logo rolls through its own cell in step with it.
+const ROTATING = "[grid-area:1/1] whitespace-nowrap";
+// A stopped loop drops the move, so a change caught mid-way doesn't carry on.
+const ROLL =
+  "transition-[translate] duration-(--lm-dur-base) ease-(--ease-lm-in-out) motion-reduce:transition-none in-data-[lm-loop=frozen]:transition-none";
+// A waiting name has no transition, so it returns below the cell unseen.
+const SLOT: Record<LabelSlot, string> = {
+  current: ROLL,
+  previous: `${ROLL} -translate-y-full`,
+  waiting: "invisible translate-y-full",
+};
+
+const RUNTIMES = PROVIDERS.find((item) => item.runtimes)?.runtimes ?? [];
+
+/**
+ * Steps through the names on a timer that follows the loop region, so it stops
+ * offscreen, in a hidden tab, while paused and under reduced motion. It also
+ * holds the current name while the button is hovered or focused.
+ */
+function useRotatingLabel(count: number) {
+  const [index, setIndex] = useState(0);
+  const [{ timer, gate }] = useState(() => {
+    const stepTimer = createStepTimer(LABEL_STEP_MS, () =>
+      setIndex((current) => nextLabelIndex(current, count)),
+    );
+    return { timer: stepTimer, gate: createRotationGate(stepTimer.setRunning) };
+  });
+
+  const region = useLoopRegion<HTMLButtonElement>({
+    onRunningChange: gate.setRegionRunning,
+    onSettle: () => setIndex(0),
+  });
+
+  useEffect(() => {
+    timer.start();
+    return timer.stop;
+  }, [timer]);
+
+  const holdProps = {
+    onPointerEnter: () => gate.setHold("hover", true),
+    onPointerLeave: () => gate.setHold("hover", false),
+    onFocus: () => gate.setHold("focus", true),
+    onBlur: () => gate.setHold("focus", false),
+  };
+
+  return { index, region, holdProps };
+}
+
+type RotatingProps = {
+  runtimes: readonly LocalRuntime[];
+  index: number;
+};
+
+/** One logo per name, all fetched with the page so none arrives mid-roll. */
+function RotatingLogo({ runtimes, index }: RotatingProps) {
+  return (
+    <span className="grid size-4 overflow-hidden">
+      {runtimes.map((runtime, position) => (
+        // eslint-disable-next-line @next/next/no-img-element -- static export, and the name sits next to it
+        <img
+          key={runtime.name}
+          src={runtime.logo}
+          alt=""
+          width={16}
+          height={16}
+          loading="eager"
+          fetchPriority="low"
+          decoding="async"
+          className={`[grid-area:1/1] size-4 ${SLOT[labelSlot(position, index, runtimes.length)]}`}
+        />
+      ))}
+    </span>
+  );
+}
+
+/** Drawn only. The button's name for assistive tech is the fixed text beside this. */
+function RotatingLabel({ runtimes, index }: RotatingProps) {
+  return (
+    <span aria-hidden="true" className="inline-grid overflow-hidden">
+      {runtimes.map((runtime, position) => (
+        <span
+          key={runtime.name}
+          className={`${ROTATING} ${SLOT[labelSlot(position, index, runtimes.length)]}`}
+        >
+          {runtime.name}
+        </span>
+      ))}
+    </span>
+  );
+}
+
 function ProviderButtons() {
   const { provider, setProvider } = useProviderSelection();
   const hydrated = useHydrated();
-  const buttons = useRef<(HTMLButtonElement | null)[]>([]);
+  const rotation = useRotatingLabel(RUNTIMES.length);
 
   function moveWithArrows(event: KeyboardEvent, index: number) {
     // Alt+Left is the browser's Back shortcut.
@@ -60,7 +167,8 @@ function ProviderButtons() {
     event.preventDefault();
     const next = (index + step + PROVIDERS.length) % PROVIDERS.length;
     setProvider(PROVIDERS[next]);
-    buttons.current[next]?.focus();
+    const buttons = event.currentTarget.parentElement?.children;
+    (buttons?.[next] as HTMLElement | undefined)?.focus();
   }
 
   return (
@@ -71,20 +179,26 @@ function ProviderButtons() {
     >
       {PROVIDERS.map((item, index) => {
         const pressed = item.id === provider.id;
+        const dim = hydrated && !pressed ? "opacity-70" : "";
         return (
           <button
             key={item.id}
-            ref={(element) => {
-              buttons.current[index] = element;
-            }}
+            // The loop region sits on the button, so its stopped state reaches
+            // the logo and the name alike.
+            {...(item.runtimes ? rotation.region : null)}
             type="button"
             aria-pressed={pressed}
             disabled={!hydrated}
             onClick={() => setProvider(item)}
             onKeyDown={(event) => moveWithArrows(event, index)}
+            {...(item.runtimes ? rotation.holdProps : null)}
             className={`${BUTTON} ${!hydrated ? PLAIN : pressed ? PRESSED : IDLE}`}
           >
-            {flags.logosCleared ? (
+            {!flags.logosCleared ? null : item.runtimes ? (
+              <span className={`flex-none ${FADE} ${dim}`}>
+                <RotatingLogo runtimes={item.runtimes} index={rotation.index} />
+              </span>
+            ) : (
               // eslint-disable-next-line @next/next/no-img-element -- static export, and the name sits next to it
               <img
                 src={item.logo}
@@ -93,10 +207,23 @@ function ProviderButtons() {
                 height={16}
                 loading="lazy"
                 decoding="async"
-                className={`size-4 flex-none transition-opacity duration-(--lm-dur-fast) motion-reduce:transition-none ${hydrated && !pressed ? "opacity-70" : ""}`}
+                className={`size-4 flex-none ${FADE} ${dim}`}
               />
-            ) : null}
-            {item.name}
+            )}
+            {item.runtimes ? (
+              <>
+                {/* Lists every name, so it never changes and still holds whichever one is showing, for voice control. */}
+                <span className="sr-only">
+                  {`${item.name}: ${item.runtimes.map((runtime) => runtime.name).join(", ")}`}
+                </span>
+                <RotatingLabel
+                  runtimes={item.runtimes}
+                  index={rotation.index}
+                />
+              </>
+            ) : (
+              item.name
+            )}
           </button>
         );
       })}
