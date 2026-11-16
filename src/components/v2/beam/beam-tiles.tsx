@@ -1,36 +1,21 @@
 "use client";
 
-import { useCallback, useId, useState } from "react";
+import { createContext, useCallback, useContext, useId, useState } from "react";
 import type { CSSProperties, ReactNode } from "react";
+import type { BeamMark } from "@/data/beam-marks";
 import { flags } from "@/data/flags";
-import { useLoopRegion } from "@/lib/v2/use-loop-region";
+import { LOCAL_RUNTIMES } from "@/data/providers";
+import type { LocalRuntime } from "@/data/providers";
+import { labelSlot } from "@/lib/v2/label-rotation";
+import type { LabelSlot } from "@/lib/v2/label-rotation";
+import { useLabelRotation } from "@/lib/v2/use-label-rotation";
 import { useShownOnce } from "../dashboard/use-dashboard-tick";
 import { LogoIcon } from "../logo";
 
 // The pieces both layouts share. The layouts only differ in where things sit.
 
-type Mark = {
-  name: string;
-  /** Shown when `flags.logosCleared` is off. */
-  initials: string;
-  logo: string;
-};
-
-export const BEAM_DEVICES: Mark[] = [
-  { name: "Dexcom", initials: "D", logo: "/vendors/dexcom.png" },
-  { name: "Tandem", initials: "T", logo: "/vendors/tandem.png" },
-  { name: "Medtronic", initials: "M", logo: "/vendors/medtronic.jpg" },
-  { name: "Glooko", initials: "G", logo: "/vendors/glooko.png" },
-  { name: "Nightscout", initials: "N", logo: "/vendors/nightscout.png" },
-];
-
-// Two letters, since one would read C, O, C, O.
-export const BEAM_PROVIDERS: Mark[] = [
-  { name: "Claude", initials: "Cl", logo: "/ai-providers/claude.svg" },
-  { name: "OpenAI", initials: "Op", logo: "/ai-providers/openai.svg" },
-  { name: "Copilot", initials: "Co", logo: "/ai-providers/githubcopilot.svg" },
-  { name: "Ollama", initials: "Ol", logo: "/ai-providers/ollama.svg" },
-];
+/** Which local runtime's logo the stage is showing. */
+const RuntimeIndex = createContext(0);
 
 type Point = readonly [x: number, y: number];
 export type BeamCurve = readonly [Point, Point, Point, Point];
@@ -153,7 +138,11 @@ export function BeamStage({
   const id = useId();
   const [pulsing, setPulsing] = useState(false);
   const startPulses = useCallback(() => setPulsing(true), []);
-  const region = useLoopRegion();
+  // The local model tile steps through its runtimes with the same region as the
+  // pulses, so it stops with them. Nothing to step through without the logos.
+  const rotation = useLabelRotation(
+    flags.logosCleared ? LOCAL_RUNTIMES.length : 1,
+  );
   const shownRef = useShownOnce(VIEW_THRESHOLD, DRAW_MS, startPulses);
 
   const axisIndex = axis === "x" ? 0 : 1;
@@ -171,7 +160,7 @@ export function BeamStage({
   );
 
   return (
-    <div {...region} className={className}>
+    <div {...rotation.region} className={className}>
       <div
         ref={shownRef}
         data-lm-pulsing={pulsing ? "" : undefined}
@@ -228,7 +217,7 @@ export function BeamStage({
             />
           ))}
         </svg>
-        {children}
+        <RuntimeIndex value={rotation.index}>{children}</RuntimeIndex>
       </div>
     </div>
   );
@@ -237,6 +226,49 @@ export function BeamStage({
 const TILE_SIZE = 52;
 const LOGO_SIZE = { tile: 28, node: 22 };
 
+// A cross-fade rather than the button's roll, which would cut the marks off in
+// a square window inside the round tile. Each mark is shown as it comes, with
+// no tint. A stopped loop drops the fade, so a change caught mid-way snaps.
+const FADE =
+  "transition-opacity duration-(--lm-dur-base) ease-(--ease-lm-in-out) motion-reduce:transition-none in-data-[lm-loop=frozen]:transition-none";
+const FADE_SLOT: Record<LabelSlot, string> = {
+  current: FADE,
+  previous: `${FADE} opacity-0`,
+  waiting: "opacity-0",
+};
+
+/**
+ * Every logo stacked in one cell, so the tile never changes size. All of them
+ * load with the page, so none arrives mid-fade.
+ */
+function RotatingLogo({
+  runtimes,
+  size,
+}: {
+  runtimes: readonly LocalRuntime[];
+  size: number;
+}) {
+  const index = useContext(RuntimeIndex);
+  return (
+    <span className="grid" style={{ width: size, height: size }}>
+      {runtimes.map((runtime, position) => (
+        // eslint-disable-next-line @next/next/no-img-element -- static export, and the diagram's text alternative has the name
+        <img
+          key={runtime.name}
+          src={runtime.logo}
+          alt=""
+          width={size}
+          height={size}
+          loading="eager"
+          fetchPriority="low"
+          decoding="async"
+          className={`[grid-area:1/1] ${FADE_SLOT[labelSlot(position, index, runtimes.length)]}`}
+        />
+      ))}
+    </span>
+  );
+}
+
 /** Placed by its center. */
 export function BeamTile({
   mark,
@@ -244,7 +276,7 @@ export function BeamTile({
   x,
   y,
 }: {
-  mark: Mark;
+  mark: BeamMark;
   shape: "tile" | "node";
   x: number;
   y: number;
@@ -259,7 +291,15 @@ export function BeamTile({
       className={`absolute flex size-[52px] items-center justify-center border border-lm-line-pill bg-lm-card forced-color-adjust-none ${isTile ? "rounded-lm-tile" : "rounded-full"}`}
       style={{ left: x - TILE_SIZE / 2, top: y - TILE_SIZE / 2 }}
     >
-      {flags.logosCleared ? (
+      {!flags.logosCleared ? (
+        <span
+          className={`font-lm-mono leading-none font-medium text-lm-ink-secondary ${isTile ? "text-[22px]" : "text-base"}`}
+        >
+          {mark.initials}
+        </span>
+      ) : mark.runtimes ? (
+        <RotatingLogo runtimes={mark.runtimes} size={logoSize} />
+      ) : (
         // Lazy so the layout that's display: none never fetches its copy.
         // eslint-disable-next-line @next/next/no-img-element -- static export, and the diagram's text alternative has the name
         <img
@@ -271,12 +311,6 @@ export function BeamTile({
           decoding="async"
           className={isTile ? "rounded-[7px] object-cover" : undefined}
         />
-      ) : (
-        <span
-          className={`font-lm-mono leading-none font-medium text-lm-ink-secondary ${isTile ? "text-[22px]" : "text-base"}`}
-        >
-          {mark.initials}
-        </span>
       )}
     </div>
   );

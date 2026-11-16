@@ -1,21 +1,19 @@
 "use client";
 
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useSyncExternalStore } from "react";
 import type { KeyboardEvent } from "react";
 import { Check } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { flags } from "@/data/flags";
-import { PROVIDER_NOTICE_SUBJECT, PROVIDERS } from "@/data/providers";
-import type { LocalRuntime } from "@/data/providers";
-import { createStepTimer } from "@/lib/v2/dashboard-range";
 import {
-  LABEL_STEP_MS,
-  createRotationGate,
-  labelSlot,
-  nextLabelIndex,
-} from "@/lib/v2/label-rotation";
+  LOCAL_RUNTIMES,
+  PROVIDER_NOTICE_SUBJECT,
+  PROVIDERS,
+} from "@/data/providers";
+import type { LocalRuntime } from "@/data/providers";
+import { labelSlot } from "@/lib/v2/label-rotation";
 import type { LabelSlot } from "@/lib/v2/label-rotation";
-import { useLoopRegion } from "@/lib/v2/use-loop-region";
+import { useLabelRotation } from "@/lib/v2/use-label-rotation";
 import { FOCUS_RING } from "./button";
 import { ChatMockup } from "./chat-mockup";
 import { MarksNotice } from "./marks-notice";
@@ -71,42 +69,6 @@ const SLOT: Record<LabelSlot, string> = {
   waiting: "invisible translate-y-full",
 };
 
-const RUNTIMES = PROVIDERS.find((item) => item.runtimes)?.runtimes ?? [];
-
-/**
- * Steps through the names on a timer that follows the loop region, so it stops
- * offscreen, in a hidden tab, while paused and under reduced motion. It also
- * holds the current name while the button is hovered or focused.
- */
-function useRotatingLabel(count: number) {
-  const [index, setIndex] = useState(0);
-  const [{ timer, gate }] = useState(() => {
-    const stepTimer = createStepTimer(LABEL_STEP_MS, () =>
-      setIndex((current) => nextLabelIndex(current, count)),
-    );
-    return { timer: stepTimer, gate: createRotationGate(stepTimer.setRunning) };
-  });
-
-  const region = useLoopRegion<HTMLButtonElement>({
-    onRunningChange: gate.setRegionRunning,
-    onSettle: () => setIndex(0),
-  });
-
-  useEffect(() => {
-    timer.start();
-    return timer.stop;
-  }, [timer]);
-
-  const holdProps = {
-    onPointerEnter: () => gate.setHold("hover", true),
-    onPointerLeave: () => gate.setHold("hover", false),
-    onFocus: () => gate.setHold("focus", true),
-    onBlur: () => gate.setHold("focus", false),
-  };
-
-  return { index, region, holdProps };
-}
-
 type RotatingProps = {
   runtimes: readonly LocalRuntime[];
   index: number;
@@ -153,7 +115,7 @@ function RotatingLabel({ runtimes, index }: RotatingProps) {
 function ProviderButtons() {
   const { provider, setProvider } = useProviderSelection();
   const hydrated = useHydrated();
-  const rotation = useRotatingLabel(RUNTIMES.length);
+  const rotation = useLabelRotation<HTMLButtonElement>(LOCAL_RUNTIMES.length);
 
   function moveWithArrows(event: KeyboardEvent, index: number) {
     // Alt+Left is the browser's Back shortcut.
@@ -304,7 +266,10 @@ export function ByoAi() {
             <ChatMockup />
             <ProviderCaption />
             {flags.showProviderNotice ? (
-              <MarksNotice subject={PROVIDER_NOTICE_SUBJECT} className="mt-1.5" />
+              <MarksNotice
+                subject={PROVIDER_NOTICE_SUBJECT}
+                className="mt-1.5"
+              />
             ) : null}
           </div>
         </Reveal>
