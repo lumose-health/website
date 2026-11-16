@@ -1,14 +1,8 @@
 "use client";
 
+import { BEAM_DEVICES, BEAM_PROVIDERS } from "@/data/beam-marks";
 import type { BeamCurve } from "./beam-tiles";
-import {
-  BEAM_DEVICES,
-  BEAM_PROVIDERS,
-  BeamCore,
-  BeamLabel,
-  BeamStage,
-  BeamTile,
-} from "./beam-tiles";
+import { BeamCore, BeamLabel, BeamStage, BeamTile } from "./beam-tiles";
 
 const CORE = { x: 171, y: 226 };
 // 66px apart leaves the row 316 wide, so even a 320px screen clips no tile.
