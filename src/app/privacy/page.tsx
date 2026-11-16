@@ -22,7 +22,7 @@ export default function PrivacyPage() {
   return (
     <LegalPage
       title="Privacy Policy"
-      lastUpdated="May 27, 2026"
+      lastUpdated="November 15, 2026"
       intro="Lumose, formerly GlycemicGPT, is a privacy-first, open-source project. This page explains what happens to your data on this website and in the self-hosted platform."
     >
       <h2>This website</h2>
@@ -34,6 +34,12 @@ export default function PrivacyPage() {
         it. See our{" "}
         <Link href="/accessibility">Accessibility Statement</Link> for related
         commitments.
+      </p>
+      <p>
+        The site keeps a few display settings in your browser, such as your
+        light or dark theme choice, whether you paused animations, and which
+        sections of the docs menu you left open. They stay on your device and
+        are never sent to us.
       </p>
       <p>
         The site is served as static files. The hosting provider may keep
