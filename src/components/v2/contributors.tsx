@@ -19,7 +19,6 @@ const PROFILE_URL = /^https:\/\/github\.com\/[A-Za-z0-9-]+$/;
 // Typed by hand: the sync writes an empty list when GitHub fails on a fresh
 // checkout, and the inferred type of an empty list would break the build.
 type ContributorsData = {
-  generatedAt: string;
   stars: number;
   forks: number;
   latestRelease: string | null;
@@ -39,14 +38,6 @@ const people: AvatarPerson[] = data.contributors
 /** The header reads these too: its star count hides with this section, and its Community link falls back to the community cards. */
 export const hasContributors = people.length > 0;
 export const starCount = hasContributors ? data.stars : undefined;
-
-// UTC on both server and client, so the date can't change between them.
-const syncedOn = new Date(data.generatedAt).toLocaleDateString("en-US", {
-  month: "long",
-  day: "numeric",
-  year: "numeric",
-  timeZone: "UTC",
-});
 
 const STAT = "min-w-0 border-l border-lm-line px-4 py-1 tablet:px-6";
 const STAT_LABEL = "text-sm whitespace-nowrap text-lm-ink-muted";
@@ -145,15 +136,11 @@ export function Contributors() {
               )}
             </ul>
           </div>
-          <div className="flex flex-col gap-1 border-t border-lm-line px-6 py-2 text-sm text-lm-ink-muted tablet:flex-row tablet:items-center tablet:justify-between tablet:px-8">
-            <p className="py-2.5">
-              {"Synced from GitHub on "}
-              <time dateTime={data.generatedAt}>{syncedOn}</time>.
-            </p>
+          <div className="flex border-t border-lm-line px-6 py-2 text-sm tablet:justify-end tablet:px-8">
             <a
               href={CONTRIBUTE_URL}
               {...EXTERNAL_LINK}
-              className={`-mx-1 inline-flex min-h-lm-touch items-center gap-1.5 self-start rounded-lm-sm px-1 font-medium text-lm-ink transition-colors duration-(--lm-dur-instant) hover:text-lm-ink-secondary tablet:self-auto ${FOCUS_RING}`}
+              className={`-mx-1 inline-flex min-h-lm-touch items-center gap-1.5 rounded-lm-sm px-1 font-medium text-lm-ink transition-colors duration-(--lm-dur-instant) hover:text-lm-ink-secondary ${FOCUS_RING}`}
             >
               Start contributing
               <span aria-hidden="true">→</span>

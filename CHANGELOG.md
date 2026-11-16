@@ -1,5 +1,49 @@
 # Changelog
 
+## 2026-11-16
+
+### 🏗️ Infrastructure
+
+#### 📝 Other Changes
+
+- ci: audit /v2 in Lighthouse and run check-v2.sh [@jlengelbrecht](https://github.com/jlengelbrecht) ([#762](https://github.com/lumose-health/website/pull/762))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#768](https://github.com/lumose-health/website/pull/768))
+
+<!-- changelog-cutoff:2026-11-16T00:31:11Z -->
+
+
+## 2026-11-16
+
+### 📦 Dependencies
+
+- chore(deps): update dependency motion to v14.13.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#766](https://github.com/lumose-health/website/pull/766))
+- chore(deps): update dependency fumadocs-mdx to v15.6.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#765](https://github.com/lumose-health/website/pull/765))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#767](https://github.com/lumose-health/website/pull/767))
+
+<!-- changelog-cutoff:2026-11-16T00:23:19Z -->
+
+
+## 2026-11-15
+
+### 🌐 Website
+
+#### ⚡ Performance
+
+- perf(v2): cut main-thread work on the /v2 home page [@jlengelbrecht](https://github.com/jlengelbrecht) ([#760](https://github.com/lumose-health/website/pull/760))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#761](https://github.com/lumose-health/website/pull/761))
+
+<!-- changelog-cutoff:2026-11-15T22:38:25Z -->
+
+
 ## 2026-11-15
 
 ### 🌐 Website
