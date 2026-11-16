@@ -2,6 +2,21 @@
 
 ## 2026-11-16
 
+### 🏗️ Infrastructure
+
+#### 📝 Other Changes
+
+- chore(renovate): fix lock file maintenance failing with EALLOWREMOTE [@jlengelbrecht](https://github.com/jlengelbrecht) ([#785](https://github.com/lumose-health/website/pull/785))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#786](https://github.com/lumose-health/website/pull/786))
+
+<!-- changelog-cutoff:2026-11-16T05:21:06Z -->
+
+
+## 2026-11-16
+
 ### 🌐 Website
 
 #### 📝 Other Changes
