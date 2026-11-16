@@ -2,6 +2,21 @@
 
 ## 2026-11-16
 
+### 🏗️ Infrastructure
+
+#### 📝 Other Changes
+
+- ci: guard and check production deploys [@jlengelbrecht](https://github.com/jlengelbrecht) ([#772](https://github.com/lumose-health/website/pull/772))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#775](https://github.com/lumose-health/website/pull/775))
+
+<!-- changelog-cutoff:2026-11-16T02:08:00Z -->
+
+
+## 2026-11-16
+
 ### 🌐 Website
 
 #### 📝 Other Changes
