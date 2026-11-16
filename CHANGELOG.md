@@ -4,6 +4,21 @@
 
 ### 🌐 Website
 
+#### ✨ New Features
+
+- feat(v2): show a different sample chat per AI provider [@jlengelbrecht](https://github.com/jlengelbrecht) ([#764](https://github.com/lumose-health/website/pull/764))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#770](https://github.com/lumose-health/website/pull/770))
+
+<!-- changelog-cutoff:2026-11-16T02:04:28Z -->
+
+
+## 2026-11-16
+
+### 🌐 Website
+
 #### 🐛 Bug Fixes
 
 - fix(v2): drop the sync date from the contributors card [@jlengelbrecht](https://github.com/jlengelbrecht) ([#763](https://github.com/lumose-health/website/pull/763))
