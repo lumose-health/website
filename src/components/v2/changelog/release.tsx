@@ -33,7 +33,7 @@ const GROUPS = [
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 /** "2026-11-05" reads "Nov 5, 2026". Formatted by hand so the build's time zone can't shift the day. */
-export function formatDate(iso: string): string | null {
+function formatDate(iso: string): string | null {
   const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso);
   if (!m) return null;
   const month = MONTHS[Number(m[2]) - 1];

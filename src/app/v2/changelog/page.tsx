@@ -9,7 +9,6 @@ import { OLDER_ID, OlderReleases } from "@/components/v2/changelog/older-release
 import {
   Release,
   TEXT_LINK,
-  formatDate,
   type ChangelogEntry,
   type ChangelogRelease,
 } from "@/components/v2/changelog/release";
@@ -82,7 +81,6 @@ const releases: ChangelogRelease[] = (Array.isArray(data.releases) ? data.releas
 
 const latest = releases.slice(0, OPEN_COUNT);
 const older = releases.slice(OPEN_COUNT);
-const syncedOn = formatDate(data.generatedAt);
 
 const railItems: RailItem[] = [
   ...latest.map((r) => ({ id: r.anchor, label: r.version })),
@@ -122,11 +120,6 @@ export default function ChangelogPage() {
             ))}
           </div>
           <OlderReleases releases={older} />
-          {syncedOn && (
-            <p className="mt-14 border-t border-lm-line-subtle pt-6 text-sm text-lm-ink-faint">
-              Synced from GitHub on {syncedOn}.
-            </p>
-          )}
         </>
       )}
     </ContentShell>
