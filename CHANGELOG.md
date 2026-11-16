@@ -2,6 +2,15 @@
 
 ## 2026-11-16
 
+### 📦 Dependencies
+
+- chore(deps): update tailwind css to v4.3.5 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#787](https://github.com/lumose-health/website/pull/787))
+
+<!-- changelog-cutoff:2026-11-16T05:21:29Z -->
+
+
+## 2026-11-16
+
 ### 🏗️ Infrastructure
 
 #### 📝 Other Changes
