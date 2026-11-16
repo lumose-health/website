@@ -262,6 +262,30 @@ test("suggestions about insulin dosing settings are dropped", () => {
   }
 });
 
+test("lines that claim real-time notification delivery are dropped", () => {
+  for (const line of [
+    "feat: add tiered alert delivery with real-time notifications",
+    "feat: realtime notifications for caregivers",
+    "feat: **real-time** [alerts](https://example.com)",
+    "feat: realTimeNotifications endpoint",
+    "feat: send alerts instantly",
+    "feat: instant notification delivery",
+    "feat: immediate alert dispatch",
+  ]) {
+    assert.equal(classifyLine(line, null, "new").reason, "delivery-claim", line);
+  }
+  // Real-time data and other notification work are not delivery claims.
+  assert.equal(keptText("feat: add real-time glucose updates via SSE"), "Add real-time glucose updates via SSE");
+  assert.equal(keptText("feat: render notifications in the user's glucose unit"), "Render notifications in the user's glucose unit");
+  // The raw notes do contain it, and nothing else is caught by the rule.
+  const droppedInReal = REAL.lines.filter((l) => l.reason === "delivery-claim").map((l) => l.raw);
+  const expected = /tiered alert delivery with real-time notifications/i;
+  assert.ok(droppedInReal.length > 0);
+  for (const l of droppedInReal) assert.match(l, expected);
+  for (const e of REAL_ENTRIES) assert.doesNotMatch(e.text, expected, e.text);
+  assert.ok(REAL_ENTRIES.some((e) => e.text === "Add real-time glucose updates via SSE"));
+});
+
 test("lines that name a dosing setting without a suggestion are kept", () => {
   assert.equal(keptText("feat: show carb ratio in the pump settings card"), "Show carb ratio in the pump settings card");
   assert.equal(keptText("feat: display ISF in the profile summary"), "Display ISF in the profile summary");

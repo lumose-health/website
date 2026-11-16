@@ -55,7 +55,7 @@ export const Sidebar = memo(function Sidebar() {
         <span className="flex size-[26px] flex-none items-center justify-center rounded-full bg-lm-app-primary">
           <User size={13} className="text-white" />
         </span>
-        <span className="hidden desktop:inline">demo@lumose.local</span>
+        <span className="hidden desktop:inline">Demo user</span>
       </div>
     </div>
   );

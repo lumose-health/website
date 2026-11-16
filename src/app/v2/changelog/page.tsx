@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import json from "@/data/changelog.json";
-import { GITHUB_URL } from "@/lib/v2/routes";
+import { GITHUB_URL, releaseAnchor } from "@/lib/v2/routes";
 import { Card } from "@/components/v2/card";
 import { EXTERNAL_LINK } from "@/components/v2/button";
 import { ContentRail, type RailItem } from "@/components/v2/content-rail";
@@ -47,12 +47,6 @@ const data: ChangelogData = json;
 const RELEASE_URL = /^https:\/\/github\.com\/lumose-health\/lumose\/releases\/tag\/[A-Za-z0-9._%-]+$/;
 const PR_URL = /^https:\/\/github\.com\/lumose-health\/lumose\/pull\/(\d+)$/;
 
-/** "v0.16.0" becomes "v0-16-0". */
-function anchorOf(version: string): string {
-  const slug = version.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-  return /^v/.test(slug) ? slug : `v${slug}`;
-}
-
 function cleanEntry(e: RawEntry): ChangelogEntry {
   const pr = e.pr && PR_URL.exec(e.pr.url);
   return {
@@ -69,7 +63,7 @@ const releases: ChangelogRelease[] = (Array.isArray(data.releases) ? data.releas
   .filter((r) => typeof r?.version === "string" && r.version.length > 0)
   .map((r) => ({
     version: r.version,
-    anchor: anchorOf(r.version),
+    anchor: releaseAnchor(r.version),
     date: typeof r.date === "string" ? r.date : "",
     url: RELEASE_URL.test(r.url) ? r.url : null,
     maintenance: r.maintenance === true,

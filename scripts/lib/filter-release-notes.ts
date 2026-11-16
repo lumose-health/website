@@ -56,6 +56,7 @@ export type DropReason =
   | "banned"
   | "safety-claim"
   | "dosing-advice"
+  | "delivery-claim"
   | "no-group"
   | "empty"
   | "duplicate";
@@ -98,6 +99,10 @@ const DOSING_SETTING = new RegExp(
   ].join("|"),
   "i"
 );
+// Claims that notifications or alerts arrive in real time, which the site doesn't
+// make: a timing word on the same line as a word for a notification or alert.
+const DELIVERY_TIMING = /\breal[\s_-]*time\b|\binstant(?:ly|aneous(?:ly)?)?\b|\bimmediate(?:ly)?\b/i;
+const DELIVERY_SUBJECT = /\bnotif|\balert/i;
 const ADVICE = /\b(?:suggest|recommend|advice|advis|propos|optimi[sz]|tun(?:e[drs]?|ing)\b)/i;
 /** snake_case and camelCase split into words, so `\b` sees the parts. */
 const splitIdentifiers = (s: string) => s.replace(/_+/g, " ").replace(/([a-z0-9])([A-Z])/g, "$1 $2");
@@ -149,6 +154,13 @@ export function isDosingAdvice(raw: string): boolean {
   return [decodeEntities(raw), plain(raw)]
     .map(splitIdentifiers)
     .some((t) => DOSING_SETTING.test(t) && ADVICE.test(t));
+}
+
+/** True when a line claims notifications or alerts arrive in real time, checked with and without its markdown. */
+export function isDeliveryClaim(raw: string): boolean {
+  return [decodeEntities(raw), plain(raw)]
+    .map(splitIdentifiers)
+    .some((t) => DELIVERY_TIMING.test(t) && DELIVERY_SUBJECT.test(t));
 }
 
 const TYPE_HEADINGS: Record<string, Group | null> = {
@@ -308,6 +320,7 @@ export function classifyLine(raw: string, area: string | null, heading: Group | 
   if (isBanned(raw)) return drop("banned");
   if (isSafetyClaim(raw)) return drop("safety-claim");
   if (isDosingAdvice(raw)) return drop("dosing-advice");
+  if (isDeliveryClaim(raw)) return drop("delivery-claim");
 
   const p = parseItem(raw);
   if (isBot(p.author, raw)) return drop("bot");
