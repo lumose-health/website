@@ -4,6 +4,21 @@
 
 ### 🌐 Website
 
+#### 📝 Other Changes
+
+- Remove the old site code [@jlengelbrecht](https://github.com/jlengelbrecht) ([#781](https://github.com/lumose-health/website/pull/781))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#784](https://github.com/lumose-health/website/pull/784))
+
+<!-- changelog-cutoff:2026-11-16T05:14:23Z -->
+
+
+## 2026-11-16
+
+### 🌐 Website
+
 #### ✨ New Features
 
 - feat(v2): rotate local runtimes on the diagram's Ollama tile [@jlengelbrecht](https://github.com/jlengelbrecht) ([#779](https://github.com/lumose-health/website/pull/779))
