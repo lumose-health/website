@@ -1,6 +1,6 @@
 import { Reveal } from "@/components/reveal";
 import json from "@/data/contributors.json";
-import { CONTRIBUTE_URL, routes } from "@/lib/v2/routes";
+import { CONTRIBUTE_URL, releaseHref } from "@/lib/v2/routes";
 import { EXTERNAL_LINK, FOCUS_RING } from "./button";
 import { ContributorAvatar } from "./contributor-avatar";
 import type { AvatarPerson } from "./contributor-avatar";
@@ -96,7 +96,7 @@ export function Contributors() {
                 <dt className={STAT_LABEL}>Latest release</dt>
                 <dd className={STAT_VALUE}>
                   <a
-                    href={routes.changelog}
+                    href={releaseHref(data.latestRelease)}
                     // The negative margin keeps the 44px target without pushing the value below its neighbours.
                     className={`-mx-1 -my-2 inline-flex min-h-lm-touch items-center rounded-lm-sm px-1 underline decoration-lm-line-strong underline-offset-4 transition-colors duration-(--lm-dur-instant) hover:decoration-lm-ink-faint ${FOCUS_RING}`}
                   >

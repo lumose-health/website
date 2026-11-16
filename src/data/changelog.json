@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-14T09:47:42.390Z",
+  "generatedAt": "2026-11-16T02:04:52.683Z",
   "repo": "lumose-health/lumose",
   "releasesUrl": "https://github.com/lumose-health/lumose/releases",
   "releases": [
@@ -3812,18 +3812,8 @@
       "version": "v0.1.22",
       "date": "2026-02-09",
       "url": "https://github.com/lumose-health/lumose/releases/tag/v0.1.22",
-      "maintenance": false,
-      "new": [
-        {
-          "text": "Add tiered alert delivery with real-time notifications",
-          "area": null,
-          "pr": {
-            "number": 52,
-            "url": "https://github.com/lumose-health/lumose/pull/52"
-          },
-          "inDevelopment": true
-        }
-      ],
+      "maintenance": true,
+      "new": [],
       "fixed": [],
       "breaking": []
     },

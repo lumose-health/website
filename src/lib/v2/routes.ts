@@ -17,6 +17,17 @@ export const routes = {
   contact: "/contact",
 } as const;
 
+/** The id of a release on the changelog page: "v0.16.0" becomes "v0-16-0". */
+export function releaseAnchor(version: string): string {
+  const slug = version.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+  return /^v/.test(slug) ? slug : `v${slug}`;
+}
+
+/** A link to one release on the changelog page. */
+export function releaseHref(version: string): string {
+  return `${routes.changelog}#${releaseAnchor(version)}`;
+}
+
 // External links shared across v2. They live here, not in a component, so a
 // client component can import them without pulling in that component's data.
 export const GITHUB_URL = "https://github.com/lumose-health/lumose";

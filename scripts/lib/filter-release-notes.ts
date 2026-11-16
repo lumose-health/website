@@ -56,6 +56,7 @@ export type DropReason =
   | "banned"
   | "safety-claim"
   | "dosing-advice"
+  | "delivery-claim"
   | "no-group"
   | "empty"
   | "duplicate";
@@ -95,6 +96,22 @@ const DOSING_SETTING = new RegExp(
     String.raw`\bI\s*[:/]\s*C[\s-]+ratio`,
     String.raw`\bICRs?\b`,
     String.raw`\bbasal[\s-]+(?:rates?\b|adjust|profile)`,
+  ].join("|"),
+  "i"
+);
+// Claims that notifications or alerts arrive in real time, which the site doesn't
+// make: a timing word right before the notification or alert ("real-time
+// notifications", "instant alert delivery"), or a word for sending them followed by
+// one ("alerts delivered instantly"). A timing word elsewhere on the line, as in
+// "real-time glucose chart with alert thresholds", is not a claim.
+const TIMING = String.raw`(?:real[\s_-]*time|instant(?:ly|aneous(?:ly)?)?|immediate(?:ly)?)\b`;
+const SUBJECT = String.raw`(?:notif\w*|alerts?)\b`;
+const SENDING = String.raw`(?:deliver\w*|sen[dt]\w*|dispatch\w*|arriv\w*|fir(?:e[sd]?|ing))\b`;
+const DELIVERY_CLAIM = new RegExp(
+  [
+    String.raw`\b${TIMING}[\s-]+(?:\w+[\s-]+)?${SUBJECT}`,
+    String.raw`\b${SUBJECT}[^.;]*\b${SENDING}[^.;]*\b${TIMING}`,
+    String.raw`\b${SENDING}[^.;]*\b${SUBJECT}[^.;]*\b${TIMING}`,
   ].join("|"),
   "i"
 );
@@ -149,6 +166,13 @@ export function isDosingAdvice(raw: string): boolean {
   return [decodeEntities(raw), plain(raw)]
     .map(splitIdentifiers)
     .some((t) => DOSING_SETTING.test(t) && ADVICE.test(t));
+}
+
+/** True when a line claims notifications or alerts arrive in real time, checked with and without its markdown. */
+export function isDeliveryClaim(raw: string): boolean {
+  return [decodeEntities(raw), plain(raw)]
+    .map(splitIdentifiers)
+    .some((t) => DELIVERY_CLAIM.test(t));
 }
 
 const TYPE_HEADINGS: Record<string, Group | null> = {
@@ -308,6 +332,7 @@ export function classifyLine(raw: string, area: string | null, heading: Group | 
   if (isBanned(raw)) return drop("banned");
   if (isSafetyClaim(raw)) return drop("safety-claim");
   if (isDosingAdvice(raw)) return drop("dosing-advice");
+  if (isDeliveryClaim(raw)) return drop("delivery-claim");
 
   const p = parseItem(raw);
   if (isBot(p.author, raw)) return drop("bot");
