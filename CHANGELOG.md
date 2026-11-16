@@ -4,6 +4,21 @@
 
 ### 🌐 Website
 
+#### 📝 Other Changes
+
+- docs(privacy): describe the display settings kept in the browser [@jlengelbrecht](https://github.com/jlengelbrecht) ([#771](https://github.com/lumose-health/website/pull/771))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#774](https://github.com/lumose-health/website/pull/774))
+
+<!-- changelog-cutoff:2026-11-16T02:05:28Z -->
+
+
+## 2026-11-16
+
+### 🌐 Website
+
 #### ✨ New Features
 
 - feat(v2): show a different sample chat per AI provider [@jlengelbrecht](https://github.com/jlengelbrecht) ([#764](https://github.com/lumose-health/website/pull/764))
