@@ -78,7 +78,8 @@ fi
 banned='telegram|predict|push notif|ios alarm|fcm|apns|always fires|never waits|forecast|projection'
 scan_paths=(src/components/v2 src/app/v2 src/data content/pages)
 
-hits=$(grep -rIinE "$banned" "${scan_paths[@]}")
+# src/data/contributors.json is skipped: it holds GitHub logins and repo names, not site wording.
+hits=$(grep -rIinE --exclude=contributors.json "$banned" "${scan_paths[@]}")
 status=$?
 if [ "$status" -eq 1 ]; then
   pass "no banned words in v2 source"

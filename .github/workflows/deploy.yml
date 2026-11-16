@@ -15,6 +15,9 @@ concurrency:
 jobs:
   build-and-deploy:
     name: Build and deploy to production
+    # This job always deploys to production. A manual run can be started from
+    # any branch, so only main may deploy; a run from any other branch is skipped.
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -36,6 +39,12 @@ jobs:
 
       - name: Build
         run: npx next build
+
+      # Checks the freshly synced data (banned words) and the build output
+      # before anything goes live. A failure stops the deploy, and production
+      # keeps the previous version.
+      - name: Check build output and synced data
+        run: bash scripts/check-v2.sh
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v4
