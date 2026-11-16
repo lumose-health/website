@@ -1,5 +1,6 @@
 import type { ComponentProps, ReactNode } from "react";
 import type { Metadata } from "next";
+import { OPEN_GRAPH } from "@/lib/site";
 import { notFound } from "next/navigation";
 import { getSitePage } from "@/lib/source";
 import { DISCORD_URL, routes } from "@/lib/v2/routes";
@@ -10,9 +11,12 @@ import { TEXT_LINK } from "@/components/v2/changelog/release";
 // The note itself is content/pages/rename.mdx. This file only frames it.
 const note = getSitePage("rename");
 
-// noindex comes from the v2 layout. Only the title is set here.
+const TITLE = "GlycemicGPT is now Lumose | Lumose";
+
 export const metadata: Metadata = {
-  title: "GlycemicGPT is now Lumose | Lumose",
+  title: TITLE,
+  alternates: { canonical: routes.rename },
+  openGraph: { ...OPEN_GRAPH, title: TITLE, url: routes.rename },
 };
 
 // The note names its links by key, so every address still comes from routes.ts

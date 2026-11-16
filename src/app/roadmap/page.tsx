@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import { OPEN_GRAPH } from "@/lib/site";
 import json from "@/data/roadmap.json";
-import { CONTRIBUTE_URL } from "@/lib/v2/routes";
+import { CONTRIBUTE_URL, routes } from "@/lib/v2/routes";
 import { Card } from "@/components/v2/card";
 import { EXTERNAL_LINK } from "@/components/v2/button";
 import { ContentRail, type RailItem } from "@/components/v2/content-rail";
@@ -8,9 +9,12 @@ import { ContentShell } from "@/components/v2/content-shell";
 import { TEXT_LINK } from "@/components/v2/changelog/release";
 import { Phase, type RoadmapPhase } from "@/components/v2/roadmap/phase";
 
-// noindex comes from the v2 layout. Only the title is set here.
+const TITLE = "Roadmap | Lumose";
+
 export const metadata: Metadata = {
-  title: "Roadmap | Lumose",
+  title: TITLE,
+  alternates: { canonical: routes.roadmap },
+  openGraph: { ...OPEN_GRAPH, title: TITLE, url: routes.roadmap },
 };
 
 // The synced copy of the whole roadmap document, in the docs.

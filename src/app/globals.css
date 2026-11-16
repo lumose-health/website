@@ -11,8 +11,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
   --font-heading: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -353,9 +353,8 @@
   }
 }
 
-/* Long-form text on the legal pages in the dark frame. Those pages pass plain
-   elements, so the type is set from here. Every rule needs .lm-root, which a
-   live page never renders. */
+/* Long-form text on the legal pages. Those pages pass plain elements, so the
+   type is set from here. */
 @layer components {
   .lm-root .lm-legal {
     @apply text-lm-ink-secondary [overflow-wrap:anywhere];
@@ -1023,9 +1022,9 @@
   }
 }
 
-/* Docs light surface. Every rule needs .lm-docs, which the docs layout only
-   renders in a preview build, so the live docs never match any of it. The
-   :root:has() form reaches the search dialog, which is portalled to body. */
+/* Docs light surface. Every rule needs .lm-docs, which only the docs layout
+   renders. The :root:has() form reaches the search dialog, which is portalled
+   to body. */
 :root:has(.lm-docs),
 .lm-docs {
   --fd-banner-height: 56px;
@@ -1049,8 +1048,8 @@
   --ring: var(--color-lm-docs-link);
 }
 
-/* The theme provider still puts .dark and a dark color-scheme on <html>, so
-   the wrapper sets its own. */
+/* The root layout puts .dark and a dark color-scheme on <html>, so the
+   wrapper sets its own. */
 .lm-docs {
   color-scheme: light;
   background-color: var(--color-lm-docs-surface);

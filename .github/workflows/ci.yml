@@ -204,7 +204,6 @@ jobs:
             // when one is added to the config.
             const knownPages = new Map([
               ['/index.html', '/'],
-              ['/v2.html', '/v2'],
             ]);
             const pageLabel = (url) => {
               try { return knownPages.get(new URL(url).pathname) ?? null; } catch { return null; }

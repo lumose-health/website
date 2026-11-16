@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { SiteFrame } from "./site-frame";
 
 type ContentShellProps = {
   title: string;
@@ -9,11 +10,20 @@ type ContentShellProps = {
 };
 
 /**
- * The calm page frame shared by Changelog, Roadmap and the rename note: a
- * title, one lead line and a reading column, with an optional rail to its left.
- * No hero art, no frames and nothing that moves.
+ * The calm page frame shared by Changelog, Roadmap, the rename note, the legal
+ * pages and the 404: a title, one lead line and a reading column, with an
+ * optional rail to its left, inside the site frame. No hero art and nothing
+ * that moves.
  */
-export function ContentShell({ title, lead, rail, children }: ContentShellProps) {
+export function ContentShell(props: ContentShellProps) {
+  return (
+    <SiteFrame>
+      <ContentColumn {...props} />
+    </SiteFrame>
+  );
+}
+
+function ContentColumn({ title, lead, rail, children }: ContentShellProps) {
   const column = rail ? "max-w-[720px] desktop:mx-0" : "max-w-[640px]";
 
   return (

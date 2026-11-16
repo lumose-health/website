@@ -36,10 +36,9 @@ export default function PrivacyPage() {
         commitments.
       </p>
       <p>
-        The site keeps a few display settings in your browser, such as your
-        light or dark theme choice, whether you paused animations, and which
-        sections of the docs menu you left open. They stay on your device and
-        are never sent to us.
+        The site keeps a few display settings in your browser, such as whether
+        you paused animations and which sections of the docs menu you left
+        open. They stay on your device and are never sent to us.
       </p>
       <p>
         The site is served as static files. The hosting provider may keep

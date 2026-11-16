@@ -1,6 +1,6 @@
-// Every internal v2 link goes through this file, so moving the new site to the
-// root means changing BASE and nothing else.
-const BASE: string = "/v2";
+// Every internal link in the new site goes through this file. The pages moved
+// from /v2 to the root by emptying BASE; public/_redirects sends old links on.
+const BASE: string = "";
 
 export const routes = {
   home: BASE || "/",
