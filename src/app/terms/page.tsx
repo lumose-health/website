@@ -1,20 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalPage } from "@/components/legal-page";
-import { SITE_URL } from "@/lib/site";
+import { OPEN_GRAPH, pageTitle, SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Terms of Use - Lumose",
+  title: "Terms of Use",
   description:
     "The terms governing use of the Lumose website and open-source software. Provided as-is under GPL-3.0, with no warranty, for monitoring and informational purposes only.",
   alternates: { canonical: "/terms" },
   openGraph: {
-    title: "Terms of Use - Lumose",
+    ...OPEN_GRAPH,
+    title: pageTitle("Terms of Use"),
     description:
       "Terms governing use of the Lumose website and open-source software.",
     url: `${SITE_URL}/terms`,
-    siteName: "Lumose",
-    type: "website",
   },
 };
 

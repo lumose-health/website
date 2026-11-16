@@ -1,20 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalPage } from "@/components/legal-page";
-import { SITE_HOST, SITE_URL } from "@/lib/site";
+import { OPEN_GRAPH, pageTitle, SITE_HOST, SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy - Lumose",
+  title: "Privacy Policy",
   description:
     "How Lumose handles your data. A privacy-first, self-hosted platform that does not phone home or collect telemetry from the builds it distributes.",
   alternates: { canonical: "/privacy" },
   openGraph: {
-    title: "Privacy Policy - Lumose",
+    ...OPEN_GRAPH,
+    title: pageTitle("Privacy Policy"),
     description:
       "A privacy-first, self-hosted platform that does not phone home or collect telemetry.",
     url: `${SITE_URL}/privacy`,
-    siteName: "Lumose",
-    type: "website",
   },
 };
 

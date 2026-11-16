@@ -1,20 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalPage } from "@/components/legal-page";
-import { SITE_URL } from "@/lib/site";
+import { OPEN_GRAPH, pageTitle, SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Contact - Lumose",
+  title: "Contact",
   description:
     "How to reach the Lumose project: community chat, bug reports and feature requests, and responsible security disclosure.",
   alternates: { canonical: "/contact" },
   openGraph: {
-    title: "Contact - Lumose",
+    ...OPEN_GRAPH,
+    title: pageTitle("Contact"),
     description:
       "How to reach the Lumose project for support, questions, and security disclosure.",
     url: `${SITE_URL}/contact`,
-    siteName: "Lumose",
-    type: "website",
   },
 };
 
