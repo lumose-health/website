@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-11-21
+
+### 📦 Dependencies
+
+- chore(deps): update dependency recharts to v3.11.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#807](https://github.com/lumose-health/website/pull/807))
+- chore(deps): update dependency lucide-react to v1.74.0 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#806](https://github.com/lumose-health/website/pull/806))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#810](https://github.com/lumose-health/website/pull/810))
+
+<!-- changelog-cutoff:2026-11-21T06:03:59Z -->
+
+
 ## 2026-11-20
 
 ### 📦 Dependencies
