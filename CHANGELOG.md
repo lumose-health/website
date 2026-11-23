@@ -5,6 +5,19 @@
 ### 📦 Dependencies
 
 - chore(deps): update dependency tailwind-merge to v3.7.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#821](https://github.com/lumose-health/website/pull/821))
+
+### ❓ Uncategorized
+
+- [Changelog] Update CHANGELOG.md [@glycemicgpt-release](https://github.com/glycemicgpt-release) ([#822](https://github.com/lumose-health/website/pull/822))
+
+<!-- changelog-cutoff:2026-11-23T23:35:26Z -->
+
+
+## 2026-11-23
+
+### 📦 Dependencies
+
+- chore(deps): update dependency tailwind-merge to v3.7.1 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#821](https://github.com/lumose-health/website/pull/821))
 - chore(deps): update dependency fumadocs-ui to v16.19.5 [@glycemicgpt-renovate](https://github.com/glycemicgpt-renovate) ([#819](https://github.com/lumose-health/website/pull/819))
 
 ### ❓ Uncategorized
